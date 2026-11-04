@@ -3,7 +3,7 @@ import { MapPin, Navigation, ExternalLink, Factory } from 'lucide-react';
 import { Button } from '@/components/common/Button';
 
 export const LocationMap: React.FC = () => {
-  const googleMapsUrl = 'https://www.google.com/maps/search/Tiruppur+Tamil+Nadu+India';
+  const googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=Tiruppur+Tamil+Nadu+India';
 
   return (
     <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-10 border border-burgundy-100 shadow-soft flex flex-col justify-between">
@@ -17,55 +17,49 @@ export const LocationMap: React.FC = () => {
           </p>
         </div>
 
-        {/* Map Preview Graphic */}
+        {/* Real Google Map Embed */}
         <div className="relative rounded-2xl overflow-hidden border border-burgundy-100 bg-[#E8ECEF] aspect-[16/9] mb-6 shadow-inner group">
-          {/* Stylized Vector Map Background */}
-          <div className="absolute inset-0 opacity-80 bg-[radial-gradient(#CBD5E1_1px,transparent_1px)] [background-size:16px_16px]">
-            {/* Road lines simulation */}
-            <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-              <path d="M-20,40 Q150,90 300,60 T600,120" fill="none" stroke="#FFFFFF" strokeWidth="6" />
-              <path d="M120,-10 L160,200" fill="none" stroke="#FFFFFF" strokeWidth="8" />
-              <path d="M220,180 L290,-10" fill="none" stroke="#F1F5F9" strokeWidth="5" />
-              <path d="M-10,120 C140,110 260,150 400,130" fill="none" stroke="#F8FAFC" strokeWidth="4" />
-            </svg>
-          </div>
+          <iframe
+            title="TeesZone Factory Tiruppur Location Map"
+            src="https://maps.google.com/maps?q=Tiruppur,+Tamil+Nadu,+India&t=&z=13&ie=UTF8&iwloc=&output=embed"
+            className="w-full h-full border-0"
+            loading="lazy"
+            allowFullScreen
+            referrerPolicy="no-referrer-when-downgrade"
+          />
 
-          {/* Interactive Marker Pin */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center animate-bounce">
-            <div className="px-3 py-1 rounded-full bg-burgundy-700 text-white font-heading font-extrabold text-[11px] shadow-lg flex items-center gap-1.5 whitespace-nowrap">
-              <Factory className="w-3.5 h-3.5 text-warm-200" />
-              <span>TEESZONE FACTORY</span>
-            </div>
-            <div className="w-3 h-3 bg-burgundy-700 rotate-45 -mt-1.5 shadow-sm" />
-            <div className="w-2.5 h-2.5 rounded-full bg-burgundy-900/40 blur-[1px] mt-1" />
-          </div>
-
-          {/* Map labels */}
-          <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-lg text-[10px] font-semibold text-charcoal-700 border border-burgundy-50">
-            Tiruppur Textile Belt • Tamil Nadu
-          </div>
-
+          {/* Open Google Maps Button */}
           <a
             href={googleMapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="absolute top-3 right-3 bg-white/90 hover:bg-white text-burgundy-700 p-2 rounded-xl text-xs font-semibold shadow-sm transition-colors flex items-center gap-1"
+            className="absolute top-3 right-3 bg-white/95 hover:bg-white text-burgundy-700 px-3 py-1.5 rounded-xl text-xs font-semibold shadow-md transition-all flex items-center gap-1.5 hover:shadow-lg hover:scale-103 cursor-pointer z-10"
           >
             <ExternalLink className="w-3.5 h-3.5" />
             <span>Open Maps</span>
           </a>
+
+          {/* Floating Location Badge */}
+          <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-xl text-xs font-heading font-bold text-charcoal-900 border border-burgundy-100 shadow-md flex items-center gap-2 z-10 pointer-events-none">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+            </span>
+            <span>TeesZone Factory • Tiruppur</span>
+          </div>
         </div>
 
-        {/* Factory Photo Preview */}
-        <div className="relative rounded-2xl overflow-hidden border border-burgundy-100 shadow-sm mb-6">
+        {/* Factory Photo Preview - Clean TeesZone Building with Signage */}
+        <div className="relative rounded-2xl overflow-hidden border border-burgundy-100 shadow-sm mb-6 group">
           <img
             src="/assets/images/factory-exterior.webp"
             alt="TeesZone factory exterior and logistics unit in Tiruppur"
-            className="w-full h-36 sm:h-44 object-cover"
+            className="w-full h-40 sm:h-48 object-cover object-center group-hover:scale-102 transition-transform duration-500"
+            loading="lazy"
           />
-          <div className="absolute bottom-2 left-2 bg-charcoal-900/85 backdrop-blur-sm text-white px-3 py-1 rounded-lg text-[11px] font-medium flex items-center gap-1.5">
-            <Factory className="w-3.5 h-3.5 text-warm-300" />
-            <span>Tiruppur Production & Logistics Yard</span>
+          <div className="absolute bottom-2.5 left-2.5 bg-charcoal-900/85 backdrop-blur-sm text-white px-3.5 py-1.5 rounded-xl text-xs font-heading font-medium flex items-center gap-2 shadow-sm">
+            <Factory className="w-4 h-4 text-warm-300" />
+            <span>TeesZone Production & Logistics Yard</span>
           </div>
         </div>
 
@@ -99,3 +93,5 @@ export const LocationMap: React.FC = () => {
     </div>
   );
 };
+
+export default LocationMap;
