@@ -1,6 +1,5 @@
-import React, { useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface ProcessStepItem {
   number: string;
@@ -58,14 +57,33 @@ export const ManufacturingProcess: React.FC<ManufacturingProcessProps> = ({
   className = '',
 }) => {
   const isDark = theme === 'dark';
-  const desktopScrollRef = useRef<HTMLDivElement>(null);
+  const [activeStep, setActiveStep] = useState(0);
+  const [hoveredStep, setHoveredStep] = useState<number | null>(null);
 
-  const scrollDesktop = (direction: 'left' | 'right') => {
-    if (!desktopScrollRef.current) return;
-    const container = desktopScrollRef.current;
-    const scrollAmount = direction === 'left' ? -350 : 350;
-    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-  };
+  useEffect(() => {
+    const CYCLE_DURATION = 3500; // Synchronized cycle timing
+    const startTime = performance.now();
+    let animId: number;
+
+    const update = (now: number) => {
+      const elapsed = (now - startTime) % CYCLE_DURATION;
+      const progress = elapsed / CYCLE_DURATION;
+
+      // 4 curve segments connecting the 5 process steps (0 to 4)
+      let current = 0;
+      if (progress < 0.125) current = 0;
+      else if (progress < 0.375) current = 1;
+      else if (progress < 0.625) current = 2;
+      else if (progress < 0.875) current = 3;
+      else current = 4;
+
+      setActiveStep(current);
+      animId = requestAnimationFrame(update);
+    };
+
+    animId = requestAnimationFrame(update);
+    return () => cancelAnimationFrame(animId);
+  }, []);
 
   return (
     <div className={`relative w-full overflow-hidden ${className}`}>
@@ -179,85 +197,125 @@ export const ManufacturingProcess: React.FC<ManufacturingProcessProps> = ({
           </div>
 
           {/* ======================================================== */}
-          {/* A. DESKTOP VIEW (Exact Image 2 Reference with Wave & Arrow) */}
+          {/* A. DESKTOP VIEW - 3D Traveling Arrow & Smooth Forward Zoom */}
           {/* ======================================================== */}
           <div className="hidden lg:block relative mt-6 lg:mt-10">
-            {/* Desktop Undulating Dotted Flow Trajectory with Cinematic Traveling Arrow */}
+            {/* SVG Track with 3D Arrow Moving along the line */}
             <div className="absolute top-[18%] left-[6%] right-[6%] h-36 pointer-events-none select-none z-0">
               <svg viewBox="0 0 1000 120" fill="none" className="w-full h-full" preserveAspectRatio="none">
                 <defs>
-                  <marker
-                    id="arrowhead-red"
-                    markerWidth="8"
-                    markerHeight="8"
-                    refX="5"
-                    refY="4"
-                    orient="auto"
-                  >
-                    <polygon points="0 1, 7 4, 0 7" fill="#A41535" />
-                  </marker>
+                  {/* Clean 3D Arrow Metallic Gradients (No Neon Glow) */}
+                  <linearGradient id="arrowTopFacetGrad" x1="0" y1="1" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#C41C44" />
+                    <stop offset="60%" stopColor="#FFA6B6" />
+                    <stop offset="100%" stopColor="#FFFFFF" />
+                  </linearGradient>
 
-                  <filter id="arrow-glow-desktop" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
-                    <feMerge>
-                      <feMergeNode in="blur" />
-                      <feMergeNode in="SourceGraphic" />
-                    </feMerge>
+                  <linearGradient id="arrowBottomFacetGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stopColor="#4A0010" />
+                    <stop offset="70%" stopColor="#8A0C28" />
+                    <stop offset="100%" stopColor="#B81438" />
+                  </linearGradient>
+
+                  <radialGradient id="arrowCoreSphere" cx="35%" cy="35%" r="65%">
+                    <stop offset="0%" stopColor="#FFFFFF" />
+                    <stop offset="35%" stopColor="#FF7A95" />
+                    <stop offset="70%" stopColor="#B81438" />
+                    <stop offset="100%" stopColor="#45000E" />
+                  </radialGradient>
+
+                  <linearGradient id="arrowTrailGrad" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0" />
+                    <stop offset="60%" stopColor="#FF6B8B" stopOpacity="0.3" />
+                    <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0.8" />
+                  </linearGradient>
+
+                  {/* Clean 3D Elevation Drop Shadow (Realistic Dark Shadow, No Color Glow) */}
+                  <filter id="arrow3DDepth" x="-50%" y="-50%" width="200%" height="200%">
+                    <feDropShadow dx="0" dy="4" stdDeviation="2.5" floodColor="#0D0004" floodOpacity="0.75" />
                   </filter>
                 </defs>
 
-                {/* Base guide track */}
+                {/* Subtle base guide line */}
                 <path
                   d="M 60,35 C 150,35 190,95 280,95 C 370,95 410,50 500,50 C 590,50 630,95 720,95 C 810,95 850,35 940,35"
-                  stroke="rgba(164, 21, 53, 0.45)"
-                  strokeWidth="2.5"
+                  stroke="rgba(80, 5, 20, 0.4)"
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                />
+
+                {/* Base dashed track */}
+                <path
+                  d="M 60,35 C 150,35 190,95 280,95 C 370,95 410,50 500,50 C 590,50 630,95 720,95 C 810,95 850,35 940,35"
+                  stroke="rgba(255, 180, 200, 0.35)"
+                  strokeWidth="2"
                   strokeDasharray="6 6"
                 />
 
                 {/* Animated traveling dash stream */}
                 <path
                   d="M 60,35 C 150,35 190,95 280,95 C 370,95 410,50 500,50 C 590,50 630,95 720,95 C 810,95 850,35 940,35"
-                  stroke="rgba(196, 28, 68, 0.9)"
-                  strokeWidth="2.5"
+                  stroke="rgba(255, 220, 230, 0.9)"
+                  strokeWidth="2.2"
                   strokeDasharray="8 8"
-                  style={{ animation: 'travelingFlow 1.8s linear infinite' }}
+                  style={{ animation: 'travelingFlow 1.2s linear infinite' }}
                 />
 
-                {/* Directional reference markers */}
-                <path d="M 170,62 L 180,68" stroke="#A41535" strokeWidth="2.5" markerEnd="url(#arrowhead-red)" />
-                <path d="M 390,75 L 400,69" stroke="#A41535" strokeWidth="2.5" markerEnd="url(#arrowhead-red)" />
-                <path d="M 610,72 L 620,78" stroke="#A41535" strokeWidth="2.5" markerEnd="url(#arrowhead-red)" />
-                <path d="M 830,68 L 840,62" stroke="#A41535" strokeWidth="2.5" markerEnd="url(#arrowhead-red)" />
-
-                {/* CINEMATIC TRAVELING ARROW 1 */}
-                <g filter="url(#arrow-glow-desktop)">
-                  <g>
-                    <circle cx="-16" cy="0" r="1.5" fill="#C41C44" opacity="0.4" />
-                    <circle cx="-10" cy="0" r="2.5" fill="#C41C44" opacity="0.7" />
-                    <circle cx="-4" cy="0" r="3.5" fill="#E61E4D" opacity="0.9" />
-                    <polygon points="6,0 -4,-5 -1,0 -4,5" fill="#FFF4F6" stroke="#C41C44" strokeWidth="1.2" />
-                    <circle cx="0" cy="0" r="3" fill="#FFFFFF" />
-                  </g>
-                  <animateMotion
-                    path="M 60,35 C 150,35 190,95 280,95 C 370,95 410,50 500,50 C 590,50 630,95 720,95 C 810,95 850,35 940,35"
-                    dur="4.2s"
-                    repeatCount="indefinite"
-                    rotate="auto"
-                    calcMode="linear"
+                {/* 3D TRAVELING ARROW - Clean, volumetric, moves smoothly along the path */}
+                <g filter="url(#arrow3DDepth)">
+                  {/* Subtle speed trail */}
+                  <polygon
+                    points="-1,0 -20,-1 -20,1"
+                    fill="url(#arrowTrailGrad)"
+                    opacity="0.7"
                   />
-                </g>
 
-                {/* CINEMATIC TRAVELING ARROW 2 */}
-                <g filter="url(#arrow-glow-desktop)">
-                  <g opacity="0.85">
-                    <circle cx="-8" cy="0" r="2" fill="#C41C44" opacity="0.6" />
-                    <polygon points="5,0 -3,-4 0,0 -3,4" fill="#FFE8EC" stroke="#C41C44" strokeWidth="1" />
-                    <circle cx="0" cy="0" r="2.2" fill="#FFFFFF" />
-                  </g>
+                  {/* 3D Arrowhead Bottom Facet (Shadow side) */}
+                  <polygon
+                    points="15,0 -1,0 -4,6.5"
+                    fill="url(#arrowBottomFacetGrad)"
+                  />
+
+                  {/* 3D Arrowhead Top Facet (Highlight side) */}
+                  <polygon
+                    points="15,0 -4,-6.5 -1,0"
+                    fill="url(#arrowTopFacetGrad)"
+                  />
+
+                  {/* Central 3D Razor Ridge */}
+                  <line
+                    x1="-1"
+                    y1="0"
+                    x2="15"
+                    y2="0"
+                    stroke="#FFFFFF"
+                    strokeWidth="1.2"
+                    strokeLinecap="round"
+                    opacity="0.95"
+                  />
+
+                  {/* 3D Spherical Core */}
+                  <circle
+                    cx="0"
+                    cy="0"
+                    r="3.8"
+                    fill="url(#arrowCoreSphere)"
+                    stroke="rgba(255, 255, 255, 0.8)"
+                    strokeWidth="0.8"
+                  />
+
+                  {/* Sharp Crisp Tip Point */}
+                  <circle
+                    cx="15"
+                    cy="0"
+                    r="2"
+                    fill="#FFFFFF"
+                  />
+
+                  {/* Synchronized path animation */}
                   <animateMotion
                     path="M 60,35 C 150,35 190,95 280,95 C 370,95 410,50 500,50 C 590,50 630,95 720,95 C 810,95 850,35 940,35"
-                    dur="4.2s"
-                    begin="2.1s"
+                    dur="3.5s"
                     repeatCount="indefinite"
                     rotate="auto"
                     calcMode="linear"
@@ -266,132 +324,109 @@ export const ManufacturingProcess: React.FC<ManufacturingProcessProps> = ({
               </svg>
             </div>
 
-            {/* Left Desktop Nav Button - no background color, no border */}
-            <button
-              onClick={() => scrollDesktop('left')}
-              aria-label="Previous step"
-              className="absolute -left-2 sm:-left-4 lg:-left-6 top-1/2 -translate-y-1/2 z-30 p-2 text-white/50 hover:text-white bg-transparent border-none shadow-none outline-none flex items-center justify-center transition-all duration-200 hover:scale-110 cursor-pointer"
-            >
-              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
-            </button>
-
-            {/* Right Desktop Nav Button - no background color, no border */}
-            <button
-              onClick={() => scrollDesktop('right')}
-              aria-label="Next step"
-              className="absolute -right-2 sm:-right-4 lg:-right-6 top-1/2 -translate-y-1/2 z-30 p-2 text-white/50 hover:text-white bg-transparent border-none shadow-none outline-none flex items-center justify-center transition-all duration-200 hover:scale-110 cursor-pointer"
-            >
-              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
-            </button>
-
-            {/* 5-Step Desktop Grid aligned to Wave */}
-            <div
-              ref={desktopScrollRef}
-              className="grid grid-cols-5 gap-3 xl:gap-5 pb-8 pt-4 px-2 sm:px-4 items-center relative z-10"
-            >
-              {steps.map((step, index) => (
-                <motion.div
-                  key={step.number}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.5, delay: index * 0.12 }}
-                  className={`flex flex-col items-center text-center group w-full transition-transform duration-500 ${step.offsetYClass}`}
-                >
-                  <motion.div
-                    whileHover={{ y: -8, scale: 1.05 }}
-                    animate={{ y: [0, -5, 0] }}
-                    transition={{
-                      duration: 4,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                      delay: index * 0.6,
+            {/* 5-Step Desktop Grid with Slow-Motion Forward Zoom */}
+            <div className="grid grid-cols-5 gap-3 xl:gap-5 pb-8 pt-4 px-2 sm:px-4 items-center relative z-10">
+              {steps.map((step, index) => {
+                const isCurrent = (hoveredStep !== null ? hoveredStep : activeStep) === index;
+                return (
+                  <div
+                    key={step.number}
+                    onMouseEnter={() => setHoveredStep(index)}
+                    onMouseLeave={() => setHoveredStep(null)}
+                    className={`flex flex-col items-center text-center cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${step.offsetYClass} ${
+                      isCurrent
+                        ? 'z-30'
+                        : 'z-10 opacity-75 hover:opacity-100'
+                    }`}
+                    style={{
+                      perspective: 1000,
+                      transformStyle: 'preserve-3d',
                     }}
-                    className="relative w-40 h-40 lg:w-44 lg:h-44 xl:w-48 xl:h-48 flex items-center justify-center cursor-pointer"
                   >
-                    <img
-                      src={step.iconImg}
-                      alt={step.title}
-                      className="w-full h-full object-contain filter drop-shadow-[0_16px_30px_rgba(25,0,8,0.55)] transition-all duration-300 group-hover:drop-shadow-[0_22px_38px_rgba(25,0,8,0.7)]"
-                      loading="lazy"
-                    />
-                  </motion.div>
+                    {/* 3D Plinth Icon Container - Slow Motion Forward Zoom-In (No Glowing Effect) */}
+                    <div
+                      className={`relative w-40 h-40 lg:w-44 lg:h-44 xl:w-48 xl:h-48 flex items-center justify-center transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                        isCurrent
+                          ? 'scale-[1.28] -translate-y-7'
+                          : 'scale-100 translate-y-0'
+                      }`}
+                    >
+                      {/* Crisp 3D Isometric Plinth Icon with Natural Dark Drop-Shadow */}
+                      <img
+                        src={step.iconImg}
+                        alt={step.title}
+                        className={`w-full h-full object-contain filter transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                          isCurrent
+                            ? 'drop-shadow-[0_28px_32px_rgba(15,0,4,0.75)]'
+                            : 'drop-shadow-[0_14px_20px_rgba(20,0,6,0.45)]'
+                        }`}
+                        loading="lazy"
+                      />
+                    </div>
 
-                  <h3 className="font-heading font-extrabold text-sm sm:text-base text-white mt-3 mb-1 leading-snug group-hover:text-rose-200 transition-colors drop-shadow-sm">
-                    {step.title}
-                  </h3>
+                    {/* Step Title */}
+                    <h3
+                      className={`font-heading font-extrabold text-sm sm:text-base mt-3 mb-1 leading-snug transition-all duration-500 ${
+                        isCurrent
+                          ? 'text-white font-black scale-105'
+                          : 'text-white/80'
+                      }`}
+                    >
+                      {step.title}
+                    </h3>
 
-                  <p className="text-[11px] sm:text-xs text-rose-100/90 font-medium leading-normal max-w-[200px]">
-                    {step.subtitle}
-                  </p>
-                </motion.div>
-              ))}
+                    {/* Step Subtitle */}
+                    <p
+                      className={`text-[11px] sm:text-xs font-medium leading-normal max-w-[200px] transition-all duration-500 ${
+                        isCurrent ? 'text-rose-100 font-semibold' : 'text-rose-100/70'
+                      }`}
+                    >
+                      {step.subtitle}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
           {/* ======================================================== */}
-          {/* B. MOBILE VIEW (Exact Image 3 Reference: Vertical Flow) */}
+          {/* B. MOBILE VIEW - Clean 3D Slow-Motion Forward Zoom */}
           {/* ======================================================== */}
           <div className="block lg:hidden relative mt-4 sm:mt-6 max-w-md mx-auto">
-            {/* Mobile Vertical S-Curve Dotted Flow Trajectory with Cinematic Traveling Arrow */}
-            <div className="absolute top-[3%] bottom-[3%] left-[10%] sm:left-[12%] w-16 pointer-events-none select-none z-0">
-              <svg viewBox="0 0 80 500" fill="none" className="w-full h-full" preserveAspectRatio="none">
+            {/* Mobile Vertical S-Curve Track with 3D Arrow */}
+            <div className="absolute top-[2%] bottom-[2%] left-[10%] sm:left-[12%] w-16 pointer-events-none select-none z-0">
+              <svg viewBox="0 0 80 420" fill="none" className="w-full h-full" preserveAspectRatio="none">
                 <defs>
-                  <marker
-                    id="arrowhead-red-mobile"
-                    markerWidth="6"
-                    markerHeight="6"
-                    refX="4"
-                    refY="3"
-                    orient="auto"
-                  >
-                    <polygon points="0 1, 5 3, 0 5" fill="#A41535" />
-                  </marker>
-
-                  <filter id="arrow-glow-mobile" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur" />
-                    <feMerge>
-                      <feMergeNode in="blur" />
-                      <feMergeNode in="SourceGraphic" />
-                    </feMerge>
+                  <filter id="arrow3DDepth-mobile" x="-50%" y="-50%" width="200%" height="200%">
+                    <feDropShadow dx="0" dy="3" stdDeviation="2" floodColor="#0D0004" floodOpacity="0.75" />
                   </filter>
                 </defs>
 
-                {/* Base guide track for vertical mobile flow */}
+                {/* Guide track */}
                 <path
-                  d="M 25,30 C 55,55 55,80 25,115 C 55,145 55,170 25,205 C 55,235 55,260 25,295 C 55,325 55,350 25,385 C 55,415 55,440 25,475"
-                  stroke="rgba(164, 21, 53, 0.45)"
+                  d="M 25,25 C 55,55 55,80 25,115 C 55,145 55,170 25,205 C 55,235 55,260 25,295 C 55,325 55,350 25,385"
+                  stroke="rgba(255, 180, 200, 0.35)"
                   strokeWidth="2"
                   strokeDasharray="5 5"
                 />
 
                 {/* Animated traveling dash stream */}
                 <path
-                  d="M 25,30 C 55,55 55,80 25,115 C 55,145 55,170 25,205 C 55,235 55,260 25,295 C 55,325 55,350 25,385 C 55,415 55,440 25,475"
-                  stroke="rgba(196, 28, 68, 0.9)"
+                  d="M 25,25 C 55,55 55,80 25,115 C 55,145 55,170 25,205 C 55,235 55,260 25,295 C 55,325 55,350 25,385"
+                  stroke="rgba(255, 220, 230, 0.9)"
                   strokeWidth="2"
                   strokeDasharray="6 6"
-                  style={{ animation: 'travelingFlow 1.8s linear infinite' }}
+                  style={{ animation: 'travelingFlow 1.2s linear infinite' }}
                 />
 
-                {/* Vertical directional arrowheads */}
-                <path d="M 45,70 L 41,77" stroke="#A41535" strokeWidth="2" markerEnd="url(#arrowhead-red-mobile)" />
-                <path d="M 45,160 L 41,167" stroke="#A41535" strokeWidth="2" markerEnd="url(#arrowhead-red-mobile)" />
-                <path d="M 45,250 L 41,257" stroke="#A41535" strokeWidth="2" markerEnd="url(#arrowhead-red-mobile)" />
-                <path d="M 45,340 L 41,347" stroke="#A41535" strokeWidth="2" markerEnd="url(#arrowhead-red-mobile)" />
-                <path d="M 45,430 L 41,437" stroke="#A41535" strokeWidth="2" markerEnd="url(#arrowhead-red-mobile)" />
-
-                {/* Mobile Cinematic Traveling Arrow */}
-                <g filter="url(#arrow-glow-mobile)">
-                  <g>
-                    <circle cx="-8" cy="0" r="1.5" fill="#C41C44" opacity="0.6" />
-                    <circle cx="-4" cy="0" r="2.5" fill="#E61E4D" opacity="0.9" />
-                    <polygon points="5,0 -3,-4 -1,0 -3,4" fill="#FFF4F6" stroke="#C41C44" strokeWidth="1" />
-                    <circle cx="0" cy="0" r="2.5" fill="#FFFFFF" />
-                  </g>
+                {/* 3D Mobile Traveling Arrow */}
+                <g filter="url(#arrow3DDepth-mobile)">
+                  <polygon points="12,0 -3,-4.5 0,0 -3,4.5" fill="url(#arrowTopFacetGrad)" />
+                  <circle cx="0" cy="0" r="2.8" fill="url(#arrowCoreSphere)" stroke="rgba(255,255,255,0.8)" strokeWidth="0.6" />
+                  <circle cx="12" cy="0" r="1.6" fill="#FFFFFF" />
                   <animateMotion
-                    path="M 25,30 C 55,55 55,80 25,115 C 55,145 55,170 25,205 C 55,235 55,260 25,295 C 55,325 55,350 25,385 C 55,415 55,440 25,475"
-                    dur="4.5s"
+                    path="M 25,25 C 55,55 55,80 25,115 C 55,145 55,170 25,205 C 55,235 55,260 25,295 C 55,325 55,350 25,385"
+                    dur="3.5s"
                     repeatCount="indefinite"
                     rotate="auto"
                     calcMode="linear"
@@ -400,47 +435,60 @@ export const ManufacturingProcess: React.FC<ManufacturingProcessProps> = ({
               </svg>
             </div>
 
-            {/* Vertical Stack of Steps matching Image 3 */}
-            <div className="flex flex-col gap-4 sm:gap-6 relative z-10 pl-1 pr-2">
-              {steps.map((step, index) => (
-                <motion.div
-                  key={step.number}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.45, delay: index * 0.1 }}
-                  className="flex flex-row items-center gap-3 sm:gap-5 group"
-                >
-                  {/* Left: 3D Isometric Plinth Icon */}
-                  <motion.div
-                    animate={{ y: [0, -4, 0] }}
-                    transition={{
-                      duration: 3.5,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                      delay: index * 0.5,
-                    }}
-                    className="relative w-28 h-28 sm:w-32 sm:h-32 shrink-0 flex items-center justify-center"
+            {/* Vertical Stack of Steps */}
+            <div className="flex flex-col gap-4 sm:gap-5 relative z-10 pl-1 pr-2">
+              {steps.map((step, index) => {
+                const isCurrent = (hoveredStep !== null ? hoveredStep : activeStep) === index;
+                return (
+                  <div
+                    key={step.number}
+                    onClick={() => setHoveredStep(index)}
+                    className={`flex flex-row items-center gap-3 sm:gap-5 p-2 rounded-2xl transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                      isCurrent
+                        ? 'bg-white/10 backdrop-blur-sm scale-[1.04] translate-x-1'
+                        : 'opacity-75 scale-100'
+                    }`}
                   >
-                    <img
-                      src={step.iconImg}
-                      alt={step.title}
-                      className="w-full h-full object-contain filter drop-shadow-[0_12px_22px_rgba(25,0,8,0.55)] transition-transform duration-300 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                  </motion.div>
+                    {/* 3D Plinth Icon - Smooth Forward Zoom (No Glowing Effect) */}
+                    <div
+                      className={`relative w-24 h-24 sm:w-28 sm:h-28 shrink-0 flex items-center justify-center transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                        isCurrent ? 'scale-[1.22] -translate-y-2' : 'scale-100 translate-y-0'
+                      }`}
+                    >
+                      <img
+                        src={step.iconImg}
+                        alt={step.title}
+                        className={`w-full h-full object-contain filter transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                          isCurrent
+                            ? 'drop-shadow-[0_20px_24px_rgba(15,0,4,0.7)]'
+                            : 'drop-shadow-[0_10px_16px_rgba(20,0,6,0.4)]'
+                        }`}
+                        loading="lazy"
+                      />
+                    </div>
 
-                  {/* Right: Clean typography matching Image 3 */}
-                  <div className="flex flex-col justify-center text-left">
-                    <h3 className="font-heading font-black text-base sm:text-lg text-[#5A0419] leading-snug tracking-tight drop-shadow-sm">
-                      {step.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-[#7D1E32] font-semibold mt-0.5 leading-tight">
-                      {step.subtitle}
-                    </p>
+                    {/* Typography */}
+                    <div className="flex flex-col justify-center text-left">
+                      <h3
+                        className={`font-heading font-black text-base sm:text-lg leading-snug tracking-tight transition-colors ${
+                          isCurrent
+                            ? 'text-white'
+                            : 'text-white/85'
+                        }`}
+                      >
+                        {step.title}
+                      </h3>
+                      <p
+                        className={`text-xs sm:text-sm font-semibold mt-0.5 leading-tight transition-colors ${
+                          isCurrent ? 'text-rose-100' : 'text-rose-100/70'
+                        }`}
+                      >
+                        {step.subtitle}
+                      </p>
+                    </div>
                   </div>
-                </motion.div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
