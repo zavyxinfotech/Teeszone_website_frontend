@@ -1,0 +1,15 @@
+:root {
+  --color-burgundy: #800020;
+  --color-burgundy-dark: #6B021C;
+  --color-burgundy-deep: #4A0012;
+  --color-burgundy-light: #FDF2F4;
+  --color-cream: #FFF7ED;
+  --color-cream-light: #FFFDF9;
+  --color-charcoal: #0F172A;
+  --color-charcoal-muted: #475569;
+  
+  --shadow-card: 0 10px 30px -5px rgba(128, 0, 32, 0.08);
+  --shadow-card-hover: 0 20px 40px -10px rgba(128, 0, 32, 0.16);
+  --radius-card: 1.25rem;
+  --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
