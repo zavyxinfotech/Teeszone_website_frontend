@@ -1,84 +1,88 @@
 import React from 'react';
-import { MapPin, Navigation, ExternalLink, Factory } from 'lucide-react';
+import { MapPin, Navigation, ExternalLink, Building2 } from 'lucide-react';
 import { Button } from '@/components/common/Button';
 
 export const LocationMap: React.FC = () => {
-  const googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=Tiruppur+Tamil+Nadu+India';
+  const googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=Texvalley+Fortune+City+Erode+Tamil+Nadu';
 
   return (
-    <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-10 border border-burgundy-100 shadow-soft flex flex-col justify-between">
+    <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-9 border border-burgundy-100 shadow-soft flex flex-col justify-between h-full">
       <div>
-        <div className="mb-6">
-          <h3 className="text-2xl sm:text-3xl font-heading font-black text-charcoal-900">
-            Our <span className="text-burgundy-700">Location</span>
-          </h3>
-          <p className="text-xs sm:text-sm text-charcoal-600 mt-1">
-            Visit our office or factory in Tiruppur, the textile hub of India.
+        {/* Header matching Image 2 */}
+        <div className="mb-5">
+          <div className="flex items-center gap-2 mb-1">
+            <MapPin className="w-5 h-5 text-burgundy-700 shrink-0" />
+            <h3 className="text-2xl sm:text-3xl font-heading font-black text-charcoal-900">
+              Visit Our <span className="text-burgundy-700">Corporate Office</span>
+            </h3>
+          </div>
+          <p className="text-xs sm:text-sm text-charcoal-600">
+            Find us at Texvalley — South India's premium wholesale textile market hub.
           </p>
         </div>
 
-        {/* Real Google Map Embed */}
-        <div className="relative rounded-2xl overflow-hidden border border-burgundy-100 bg-[#E8ECEF] aspect-[16/9] mb-6 shadow-inner group">
-          <iframe
-            title="TeesZone Factory Tiruppur Location Map"
-            src="https://maps.google.com/maps?q=Tiruppur,+Tamil+Nadu,+India&t=&z=13&ie=UTF8&iwloc=&output=embed"
-            className="w-full h-full border-0"
-            loading="lazy"
-            allowFullScreen
-            referrerPolicy="no-referrer-when-downgrade"
+        {/* Exact Google Map Image matching Reference Image 2 */}
+        <div className="relative rounded-2xl overflow-hidden border border-burgundy-100 shadow-sm mb-5 group">
+          <img
+            src="/assets/images/contact-google-map.webp"
+            alt="Google Map location of TeesZone Head Office at Texvalley, Erode"
+            className="w-full h-48 sm:h-56 object-cover object-center"
+            loading="eager"
           />
-
-          {/* Open Google Maps Button */}
           <a
             href={googleMapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="absolute top-3 right-3 bg-white/95 hover:bg-white text-burgundy-700 px-3 py-1.5 rounded-xl text-xs font-semibold shadow-md transition-all flex items-center gap-1.5 hover:shadow-lg hover:scale-103 cursor-pointer z-10"
+            className="absolute top-3 left-3 bg-white/95 hover:bg-white text-burgundy-800 px-3 py-1.5 rounded-lg text-xs font-heading font-bold shadow-sm transition-all border border-burgundy-100 flex items-center gap-1.5 hover:shadow"
           >
+            <span>Open in Maps</span>
             <ExternalLink className="w-3.5 h-3.5" />
-            <span>Open Maps</span>
           </a>
-
-          {/* Floating Location Badge */}
-          <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-xl text-xs font-heading font-bold text-charcoal-900 border border-burgundy-100 shadow-md flex items-center gap-2 z-10 pointer-events-none">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-            </span>
-            <span>TeesZone Factory • Tiruppur</span>
-          </div>
         </div>
 
-        {/* Factory Photo Preview - Clean TeesZone Building with Signage */}
-        <div className="relative rounded-2xl overflow-hidden border border-burgundy-100 shadow-sm mb-6 group">
+        {/* TeesZone Building Photo below the map */}
+        <div className="relative rounded-2xl overflow-hidden border border-burgundy-100 shadow-sm mb-5">
           <img
-            src="/assets/images/factory-exterior.webp"
-            alt="TeesZone factory exterior and logistics unit in Tiruppur"
-            className="w-full h-40 sm:h-48 object-cover object-center group-hover:scale-102 transition-transform duration-500"
-            loading="lazy"
+            src="/assets/images/teeszone-building-facility.webp"
+            alt="TeesZone Building & Corporate Logistics Facility"
+            className="w-full h-36 sm:h-44 object-cover"
           />
-          <div className="absolute bottom-2.5 left-2.5 bg-charcoal-900/85 backdrop-blur-sm text-white px-3.5 py-1.5 rounded-xl text-xs font-heading font-medium flex items-center gap-2 shadow-sm">
-            <Factory className="w-4 h-4 text-warm-300" />
-            <span>TeesZone Production & Logistics Yard</span>
+          <div className="absolute bottom-2.5 left-2.5 bg-charcoal-900/85 backdrop-blur-sm text-white px-3 py-1 rounded-lg text-[11px] font-medium flex items-center gap-1.5">
+            <Building2 className="w-3.5 h-3.5 text-warm-300" />
+            <span>TeesZone Corporate Building & Logistics</span>
           </div>
         </div>
 
-        {/* Address Card */}
-        <div className="space-y-1 text-sm text-charcoal-700">
+        {/* Corporate Office Address Details matching Image 2 */}
+        <div className="space-y-2 text-sm text-charcoal-700 bg-warm-50/70 p-4 rounded-2xl border border-burgundy-50">
           <div className="flex items-start gap-2.5">
             <MapPin className="w-5 h-5 text-burgundy-700 shrink-0 mt-0.5" />
             <div>
-              <p className="font-heading font-bold text-charcoal-900">Tiruppur, Tamil Nadu, India</p>
-              <p className="text-xs text-charcoal-500 mt-0.5">
-                India's leading textile and garment manufacturing hub.
+              <p className="text-[11px] font-heading font-extrabold uppercase tracking-wider text-burgundy-700">
+                TEESZONE HEAD OFFICE
               </p>
+              <p className="font-heading font-bold text-charcoal-900 text-sm mt-0.5 leading-snug">
+                #2155, Fortune City, Global Market – Texvalley,
+              </p>
+              <p className="text-xs text-charcoal-600 mt-0.5 leading-relaxed">
+                NH 544 Bengaluru–Cochin National Highway, Chithode, Erode – 638 102, Tamil Nadu, India.
+              </p>
+              <a
+                href={googleMapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-xs font-heading font-bold text-burgundy-700 hover:text-burgundy-800 hover:underline mt-2"
+              >
+                <MapPin className="w-3.5 h-3.5" />
+                <span>Open in Google Maps</span>
+              </a>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Directions Action */}
-      <div className="pt-6">
+      {/* Directions Action Button */}
+      <div className="pt-5">
         <Button
           variant="secondary"
           size="md"
@@ -87,7 +91,7 @@ export const LocationMap: React.FC = () => {
           withArrow
         >
           <Navigation className="w-4 h-4 mr-1.5 text-burgundy-700" />
-          Get Directions
+          Get Directions to Corporate Office
         </Button>
       </div>
     </div>
