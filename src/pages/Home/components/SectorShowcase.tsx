@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 
 interface SectorCardItem {
@@ -26,9 +26,9 @@ const sectorCards: SectorCardItem[] = [
     image: '/assets/images/sector-corporate-event.webp',
     categorySlug: 'corporate',
     bg: '#FCEEF0',
-    cardHeight: 'h-[345px] sm:h-[375px] lg:h-[405px]',
-    cardWidth: 'w-[190px] sm:w-[210px] lg:w-[230px]',
-    cardTopOffset: 'mt-[36px] sm:mt-[42px] lg:mt-[46px]',
+    cardHeight: 'h-[255px] sm:h-[280px] lg:h-[305px]',
+    cardWidth: 'w-[145px] sm:w-[165px] lg:w-[180px]',
+    cardTopOffset: 'mt-[72px] sm:mt-[84px] lg:mt-[96px]',
     borderRadius: 'rounded-[26px] sm:rounded-[30px] lg:rounded-[32px]',
   },
   {
@@ -39,9 +39,9 @@ const sectorCards: SectorCardItem[] = [
     image: '/assets/images/sector-promotional-apparel.webp',
     categorySlug: 'promotional',
     bg: '#FDF1F3',
-    cardHeight: 'h-[375px] sm:h-[405px] lg:h-[435px]',
-    cardWidth: 'w-[205px] sm:w-[228px] lg:w-[248px]',
-    cardTopOffset: 'mt-[18px] sm:mt-[22px] lg:mt-[24px]',
+    cardHeight: 'h-[275px] sm:h-[300px] lg:h-[325px]',
+    cardWidth: 'w-[150px] sm:w-[170px] lg:w-[185px]',
+    cardTopOffset: 'mt-[34px] sm:mt-[40px] lg:mt-[46px]',
     borderRadius: 'rounded-[30px] sm:rounded-[34px] lg:rounded-[36px]',
   },
   {
@@ -52,8 +52,8 @@ const sectorCards: SectorCardItem[] = [
     image: '/assets/images/sectors/sector-corporate.png',
     categorySlug: 'corporate',
     bg: '#FCF4EB',
-    cardHeight: 'h-[405px] sm:h-[435px] lg:h-[465px]',
-    cardWidth: 'w-[250px] sm:w-[280px] lg:w-[305px]',
+    cardHeight: 'h-[365px] sm:h-[395px] lg:h-[425px]',
+    cardWidth: 'w-[230px] sm:w-[260px] lg:w-[285px]',
     cardTopOffset: 'mt-0',
     borderRadius: 'rounded-[36px] sm:rounded-[40px] lg:rounded-[44px]',
   },
@@ -65,9 +65,9 @@ const sectorCards: SectorCardItem[] = [
     image: '/assets/images/sectors/sector-education.png',
     categorySlug: 'school',
     bg: '#FDF1F3',
-    cardHeight: 'h-[375px] sm:h-[405px] lg:h-[435px]',
-    cardWidth: 'w-[205px] sm:w-[228px] lg:w-[248px]',
-    cardTopOffset: 'mt-[18px] sm:mt-[22px] lg:mt-[24px]',
+    cardHeight: 'h-[275px] sm:h-[300px] lg:h-[325px]',
+    cardWidth: 'w-[150px] sm:w-[170px] lg:w-[185px]',
+    cardTopOffset: 'mt-[34px] sm:mt-[40px] lg:mt-[46px]',
     borderRadius: 'rounded-[30px] sm:rounded-[34px] lg:rounded-[36px]',
   },
   {
@@ -78,27 +78,15 @@ const sectorCards: SectorCardItem[] = [
     image: '/assets/images/sectors/sector-sports.png',
     categorySlug: 'sports',
     bg: '#FCEEF0',
-    cardHeight: 'h-[345px] sm:h-[375px] lg:h-[405px]',
-    cardWidth: 'w-[190px] sm:w-[210px] lg:w-[230px]',
-    cardTopOffset: 'mt-[36px] sm:mt-[42px] lg:mt-[46px]',
+    cardHeight: 'h-[255px] sm:h-[280px] lg:h-[305px]',
+    cardWidth: 'w-[145px] sm:w-[165px] lg:w-[180px]',
+    cardTopOffset: 'mt-[72px] sm:mt-[84px] lg:mt-[96px]',
     borderRadius: 'rounded-[26px] sm:rounded-[30px] lg:rounded-[32px]',
   },
 ];
 
 export const SectorShowcase: React.FC = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [autoZoomIndex, setAutoZoomIndex] = useState<number>(2); // Start with center card
-
-  // Continuous auto zoom loop one-by-one across all cards at smooth speed
-  useEffect(() => {
-    if (hoveredIndex !== null) return; // Pause auto-zoom when user hovers
-
-    const interval = setInterval(() => {
-      setAutoZoomIndex((prev) => (prev + 1) % sectorCards.length);
-    }, 2500);
-
-    return () => clearInterval(interval);
-  }, [hoveredIndex]);
 
   // ========================================================
   // DESKTOP PINNED SCROLL ANIMATION
@@ -109,8 +97,15 @@ export const SectorShowcase: React.FC = () => {
     offset: ['start start', 'end end'],
   });
 
+  // Stage 1 (0.00 - 0.28): Title centered & enlarged with emblem watermark on right side
+  // Stage 2 (0.28 - 0.48): Title decreases in size & moves to top position, watermark rotates & fades
+  // Stage 3 (0.48 - 0.88): Other cards move out from behind center card into arc
   const headerY = useTransform(desktopScrollProgress, [0, 0.24, 0.46], [140, 140, 0]);
   const headerScale = useTransform(desktopScrollProgress, [0, 0.24, 0.46], [1.38, 1.38, 1.0]);
+  const watermarkOpacity = useTransform(desktopScrollProgress, [0, 0.12, 0.32, 0.46], [0, 0.32, 0.32, 0]);
+  const watermarkScale = useTransform(desktopScrollProgress, [0, 0.24, 0.46], [0.85, 1.0, 0.85]);
+  const watermarkRotate = useTransform(desktopScrollProgress, [0, 0.28, 0.46], [-35, 0, 15]);
+  const watermarkX = useTransform(desktopScrollProgress, [0, 0.24], [50, 0]);
 
   // Center card (Index 2 - Corporate Sector)
   const centerCardOpacity = useTransform(desktopScrollProgress, [0, 0.24, 0.44], [0, 0, 1]);
@@ -135,6 +130,8 @@ export const SectorShowcase: React.FC = () => {
 
   // ========================================================
   // MOBILE PINNED SCROLL ANIMATION
+  // Pins the mobile view until all 5 products are shown via scroll
+  // Background fills the entire mobile screen with active product bg
   // ========================================================
   const mobileContainerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: mobileScrollProgress } = useScroll({
@@ -160,35 +157,38 @@ export const SectorShowcase: React.FC = () => {
   const activeMobileCard = sectorCards[mobileIndex];
 
   return (
-    <section className="relative w-full bg-[#FAF6F4] text-charcoal-900 select-none">
+    <section className="relative w-full bg-white text-charcoal-900 select-none">
       
       {/* ======================================================== */}
-      {/* DESKTOP VIEW: Pinned Scroll Experience */}
+      {/* DESKTOP VIEW: Pinned Scroll Experience (No Badge, No Wave) */}
       {/* ======================================================== */}
       <div ref={desktopContainerRef} className="hidden md:block relative h-[250vh]">
-        <div className="sticky top-0 h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-[#FAF6F4] px-2 sm:px-4 lg:px-6">
-          
-          {/* TeesZone Emblem Watermark - Positioned in Upper-Right, Fits Entirely Without Bottom Cut */}
-          <motion.div
-            animate={{ rotate: [0, 360] }}
-            transition={{ duration: 80, repeat: Infinity, ease: 'linear' }}
-            className="absolute right-[2%] lg:right-[4%] top-[24%] md:top-[26%] lg:top-[28%] pointer-events-none select-none z-0 w-[360px] md:w-[420px] lg:w-[480px] xl:w-[500px] flex items-center justify-center opacity-35"
-          >
-            <img
-              src="/assets/logo/teeszone-emblem.png"
-              alt="TeesZone Logo Emblem Watermark"
-              className="w-full h-auto object-contain"
-            />
-          </motion.div>
-
-          <div className="w-full max-w-[1360px] mx-auto flex flex-col items-center justify-center relative z-10">
-
-            {/* SECTION HEADER: Starts enlarged at center, then shrinks & moves to top on scroll */}
+        <div className="sticky top-0 h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-white px-4 sm:px-6 lg:px-8">
+          <div className="w-full max-w-[1280px] mx-auto flex flex-col items-center justify-center relative">
+            
+            {/* SECTION HEADER: Starts enlarged at center with emblem watermark on right, then shrinks & moves to top on scroll */}
             <motion.div
               style={{ y: headerY, scale: headerScale }}
-              className="text-center max-w-3xl mx-auto mb-4 sm:mb-6 relative z-20 origin-center"
+              className="text-center max-w-3xl mx-auto mb-6 sm:mb-8 relative z-20 origin-center"
             >
-              {/* Eyebrow */}
+              {/* TeesZone Emblem Logo (Image 2) - Positioned on right side, vertically centered, rotated & animated */}
+              <motion.div
+                style={{
+                  opacity: watermarkOpacity,
+                  scale: watermarkScale,
+                  rotate: watermarkRotate,
+                  x: watermarkX,
+                }}
+                className="absolute top-1/2 -translate-y-1/2 -right-4 sm:-right-8 md:-right-14 lg:-right-20 pointer-events-none select-none -z-10 w-[125px] sm:w-[155px] md:w-[185px] flex items-center justify-center"
+              >
+                <img
+                  src="/assets/logo/teeszone-emblem.png"
+                  alt="TeesZone Logo Emblem"
+                  className="w-full h-auto object-contain"
+                />
+              </motion.div>
+
+              {/* Eyebrow: NO background color and NO border */}
               <div className="flex items-center justify-center gap-2.5 mb-2.5 mx-auto">
                 <span className="w-5 h-[1.5px] bg-[#82132C] rounded-full inline-block" />
                 <span className="text-[11px] sm:text-xs font-heading font-extrabold uppercase tracking-widest text-[#82132C]">
@@ -203,16 +203,16 @@ export const SectorShowcase: React.FC = () => {
               </h2>
 
               {/* Subtitle */}
-              <p className="text-xs sm:text-sm text-charcoal-600 font-normal mt-2 max-w-2xl leading-relaxed mx-auto">
+              <p className="text-xs sm:text-sm text-charcoal-600 font-normal mt-2.5 max-w-2xl leading-relaxed mx-auto">
                 Engineered uniforms and custom apparel specifically crafted for your industry's standards, complete with high-definition embroidery and durable fabric weaves.
               </p>
             </motion.div>
 
-            {/* CARDS CONTAINER: Bigger Cards, Large Models Filling Entire Space */}
-            <div className="flex items-end justify-center gap-2.5 sm:gap-3 lg:gap-3.5 pt-1 pb-2 relative z-10 w-full max-w-[1340px] mx-auto">
+            {/* CARDS CONTAINER: Center card arrives first, others fan out from behind */}
+            <div className="flex items-start justify-center gap-2.5 sm:gap-3 lg:gap-3.5 pt-2 pb-6 relative z-10 max-w-[1100px] mx-auto w-full">
               {sectorCards.map((sector, index) => {
+                const isHero = sector.id === 'corporate-sector';
                 const isHovered = hoveredIndex === index;
-                const isZoomed = hoveredIndex !== null ? isHovered : autoZoomIndex === index;
 
                 let cardX = undefined;
                 let cardOpacity = undefined;
@@ -223,26 +223,26 @@ export const SectorShowcase: React.FC = () => {
                   cardX = card0X;
                   cardOpacity = card0Opacity;
                   cardScale = card0Scale;
-                  zIndex = isZoomed ? 20 : 2;
+                  zIndex = 2;
                 } else if (index === 1) {
                   cardX = card1X;
                   cardOpacity = card1Opacity;
                   cardScale = card1Scale;
-                  zIndex = isZoomed ? 20 : 3;
+                  zIndex = 3;
                 } else if (index === 2) {
                   cardOpacity = centerCardOpacity;
                   cardScale = centerCardScale;
-                  zIndex = isZoomed ? 25 : 10;
+                  zIndex = 10; // Front layer
                 } else if (index === 3) {
                   cardX = card3X;
                   cardOpacity = card3Opacity;
                   cardScale = card3Scale;
-                  zIndex = isZoomed ? 20 : 3;
+                  zIndex = 3;
                 } else if (index === 4) {
                   cardX = card4X;
                   cardOpacity = card4Opacity;
                   cardScale = card4Scale;
-                  zIndex = isZoomed ? 20 : 2;
+                  zIndex = 2;
                 }
 
                 return (
@@ -260,35 +260,23 @@ export const SectorShowcase: React.FC = () => {
                       to={`/category/${sector.categorySlug}`}
                       onMouseEnter={() => setHoveredIndex(index)}
                       onMouseLeave={() => setHoveredIndex(null)}
-                      className={`group relative flex flex-col justify-between overflow-hidden cursor-pointer w-full h-full border border-black/[0.06] transition-all duration-500 ease-out shadow-none ${
+                      className={`group relative flex flex-col justify-end overflow-hidden transition-all duration-300 ease-out cursor-pointer w-full h-full pt-4 ${
                         sector.borderRadius
                       } ${
-                        isZoomed
-                          ? 'scale-105 -translate-y-3 ring-2 ring-[#82132C]/30'
-                          : 'scale-100 translate-y-0 opacity-95 hover:opacity-100'
+                        isHovered
+                          ? '-translate-y-2 shadow-[0_20px_38px_rgba(122,0,39,0.18)] ring-2 ring-[#82132C]/30'
+                          : isHero
+                          ? 'shadow-[0_12px_28px_rgba(122,0,39,0.12)] ring-1 ring-[#82132C]/15'
+                          : 'shadow-[0_6px_18px_rgba(0,0,0,0.05)] ring-1 ring-black/[0.04]'
                       }`}
                       style={{ backgroundColor: sector.bg }}
                     >
-                      {/* Top Card Name (Large, Bold, High-Contrast) & Top-Right Arrow (No Background) */}
-                      <div className="relative z-20 flex items-start justify-between pt-4 sm:pt-4.5 px-3.5 sm:px-4.5 w-full gap-2">
-                        <span className="font-heading font-black text-xs sm:text-[13px] lg:text-[14px] uppercase tracking-[0.06em] text-[#82132C] group-hover:text-[#5a0b1e] transition-colors leading-snug">
-                          {sector.badge}
-                        </span>
-
-                        {/* Top-Right Arrow (No Background, Clear & Prominent) */}
-                        <div className="shrink-0 p-0 text-[#82132C] group-hover:text-[#5a0b1e] transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
-                          <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.8]" />
-                        </div>
-                      </div>
-
-                      {/* Model Cutout Image (Big, Bold, Filling the Card Seamlessly Like Center Card) */}
+                      {/* Model Cutout Image (Clean Transparent Background, Badge removed) */}
                       <div className="relative flex-1 w-full flex items-end justify-center overflow-hidden">
                         <img
                           src={sector.image}
                           alt={`${sector.title} custom apparel models`}
-                          className={`w-full max-h-[92%] sm:max-h-[94%] object-contain object-bottom scale-108 sm:scale-114 transition-transform duration-500 ease-out select-none pointer-events-none ${
-                            isZoomed ? 'scale-120 -translate-y-1' : 'scale-108 sm:scale-114'
-                          }`}
+                          className="w-full h-full object-contain object-bottom transition-transform duration-300 ease-out group-hover:scale-104"
                           loading="lazy"
                         />
                       </div>
@@ -303,7 +291,8 @@ export const SectorShowcase: React.FC = () => {
       </div>
 
       {/* ======================================================== */}
-      {/* MOBILE VIEW: Pinned Scroll Carousel (Full BG Fill) */}
+      {/* MOBILE VIEW: Pinned Scroll Carousel (Full BG Fill, No Border/Shadow) */}
+      {/* Scrolls through all 5 products before page moves to next section */}
       {/* ======================================================== */}
       <div ref={mobileContainerRef} className="md:hidden relative h-[360vh]">
         <div
@@ -312,7 +301,7 @@ export const SectorShowcase: React.FC = () => {
         >
           {/* Top Section Header */}
           <div className="text-center max-w-sm mx-auto z-10 shrink-0">
-            {/* Eyebrow */}
+            {/* Eyebrow: NO background color and NO border */}
             <div className="flex items-center justify-center gap-2 mb-2 mx-auto">
               <span className="w-4 h-[1.5px] bg-[#82132C] rounded-full inline-block" />
               <span className="text-[10px] font-heading font-extrabold uppercase tracking-widest text-[#82132C]">
@@ -327,7 +316,7 @@ export const SectorShowcase: React.FC = () => {
             </h2>
           </div>
 
-          {/* Center Product Model */}
+          {/* Center Product Model (No card border, no shadow, floats seamlessly on full section background) */}
           <div className="relative flex-1 w-full max-w-[340px] flex items-center justify-center my-2 overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.div
@@ -345,7 +334,7 @@ export const SectorShowcase: React.FC = () => {
                   <img
                     src={activeMobileCard.image}
                     alt={activeMobileCard.title}
-                    className="w-full max-h-[340px] sm:max-h-[380px] object-contain object-bottom"
+                    className="w-full max-h-[340px] sm:max-h-[380px] object-contain object-bottom drop-shadow-md"
                     loading="eager"
                   />
                 </Link>
@@ -353,7 +342,7 @@ export const SectorShowcase: React.FC = () => {
             </AnimatePresence>
           </div>
 
-          {/* Bottom Product Details */}
+          {/* Bottom Product Details & Action Button */}
           <div className="w-full max-w-sm flex flex-col items-center text-center z-10 shrink-0">
             <AnimatePresence mode="wait">
               <motion.div
@@ -364,10 +353,7 @@ export const SectorShowcase: React.FC = () => {
                 transition={{ duration: 0.25 }}
                 className="mb-3"
               >
-                <span className="font-heading font-black text-xs uppercase tracking-widest text-[#82132C]">
-                  {activeMobileCard.badge}
-                </span>
-                <h3 className="font-heading font-black text-lg text-charcoal-900 leading-snug mt-1">
+                <h3 className="font-heading font-black text-lg text-charcoal-900 leading-snug">
                   {activeMobileCard.title}
                 </h3>
                 <p className="text-xs text-charcoal-600 font-medium mt-0.5">
@@ -376,17 +362,17 @@ export const SectorShowcase: React.FC = () => {
               </motion.div>
             </AnimatePresence>
 
-            {/* Action Link for Mobile */}
+            {/* Action Button */}
             <Link
               to={`/category/${activeMobileCard.categorySlug}`}
-              className="inline-flex items-center justify-center gap-1.5 py-1.5 px-4 text-[#82132C] hover:text-[#5a0b1e] font-heading font-bold text-xs transition-all"
+              className="inline-flex items-center justify-center gap-2 py-2 px-5 rounded-full bg-[#82132C] hover:bg-[#6c0f24] text-white font-heading font-semibold text-xs shadow-md transition-all active:scale-95"
             >
-              <span className="tracking-wider uppercase">View Products</span>
-              <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+              <span>Explore Collection</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
 
             {/* Progress Indicators */}
-            <div className="flex items-center justify-center gap-2 mt-3">
+            <div className="flex items-center justify-center gap-2 mt-3.5">
               {sectorCards.map((sector, idx) => (
                 <div
                   key={sector.id}
