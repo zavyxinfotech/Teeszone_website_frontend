@@ -26,9 +26,9 @@ const sectorCards: SectorCardItem[] = [
     image: '/assets/images/sector-corporate-event.png',
     categorySlug: 'corporate',
     bg: '#FCEEF0',
-    cardHeight: 'h-[255px] sm:h-[280px] lg:h-[305px]',
-    cardWidth: 'w-[145px] sm:w-[165px] lg:w-[180px]',
-    cardTopOffset: 'mt-[72px] sm:mt-[84px] lg:mt-[96px]',
+    cardHeight: 'h-[275px] sm:h-[305px] lg:h-[335px]',
+    cardWidth: 'w-[160px] sm:w-[180px] lg:w-[200px]',
+    cardTopOffset: 'mt-[76px] sm:mt-[88px] lg:mt-[100px]',
     borderRadius: 'rounded-[26px] sm:rounded-[30px] lg:rounded-[32px]',
   },
   {
@@ -39,9 +39,9 @@ const sectorCards: SectorCardItem[] = [
     image: '/assets/images/sector-promotional-apparel.png',
     categorySlug: 'promotional',
     bg: '#FDF1F3',
-    cardHeight: 'h-[275px] sm:h-[300px] lg:h-[325px]',
-    cardWidth: 'w-[150px] sm:w-[170px] lg:w-[185px]',
-    cardTopOffset: 'mt-[34px] sm:mt-[40px] lg:mt-[46px]',
+    cardHeight: 'h-[300px] sm:h-[330px] lg:h-[360px]',
+    cardWidth: 'w-[165px] sm:w-[185px] lg:w-[205px]',
+    cardTopOffset: 'mt-[38px] sm:mt-[44px] lg:mt-[50px]',
     borderRadius: 'rounded-[30px] sm:rounded-[34px] lg:rounded-[36px]',
   },
   {
@@ -52,8 +52,8 @@ const sectorCards: SectorCardItem[] = [
     image: '/assets/images/sectors/sector-corporate.png',
     categorySlug: 'corporate',
     bg: '#FCF4EB',
-    cardHeight: 'h-[365px] sm:h-[395px] lg:h-[425px]',
-    cardWidth: 'w-[230px] sm:w-[260px] lg:w-[285px]',
+    cardHeight: 'h-[385px] sm:h-[415px] lg:h-[450px]',
+    cardWidth: 'w-[245px] sm:w-[275px] lg:w-[305px]',
     cardTopOffset: 'mt-0',
     borderRadius: 'rounded-[36px] sm:rounded-[40px] lg:rounded-[44px]',
   },
@@ -65,9 +65,9 @@ const sectorCards: SectorCardItem[] = [
     image: '/assets/images/sectors/sector-education.png',
     categorySlug: 'school',
     bg: '#FDF1F3',
-    cardHeight: 'h-[275px] sm:h-[300px] lg:h-[325px]',
-    cardWidth: 'w-[150px] sm:w-[170px] lg:w-[185px]',
-    cardTopOffset: 'mt-[34px] sm:mt-[40px] lg:mt-[46px]',
+    cardHeight: 'h-[300px] sm:h-[330px] lg:h-[360px]',
+    cardWidth: 'w-[165px] sm:w-[185px] lg:w-[205px]',
+    cardTopOffset: 'mt-[38px] sm:mt-[44px] lg:mt-[50px]',
     borderRadius: 'rounded-[30px] sm:rounded-[34px] lg:rounded-[36px]',
   },
   {
@@ -78,9 +78,9 @@ const sectorCards: SectorCardItem[] = [
     image: '/assets/images/sectors/sector-sports.png',
     categorySlug: 'sports',
     bg: '#FCEEF0',
-    cardHeight: 'h-[255px] sm:h-[280px] lg:h-[305px]',
-    cardWidth: 'w-[145px] sm:w-[165px] lg:w-[180px]',
-    cardTopOffset: 'mt-[72px] sm:mt-[84px] lg:mt-[96px]',
+    cardHeight: 'h-[275px] sm:h-[305px] lg:h-[335px]',
+    cardWidth: 'w-[160px] sm:w-[180px] lg:w-[200px]',
+    cardTopOffset: 'mt-[76px] sm:mt-[88px] lg:mt-[100px]',
     borderRadius: 'rounded-[26px] sm:rounded-[30px] lg:rounded-[32px]',
   },
 ];
@@ -161,13 +161,13 @@ export const SectorShowcase: React.FC = () => {
   const mobileWatermarkScale = useTransform(mobileScrollProgress, [0, 0.5, 1], [0.95, 1.05, 0.95]);
 
   return (
-    <section className="relative w-full bg-gradient-to-b from-[#FFFDFD] via-[#FAF6F4] to-[#F7F0EC] text-charcoal-900 select-none">
+    <section className="relative w-full bg-[#FAF6F4] text-charcoal-900 select-none">
       
       {/* ======================================================== */}
       {/* DESKTOP VIEW: Pinned Scroll Experience */}
       {/* ======================================================== */}
       <div ref={desktopContainerRef} className="hidden md:block relative h-[250vh]">
-        <div className="sticky top-0 h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-gradient-to-b from-[#FFFDFD] via-[#FAF6F4] to-[#F7F0EC] px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 lg:pt-28 pb-6">
+        <div className="sticky top-0 h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-[#FAF6F4] px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 lg:pt-28 pb-6">
           
           {/* Background Ambient TeesZone Emblem Watermark: Aligned in center, never cut off at top */}
           <motion.div
@@ -212,8 +212,8 @@ export const SectorShowcase: React.FC = () => {
               </p>
             </motion.div>
 
-            {/* CARDS CONTAINER: Exact card heights and stepped arch alignment preserved */}
-            <div className="flex items-start justify-center gap-2.5 sm:gap-3 lg:gap-3.5 pt-1 pb-4 relative z-10 max-w-[1100px] mx-auto w-full">
+            {/* CARDS CONTAINER: Increased card sizes while preserving exact stepped arch alignment */}
+            <div className="flex items-start justify-center gap-2.5 sm:gap-3 lg:gap-3.5 pt-1 pb-4 relative z-10 max-w-[1240px] mx-auto w-full">
               {sectorCards.map((sector, index) => {
                 const isHero = sector.id === 'corporate-sector';
                 const isHovered = hoveredIndex === index;
@@ -264,7 +264,7 @@ export const SectorShowcase: React.FC = () => {
                       to={`/category/${sector.categorySlug}`}
                       onMouseEnter={() => setHoveredIndex(index)}
                       onMouseLeave={() => setHoveredIndex(null)}
-                      className={`group relative flex flex-col justify-between overflow-hidden transition-all duration-300 ease-out cursor-pointer w-full h-full p-2.5 sm:p-3 ${
+                      className={`group relative flex flex-col justify-between overflow-hidden transition-all duration-300 ease-out cursor-pointer w-full h-full p-3 sm:p-3.5 ${
                         sector.borderRadius
                       } ${
                         isHovered
@@ -275,9 +275,9 @@ export const SectorShowcase: React.FC = () => {
                       }`}
                       style={{ backgroundColor: sector.bg }}
                     >
-                      {/* Top Bar: Sector Name (No background color, full name, increased size, medium weight, new font style) + Arrow (No background) */}
+                      {/* Top Bar: Sector Name (No background color, full name, increased size, medium weight) + Arrow (No background) */}
                       <div className="relative w-full flex items-start justify-between z-10 gap-1 pt-0.5 px-0.5">
-                        <span className="text-[11.5px] sm:text-[12.5px] lg:text-[13px] font-sans font-medium tracking-[0.06em] text-[#82132C] uppercase leading-tight">
+                        <span className="text-[12px] sm:text-[13px] lg:text-[13.5px] font-sans font-medium tracking-[0.06em] text-[#82132C] uppercase leading-tight">
                           {sector.badge}
                         </span>
 
@@ -290,16 +290,12 @@ export const SectorShowcase: React.FC = () => {
                         </div>
                       </div>
 
-                      {/* Model Cutout Image: Enlarged for outer cards (except center image) */}
-                      <div className="relative flex-1 w-full flex items-end justify-center overflow-hidden mt-0.5">
+                      {/* Model Cutout Image: Complete view with object-contain (never cut or cropped) */}
+                      <div className="relative flex-1 w-full flex items-end justify-center overflow-hidden mt-1">
                         <img
                           src={sector.image}
                           alt={`${sector.title} custom apparel models`}
-                          className={`w-full h-full object-contain object-bottom transition-transform duration-300 ease-out group-hover:scale-108 ${
-                            !isHero
-                              ? 'scale-125 sm:scale-130 origin-bottom'
-                              : 'scale-100'
-                          }`}
+                          className="w-full h-full object-contain object-bottom transition-transform duration-300 ease-out group-hover:scale-104"
                           loading="lazy"
                         />
                       </div>
@@ -317,7 +313,7 @@ export const SectorShowcase: React.FC = () => {
       {/* MOBILE VIEW: Pinned Scroll Carousel */}
       {/* ======================================================== */}
       <div ref={mobileContainerRef} className="md:hidden relative h-[380vh]">
-        <div className="sticky top-0 h-screen w-full flex flex-col justify-between items-center overflow-hidden transition-colors duration-700 ease-out px-4 pt-12 pb-5 bg-gradient-to-b from-[#FFFDFD] via-[#FAF6F4] to-[#F7F0EC]">
+        <div className="sticky top-0 h-screen w-full flex flex-col justify-between items-center overflow-hidden transition-colors duration-700 ease-out px-4 pt-12 pb-5 bg-[#FAF6F4]">
           
           {/* Mobile Animated TeesZone Logo Emblem (Positioned in center, not cut off) */}
           <motion.div
@@ -380,12 +376,12 @@ export const SectorShowcase: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Model Image */}
+                  {/* Model Image: Full view without cuts */}
                   <div className="relative flex-1 w-full flex items-end justify-center overflow-hidden">
                     <img
                       src={activeMobileCard.image}
                       alt={activeMobileCard.title}
-                      className="w-full max-h-[290px] object-contain object-bottom drop-shadow-md scale-105 origin-bottom"
+                      className="w-full max-h-[290px] object-contain object-bottom drop-shadow-md"
                       loading="eager"
                     />
                   </div>

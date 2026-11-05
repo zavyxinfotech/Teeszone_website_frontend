@@ -204,7 +204,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
   return (
     <section
       id="why-choose-us"
-      className={`relative w-full bg-gradient-to-b from-[#FFFDFD] via-[#FAF6F4] to-[#F7F0EC] ${className}`}
+      className={`relative w-full bg-[#FAF6F4] ${className}`}
     >
       {/* Decorative Background Swirls & Dot Matrix (Top-Right & Bottom-Left) */}
       <div className="absolute top-0 right-0 w-36 sm:w-48 md:w-56 h-36 sm:h-48 md:h-56 pointer-events-none select-none overflow-hidden z-0">
@@ -301,8 +301,10 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
             WHY CHOOSE
           </p>
 
-          <h2 className="text-4xl sm:text-5xl md:text-5xl font-heading font-black text-[#8A0024] tracking-tight leading-none my-0.5 select-none drop-shadow-[0_4px_14px_rgba(138,0,36,0.16)]">
-            TEESZONE?
+          <h2 className="text-4xl sm:text-5xl md:text-5xl font-heading font-black text-[#8A0024] tracking-tight leading-none my-1 select-none">
+            <span className="inline-block px-4 sm:px-5 py-1 rounded-2xl sm:rounded-3xl bg-[#8A0024]/[0.06] border border-[#8A0024]/15 drop-shadow-[0_4px_14px_rgba(138,0,36,0.12)]">
+              TEESZONE?
+            </span>
           </h2>
 
           <p className="text-[11px] sm:text-xs font-heading font-extrabold tracking-wider text-[#1B2A4A] mt-0.5">
@@ -551,7 +553,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
           4. Next scrolls: Contents slide in alternating from right and left in 3D
           ========================================================================= */}
       <div ref={mobileContainerRef} className="lg:hidden relative h-[420vh]">
-        <div className="sticky top-0 h-screen w-full flex flex-col justify-between items-center overflow-hidden px-4 pt-8 pb-5 bg-gradient-to-b from-[#FFFDFD] via-[#FAF6F4] to-[#F7F0EC]">
+        <div className="sticky top-0 h-screen w-full flex flex-col justify-between items-center overflow-hidden px-4 pt-8 pb-5 bg-[#FAF6F4]">
           
           {/* Top/Center Animated Heading */}
           <motion.div
@@ -561,8 +563,10 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
             <p className="text-[11px] font-heading font-black tracking-[0.24em] text-[#1B2A4A] uppercase">
               WHY CHOOSE
             </p>
-            <h2 className="text-4xl sm:text-5xl font-heading font-black text-[#8A0024] tracking-tight leading-none my-0.5">
-              TEESZONE?
+            <h2 className="text-3xl sm:text-4xl font-heading font-black text-[#8A0024] tracking-tight leading-none my-1">
+              <span className="inline-block px-3.5 py-1 rounded-2xl bg-[#8A0024]/[0.06] border border-[#8A0024]/15">
+                TEESZONE?
+              </span>
             </h2>
             <p className="text-xs font-heading font-extrabold tracking-wider text-[#1B2A4A]">
               BEYOND CUSTOM T-SHIRTS.{' '}
