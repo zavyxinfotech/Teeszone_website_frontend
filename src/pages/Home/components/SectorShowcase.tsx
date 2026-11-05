@@ -23,7 +23,7 @@ const sectorCards: SectorCardItem[] = [
     badge: 'CORPORATE EVENT',
     title: 'Corporate Event Apparel',
     subtitle: 'Executive Polos with Identity Lanyards',
-    image: '/assets/images/sector-corporate-event.webp',
+    image: '/assets/images/sector-corporate-event.png',
     categorySlug: 'corporate',
     bg: '#FCEEF0',
     cardHeight: 'h-[255px] sm:h-[280px] lg:h-[305px]',
@@ -36,7 +36,7 @@ const sectorCards: SectorCardItem[] = [
     badge: 'PROMOTIONAL APPAREL',
     title: 'Promotional Event Wear',
     subtitle: 'Premium Hoodies & Custom Campaign Merch',
-    image: '/assets/images/sector-promotional-apparel.webp',
+    image: '/assets/images/sector-promotional-apparel.png',
     categorySlug: 'promotional',
     bg: '#FDF1F3',
     cardHeight: 'h-[275px] sm:h-[300px] lg:h-[325px]',
@@ -102,10 +102,12 @@ export const SectorShowcase: React.FC = () => {
   // Stage 3 (0.48 - 0.88): Other cards move out from behind center card into arc
   const headerY = useTransform(desktopScrollProgress, [0, 0.24, 0.46], [140, 140, 0]);
   const headerScale = useTransform(desktopScrollProgress, [0, 0.24, 0.46], [1.38, 1.38, 1.0]);
-  const watermarkOpacity = useTransform(desktopScrollProgress, [0, 0.12, 0.32, 0.46], [0, 0.32, 0.32, 0]);
-  const watermarkScale = useTransform(desktopScrollProgress, [0, 0.24, 0.46], [0.85, 1.0, 0.85]);
-  const watermarkRotate = useTransform(desktopScrollProgress, [0, 0.28, 0.46], [-35, 0, 15]);
-  const watermarkX = useTransform(desktopScrollProgress, [0, 0.24], [50, 0]);
+  
+  // TeesZone emblem logo watermark: larger size, kept within section height, preserving rotation & scaling animation
+  const watermarkOpacity = useTransform(desktopScrollProgress, [0, 0.12, 0.32, 0.48], [0, 0.28, 0.28, 0.10]);
+  const watermarkScale = useTransform(desktopScrollProgress, [0, 0.24, 0.48], [0.9, 1.08, 0.92]);
+  const watermarkRotate = useTransform(desktopScrollProgress, [0, 0.28, 0.48], [-35, 0, 15]);
+  const watermarkX = useTransform(desktopScrollProgress, [0, 0.24], [40, 0]);
 
   // Center card (Index 2 - Corporate Sector)
   const centerCardOpacity = useTransform(desktopScrollProgress, [0, 0.24, 0.44], [0, 0, 1]);
@@ -131,7 +133,6 @@ export const SectorShowcase: React.FC = () => {
   // ========================================================
   // MOBILE PINNED SCROLL ANIMATION
   // Pins the mobile view until all 5 products are shown via scroll
-  // Background fills the entire mobile screen with active product bg
   // ========================================================
   const mobileContainerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: mobileScrollProgress } = useScroll({
@@ -156,39 +157,45 @@ export const SectorShowcase: React.FC = () => {
 
   const activeMobileCard = sectorCards[mobileIndex];
 
+  // Mobile TeesZone watermark transforms
+  const mobileWatermarkOpacity = useTransform(mobileScrollProgress, [0, 0.2, 0.8, 1], [0.18, 0.26, 0.26, 0.18]);
+  const mobileWatermarkRotate = useTransform(mobileScrollProgress, [0, 1], [-20, 25]);
+  const mobileWatermarkScale = useTransform(mobileScrollProgress, [0, 0.5, 1], [0.95, 1.08, 0.95]);
+
   return (
-    <section className="relative w-full bg-white text-charcoal-900 select-none">
+    <section className="relative w-full bg-gradient-to-b from-[#FFFDFD] via-[#FAF6F4] to-[#F7F0EC] text-charcoal-900 select-none">
       
       {/* ======================================================== */}
-      {/* DESKTOP VIEW: Pinned Scroll Experience (No Badge, No Wave) */}
+      {/* DESKTOP VIEW: Pinned Scroll Experience */}
       {/* ======================================================== */}
       <div ref={desktopContainerRef} className="hidden md:block relative h-[250vh]">
-        <div className="sticky top-0 h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-white px-4 sm:px-6 lg:px-8">
-          <div className="w-full max-w-[1280px] mx-auto flex flex-col items-center justify-center relative">
+        <div className="sticky top-0 h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-gradient-to-b from-[#FFFDFD] via-[#FAF6F4] to-[#F7F0EC] px-4 sm:px-6 lg:px-8">
+          
+          {/* Background Ambient TeesZone Emblem Watermark (Increased size, fits within section height, keeps animation) */}
+          <motion.div
+            style={{
+              opacity: watermarkOpacity,
+              scale: watermarkScale,
+              rotate: watermarkRotate,
+              x: watermarkX,
+            }}
+            className="absolute right-4 lg:right-16 top-1/2 -translate-y-1/2 pointer-events-none select-none z-0 w-[300px] lg:w-[380px] xl:w-[440px] max-h-[75vh] flex items-center justify-center"
+          >
+            <img
+              src="/assets/logo/teeszone-emblem.png"
+              alt="TeesZone Logo Emblem"
+              className="w-full h-full object-contain filter drop-shadow-[0_8px_24px_rgba(130,19,44,0.08)]"
+            />
+          </motion.div>
+
+          <div className="w-full max-w-[1280px] mx-auto flex flex-col items-center justify-center relative z-10">
             
-            {/* SECTION HEADER: Starts enlarged at center with emblem watermark on right, then shrinks & moves to top on scroll */}
+            {/* SECTION HEADER: Starts enlarged at center, then shrinks & moves to top on scroll */}
             <motion.div
               style={{ y: headerY, scale: headerScale }}
-              className="text-center max-w-3xl mx-auto mb-6 sm:mb-8 relative z-20 origin-center"
+              className="text-center max-w-3xl mx-auto mb-5 sm:mb-7 relative z-20 origin-center"
             >
-              {/* TeesZone Emblem Logo (Image 2) - Positioned on right side, vertically centered, rotated & animated */}
-              <motion.div
-                style={{
-                  opacity: watermarkOpacity,
-                  scale: watermarkScale,
-                  rotate: watermarkRotate,
-                  x: watermarkX,
-                }}
-                className="absolute top-1/2 -translate-y-1/2 -right-4 sm:-right-8 md:-right-14 lg:-right-20 pointer-events-none select-none -z-10 w-[125px] sm:w-[155px] md:w-[185px] flex items-center justify-center"
-              >
-                <img
-                  src="/assets/logo/teeszone-emblem.png"
-                  alt="TeesZone Logo Emblem"
-                  className="w-full h-auto object-contain"
-                />
-              </motion.div>
-
-              {/* Eyebrow: NO background color and NO border */}
+              {/* Eyebrow */}
               <div className="flex items-center justify-center gap-2.5 mb-2.5 mx-auto">
                 <span className="w-5 h-[1.5px] bg-[#82132C] rounded-full inline-block" />
                 <span className="text-[11px] sm:text-xs font-heading font-extrabold uppercase tracking-widest text-[#82132C]">
@@ -208,7 +215,7 @@ export const SectorShowcase: React.FC = () => {
               </p>
             </motion.div>
 
-            {/* CARDS CONTAINER: Center card arrives first, others fan out from behind */}
+            {/* CARDS CONTAINER: Exact card heights and stepped arch alignment preserved */}
             <div className="flex items-start justify-center gap-2.5 sm:gap-3 lg:gap-3.5 pt-2 pb-6 relative z-10 max-w-[1100px] mx-auto w-full">
               {sectorCards.map((sector, index) => {
                 const isHero = sector.id === 'corporate-sector';
@@ -232,7 +239,7 @@ export const SectorShowcase: React.FC = () => {
                 } else if (index === 2) {
                   cardOpacity = centerCardOpacity;
                   cardScale = centerCardScale;
-                  zIndex = 10; // Front layer
+                  zIndex = 10;
                 } else if (index === 3) {
                   cardX = card3X;
                   cardOpacity = card3Opacity;
@@ -260,7 +267,7 @@ export const SectorShowcase: React.FC = () => {
                       to={`/category/${sector.categorySlug}`}
                       onMouseEnter={() => setHoveredIndex(index)}
                       onMouseLeave={() => setHoveredIndex(null)}
-                      className={`group relative flex flex-col justify-end overflow-hidden transition-all duration-300 ease-out cursor-pointer w-full h-full pt-4 ${
+                      className={`group relative flex flex-col justify-between overflow-hidden transition-all duration-300 ease-out cursor-pointer w-full h-full p-2.5 sm:p-3 ${
                         sector.borderRadius
                       } ${
                         isHovered
@@ -271,8 +278,23 @@ export const SectorShowcase: React.FC = () => {
                       }`}
                       style={{ backgroundColor: sector.bg }}
                     >
-                      {/* Model Cutout Image (Clean Transparent Background, Badge removed) */}
-                      <div className="relative flex-1 w-full flex items-end justify-center overflow-hidden">
+                      {/* Top Bar: Sector Name in Increased Size + Explore Button at Top Right Corner */}
+                      <div className="relative w-full flex items-center justify-between z-10 gap-1 pt-0.5 px-0.5">
+                        <span className="px-2 sm:px-2.5 py-0.5 rounded-full bg-[#82132C] text-white font-heading font-black text-[9.5px] sm:text-[11px] lg:text-[11.5px] tracking-wide uppercase shadow-xs whitespace-nowrap truncate max-w-[78%]">
+                          {sector.badge}
+                        </span>
+
+                        {/* Dedicated Circular Explore Button at Top Right Corner */}
+                        <div
+                          aria-label={`Explore ${sector.title}`}
+                          className="w-6 h-6 sm:w-6.5 sm:h-6.5 rounded-full bg-[#82132C] text-white flex items-center justify-center shrink-0 shadow-xs transition-transform duration-300 group-hover:scale-115 group-hover:bg-[#6c0f24]"
+                        >
+                          <ArrowRight className="w-3.5 h-3.5 -rotate-45 stroke-[2.4]" />
+                        </div>
+                      </div>
+
+                      {/* Model Cutout Image (Lossless PNG, Decreased Gap to Name Header) */}
+                      <div className="relative flex-1 w-full flex items-end justify-center overflow-hidden mt-0.5">
                         <img
                           src={sector.image}
                           alt={`${sector.title} custom apparel models`}
@@ -291,18 +313,30 @@ export const SectorShowcase: React.FC = () => {
       </div>
 
       {/* ======================================================== */}
-      {/* MOBILE VIEW: Pinned Scroll Carousel (Full BG Fill, No Border/Shadow) */}
-      {/* Scrolls through all 5 products before page moves to next section */}
+      {/* MOBILE VIEW: Pinned Scroll Carousel */}
       {/* ======================================================== */}
       <div ref={mobileContainerRef} className="md:hidden relative h-[360vh]">
-        <div
-          className="sticky top-0 h-screen w-full flex flex-col justify-between items-center overflow-hidden transition-colors duration-700 ease-out px-4 pt-12 pb-8"
-          style={{ backgroundColor: activeMobileCard.bg }}
-        >
+        <div className="sticky top-0 h-screen w-full flex flex-col justify-between items-center overflow-hidden transition-colors duration-700 ease-out px-4 pt-10 pb-7 bg-gradient-to-b from-[#FFFDFD] via-[#FAF6F4] to-[#F7F0EC]">
+          
+          {/* Mobile Animated TeesZone Logo Emblem (Within section height, rotated & scaled) */}
+          <motion.div
+            style={{
+              opacity: mobileWatermarkOpacity,
+              scale: mobileWatermarkScale,
+              rotate: mobileWatermarkRotate,
+            }}
+            className="absolute right-2 top-16 pointer-events-none select-none z-0 w-[180px] sm:w-[220px] max-h-[35vh] flex items-center justify-center"
+          >
+            <img
+              src="/assets/logo/teeszone-emblem.png"
+              alt="TeesZone Logo Emblem"
+              className="w-full h-auto object-contain filter drop-shadow-[0_4px_16px_rgba(130,19,44,0.06)]"
+            />
+          </motion.div>
+
           {/* Top Section Header */}
           <div className="text-center max-w-sm mx-auto z-10 shrink-0">
-            {/* Eyebrow: NO background color and NO border */}
-            <div className="flex items-center justify-center gap-2 mb-2 mx-auto">
+            <div className="flex items-center justify-center gap-2 mb-1.5 mx-auto">
               <span className="w-4 h-[1.5px] bg-[#82132C] rounded-full inline-block" />
               <span className="text-[10px] font-heading font-extrabold uppercase tracking-widest text-[#82132C]">
                 Custom T-Shirts For Every Sector
@@ -310,14 +344,13 @@ export const SectorShowcase: React.FC = () => {
               <span className="w-4 h-[1.5px] bg-[#82132C] rounded-full inline-block" />
             </div>
 
-            {/* Main Title */}
             <h2 className="text-2xl font-heading font-black tracking-tight leading-tight text-charcoal-900">
               Stay Branded, <span className="text-[#82132C]">Stay Professional</span>
             </h2>
           </div>
 
-          {/* Center Product Model (No card border, no shadow, floats seamlessly on full section background) */}
-          <div className="relative flex-1 w-full max-w-[340px] flex items-center justify-center my-2 overflow-hidden">
+          {/* Center Product Card */}
+          <div className="relative flex-1 w-full max-w-[320px] flex items-center justify-center my-2 overflow-hidden z-10">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeMobileCard.id}
@@ -329,14 +362,32 @@ export const SectorShowcase: React.FC = () => {
               >
                 <Link
                   to={`/category/${activeMobileCard.categorySlug}`}
-                  className="w-full h-full flex flex-col items-center justify-center"
+                  className="w-full max-h-[360px] p-3 rounded-3xl flex flex-col justify-between overflow-hidden shadow-lg border border-rose-100/60"
+                  style={{ backgroundColor: activeMobileCard.bg }}
                 >
-                  <img
-                    src={activeMobileCard.image}
-                    alt={activeMobileCard.title}
-                    className="w-full max-h-[340px] sm:max-h-[380px] object-contain object-bottom drop-shadow-md"
-                    loading="eager"
-                  />
+                  {/* Top Bar: Name Badge in increased size + Explore Button at Top Right */}
+                  <div className="w-full flex items-center justify-between z-10 mb-1">
+                    <span className="px-3 py-1 rounded-full bg-[#82132C] text-white font-heading font-black text-xs tracking-wide uppercase shadow-xs">
+                      {activeMobileCard.badge}
+                    </span>
+
+                    <div
+                      aria-label={`Explore ${activeMobileCard.title}`}
+                      className="w-7 h-7 rounded-full bg-[#82132C] text-white flex items-center justify-center shadow-xs"
+                    >
+                      <ArrowRight className="w-4 h-4 -rotate-45 stroke-[2.4]" />
+                    </div>
+                  </div>
+
+                  {/* Model Image (Decreased gap to name) */}
+                  <div className="relative flex-1 w-full flex items-end justify-center overflow-hidden">
+                    <img
+                      src={activeMobileCard.image}
+                      alt={activeMobileCard.title}
+                      className="w-full max-h-[290px] object-contain object-bottom drop-shadow-md"
+                      loading="eager"
+                    />
+                  </div>
                 </Link>
               </motion.div>
             </AnimatePresence>
@@ -351,28 +402,19 @@ export const SectorShowcase: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.25 }}
-                className="mb-3"
+                className="mb-2"
               >
-                <h3 className="font-heading font-black text-lg text-charcoal-900 leading-snug">
+                <h3 className="font-heading font-black text-base text-charcoal-900 leading-snug">
                   {activeMobileCard.title}
                 </h3>
-                <p className="text-xs text-charcoal-600 font-medium mt-0.5">
+                <p className="text-[11px] text-charcoal-600 font-medium mt-0.5">
                   {activeMobileCard.subtitle}
                 </p>
               </motion.div>
             </AnimatePresence>
 
-            {/* Action Button */}
-            <Link
-              to={`/category/${activeMobileCard.categorySlug}`}
-              className="inline-flex items-center justify-center gap-2 py-2 px-5 rounded-full bg-[#82132C] hover:bg-[#6c0f24] text-white font-heading font-semibold text-xs shadow-md transition-all active:scale-95"
-            >
-              <span>Explore Collection</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-
             {/* Progress Indicators */}
-            <div className="flex items-center justify-center gap-2 mt-3.5">
+            <div className="flex items-center justify-center gap-2 mt-2">
               {sectorCards.map((sector, idx) => (
                 <div
                   key={sector.id}

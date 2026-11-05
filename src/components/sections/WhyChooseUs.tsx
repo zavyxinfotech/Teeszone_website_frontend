@@ -93,8 +93,8 @@ const MobileFeatureCard: React.FC<{
   scrollProgress: MotionValue<number>;
 }> = ({ feature, index, total, scrollProgress }) => {
   const isFromRight = index % 2 === 0;
-  const slotSpan = 0.62 / total;
-  const start = 0.36 + index * slotSpan;
+  const slotSpan = 0.66 / total; // ~0.11 each
+  const start = 0.32 + index * slotSpan;
   const mid = start + slotSpan * 0.5;
   const end = start + slotSpan;
   const isLast = index === total - 1;
@@ -176,23 +176,23 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
   });
 
   // Mobile scroll stages:
-  // 1. Heading starts at the center of the mobile screen (0.0 to 0.10), then transitions up to docked position (0.10 to 0.22)
-  const mobileHeadingY = useTransform(mobileScrollProgress, [0, 0.10, 0.22], ['32vh', '32vh', '0vh']);
-  const mobileHeadingScale = useTransform(mobileScrollProgress, [0, 0.10, 0.22], [1.18, 1.18, 1.0]);
+  // 1. Heading starts at the center of the mobile screen (0.0 to 0.08), then transitions up to docked position (0.08 to 0.18)
+  const mobileHeadingY = useTransform(mobileScrollProgress, [0, 0.08, 0.18], ['34vh', '34vh', '0vh']);
+  const mobileHeadingScale = useTransform(mobileScrollProgress, [0, 0.08, 0.18], [1.18, 1.18, 1.0]);
 
-  // 2. Center model aligns at center of mobile view (0.10 to 0.22), stays centered (0.22 to 0.30), then scales down to minimal (0.30 to 0.36)
-  const mobileModelOpacity = useTransform(mobileScrollProgress, [0.10, 0.18, 0.28, 0.36], [0, 1, 1, 0.22]);
-  const mobileModelScale = useTransform(mobileScrollProgress, [0.10, 0.18, 0.28, 0.36], [0.65, 1.05, 1.0, 0.36]);
-  const mobileModelY = useTransform(mobileScrollProgress, [0.10, 0.18, 0.28, 0.36], [60, 0, 0, -35]);
+  // 2. Center model aligns at center of mobile view (0.08 to 0.18), stays centered (0.18 to 0.26), then scales down to minimal (0.26 to 0.32)
+  const mobileModelOpacity = useTransform(mobileScrollProgress, [0.08, 0.16, 0.26, 0.32], [0, 1, 1, 0.22]);
+  const mobileModelScale = useTransform(mobileScrollProgress, [0.08, 0.16, 0.26, 0.32], [0.65, 1.05, 1.0, 0.36]);
+  const mobileModelY = useTransform(mobileScrollProgress, [0.08, 0.16, 0.26, 0.32], [50, 0, 0, -35]);
 
   // Active step indicator for mobile progress
   const [activeFeatureIndex, setActiveFeatureIndex] = useState<number>(-1);
 
   useMotionValueEvent(mobileScrollProgress, 'change', (latest) => {
-    if (latest < 0.34) {
+    if (latest < 0.30) {
       setActiveFeatureIndex(-1);
     } else {
-      const featureProgress = (latest - 0.34) / 0.66;
+      const featureProgress = (latest - 0.30) / 0.70;
       const idx = Math.min(
         allFeatures.length - 1,
         Math.max(0, Math.floor(featureProgress * allFeatures.length))
@@ -204,7 +204,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
   return (
     <section
       id="why-choose-us"
-      className={`relative w-full overflow-hidden bg-gradient-to-b from-[#FFFDFD] via-[#FAF6F4] to-[#F7F0EC] pt-6 sm:pt-8 lg:pt-8 pb-5 sm:pb-6 lg:pb-7 ${className}`}
+      className={`relative w-full bg-gradient-to-b from-[#FFFDFD] via-[#FAF6F4] to-[#F7F0EC] ${className}`}
     >
       {/* Decorative Background Swirls & Dot Matrix (Top-Right & Bottom-Left) */}
       <div className="absolute top-0 right-0 w-36 sm:w-48 md:w-56 h-36 sm:h-48 md:h-56 pointer-events-none select-none overflow-hidden z-0">
@@ -293,7 +293,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
       {/* =========================================================================
           DESKTOP CONTAINER: Fits within Desktop Viewport Height (< 750px)
           ========================================================================= */}
-      <div className="hidden lg:block relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+      <div className="hidden lg:block relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 overflow-hidden pt-6 sm:pt-8 lg:pt-8 pb-5 sm:pb-6 lg:pb-7">
         
         {/* Top Header: Word "US" changed to "TEESZONE" */}
         <div className="text-center mb-2.5">
@@ -324,8 +324,8 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
             <defs>
               {/* Standard orient="auto" marker: Tip points in positive X.
                   SVG automatically aligns the tip with the tangent vector at the end of each path:
-                  - Leftward paths (dx < 0) rotate 180° so the arrow head points directly LEFT towards left cards.
-                  - Rightward paths (dx > 0) rotate 0° so the arrow head points directly RIGHT towards right cards. */}
+                  - Leftward paths rotate 180° so the arrow head points directly LEFT towards left cards.
+                  - Rightward paths rotate 0° so the arrow head points directly RIGHT towards right cards. */}
               <marker
                 id="arrowMarker"
                 viewBox="0 0 10 10"
@@ -554,7 +554,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
       </div>
 
       {/* =========================================================================
-          MOBILE VIEW: Cinematic Scroll Pinned Container
+          MOBILE VIEW: Cinematic Scroll Pinned Container (No overflow-hidden on ancestor)
           1. 1st scroll: Heading shows at the center of the mobile screen
           2. Next scroll: Center model aligns at center of mobile view
           3. Next scroll: Center model decreases to minimal
@@ -669,7 +669,6 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
             </a>
           </div>
         </div>
-
       </div>
       </div>
 
