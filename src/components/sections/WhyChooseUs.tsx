@@ -93,41 +93,50 @@ const MobileFeatureCard: React.FC<{
   scrollProgress: MotionValue<number>;
 }> = ({ feature, index, total, scrollProgress }) => {
   const isFromRight = index % 2 === 0;
-  const slotSpan = 0.66 / total; // ~0.11 each
-  const start = 0.32 + index * slotSpan;
-  const mid = start + slotSpan * 0.5;
+  const startRange = 0.28;
+  const endRange = 0.96;
+  const slotSpan = (endRange - startRange) / total; // ~0.1133 each
+  const start = startRange + index * slotSpan;
   const end = start + slotSpan;
   const isLast = index === total - 1;
 
+  // Offscreen x value of 450px guarantees card is completely off-screen on any mobile device
+  const enterX = isFromRight ? 450 : -450;
+  const exitX = isFromRight ? -450 : 450;
+  const enterRotY = isFromRight ? -25 : 25;
+  const exitRotY = isFromRight ? 25 : -25;
+
+  // Dedicated transition window (0.024 progress to slide in / out cleanly)
+  const tInStart = start;
+  const tInEnd = start + 0.024;
+  const tOutStart = end - 0.024;
+  const tOutEnd = end;
+
   const inputRange = isLast
-    ? [start - 0.04, start + 0.02, mid, 1.0]
-    : [start - 0.04, start + 0.02, mid, end - 0.02, end + 0.04];
+    ? [0, Math.max(0, tInStart - 0.001), tInStart, tInEnd, 1.0]
+    : [0, Math.max(0, tInStart - 0.001), tInStart, tInEnd, tOutStart, tOutEnd, Math.min(1.0, tOutEnd + 0.001), 1.0];
 
   const xRange = isLast
-    ? [isFromRight ? 280 : -280, 0, 0, 0]
-    : isFromRight
-    ? [280, 0, 0, 0, -280]
-    : [-280, 0, 0, 0, 280];
+    ? [enterX, enterX, enterX, 0, 0]
+    : [enterX, enterX, enterX, 0, 0, exitX, exitX, exitX];
 
   const rotYRange = isLast
-    ? [isFromRight ? -30 : 30, 0, 0, 0]
-    : isFromRight
-    ? [-30, 0, 0, 0, 30]
-    : [30, 0, 0, 0, -30];
+    ? [enterRotY, enterRotY, enterRotY, 0, 0]
+    : [enterRotY, enterRotY, enterRotY, 0, 0, exitRotY, exitRotY, exitRotY];
 
   const opacityRange = isLast
-    ? [0, 1, 1, 1]
-    : [0, 1, 1, 1, 0];
+    ? [0, 0, 0, 1, 1]
+    : [0, 0, 0, 1, 1, 0, 0, 0];
 
   const scaleRange = isLast
-    ? [0.86, 1, 1, 1]
-    : [0.86, 1, 1, 1, 0.86];
+    ? [0.88, 0.88, 0.88, 1, 1]
+    : [0.88, 0.88, 0.88, 1, 1, 0.88, 0.88, 0.88];
 
-  const x = useTransform(scrollProgress, inputRange, xRange);
-  const rotateY = useTransform(scrollProgress, inputRange, rotYRange);
-  const opacity = useTransform(scrollProgress, inputRange, opacityRange);
-  const scale = useTransform(scrollProgress, inputRange, scaleRange);
-  const pointerEvents = useTransform(opacity, (v) => (v > 0.5 ? 'auto' : 'none'));
+  const x = useTransform(scrollProgress, inputRange, xRange, { clamp: true });
+  const rotateY = useTransform(scrollProgress, inputRange, rotYRange, { clamp: true });
+  const opacity = useTransform(scrollProgress, inputRange, opacityRange, { clamp: true });
+  const scale = useTransform(scrollProgress, inputRange, scaleRange, { clamp: true });
+  const pointerEvents = useTransform(opacity, (v) => (v > 0.6 ? 'auto' : 'none'));
 
   const IconComp = feature.icon;
 
@@ -142,23 +151,23 @@ const MobileFeatureCard: React.FC<{
         perspective: 1200,
         transformStyle: 'preserve-3d',
       }}
-      className="absolute inset-x-0 mx-auto w-full max-w-[315px] p-4 sm:p-5 rounded-3xl bg-white/95 backdrop-blur-md border border-rose-200/80 shadow-[0_16px_36px_rgba(138,0,36,0.18)] flex flex-col items-center text-center z-20"
+      className="absolute inset-x-0 mx-auto w-full max-w-[325px] sm:max-w-[340px] px-5 py-5 sm:p-6 rounded-3xl bg-white/95 backdrop-blur-md border border-rose-200/80 shadow-[0_16px_36px_rgba(138,0,36,0.16)] flex flex-col items-center text-center z-20"
     >
-      <div className="text-[11px] font-heading font-black tracking-widest text-[#8A0024] uppercase mb-1.5 bg-rose-50 px-3 py-0.5 rounded-full border border-rose-100">
+      <div className="text-[11px] font-heading font-black tracking-widest text-[#8A0024] uppercase mb-2 bg-rose-50 px-3.5 py-0.5 rounded-full border border-rose-100">
         Feature 0{index + 1} of 06
       </div>
 
-      <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-gradient-to-tr from-[#8A0024] to-[#B01A3D] text-white flex items-center justify-center shadow-md mb-2">
-        <IconComp className="w-6.5 h-6.5 sm:w-7 sm:h-7 stroke-[2.2]" />
+      <div className="w-14 h-14 rounded-full bg-gradient-to-tr from-[#8A0024] to-[#B01A3D] text-white flex items-center justify-center shadow-md mb-2.5">
+        <IconComp className="w-7 h-7 stroke-[2.2]" />
       </div>
 
       <h3 className="font-heading font-black text-base sm:text-lg text-[#8A0024] tracking-wide">
         {feature.title}
       </h3>
 
-      <div className="w-8 h-[1.5px] bg-[#8A0024] rounded-full my-1.5" />
+      <div className="w-10 h-[2px] bg-[#8A0024] rounded-full my-2" />
 
-      <p className="text-xs sm:text-[13.5px] text-[#334155] font-normal leading-relaxed">
+      <p className="text-[13px] sm:text-sm text-[#334155] font-normal leading-relaxed px-1">
         {feature.description}
       </p>
     </motion.div>
@@ -177,22 +186,22 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
 
   // Mobile scroll stages:
   // 1. Heading starts at the center of the mobile screen (0.0 to 0.08), then transitions up to docked position (0.08 to 0.18)
-  const mobileHeadingY = useTransform(mobileScrollProgress, [0, 0.08, 0.18], ['32vh', '32vh', '0vh']);
-  const mobileHeadingScale = useTransform(mobileScrollProgress, [0, 0.08, 0.18], [1.16, 1.16, 1.0]);
+  const mobileHeadingY = useTransform(mobileScrollProgress, [0, 0.08, 0.18], ['24vh', '24vh', '0vh']);
+  const mobileHeadingScale = useTransform(mobileScrollProgress, [0, 0.08, 0.18], [1.14, 1.14, 1.0]);
 
   // 2. Center model aligns at center of mobile view (0.08 to 0.18), stays centered (0.18 to 0.26), then scales down to minimal (0.26 to 0.32)
-  const mobileModelOpacity = useTransform(mobileScrollProgress, [0.08, 0.16, 0.26, 0.32], [0, 1, 1, 0.22]);
-  const mobileModelScale = useTransform(mobileScrollProgress, [0.08, 0.16, 0.26, 0.32], [0.65, 1.05, 1.0, 0.36]);
-  const mobileModelY = useTransform(mobileScrollProgress, [0.08, 0.16, 0.26, 0.32], [45, 0, 0, -30]);
+  const mobileModelOpacity = useTransform(mobileScrollProgress, [0.08, 0.16, 0.26, 0.32], [0, 1, 1, 0.35]);
+  const mobileModelScale = useTransform(mobileScrollProgress, [0.08, 0.16, 0.26, 0.32], [0.65, 1.0, 1.0, 0.42]);
+  const mobileModelY = useTransform(mobileScrollProgress, [0.08, 0.16, 0.26, 0.32], [40, 0, 0, -80]);
 
   // Active step indicator for mobile progress
   const [activeFeatureIndex, setActiveFeatureIndex] = useState<number>(-1);
 
   useMotionValueEvent(mobileScrollProgress, 'change', (latest) => {
-    if (latest < 0.30) {
+    if (latest < 0.28) {
       setActiveFeatureIndex(-1);
     } else {
-      const featureProgress = (latest - 0.30) / 0.70;
+      const featureProgress = (latest - 0.28) / (0.96 - 0.28);
       const idx = Math.min(
         allFeatures.length - 1,
         Math.max(0, Math.floor(featureProgress * allFeatures.length))
@@ -553,29 +562,29 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
           4. Next scrolls: Contents slide in alternating from right and left in 3D
           ========================================================================= */}
       <div ref={mobileContainerRef} className="lg:hidden relative h-[420vh]">
-        <div className="sticky top-0 h-screen w-full flex flex-col justify-between items-center overflow-hidden px-4 pt-8 pb-5 bg-[#FAF6F4]">
+        <div className="sticky top-0 h-[100dvh] w-full flex flex-col justify-between items-center overflow-hidden px-4 pt-20 pb-5 bg-[#FAF6F4]">
           
           {/* Top/Center Animated Heading */}
           <motion.div
             style={{ y: mobileHeadingY, scale: mobileHeadingScale }}
             className="text-center max-w-sm mx-auto z-30 shrink-0 origin-center"
           >
-            <p className="text-[11px] font-heading font-black tracking-[0.24em] text-[#1B2A4A] uppercase">
+            <p className="text-[11px] sm:text-xs font-heading font-black tracking-[0.24em] text-[#1B2A4A] uppercase">
               WHY CHOOSE
             </p>
-            <h2 className="text-3xl sm:text-4xl font-heading font-black text-[#8A0024] tracking-tight leading-none my-1">
-              <span className="inline-block px-3.5 py-1 rounded-2xl bg-[#8A0024]/[0.06] border border-[#8A0024]/15">
+            <h2 className="text-3xl sm:text-4xl font-heading font-black text-[#8A0024] tracking-tight leading-none my-1 select-none">
+              <span className="inline-block px-4 py-1 rounded-2xl bg-[#8A0024]/[0.06] border border-[#8A0024]/15 drop-shadow-[0_2px_8px_rgba(138,0,36,0.08)]">
                 TEESZONE?
               </span>
             </h2>
-            <p className="text-xs font-heading font-extrabold tracking-wider text-[#1B2A4A]">
+            <p className="text-xs font-heading font-extrabold tracking-wider text-[#1B2A4A] mt-0.5">
               BEYOND CUSTOM T-SHIRTS.{' '}
               <span className="text-[#8A0024]">YOUR APPAREL PARTNER.</span>
             </p>
           </motion.div>
 
           {/* Center Area: Animated Model + Alternating 3D Sliding Cards */}
-          <div className="relative flex-1 w-full max-w-sm flex items-center justify-center my-auto py-1 overflow-hidden">
+          <div className="relative flex-1 w-full max-w-sm flex items-center justify-center my-auto py-2 overflow-hidden">
             
             {/* Center Model (Enters center, then scales to minimal) */}
             <motion.div
@@ -589,12 +598,12 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
               <img
                 src="/assets/images/why-choose/question-man-center.png"
                 alt="Why Choose TeesZone"
-                className="max-h-[290px] sm:max-h-[330px] w-auto object-contain drop-shadow-[0_16px_28px_rgba(20,0,5,0.2)]"
+                className="max-h-[300px] sm:max-h-[340px] w-auto object-contain drop-shadow-[0_16px_28px_rgba(20,0,5,0.2)]"
               />
             </motion.div>
 
             {/* Alternating 3D Cards */}
-            <div className="relative z-20 w-full h-[270px] flex items-center justify-center">
+            <div className="relative z-20 w-full min-h-[280px] flex items-center justify-center">
               {allFeatures.map((feature, idx) => (
                 <MobileFeatureCard
                   key={feature.id}

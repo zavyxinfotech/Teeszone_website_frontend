@@ -313,7 +313,7 @@ export const SectorShowcase: React.FC = () => {
       {/* MOBILE VIEW: Pinned Scroll Carousel */}
       {/* ======================================================== */}
       <div ref={mobileContainerRef} className="md:hidden relative h-[380vh]">
-        <div className="sticky top-0 h-screen w-full flex flex-col justify-between items-center overflow-hidden transition-colors duration-700 ease-out px-4 pt-12 pb-5 bg-[#FAF6F4]">
+        <div className="sticky top-0 h-[100dvh] w-full flex flex-col justify-between items-center overflow-hidden transition-colors duration-700 ease-out px-4 pt-20 pb-5 bg-[#FAF6F4]">
           
           {/* Mobile Animated TeesZone Logo Emblem (Positioned in center, not cut off) */}
           <motion.div
