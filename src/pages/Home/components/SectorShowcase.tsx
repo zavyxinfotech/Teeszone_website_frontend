@@ -34,8 +34,8 @@ const sectorCards: SectorCardItem[] = [
   {
     id: 'promotional-apparel',
     badge: 'PROMOTIONAL APPAREL',
-    title: 'Promotional Event Wear',
-    subtitle: 'Premium Hoodies & Custom Campaign Merch',
+    title: 'Promotional Apparel',
+    subtitle: 'Custom Branded Corporate Campaign Polo',
     image: '/assets/images/sector-promotional-apparel.png',
     categorySlug: 'promotional',
     bg: '#FDF1F3',
@@ -103,10 +103,10 @@ export const SectorShowcase: React.FC = () => {
   const headerY = useTransform(desktopScrollProgress, [0, 0.24, 0.46], [90, 90, 0]);
   const headerScale = useTransform(desktopScrollProgress, [0, 0.24, 0.46], [1.32, 1.32, 1.0]);
 
-  // TeesZone emblem logo watermark: positioned higher up and towards center, keeping smooth rotation and scale
+  // TeesZone emblem logo watermark: Fully contained within section height without cutting off at top
   const watermarkOpacity = useTransform(desktopScrollProgress, [0, 0.12, 0.32, 0.48], [0, 0.25, 0.25, 0.12]);
-  const watermarkScale = useTransform(desktopScrollProgress, [0, 0.24, 0.48], [0.92, 1.08, 0.95]);
-  const watermarkRotate = useTransform(desktopScrollProgress, [0, 0.28, 0.48], [-25, 0, 15]);
+  const watermarkScale = useTransform(desktopScrollProgress, [0, 0.24, 0.48], [0.92, 1.05, 0.95]);
+  const watermarkRotate = useTransform(desktopScrollProgress, [0, 0.28, 0.48], [-20, 0, 15]);
 
   // Center card (Index 2 - Corporate Sector)
   const centerCardOpacity = useTransform(desktopScrollProgress, [0, 0.24, 0.44], [0, 0, 1]);
@@ -156,8 +156,8 @@ export const SectorShowcase: React.FC = () => {
   const activeMobileCard = sectorCards[mobileIndex];
 
   // Mobile TeesZone watermark transforms
-  const mobileWatermarkOpacity = useTransform(mobileScrollProgress, [0, 0.2, 0.8, 1], [0.15, 0.22, 0.22, 0.15]);
-  const mobileWatermarkRotate = useTransform(mobileScrollProgress, [0, 1], [-15, 20]);
+  const mobileWatermarkOpacity = useTransform(mobileScrollProgress, [0, 0.2, 0.8, 1], [0.12, 0.20, 0.20, 0.12]);
+  const mobileWatermarkRotate = useTransform(mobileScrollProgress, [0, 1], [-12, 18]);
   const mobileWatermarkScale = useTransform(mobileScrollProgress, [0, 0.5, 1], [0.95, 1.05, 0.95]);
 
   return (
@@ -169,14 +169,14 @@ export const SectorShowcase: React.FC = () => {
       <div ref={desktopContainerRef} className="hidden md:block relative h-[250vh]">
         <div className="sticky top-0 h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-gradient-to-b from-[#FFFDFD] via-[#FAF6F4] to-[#F7F0EC] px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 lg:pt-28 pb-6">
           
-          {/* Background Ambient TeesZone Emblem Watermark: Aligned towards top and center */}
+          {/* Background Ambient TeesZone Emblem Watermark: Centered and safely within section height (no top crop) */}
           <motion.div
             style={{
               opacity: watermarkOpacity,
               scale: watermarkScale,
               rotate: watermarkRotate,
             }}
-            className="absolute left-1/2 -translate-x-1/2 top-10 sm:top-14 lg:top-16 pointer-events-none select-none z-0 w-[380px] sm:w-[460px] lg:w-[520px] max-h-[58vh] flex items-center justify-center"
+            className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 pointer-events-none select-none z-0 w-[340px] sm:w-[420px] lg:w-[480px] max-h-[50vh] flex items-center justify-center"
           >
             <img
               src="/assets/logo/teeszone-emblem.png"
@@ -275,7 +275,7 @@ export const SectorShowcase: React.FC = () => {
                       }`}
                       style={{ backgroundColor: sector.bg }}
                     >
-                      {/* Top Bar: Sector Name (No background color, full name, increased size, medium weight, new font style) + Arrow (No background) */}
+                      {/* Top Bar: Sector Name (No background color, full name, increased size, medium weight) + Arrow (No background) */}
                       <div className="relative w-full flex items-start justify-between z-10 gap-1 pt-0.5 px-0.5">
                         <span className="text-[11.5px] sm:text-[12.5px] lg:text-[13px] font-sans font-medium tracking-[0.06em] text-[#82132C] uppercase leading-tight">
                           {sector.badge}
@@ -314,19 +314,19 @@ export const SectorShowcase: React.FC = () => {
       </div>
 
       {/* ======================================================== */}
-      {/* MOBILE VIEW: Pinned Scroll Carousel */}
+      {/* MOBILE VIEW: Pinned Scroll Carousel (No unwanted vertical space) */}
       {/* ======================================================== */}
-      <div ref={mobileContainerRef} className="md:hidden relative h-[360vh]">
-        <div className="sticky top-0 h-screen w-full flex flex-col justify-between items-center overflow-hidden transition-colors duration-700 ease-out px-4 pt-16 pb-7 bg-gradient-to-b from-[#FFFDFD] via-[#FAF6F4] to-[#F7F0EC]">
+      <div ref={mobileContainerRef} className="md:hidden relative h-[320vh]">
+        <div className="sticky top-0 h-screen w-full flex flex-col justify-center items-center overflow-hidden transition-colors duration-700 ease-out px-4 pt-10 pb-5 gap-2 bg-gradient-to-b from-[#FFFDFD] via-[#FAF6F4] to-[#F7F0EC]">
           
-          {/* Mobile Animated TeesZone Logo Emblem (Positioned towards top & center) */}
+          {/* Mobile Animated TeesZone Logo Emblem (Positioned within section height) */}
           <motion.div
             style={{
               opacity: mobileWatermarkOpacity,
               scale: mobileWatermarkScale,
               rotate: mobileWatermarkRotate,
             }}
-            className="absolute left-1/2 -translate-x-1/2 top-14 pointer-events-none select-none z-0 w-[220px] sm:w-[260px] max-h-[35vh] flex items-center justify-center opacity-20"
+            className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 pointer-events-none select-none z-0 w-[220px] sm:w-[260px] max-h-[35vh] flex items-center justify-center opacity-20"
           >
             <img
               src="/assets/logo/teeszone-emblem.png"
@@ -337,7 +337,7 @@ export const SectorShowcase: React.FC = () => {
 
           {/* Top Section Header */}
           <div className="text-center max-w-sm mx-auto z-10 shrink-0">
-            <div className="flex items-center justify-center gap-2 mb-1.5 mx-auto">
+            <div className="flex items-center justify-center gap-2 mb-1 mx-auto">
               <span className="w-4 h-[1.5px] bg-[#82132C] rounded-full inline-block" />
               <span className="text-[10px] font-heading font-extrabold uppercase tracking-widest text-[#82132C]">
                 Custom T-Shirts For Every Sector
@@ -345,13 +345,13 @@ export const SectorShowcase: React.FC = () => {
               <span className="w-4 h-[1.5px] bg-[#82132C] rounded-full inline-block" />
             </div>
 
-            <h2 className="text-2xl font-heading font-black tracking-tight leading-tight text-charcoal-900">
+            <h2 className="text-xl sm:text-2xl font-heading font-black tracking-tight leading-tight text-charcoal-900">
               Stay Branded, <span className="text-[#82132C]">Stay Professional</span>
             </h2>
           </div>
 
           {/* Center Product Card */}
-          <div className="relative flex-1 w-full max-w-[320px] flex items-center justify-center my-2 overflow-hidden z-10">
+          <div className="relative w-full max-w-[310px] flex items-center justify-center my-1 overflow-hidden z-10">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeMobileCard.id}
@@ -359,16 +359,16 @@ export const SectorShowcase: React.FC = () => {
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: scrollDir >= 0 ? -50 : 50, scale: 0.94 }}
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="w-full h-full flex flex-col items-center justify-center"
+                className="w-full flex flex-col items-center justify-center"
               >
                 <Link
                   to={`/category/${activeMobileCard.categorySlug}`}
-                  className="w-full max-h-[360px] p-3 rounded-3xl flex flex-col justify-between overflow-hidden shadow-lg border border-rose-100/60"
+                  className="w-full h-[320px] sm:h-[340px] p-3 rounded-3xl flex flex-col justify-between overflow-hidden shadow-lg border border-rose-100/60"
                   style={{ backgroundColor: activeMobileCard.bg }}
                 >
                   {/* Top Bar: Name in increased size, no background color + Arrow with no background */}
                   <div className="w-full flex items-center justify-between z-10 mb-1 px-1">
-                    <span className="text-xs sm:text-sm font-sans font-medium tracking-[0.06em] text-[#82132C] uppercase">
+                    <span className="text-xs sm:text-[13px] font-sans font-medium tracking-[0.06em] text-[#82132C] uppercase">
                       {activeMobileCard.badge}
                     </span>
 
@@ -385,7 +385,7 @@ export const SectorShowcase: React.FC = () => {
                     <img
                       src={activeMobileCard.image}
                       alt={activeMobileCard.title}
-                      className="w-full max-h-[290px] object-contain object-bottom drop-shadow-md scale-105 origin-bottom"
+                      className="w-full h-full object-contain object-bottom drop-shadow-md scale-105 origin-bottom"
                       loading="eager"
                     />
                   </div>
@@ -394,18 +394,18 @@ export const SectorShowcase: React.FC = () => {
             </AnimatePresence>
           </div>
 
-          {/* Bottom Product Details & Action Button */}
+          {/* Bottom Product Details */}
           <div className="w-full max-w-sm flex flex-col items-center text-center z-10 shrink-0">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeMobileCard.id}
-                initial={{ opacity: 0, y: 8 }}
+                initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
+                exit={{ opacity: 0, y: -6 }}
                 transition={{ duration: 0.25 }}
-                className="mb-2"
+                className="mb-1.5"
               >
-                <h3 className="font-heading font-black text-base text-charcoal-900 leading-snug">
+                <h3 className="font-heading font-black text-sm sm:text-base text-charcoal-900 leading-snug">
                   {activeMobileCard.title}
                 </h3>
                 <p className="text-[11px] text-charcoal-600 font-medium mt-0.5">
@@ -415,7 +415,7 @@ export const SectorShowcase: React.FC = () => {
             </AnimatePresence>
 
             {/* Progress Indicators */}
-            <div className="flex items-center justify-center gap-2 mt-2">
+            <div className="flex items-center justify-center gap-2 mt-1">
               {sectorCards.map((sector, idx) => (
                 <div
                   key={sector.id}
