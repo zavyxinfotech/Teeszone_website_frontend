@@ -26,10 +26,10 @@ const sectorCards: SectorCardItem[] = [
     image: '/assets/images/sector-corporate-event.png',
     categorySlug: 'corporate',
     bg: '#FCEEF0',
-    cardHeight: 'h-[275px] sm:h-[305px] lg:h-[335px]',
-    cardWidth: 'w-[160px] sm:w-[180px] lg:w-[200px]',
-    cardTopOffset: 'mt-[76px] sm:mt-[88px] lg:mt-[100px]',
-    borderRadius: 'rounded-[26px] sm:rounded-[30px] lg:rounded-[32px]',
+    cardHeight: 'h-[335px] sm:h-[365px] lg:h-[395px]',
+    cardWidth: 'w-[195px] sm:w-[220px] lg:w-[245px]',
+    cardTopOffset: 'mt-[40px] sm:mt-[46px] lg:mt-[52px]',
+    borderRadius: 'rounded-[30px] sm:rounded-[34px] lg:rounded-[38px]',
   },
   {
     id: 'promotional-apparel',
@@ -39,10 +39,10 @@ const sectorCards: SectorCardItem[] = [
     image: '/assets/images/sector-promotional-apparel.png',
     categorySlug: 'promotional',
     bg: '#FDF1F3',
-    cardHeight: 'h-[300px] sm:h-[330px] lg:h-[360px]',
-    cardWidth: 'w-[165px] sm:w-[185px] lg:w-[205px]',
-    cardTopOffset: 'mt-[38px] sm:mt-[44px] lg:mt-[50px]',
-    borderRadius: 'rounded-[30px] sm:rounded-[34px] lg:rounded-[36px]',
+    cardHeight: 'h-[360px] sm:h-[390px] lg:h-[420px]',
+    cardWidth: 'w-[205px] sm:w-[230px] lg:w-[255px]',
+    cardTopOffset: 'mt-[20px] sm:mt-[24px] lg:mt-[28px]',
+    borderRadius: 'rounded-[32px] sm:rounded-[36px] lg:rounded-[40px]',
   },
   {
     id: 'corporate-sector',
@@ -65,10 +65,10 @@ const sectorCards: SectorCardItem[] = [
     image: '/assets/images/sectors/sector-education.png',
     categorySlug: 'school',
     bg: '#FDF1F3',
-    cardHeight: 'h-[300px] sm:h-[330px] lg:h-[360px]',
-    cardWidth: 'w-[165px] sm:w-[185px] lg:w-[205px]',
-    cardTopOffset: 'mt-[38px] sm:mt-[44px] lg:mt-[50px]',
-    borderRadius: 'rounded-[30px] sm:rounded-[34px] lg:rounded-[36px]',
+    cardHeight: 'h-[360px] sm:h-[390px] lg:h-[420px]',
+    cardWidth: 'w-[205px] sm:w-[230px] lg:w-[255px]',
+    cardTopOffset: 'mt-[20px] sm:mt-[24px] lg:mt-[28px]',
+    borderRadius: 'rounded-[32px] sm:rounded-[36px] lg:rounded-[40px]',
   },
   {
     id: 'sports-athletics',
@@ -78,10 +78,10 @@ const sectorCards: SectorCardItem[] = [
     image: '/assets/images/sectors/sector-sports.png',
     categorySlug: 'sports',
     bg: '#FCEEF0',
-    cardHeight: 'h-[275px] sm:h-[305px] lg:h-[335px]',
-    cardWidth: 'w-[160px] sm:w-[180px] lg:w-[200px]',
-    cardTopOffset: 'mt-[76px] sm:mt-[88px] lg:mt-[100px]',
-    borderRadius: 'rounded-[26px] sm:rounded-[30px] lg:rounded-[32px]',
+    cardHeight: 'h-[335px] sm:h-[365px] lg:h-[395px]',
+    cardWidth: 'w-[195px] sm:w-[220px] lg:w-[245px]',
+    cardTopOffset: 'mt-[40px] sm:mt-[46px] lg:mt-[52px]',
+    borderRadius: 'rounded-[30px] sm:rounded-[34px] lg:rounded-[38px]',
   },
 ];
 
@@ -113,19 +113,19 @@ export const SectorShowcase: React.FC = () => {
   const centerCardScale = useTransform(desktopScrollProgress, [0, 0.24, 0.44, 0.56], [0.85, 0.85, 1, 1]);
 
   // Outer cards emerge from behind center card
-  const card0X = useTransform(desktopScrollProgress, [0.52, 0.86], [380, 0]);
+  const card0X = useTransform(desktopScrollProgress, [0.52, 0.86], [460, 0]);
   const card0Opacity = useTransform(desktopScrollProgress, [0.52, 0.65], [0, 1]);
   const card0Scale = useTransform(desktopScrollProgress, [0.52, 0.86], [0.8, 1]);
 
-  const card1X = useTransform(desktopScrollProgress, [0.52, 0.80], [190, 0]);
+  const card1X = useTransform(desktopScrollProgress, [0.52, 0.80], [230, 0]);
   const card1Opacity = useTransform(desktopScrollProgress, [0.52, 0.62], [0, 1]);
   const card1Scale = useTransform(desktopScrollProgress, [0.52, 0.80], [0.85, 1]);
 
-  const card3X = useTransform(desktopScrollProgress, [0.52, 0.80], [-190, 0]);
+  const card3X = useTransform(desktopScrollProgress, [0.52, 0.80], [-230, 0]);
   const card3Opacity = useTransform(desktopScrollProgress, [0.52, 0.62], [0, 1]);
   const card3Scale = useTransform(desktopScrollProgress, [0.52, 0.80], [0.85, 1]);
 
-  const card4X = useTransform(desktopScrollProgress, [0.52, 0.86], [-380, 0]);
+  const card4X = useTransform(desktopScrollProgress, [0.52, 0.86], [-460, 0]);
   const card4Opacity = useTransform(desktopScrollProgress, [0.52, 0.65], [0, 1]);
   const card4Scale = useTransform(desktopScrollProgress, [0.52, 0.86], [0.8, 1]);
 
@@ -213,7 +213,7 @@ export const SectorShowcase: React.FC = () => {
             </motion.div>
 
             {/* CARDS CONTAINER: Increased card sizes while preserving exact stepped arch alignment */}
-            <div className="flex items-start justify-center gap-2.5 sm:gap-3 lg:gap-3.5 pt-1 pb-4 relative z-10 max-w-[1240px] mx-auto w-full">
+            <div className="flex items-start justify-center gap-2.5 sm:gap-3 lg:gap-3.5 pt-1 pb-4 relative z-10 max-w-[1380px] mx-auto w-full">
               {sectorCards.map((sector, index) => {
                 const isHero = sector.id === 'corporate-sector';
                 const isHovered = hoveredIndex === index;
@@ -275,16 +275,16 @@ export const SectorShowcase: React.FC = () => {
                       }`}
                       style={{ backgroundColor: sector.bg }}
                     >
-                      {/* Top Bar: Sector Name (No background color, full name, increased size, medium weight) + Arrow (No background) */}
-                      <div className="relative w-full flex items-start justify-between z-10 gap-1 pt-0.5 px-0.5">
-                        <span className="text-[12px] sm:text-[13px] lg:text-[13.5px] font-sans font-medium tracking-[0.06em] text-[#82132C] uppercase leading-tight">
+                      {/* Top Bar: Sector Name Centered Above Image in Bigger Size + Top-Right Arrow */}
+                      <div className="relative w-full flex items-center justify-center z-10 pt-0.5 px-6">
+                        <span className="text-[13px] sm:text-[14px] lg:text-[14.5px] font-sans font-medium tracking-[0.06em] text-[#82132C] uppercase text-center leading-tight">
                           {sector.badge}
                         </span>
 
                         {/* Top-Right Arrow without background */}
                         <div
                           aria-label={`Explore ${sector.title}`}
-                          className="pt-0.5 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                          className="absolute top-0 right-0 pt-0.5 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                         >
                           <ArrowRight className="w-4 h-4 -rotate-45 stroke-[2.2] text-[#82132C] group-hover:text-[#660018]" />
                         </div>
@@ -362,15 +362,15 @@ export const SectorShowcase: React.FC = () => {
                   className="w-full max-h-[360px] p-3.5 rounded-3xl flex flex-col justify-between overflow-hidden shadow-lg border border-rose-100/60"
                   style={{ backgroundColor: activeMobileCard.bg }}
                 >
-                  {/* Top Bar: Name in increased size, no background color + Arrow with no background */}
-                  <div className="w-full flex items-center justify-between z-10 mb-1 px-1">
-                    <span className="text-[13px] sm:text-sm font-sans font-medium tracking-[0.08em] text-[#82132C] uppercase">
+                  {/* Top Bar: Name centered above image in bigger size + Arrow with no background */}
+                  <div className="relative w-full flex items-center justify-center z-10 mb-1 px-6">
+                    <span className="text-[14px] sm:text-[15px] font-sans font-medium tracking-[0.08em] text-[#82132C] uppercase text-center">
                       {activeMobileCard.badge}
                     </span>
 
                     <div
                       aria-label={`Explore ${activeMobileCard.title}`}
-                      className="text-[#82132C] transition-transform duration-300"
+                      className="absolute top-0 right-0 text-[#82132C] transition-transform duration-300"
                     >
                       <ArrowRight className="w-4 h-4 -rotate-45 stroke-[2.2] text-[#82132C]" />
                     </div>
