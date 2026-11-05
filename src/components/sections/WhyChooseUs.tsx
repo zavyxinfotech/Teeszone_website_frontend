@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValueEvent, MotionValue } from 'framer-motion';
 import {
   Headset,
   Target,
@@ -27,21 +27,21 @@ const leftFeatures: FeatureItem[] = [
   {
     id: 'dedicated-support',
     title: 'DEDICATED SUPPORT',
-    description: 'Responsive assistance, whenever you need us.',
+    description: 'Round-the-clock responsive apparel assistance, dedicated order specialists, and instant milestone tracking.',
     icon: Headset,
     position: 'left',
   },
   {
     id: 'strategic-solutions',
     title: 'STRATEGIC SOLUTIONS',
-    description: 'Apparel solutions aligned with your goals.',
+    description: 'End-to-end custom apparel roadmaps, fabric sourcing, and bulk uniform programs tailored to your organization.',
     icon: Target,
     position: 'left',
   },
   {
     id: 'expert-team',
     title: 'EXPERT TEAM',
-    description: 'Experienced professionals focused on your success.',
+    description: 'Master pattern makers, skilled textile artisans, and print engineers dedicated to delivering flawless craftsmanship.',
     icon: Users,
     position: 'left',
   },
@@ -51,34 +51,119 @@ const rightFeatures: FeatureItem[] = [
   {
     id: 'business-growth',
     title: 'BUSINESS GROWTH',
-    description: 'Scalable apparel solutions for growing brands.',
+    description: 'Scalable high-volume production, flexible order sizes, and rapid turnaround designed to expand your brand.',
     icon: TrendingUp,
     position: 'right',
   },
   {
     id: 'wider-reach',
     title: 'WIDER REACH',
-    description: 'Pan India supply with reliable delivery.',
+    description: 'Reliable pan-India delivery network with streamlined supply chain dispatch across all major cities and hubs.',
     icon: Globe,
     position: 'right',
   },
   {
     id: 'creative-ideas',
     title: 'CREATIVE IDEAS',
-    description: 'Custom apparel ideas that make your brand stand out.',
+    description: 'Trendsetting apparel concepts, premium fabric textures, and standout graphics engineered to elevate your brand presence.',
     icon: Lightbulb,
     position: 'right',
   },
 ];
 
-const allFeatures = [
-  leftFeatures[0],  // 1. Right slide
-  leftFeatures[1],  // 2. Left slide
-  leftFeatures[2],  // 3. Right slide
-  rightFeatures[0], // 4. Left slide
-  rightFeatures[1], // 5. Right slide
-  rightFeatures[2], // 6. Left slide
+const allFeatures: FeatureItem[] = [
+  leftFeatures[0],  // 1. DEDICATED SUPPORT (from Right)
+  leftFeatures[1],  // 2. STRATEGIC SOLUTIONS (from Left)
+  leftFeatures[2],  // 3. EXPERT TEAM (from Right)
+  rightFeatures[0], // 4. BUSINESS GROWTH (from Left)
+  rightFeatures[1], // 5. WIDER REACH (from Right)
+  rightFeatures[2], // 6. CREATIVE IDEAS (from Left)
 ];
+
+/**
+ * Mobile Feature Card: Animates continuously in 3D directly driven by scroll progress.
+ * Alternating order:
+ * Even indices (0, 2, 4) enter from RIGHT.
+ * Odd indices (1, 3, 5) enter from LEFT.
+ */
+const MobileFeatureCard: React.FC<{
+  feature: FeatureItem;
+  index: number;
+  total: number;
+  scrollProgress: MotionValue<number>;
+}> = ({ feature, index, total, scrollProgress }) => {
+  const isFromRight = index % 2 === 0;
+  const slotSpan = 0.62 / total;
+  const start = 0.36 + index * slotSpan;
+  const mid = start + slotSpan * 0.5;
+  const end = start + slotSpan;
+  const isLast = index === total - 1;
+
+  const inputRange = isLast
+    ? [start - 0.04, start + 0.02, mid, 1.0]
+    : [start - 0.04, start + 0.02, mid, end - 0.02, end + 0.04];
+
+  const xRange = isLast
+    ? [isFromRight ? 280 : -280, 0, 0, 0]
+    : isFromRight
+    ? [280, 0, 0, 0, -280]
+    : [-280, 0, 0, 0, 280];
+
+  const rotYRange = isLast
+    ? [isFromRight ? -30 : 30, 0, 0, 0]
+    : isFromRight
+    ? [-30, 0, 0, 0, 30]
+    : [30, 0, 0, 0, -30];
+
+  const opacityRange = isLast
+    ? [0, 1, 1, 1]
+    : [0, 1, 1, 1, 0];
+
+  const scaleRange = isLast
+    ? [0.86, 1, 1, 1]
+    : [0.86, 1, 1, 1, 0.86];
+
+  const x = useTransform(scrollProgress, inputRange, xRange);
+  const rotateY = useTransform(scrollProgress, inputRange, rotYRange);
+  const opacity = useTransform(scrollProgress, inputRange, opacityRange);
+  const scale = useTransform(scrollProgress, inputRange, scaleRange);
+  const pointerEvents = useTransform(opacity, (v) => (v > 0.5 ? 'auto' : 'none'));
+
+  const IconComp = feature.icon;
+
+  return (
+    <motion.div
+      style={{
+        x,
+        rotateY,
+        opacity,
+        scale,
+        pointerEvents,
+        perspective: 1200,
+        transformStyle: 'preserve-3d',
+      }}
+      className="absolute inset-x-0 mx-auto w-full max-w-[305px] p-5 rounded-3xl bg-white/95 backdrop-blur-md border border-rose-200/80 shadow-[0_16px_36px_rgba(138,0,36,0.18)] flex flex-col items-center text-center z-20"
+    >
+      <div className="text-[10px] font-heading font-black tracking-widest text-[#8A0024] uppercase mb-2 bg-rose-50 px-3 py-0.5 rounded-full border border-rose-100">
+        Feature 0{index + 1} of 06
+      </div>
+
+      <div className="w-14 h-14 rounded-full bg-gradient-to-tr from-[#8A0024] to-[#B01A3D] text-white flex items-center justify-center shadow-md mb-2.5">
+        <IconComp className="w-7 h-7 stroke-[2.2]" />
+      </div>
+
+      <h3 className="font-heading font-black text-sm sm:text-base text-[#8A0024] tracking-wide">
+        {feature.title}
+      </h3>
+
+      <div className="w-8 h-[2px] bg-[#8A0024] rounded-full my-2" />
+
+      <p className="text-xs sm:text-[13px] text-[#334155] font-semibold leading-relaxed">
+        {feature.description}
+      </p>
+    </motion.div>
+  );
+};
 
 export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
   className = '',
@@ -91,24 +176,23 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
   });
 
   // Mobile scroll stages:
-  // 0.00 - 0.18: Heading centered on screen
-  // 0.18 - 0.36: Model appears and centers on screen
-  // 0.36 - 0.48: Model decreases to minimal
-  // 0.48 - 1.00: 6 contents slide in alternating from right and left
-  const mobileHeadingY = useTransform(mobileScrollProgress, [0, 0.14, 0.28], [120, 120, 0]);
-  const mobileHeadingScale = useTransform(mobileScrollProgress, [0, 0.14, 0.28], [1.15, 1.15, 1.0]);
+  // 1. Heading starts at the center of the mobile screen (0.0 to 0.10), then transitions up to docked position (0.10 to 0.22)
+  const mobileHeadingY = useTransform(mobileScrollProgress, [0, 0.10, 0.22], ['32vh', '32vh', '0vh']);
+  const mobileHeadingScale = useTransform(mobileScrollProgress, [0, 0.10, 0.22], [1.18, 1.18, 1.0]);
 
-  const mobileModelOpacity = useTransform(mobileScrollProgress, [0.14, 0.22, 0.36, 0.44], [0, 1, 1, 0.3]);
-  const mobileModelScale = useTransform(mobileScrollProgress, [0.14, 0.24, 0.36, 0.44], [0.75, 1.05, 1.0, 0.42]);
-  const mobileModelY = useTransform(mobileScrollProgress, [0.14, 0.24, 0.36, 0.44], [40, 0, 0, -40]);
+  // 2. Center model aligns at center of mobile view (0.10 to 0.22), stays centered (0.22 to 0.30), then scales down to minimal (0.30 to 0.36)
+  const mobileModelOpacity = useTransform(mobileScrollProgress, [0.10, 0.18, 0.28, 0.36], [0, 1, 1, 0.22]);
+  const mobileModelScale = useTransform(mobileScrollProgress, [0.10, 0.18, 0.28, 0.36], [0.65, 1.05, 1.0, 0.36]);
+  const mobileModelY = useTransform(mobileScrollProgress, [0.10, 0.18, 0.28, 0.36], [60, 0, 0, -35]);
 
+  // Active step indicator for mobile progress
   const [activeFeatureIndex, setActiveFeatureIndex] = useState<number>(-1);
 
   useMotionValueEvent(mobileScrollProgress, 'change', (latest) => {
-    if (latest < 0.44) {
+    if (latest < 0.34) {
       setActiveFeatureIndex(-1);
     } else {
-      const featureProgress = (latest - 0.44) / 0.56;
+      const featureProgress = (latest - 0.34) / 0.66;
       const idx = Math.min(
         allFeatures.length - 1,
         Math.max(0, Math.floor(featureProgress * allFeatures.length))
@@ -230,7 +314,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
         {/* 6-Point Infographic: Contents Arranged Straight Towards Continuous Animated Arrows */}
         <div className="relative max-w-5xl mx-auto h-[440px]">
           
-          {/* Animated SVG Curved & Straight Dotted Arrows */}
+          {/* Animated SVG Straight & Curved Dotted Arrows */}
           <svg
             viewBox="0 0 1000 440"
             fill="none"
@@ -238,92 +322,87 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
             className="absolute inset-0 w-full h-full pointer-events-none select-none z-10"
           >
             <defs>
+              {/* Standard orient="auto" marker: Tip points in positive X.
+                  SVG automatically aligns the tip with the tangent vector at the end of each path:
+                  - Leftward paths (dx < 0) rotate 180° so the arrow head points directly LEFT towards left cards.
+                  - Rightward paths (dx > 0) rotate 0° so the arrow head points directly RIGHT towards right cards. */}
               <marker
-                id="arrowRight"
+                id="arrowMarker"
+                viewBox="0 0 10 10"
+                refX="7"
+                refY="5"
                 markerWidth="7"
                 markerHeight="7"
-                refX="4"
-                refY="3.5"
                 orient="auto"
               >
-                <polygon points="0 1, 6 3.5, 0 6" fill="#8A0024" />
-              </marker>
-              <marker
-                id="arrowLeft"
-                markerWidth="7"
-                markerHeight="7"
-                refX="2"
-                refY="3.5"
-                orient="auto"
-              >
-                <polygon points="6 1, 0 3.5, 6 6" fill="#8A0024" />
+                <path d="M 1 2 L 8 5 L 1 8 z" fill="#8A0024" />
               </marker>
             </defs>
 
-            {/* Line 1: Straight to DEDICATED SUPPORT (Top-Left) */}
+            {/* Line 1: Straight towards DEDICATED SUPPORT (Top-Left) */}
             <motion.path
-              d="M 375,100 C 320,95 270,78 220,78"
+              d="M 365,115 C 335,110 305,82 280,80"
               stroke="#8A0024"
               strokeWidth="2.2"
               strokeDasharray="6 6"
               animate={{ strokeDashoffset: [0, -24] }}
               transition={{ duration: 1.8, repeat: Infinity, ease: 'linear' }}
-              markerEnd="url(#arrowLeft)"
+              markerEnd="url(#arrowMarker)"
             />
 
-            {/* Line 2: Straight Horizontal to STRATEGIC SOLUTIONS (Mid-Left) */}
+            {/* Line 2: Straight Horizontal towards STRATEGIC SOLUTIONS (Mid-Left) */}
             <motion.path
-              d="M 345,220 C 300,220 260,220 215,220"
+              d="M 350,220 L 275,220"
               stroke="#8A0024"
               strokeWidth="2.2"
               strokeDasharray="6 6"
               animate={{ strokeDashoffset: [0, -24] }}
               transition={{ duration: 1.8, repeat: Infinity, ease: 'linear' }}
-              markerEnd="url(#arrowLeft)"
+              markerEnd="url(#arrowMarker)"
             />
 
-            {/* Line 3: Straight to EXPERT TEAM (Bottom-Left) */}
+            {/* Line 3: Straight towards EXPERT TEAM (Bottom-Left) */}
             <motion.path
-              d="M 375,340 C 320,345 270,362 220,362"
+              d="M 365,325 C 335,330 305,358 280,360"
               stroke="#8A0024"
               strokeWidth="2.2"
               strokeDasharray="6 6"
               animate={{ strokeDashoffset: [0, -24] }}
               transition={{ duration: 1.8, repeat: Infinity, ease: 'linear' }}
-              markerEnd="url(#arrowLeft)"
+              markerEnd="url(#arrowMarker)"
             />
 
-            {/* Line 4: Straight to BUSINESS GROWTH (Top-Right) */}
+            {/* Line 4: Straight towards BUSINESS GROWTH (Top-Right) */}
             <motion.path
-              d="M 625,100 C 680,95 730,78 780,78"
+              d="M 635,115 C 665,110 695,82 720,80"
               stroke="#8A0024"
               strokeWidth="2.2"
               strokeDasharray="6 6"
               animate={{ strokeDashoffset: [0, -24] }}
               transition={{ duration: 1.8, repeat: Infinity, ease: 'linear' }}
-              markerEnd="url(#arrowRight)"
+              markerEnd="url(#arrowMarker)"
             />
 
-            {/* Line 5: Straight Horizontal to WIDER REACH (Mid-Right) */}
+            {/* Line 5: Straight Horizontal towards WIDER REACH (Mid-Right) */}
             <motion.path
-              d="M 655,220 C 700,220 740,220 785,220"
+              d="M 650,220 L 725,220"
               stroke="#8A0024"
               strokeWidth="2.2"
               strokeDasharray="6 6"
               animate={{ strokeDashoffset: [0, -24] }}
               transition={{ duration: 1.8, repeat: Infinity, ease: 'linear' }}
-              markerEnd="url(#arrowRight)"
+              markerEnd="url(#arrowMarker)"
             />
 
-            {/* Line 6: Straight to CREATIVE IDEAS (Bottom-Right) */}
+            {/* Line 6: Straight towards CREATIVE IDEAS (Bottom-Right) */}
             <motion.path
-              d="M 625,340 C 680,345 730,362 780,362"
+              d="M 635,325 C 665,330 695,358 720,360"
               stroke="#8A0024"
               strokeWidth="2.2"
               strokeDasharray="6 6"
               animate={{ strokeDashoffset: [0, -24] }}
               transition={{ duration: 1.8, repeat: Infinity, ease: 'linear' }}
-              markerEnd="url(#arrowRight)"
+              markerEnd="url(#arrowMarker)"
             />
           </svg>
 
@@ -355,10 +434,10 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
                   </h3>
 
                   {/* Red Accent Divider */}
-                  <div className="w-8 h-[2px] bg-[#8A0024] rounded-full mb-1" />
+                  <div className="w-9 h-[2px] bg-[#8A0024] rounded-full mb-1" />
 
-                  {/* Description */}
-                  <p className="text-xs sm:text-[12.5px] text-[#334155] font-semibold leading-snug max-w-[210px]">
+                  {/* Increased Detailed Description */}
+                  <p className="text-xs sm:text-[13px] text-[#334155] font-semibold leading-relaxed max-w-[235px]">
                     {item.description}
                   </p>
                 </motion.div>
@@ -409,10 +488,10 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
                   </h3>
 
                   {/* Red Accent Divider */}
-                  <div className="w-8 h-[2px] bg-[#8A0024] rounded-full mb-1" />
+                  <div className="w-9 h-[2px] bg-[#8A0024] rounded-full mb-1" />
 
-                  {/* Description */}
-                  <p className="text-xs sm:text-[12.5px] text-[#334155] font-semibold leading-snug max-w-[210px]">
+                  {/* Increased Detailed Description */}
+                  <p className="text-xs sm:text-[13px] text-[#334155] font-semibold leading-relaxed max-w-[235px]">
                     {item.description}
                   </p>
                 </motion.div>
@@ -475,27 +554,27 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
       </div>
 
       {/* =========================================================================
-          MOBILE VIEW: Scroll-Driven Interactive 3D Journey (< lg)
-          Stage 1: Heading at center
-          Stage 2: Model aligns at center
-          Stage 3: Model scales to minimal
-          Stage 4: Contents slide in alternating from right and left in 3D
+          MOBILE VIEW: Cinematic Scroll Pinned Container
+          1. 1st scroll: Heading shows at the center of the mobile screen
+          2. Next scroll: Center model aligns at center of mobile view
+          3. Next scroll: Center model decreases to minimal
+          4. Next scrolls: Contents slide in alternating from right and left in 3D
           ========================================================================= */}
-      <div ref={mobileContainerRef} className="lg:hidden relative h-[380vh]">
-        <div className="sticky top-0 h-screen w-full flex flex-col justify-between items-center overflow-hidden px-4 pt-8 pb-6 bg-gradient-to-b from-[#FFFDFD] via-[#FAF6F4] to-[#F7F0EC]">
+      <div ref={mobileContainerRef} className="lg:hidden relative h-[420vh]">
+        <div className="sticky top-0 h-screen w-full flex flex-col justify-between items-center overflow-hidden px-4 pt-6 pb-6 bg-gradient-to-b from-[#FFFDFD] via-[#FAF6F4] to-[#F7F0EC]">
           
           {/* Top/Center Animated Heading */}
           <motion.div
             style={{ y: mobileHeadingY, scale: mobileHeadingScale }}
             className="text-center max-w-sm mx-auto z-30 shrink-0 origin-center"
           >
-            <p className="text-[10px] font-heading font-black tracking-[0.24em] text-[#1B2A4A] uppercase">
+            <p className="text-[11px] font-heading font-black tracking-[0.24em] text-[#1B2A4A] uppercase">
               WHY CHOOSE
             </p>
             <h2 className="text-4xl sm:text-5xl font-heading font-black text-[#8A0024] tracking-tight leading-none my-0.5">
               TEESZONE?
             </h2>
-            <p className="text-[11px] font-heading font-extrabold tracking-wider text-[#1B2A4A]">
+            <p className="text-xs font-heading font-extrabold tracking-wider text-[#1B2A4A]">
               BEYOND CUSTOM T-SHIRTS.{' '}
               <span className="text-[#8A0024]">YOUR APPAREL PARTNER.</span>
             </p>
@@ -516,67 +595,21 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
               <img
                 src="/assets/images/why-choose/question-man-center.png"
                 alt="Why Choose TeesZone"
-                className="max-h-[280px] sm:max-h-[320px] w-auto object-contain drop-shadow-[0_16px_28px_rgba(20,0,5,0.2)]"
+                className="max-h-[290px] sm:max-h-[330px] w-auto object-contain drop-shadow-[0_16px_28px_rgba(20,0,5,0.2)]"
               />
             </motion.div>
 
-            {/* Alternating 3D Cards Sliding In from Right and Left */}
-            <div className="relative z-20 w-full flex items-center justify-center">
-              <AnimatePresence mode="wait">
-                {activeFeatureIndex >= 0 && (
-                  <motion.div
-                    key={allFeatures[activeFeatureIndex].id}
-                    initial={{
-                      opacity: 0,
-                      x: activeFeatureIndex % 2 === 0 ? 120 : -120, // Alternating: Right then Left
-                      rotateY: activeFeatureIndex % 2 === 0 ? -28 : 28,
-                      scale: 0.88,
-                    }}
-                    animate={{
-                      opacity: 1,
-                      x: 0,
-                      rotateY: 0,
-                      scale: 1,
-                    }}
-                    exit={{
-                      opacity: 0,
-                      x: activeFeatureIndex % 2 === 0 ? -120 : 120,
-                      rotateY: activeFeatureIndex % 2 === 0 ? 28 : -28,
-                      scale: 0.88,
-                    }}
-                    transition={{
-                      duration: 0.45,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                    style={{ perspective: 1000 }}
-                    className="w-full max-w-[290px] p-5 rounded-3xl bg-white/95 backdrop-blur-md border border-rose-200/80 shadow-[0_14px_34px_rgba(138,0,36,0.16)] flex flex-col items-center text-center"
-                  >
-                    {/* Feature Badge Step Indicator */}
-                    <div className="text-[10px] font-heading font-black tracking-widest text-[#8A0024] uppercase mb-2 bg-rose-50 px-2.5 py-0.5 rounded-full border border-rose-100">
-                      Feature 0{activeFeatureIndex + 1} of 06
-                    </div>
-
-                    {/* Circular Icon */}
-                    <div className="w-14 h-14 rounded-full bg-gradient-to-tr from-[#8A0024] to-[#B01A3D] text-white flex items-center justify-center shadow-md mb-2.5">
-                      {React.createElement(allFeatures[activeFeatureIndex].icon, {
-                        className: 'w-7 h-7 stroke-[2.2]',
-                      })}
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="font-heading font-black text-sm text-[#8A0024] tracking-wide">
-                      {allFeatures[activeFeatureIndex].title}
-                    </h3>
-
-                    <div className="w-8 h-[2px] bg-[#8A0024] rounded-full my-1.5" />
-
-                    {/* Description */}
-                    <p className="text-xs text-[#334155] font-semibold leading-relaxed">
-                      {allFeatures[activeFeatureIndex].description}
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+            {/* Alternating 3D Cards: Continuous hardware-accelerated transitions from Right & Left */}
+            <div className="relative z-20 w-full h-[280px] flex items-center justify-center">
+              {allFeatures.map((feature, idx) => (
+                <MobileFeatureCard
+                  key={feature.id}
+                  feature={feature}
+                  index={idx}
+                  total={allFeatures.length}
+                  scrollProgress={mobileScrollProgress}
+                />
+              ))}
             </div>
 
           </div>
@@ -597,7 +630,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
               ))}
             </div>
 
-            {/* 3 Social Media Icons (X removed) */}
+            {/* 3 Social Media Icons (Facebook, Instagram, LinkedIn - X removed) */}
             <div className="flex items-center justify-center gap-3">
               <a
                 href="https://facebook.com/teeszone"
@@ -620,24 +653,24 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
               >
                 <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                   <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                </svg>
-              </a>
+              </svg>
+            </a>
 
-              <a
-                href="https://linkedin.com/company/teeszone"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="TeesZone on LinkedIn"
-                className="w-7 h-7 rounded-full bg-[#8A0024] text-white flex items-center justify-center shadow-xs"
-              >
-                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                </svg>
-              </a>
-            </div>
+            <a
+              href="https://linkedin.com/company/teeszone"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="TeesZone on LinkedIn"
+              className="w-7 h-7 rounded-full bg-[#8A0024] text-white flex items-center justify-center shadow-xs"
+            >
+              <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+              </svg>
+            </a>
           </div>
-
         </div>
+
+      </div>
       </div>
 
     </section>
