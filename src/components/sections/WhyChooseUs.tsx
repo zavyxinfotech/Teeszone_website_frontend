@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef, useState } from 'react';
+import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 import {
   Headset,
   Target,
@@ -71,21 +71,64 @@ const rightFeatures: FeatureItem[] = [
   },
 ];
 
+const allFeatures = [
+  leftFeatures[0],  // 1. Right slide
+  leftFeatures[1],  // 2. Left slide
+  leftFeatures[2],  // 3. Right slide
+  rightFeatures[0], // 4. Left slide
+  rightFeatures[1], // 5. Right slide
+  rightFeatures[2], // 6. Left slide
+];
+
 export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
   className = '',
 }) => {
+  // Mobile pinned scroll container
+  const mobileContainerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: mobileScrollProgress } = useScroll({
+    target: mobileContainerRef,
+    offset: ['start start', 'end end'],
+  });
+
+  // Mobile scroll stages:
+  // 0.00 - 0.18: Heading centered on screen
+  // 0.18 - 0.36: Model appears and centers on screen
+  // 0.36 - 0.48: Model decreases to minimal
+  // 0.48 - 1.00: 6 contents slide in alternating from right and left
+  const mobileHeadingY = useTransform(mobileScrollProgress, [0, 0.14, 0.28], [120, 120, 0]);
+  const mobileHeadingScale = useTransform(mobileScrollProgress, [0, 0.14, 0.28], [1.15, 1.15, 1.0]);
+
+  const mobileModelOpacity = useTransform(mobileScrollProgress, [0.14, 0.22, 0.36, 0.44], [0, 1, 1, 0.3]);
+  const mobileModelScale = useTransform(mobileScrollProgress, [0.14, 0.24, 0.36, 0.44], [0.75, 1.05, 1.0, 0.42]);
+  const mobileModelY = useTransform(mobileScrollProgress, [0.14, 0.24, 0.36, 0.44], [40, 0, 0, -40]);
+
+  const [activeFeatureIndex, setActiveFeatureIndex] = useState<number>(-1);
+
+  useMotionValueEvent(mobileScrollProgress, 'change', (latest) => {
+    if (latest < 0.44) {
+      setActiveFeatureIndex(-1);
+    } else {
+      const featureProgress = (latest - 0.44) / 0.56;
+      const idx = Math.min(
+        allFeatures.length - 1,
+        Math.max(0, Math.floor(featureProgress * allFeatures.length))
+      );
+      setActiveFeatureIndex(idx);
+    }
+  });
+
   return (
     <section
       id="why-choose-us"
-      className={`relative w-full overflow-hidden bg-gradient-to-b from-[#FFFDFD] via-[#FAF6F4] to-[#F7F0EC] pt-8 sm:pt-10 lg:pt-10 pb-6 sm:pb-8 lg:pb-8 ${className}`}
+      className={`relative w-full overflow-hidden bg-gradient-to-b from-[#FFFDFD] via-[#FAF6F4] to-[#F7F0EC] pt-6 sm:pt-8 lg:pt-8 pb-5 sm:pb-6 lg:pb-7 ${className}`}
     >
       {/* Decorative Background Swirls & Dot Matrix (Top-Right & Bottom-Left) */}
-      <div className="absolute top-0 right-0 w-40 sm:w-56 md:w-64 h-40 sm:h-56 md:h-64 pointer-events-none select-none overflow-hidden z-0">
+      <div className="absolute top-0 right-0 w-36 sm:w-48 md:w-56 h-36 sm:h-48 md:h-56 pointer-events-none select-none overflow-hidden z-0">
         <svg
           viewBox="0 0 300 300"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-full opacity-80"
+          className="w-full h-full opacity-75"
         >
           <path
             d="M300,0 C220,40 180,120 200,220 C210,270 240,300 300,300 Z"
@@ -95,7 +138,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
             d="M300,0 C240,20 210,80 230,170 C245,230 270,270 300,290 Z"
             fill="url(#topSwirlAccent)"
           />
-          <g fill="#8A0024" opacity="0.65">
+          <g fill="#8A0024" opacity="0.6">
             {[0, 1, 2].map((row) =>
               [0, 1, 2, 3, 4, 5].map((col) => (
                 <circle
@@ -120,12 +163,12 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
         </svg>
       </div>
 
-      <div className="absolute bottom-0 left-0 w-40 sm:w-56 md:w-64 h-40 sm:h-56 md:h-64 pointer-events-none select-none overflow-hidden z-0">
+      <div className="absolute bottom-0 left-0 w-36 sm:w-48 md:w-56 h-36 sm:h-48 md:h-56 pointer-events-none select-none overflow-hidden z-0">
         <svg
           viewBox="0 0 300 300"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-full opacity-80"
+          className="w-full h-full opacity-75"
         >
           <path
             d="M0,300 C80,260 120,180 100,80 C90,30 60,0 0,0 Z"
@@ -135,7 +178,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
             d="M0,300 C60,280 90,220 70,130 C55,70 30,30 0,10 Z"
             fill="url(#botSwirlAccent)"
           />
-          <g fill="#8A0024" opacity="0.65">
+          <g fill="#8A0024" opacity="0.6">
             {[0, 1, 2].map((row) =>
               [0, 1, 2, 3, 4, 5].map((col) => (
                 <circle
@@ -161,166 +204,161 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
       </div>
 
       {/* Concentric Soft Background Aura Rings */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[460px] sm:w-[540px] h-[460px] sm:h-[540px] rounded-full border border-rose-200/30 pointer-events-none select-none z-0" />
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[400px] h-[340px] sm:h-[400px] rounded-full border border-rose-200/20 pointer-events-none select-none z-0" />
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[440px] sm:w-[500px] h-[440px] sm:h-[500px] rounded-full border border-rose-200/25 pointer-events-none select-none z-0" />
 
-      {/* Main Content Container */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
-        {/* Top Header (Compact for Desktop Height) */}
-        <div className="text-center mb-4 sm:mb-5">
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.35 }}
-            className="text-[11px] sm:text-xs md:text-sm font-heading font-black tracking-[0.24em] text-[#1B2A4A] uppercase"
-          >
+      {/* =========================================================================
+          DESKTOP CONTAINER: Fits within Desktop Viewport Height (< 750px)
+          ========================================================================= */}
+      <div className="hidden lg:block relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+        
+        {/* Top Header: Word "US" changed to "TEESZONE" */}
+        <div className="text-center mb-2.5">
+          <p className="text-xs sm:text-sm font-heading font-black tracking-[0.26em] text-[#1B2A4A] uppercase">
             WHY CHOOSE
-          </motion.p>
+          </p>
 
-          <motion.h2
-            initial={{ opacity: 0, scale: 0.96 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.05 }}
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-[76px] font-heading font-black text-[#8A0024] tracking-tight leading-none my-0.5 select-none drop-shadow-[0_4px_14px_rgba(138,0,36,0.16)]"
-          >
-            US?
-          </motion.h2>
+          <h2 className="text-5xl sm:text-6xl md:text-7xl font-heading font-black text-[#8A0024] tracking-tight leading-none my-0.5 select-none drop-shadow-[0_4px_14px_rgba(138,0,36,0.16)]">
+            TEESZONE?
+          </h2>
 
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.35, delay: 0.08 }}
-            className="text-xs sm:text-sm font-heading font-extrabold tracking-wider text-[#1B2A4A] mt-1"
-          >
+          <p className="text-xs sm:text-[13px] font-heading font-extrabold tracking-wider text-[#1B2A4A] mt-0.5">
             BEYOND CUSTOM T-SHIRTS.{' '}
             <span className="text-[#8A0024]">YOUR APPAREL PARTNER.</span>
-          </motion.p>
+          </p>
         </div>
 
-        {/* DESKTOP VIEW: Scaled 6-Point Infographic within Desktop Viewport */}
-        <div className="hidden lg:block relative max-w-5xl mx-auto h-[470px]">
-          {/* SVG Curved Dotted Arrow Connections */}
+        {/* 6-Point Infographic: Contents Arranged Straight Towards Continuous Animated Arrows */}
+        <div className="relative max-w-5xl mx-auto h-[440px]">
+          
+          {/* Animated SVG Curved & Straight Dotted Arrows */}
           <svg
-            viewBox="0 0 1000 470"
+            viewBox="0 0 1000 440"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             className="absolute inset-0 w-full h-full pointer-events-none select-none z-10"
           >
             <defs>
               <marker
-                id="redArrowHead"
-                markerWidth="6"
-                markerHeight="6"
-                refX="3.5"
-                refY="3"
+                id="arrowRight"
+                markerWidth="7"
+                markerHeight="7"
+                refX="4"
+                refY="3.5"
                 orient="auto"
               >
-                <polygon points="0 1, 5 3, 0 5" fill="#8A0024" />
+                <polygon points="0 1, 6 3.5, 0 6" fill="#8A0024" />
               </marker>
               <marker
-                id="redArrowHeadLeft"
-                markerWidth="6"
-                markerHeight="6"
-                refX="1.5"
-                refY="3"
+                id="arrowLeft"
+                markerWidth="7"
+                markerHeight="7"
+                refX="2"
+                refY="3.5"
                 orient="auto"
               >
-                <polygon points="5 1, 0 3, 5 5" fill="#8A0024" />
+                <polygon points="6 1, 0 3.5, 6 6" fill="#8A0024" />
               </marker>
             </defs>
 
-            {/* Line 1: To DEDICATED SUPPORT (Top-Left) */}
-            <path
-              d="M 370,120 C 310,115 260,105 205,105"
+            {/* Line 1: Straight to DEDICATED SUPPORT (Top-Left) */}
+            <motion.path
+              d="M 375,100 C 320,95 270,78 220,78"
               stroke="#8A0024"
-              strokeWidth="1.8"
-              strokeDasharray="4 4"
-              markerEnd="url(#redArrowHeadLeft)"
+              strokeWidth="2.2"
+              strokeDasharray="6 6"
+              animate={{ strokeDashoffset: [0, -24] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: 'linear' }}
+              markerEnd="url(#arrowLeft)"
             />
 
-            {/* Line 2: To STRATEGIC SOLUTIONS (Mid-Left) */}
-            <path
-              d="M 340,235 C 280,235 230,220 185,220"
+            {/* Line 2: Straight Horizontal to STRATEGIC SOLUTIONS (Mid-Left) */}
+            <motion.path
+              d="M 345,220 C 300,220 260,220 215,220"
               stroke="#8A0024"
-              strokeWidth="1.8"
-              strokeDasharray="4 4"
-              markerEnd="url(#redArrowHeadLeft)"
+              strokeWidth="2.2"
+              strokeDasharray="6 6"
+              animate={{ strokeDashoffset: [0, -24] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: 'linear' }}
+              markerEnd="url(#arrowLeft)"
             />
 
-            {/* Line 3: To EXPERT TEAM (Bottom-Left) */}
-            <path
-              d="M 370,345 C 330,345 300,345 270,345"
+            {/* Line 3: Straight to EXPERT TEAM (Bottom-Left) */}
+            <motion.path
+              d="M 375,340 C 320,345 270,362 220,362"
               stroke="#8A0024"
-              strokeWidth="1.8"
-              strokeDasharray="4 4"
-              markerEnd="url(#redArrowHeadLeft)"
+              strokeWidth="2.2"
+              strokeDasharray="6 6"
+              animate={{ strokeDashoffset: [0, -24] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: 'linear' }}
+              markerEnd="url(#arrowLeft)"
             />
 
-            {/* Line 4: To BUSINESS GROWTH (Top-Right) */}
-            <path
-              d="M 630,120 C 690,115 740,105 795,105"
+            {/* Line 4: Straight to BUSINESS GROWTH (Top-Right) */}
+            <motion.path
+              d="M 625,100 C 680,95 730,78 780,78"
               stroke="#8A0024"
-              strokeWidth="1.8"
-              strokeDasharray="4 4"
-              markerEnd="url(#redArrowHead)"
+              strokeWidth="2.2"
+              strokeDasharray="6 6"
+              animate={{ strokeDashoffset: [0, -24] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: 'linear' }}
+              markerEnd="url(#arrowRight)"
             />
 
-            {/* Line 5: To WIDER REACH (Mid-Right) */}
-            <path
-              d="M 660,235 C 720,235 765,220 815,220"
+            {/* Line 5: Straight Horizontal to WIDER REACH (Mid-Right) */}
+            <motion.path
+              d="M 655,220 C 700,220 740,220 785,220"
               stroke="#8A0024"
-              strokeWidth="1.8"
-              strokeDasharray="4 4"
-              markerEnd="url(#redArrowHead)"
+              strokeWidth="2.2"
+              strokeDasharray="6 6"
+              animate={{ strokeDashoffset: [0, -24] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: 'linear' }}
+              markerEnd="url(#arrowRight)"
             />
 
-            {/* Line 6: To CREATIVE IDEAS (Bottom-Right) */}
-            <path
-              d="M 630,345 C 670,345 700,345 730,345"
+            {/* Line 6: Straight to CREATIVE IDEAS (Bottom-Right) */}
+            <motion.path
+              d="M 625,340 C 680,345 730,362 780,362"
               stroke="#8A0024"
-              strokeWidth="1.8"
-              strokeDasharray="4 4"
-              markerEnd="url(#redArrowHead)"
+              strokeWidth="2.2"
+              strokeDasharray="6 6"
+              animate={{ strokeDashoffset: [0, -24] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: 'linear' }}
+              markerEnd="url(#arrowRight)"
             />
           </svg>
 
-          {/* LEFT 3 FEATURE POINTS */}
-          <div className="absolute left-0 top-0 bottom-0 w-[275px] flex flex-col justify-between py-2 z-20">
+          {/* LEFT 3 FEATURE POINTS (Prominent Sizes with Smooth Ambient Floating Animation) */}
+          <div className="absolute left-0 top-0 bottom-0 w-[290px] flex flex-col justify-between py-1 z-20">
             {leftFeatures.map((item, index) => {
               const IconComp = item.icon;
               return (
                 <motion.div
                   key={item.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  animate={{ y: [0, index % 2 === 0 ? -4 : 4, 0] }}
+                  transition={{ duration: 3.2 + index * 0.4, repeat: Infinity, ease: 'easeInOut' }}
                   className={`flex flex-col items-center text-center group cursor-default ${
                     index === 0
                       ? 'pl-2'
                       : index === 1
-                      ? 'pr-5'
-                      : 'pl-8'
+                      ? 'pr-6'
+                      : 'pl-6'
                   }`}
                 >
-                  {/* Circular Icon Badge */}
-                  <div className="w-13 h-13 rounded-full bg-white shadow-[0_6px_20px_rgba(138,0,36,0.11)] border border-rose-100 flex items-center justify-center text-[#8A0024] group-hover:scale-108 group-hover:border-[#8A0024]/40 transition-all duration-300">
-                    <IconComp className="w-6 h-6 stroke-[2.2]" />
+                  {/* Larger Circular Icon Badge */}
+                  <div className="w-14 h-14 sm:w-15 sm:h-15 rounded-full bg-white shadow-[0_8px_24px_rgba(138,0,36,0.13)] border-2 border-rose-100 flex items-center justify-center text-[#8A0024] group-hover:scale-110 group-hover:border-[#8A0024]/50 transition-all duration-300">
+                    <IconComp className="w-7 h-7 stroke-[2.2]" />
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-heading font-black text-xs sm:text-[13.5px] text-[#8A0024] tracking-wide mt-2 mb-0.5">
+                  <h3 className="font-heading font-black text-sm sm:text-[15px] text-[#8A0024] tracking-wide mt-2 mb-0.5">
                     {item.title}
                   </h3>
 
-                  {/* Red Underline */}
-                  <div className="w-7 h-[2px] bg-[#8A0024] rounded-full mb-1" />
+                  {/* Red Accent Divider */}
+                  <div className="w-8 h-[2px] bg-[#8A0024] rounded-full mb-1" />
 
                   {/* Description */}
-                  <p className="text-[11px] sm:text-xs text-[#475569] font-medium leading-snug max-w-[190px]">
+                  <p className="text-xs sm:text-[12.5px] text-[#334155] font-semibold leading-snug max-w-[210px]">
                     {item.description}
                   </p>
                 </motion.div>
@@ -329,113 +367,72 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
           </div>
 
           {/* CENTER 3D QUESTION MARK WITH LEANING MAN */}
-          <div className="absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-[320px] flex items-center justify-center z-15 pointer-events-none select-none">
+          <div className="absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-[305px] flex items-center justify-center z-15 pointer-events-none select-none">
             <motion.div
-              initial={{ opacity: 0, scale: 0.94 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
+              animate={{ y: [0, -6, 0] }}
+              transition={{ duration: 4.0, repeat: Infinity, ease: 'easeInOut' }}
               className="relative w-full h-full flex items-center justify-center"
             >
               <img
                 src="/assets/images/why-choose/question-man-center.png"
-                alt="Why Choose TeesZone - Your Brand Apparel Partner"
-                className="w-full h-full object-contain filter drop-shadow-[0_18px_30px_rgba(20,0,5,0.2)]"
+                alt="Why Choose TeesZone"
+                className="w-full h-full object-contain filter drop-shadow-[0_16px_28px_rgba(20,0,5,0.2)]"
               />
             </motion.div>
           </div>
 
-          {/* RIGHT 3 FEATURE POINTS */}
-          <div className="absolute right-0 top-0 bottom-0 w-[275px] flex flex-col justify-between py-2 z-20">
+          {/* RIGHT 3 FEATURE POINTS (Prominent Sizes with Smooth Ambient Floating Animation) */}
+          <div className="absolute right-0 top-0 bottom-0 w-[290px] flex flex-col justify-between py-1 z-20">
             {rightFeatures.map((item, index) => {
               const IconComp = item.icon;
               return (
                 <motion.div
                   key={item.id}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  animate={{ y: [0, index % 2 === 0 ? 4 : -4, 0] }}
+                  transition={{ duration: 3.4 + index * 0.4, repeat: Infinity, ease: 'easeInOut' }}
                   className={`flex flex-col items-center text-center group cursor-default ${
                     index === 0
                       ? 'pr-2'
                       : index === 1
-                      ? 'pl-5'
-                      : 'pr-8'
+                      ? 'pl-6'
+                      : 'pr-6'
                   }`}
                 >
-                  {/* Circular Icon Badge */}
-                  <div className="w-13 h-13 rounded-full bg-white shadow-[0_6px_20px_rgba(138,0,36,0.11)] border border-rose-100 flex items-center justify-center text-[#8A0024] group-hover:scale-108 group-hover:border-[#8A0024]/40 transition-all duration-300">
-                    <IconComp className="w-6 h-6 stroke-[2.2]" />
+                  {/* Larger Circular Icon Badge */}
+                  <div className="w-14 h-14 sm:w-15 sm:h-15 rounded-full bg-white shadow-[0_8px_24px_rgba(138,0,36,0.13)] border-2 border-rose-100 flex items-center justify-center text-[#8A0024] group-hover:scale-110 group-hover:border-[#8A0024]/50 transition-all duration-300">
+                    <IconComp className="w-7 h-7 stroke-[2.2]" />
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-heading font-black text-xs sm:text-[13.5px] text-[#8A0024] tracking-wide mt-2 mb-0.5">
+                  <h3 className="font-heading font-black text-sm sm:text-[15px] text-[#8A0024] tracking-wide mt-2 mb-0.5">
                     {item.title}
                   </h3>
 
-                  {/* Red Underline */}
-                  <div className="w-7 h-[2px] bg-[#8A0024] rounded-full mb-1" />
+                  {/* Red Accent Divider */}
+                  <div className="w-8 h-[2px] bg-[#8A0024] rounded-full mb-1" />
 
                   {/* Description */}
-                  <p className="text-[11px] sm:text-xs text-[#475569] font-medium leading-snug max-w-[190px]">
+                  <p className="text-xs sm:text-[12.5px] text-[#334155] font-semibold leading-snug max-w-[210px]">
                     {item.description}
                   </p>
                 </motion.div>
               );
             })}
           </div>
+
         </div>
 
-        {/* MOBILE & TABLET RESPONSIVE VIEW (< lg) */}
-        <div className="block lg:hidden">
-          <div className="max-w-xs mx-auto mb-6">
-            <img
-              src="/assets/images/why-choose/question-man-center.png"
-              alt="Why Choose TeesZone - Your Brand Apparel Partner"
-              className="w-full h-auto object-contain drop-shadow-[0_14px_24px_rgba(20,0,5,0.18)]"
-            />
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-2xl mx-auto">
-            {[...leftFeatures, ...rightFeatures].map((item, index) => {
-              const IconComp = item.icon;
-              return (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, y: 15 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.06 }}
-                  className="flex flex-col items-center text-center p-3.5 rounded-2xl bg-white/70 backdrop-blur-xs border border-rose-100/60 shadow-[0_4px_14px_rgba(138,0,36,0.05)]"
-                >
-                  <div className="w-12 h-12 rounded-full bg-white shadow-[0_4px_16px_rgba(138,0,36,0.09)] border border-rose-100 flex items-center justify-center text-[#8A0024] mb-2.5">
-                    <IconComp className="w-5 h-5 stroke-[2.2]" />
-                  </div>
-                  <h3 className="font-heading font-black text-xs sm:text-sm text-[#8A0024] tracking-wide">
-                    {item.title}
-                  </h3>
-                  <div className="w-6 h-[2px] bg-[#8A0024] rounded-full my-1" />
-                  <p className="text-[11px] text-[#475569] font-medium leading-relaxed">
-                    {item.description}
-                  </p>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Bottom Social Media Bar */}
-        <div className="mt-5 sm:mt-6 flex items-center justify-center gap-3 sm:gap-4">
-          <div className="w-14 sm:w-24 md:w-32 h-[1.5px] bg-[#8A0024]/60 rounded-full" />
+        {/* Bottom Social Media Bar: Only 3 Icons (Facebook, Instagram, LinkedIn - X removed) */}
+        <div className="mt-4 sm:mt-5 flex items-center justify-center gap-3 sm:gap-4">
+          <div className="w-16 sm:w-28 md:w-36 h-[1.5px] bg-[#8A0024]/60 rounded-full" />
 
           {/* Facebook */}
           <a
-            href="https://facebook.com"
+            href="https://facebook.com/teeszone"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="TeesZone on Facebook"
-            className="w-8 h-8 rounded-full bg-[#8A0024] text-white flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-[#660018] shadow-sm"
+            className="w-8 h-8 sm:w-8.5 sm:h-8.5 rounded-full bg-[#8A0024] text-white flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-[#660018] shadow-sm"
           >
             <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
               <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
@@ -446,11 +443,11 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
 
           {/* Instagram */}
           <a
-            href="https://instagram.com"
+            href="https://instagram.com/teeszone"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="TeesZone on Instagram"
-            className="w-8 h-8 rounded-full bg-[#8A0024] text-white flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-[#660018] shadow-sm"
+            className="w-8 h-8 sm:w-8.5 sm:h-8.5 rounded-full bg-[#8A0024] text-white flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-[#660018] shadow-sm"
           >
             <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
               <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
@@ -459,37 +456,190 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
 
           <span className="text-[#8A0024]/50 text-xs font-semibold select-none">|</span>
 
-          {/* X (Twitter) */}
-          <a
-            href="https://x.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="TeesZone on X"
-            className="w-8 h-8 rounded-full bg-[#8A0024] text-white flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-[#660018] shadow-sm"
-          >
-            <svg className="w-3 h-3 fill-current" viewBox="0 0 24 24">
-              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-            </svg>
-          </a>
-
-          <span className="text-[#8A0024]/50 text-xs font-semibold select-none">|</span>
-
           {/* LinkedIn */}
           <a
-            href="https://linkedin.com"
+            href="https://linkedin.com/company/teeszone"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="TeesZone on LinkedIn"
-            className="w-8 h-8 rounded-full bg-[#8A0024] text-white flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-[#660018] shadow-sm"
+            className="w-8 h-8 sm:w-8.5 sm:h-8.5 rounded-full bg-[#8A0024] text-white flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-[#660018] shadow-sm"
           >
             <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
               <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
             </svg>
           </a>
 
-          <div className="w-14 sm:w-24 md:w-32 h-[1.5px] bg-[#8A0024]/60 rounded-full" />
+          <div className="w-16 sm:w-28 md:w-36 h-[1.5px] bg-[#8A0024]/60 rounded-full" />
+        </div>
+
+      </div>
+
+      {/* =========================================================================
+          MOBILE VIEW: Scroll-Driven Interactive 3D Journey (< lg)
+          Stage 1: Heading at center
+          Stage 2: Model aligns at center
+          Stage 3: Model scales to minimal
+          Stage 4: Contents slide in alternating from right and left in 3D
+          ========================================================================= */}
+      <div ref={mobileContainerRef} className="lg:hidden relative h-[380vh]">
+        <div className="sticky top-0 h-screen w-full flex flex-col justify-between items-center overflow-hidden px-4 pt-8 pb-6 bg-gradient-to-b from-[#FFFDFD] via-[#FAF6F4] to-[#F7F0EC]">
+          
+          {/* Top/Center Animated Heading */}
+          <motion.div
+            style={{ y: mobileHeadingY, scale: mobileHeadingScale }}
+            className="text-center max-w-sm mx-auto z-30 shrink-0 origin-center"
+          >
+            <p className="text-[10px] font-heading font-black tracking-[0.24em] text-[#1B2A4A] uppercase">
+              WHY CHOOSE
+            </p>
+            <h2 className="text-4xl sm:text-5xl font-heading font-black text-[#8A0024] tracking-tight leading-none my-0.5">
+              TEESZONE?
+            </h2>
+            <p className="text-[11px] font-heading font-extrabold tracking-wider text-[#1B2A4A]">
+              BEYOND CUSTOM T-SHIRTS.{' '}
+              <span className="text-[#8A0024]">YOUR APPAREL PARTNER.</span>
+            </p>
+          </motion.div>
+
+          {/* Center Area: Animated Model + Alternating 3D Sliding Cards */}
+          <div className="relative flex-1 w-full max-w-sm flex items-center justify-center my-auto overflow-hidden">
+            
+            {/* Center Model (Enters center, then scales to minimal) */}
+            <motion.div
+              style={{
+                opacity: mobileModelOpacity,
+                scale: mobileModelScale,
+                y: mobileModelY,
+              }}
+              className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-10"
+            >
+              <img
+                src="/assets/images/why-choose/question-man-center.png"
+                alt="Why Choose TeesZone"
+                className="max-h-[280px] sm:max-h-[320px] w-auto object-contain drop-shadow-[0_16px_28px_rgba(20,0,5,0.2)]"
+              />
+            </motion.div>
+
+            {/* Alternating 3D Cards Sliding In from Right and Left */}
+            <div className="relative z-20 w-full flex items-center justify-center">
+              <AnimatePresence mode="wait">
+                {activeFeatureIndex >= 0 && (
+                  <motion.div
+                    key={allFeatures[activeFeatureIndex].id}
+                    initial={{
+                      opacity: 0,
+                      x: activeFeatureIndex % 2 === 0 ? 120 : -120, // Alternating: Right then Left
+                      rotateY: activeFeatureIndex % 2 === 0 ? -28 : 28,
+                      scale: 0.88,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      x: 0,
+                      rotateY: 0,
+                      scale: 1,
+                    }}
+                    exit={{
+                      opacity: 0,
+                      x: activeFeatureIndex % 2 === 0 ? -120 : 120,
+                      rotateY: activeFeatureIndex % 2 === 0 ? 28 : -28,
+                      scale: 0.88,
+                    }}
+                    transition={{
+                      duration: 0.45,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    style={{ perspective: 1000 }}
+                    className="w-full max-w-[290px] p-5 rounded-3xl bg-white/95 backdrop-blur-md border border-rose-200/80 shadow-[0_14px_34px_rgba(138,0,36,0.16)] flex flex-col items-center text-center"
+                  >
+                    {/* Feature Badge Step Indicator */}
+                    <div className="text-[10px] font-heading font-black tracking-widest text-[#8A0024] uppercase mb-2 bg-rose-50 px-2.5 py-0.5 rounded-full border border-rose-100">
+                      Feature 0{activeFeatureIndex + 1} of 06
+                    </div>
+
+                    {/* Circular Icon */}
+                    <div className="w-14 h-14 rounded-full bg-gradient-to-tr from-[#8A0024] to-[#B01A3D] text-white flex items-center justify-center shadow-md mb-2.5">
+                      {React.createElement(allFeatures[activeFeatureIndex].icon, {
+                        className: 'w-7 h-7 stroke-[2.2]',
+                      })}
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="font-heading font-black text-sm text-[#8A0024] tracking-wide">
+                      {allFeatures[activeFeatureIndex].title}
+                    </h3>
+
+                    <div className="w-8 h-[2px] bg-[#8A0024] rounded-full my-1.5" />
+
+                    {/* Description */}
+                    <p className="text-xs text-[#334155] font-semibold leading-relaxed">
+                      {allFeatures[activeFeatureIndex].description}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+          </div>
+
+          {/* Bottom Indicators & Social Icons on Mobile */}
+          <div className="w-full max-w-sm flex flex-col items-center z-30 shrink-0">
+            {/* 6 Step Indicators */}
+            <div className="flex items-center justify-center gap-1.5 mb-3">
+              {allFeatures.map((f, idx) => (
+                <div
+                  key={f.id}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    idx === activeFeatureIndex
+                      ? 'w-6 bg-[#8A0024]'
+                      : 'w-1.5 bg-[#8A0024]/25'
+                  }`}
+                />
+              ))}
+            </div>
+
+            {/* 3 Social Media Icons (X removed) */}
+            <div className="flex items-center justify-center gap-3">
+              <a
+                href="https://facebook.com/teeszone"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TeesZone on Facebook"
+                className="w-7 h-7 rounded-full bg-[#8A0024] text-white flex items-center justify-center shadow-xs"
+              >
+                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                </svg>
+              </a>
+
+              <a
+                href="https://instagram.com/teeszone"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TeesZone on Instagram"
+                className="w-7 h-7 rounded-full bg-[#8A0024] text-white flex items-center justify-center shadow-xs"
+              >
+                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                </svg>
+              </a>
+
+              <a
+                href="https://linkedin.com/company/teeszone"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TeesZone on LinkedIn"
+                className="w-7 h-7 rounded-full bg-[#8A0024] text-white flex items-center justify-center shadow-xs"
+              >
+                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
         </div>
       </div>
+
     </section>
   );
 };
