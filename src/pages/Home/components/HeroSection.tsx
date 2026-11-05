@@ -343,24 +343,36 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
           </div>
         </div>
 
-        {/* Mobile Collage: Uploaded Workforce Models placed cleanly above the Factory Building */}
-        <div className="relative w-full overflow-hidden bg-transparent px-3 pt-3 pb-1 flex flex-col items-center">
-          <div className="relative w-full max-w-[440px] aspect-[16/13] flex flex-col items-center justify-end">
-            {/* Layer 1: Workers (Placed above building, full chest logos clearly visible) */}
-            <div className="relative z-10 w-[92%] sm:w-[88%] -mb-10 sm:-mb-12 flex justify-center">
+        {/* Mobile Collage: Uploaded Workforce Models placed cleanly behind the Factory Building */}
+        <div className="relative w-full overflow-hidden bg-transparent px-3 pt-2 pb-0 flex flex-col items-center">
+          <div className="relative w-full max-w-[430px] flex flex-col items-center justify-end">
+            {/* "One Brand Every Sector" Cursive Script for Mobile */}
+            <div className="w-full flex justify-end pr-3 -mb-2 sm:-mb-4 z-30 pointer-events-none select-none">
+              <div className="transform -rotate-[10deg] text-right">
+                <span className="block font-['Brush_Script_MT',_'Dancing_Script',_cursive] italic text-2xl sm:text-[28px] text-[#580819] leading-tight drop-shadow-xs font-semibold">
+                  One Brand,
+                </span>
+                <span className="block font-['Brush_Script_MT',_'Dancing_Script',_cursive] italic text-2xl sm:text-[28px] text-[#580819] leading-tight pl-4 drop-shadow-xs font-semibold">
+                  Every Sector
+                </span>
+              </div>
+            </div>
+
+            {/* Layer 1: Workers (Positioned cleanly behind the factory building, clearly visible with full chest logos) */}
+            <div className="relative z-10 w-[84%] sm:w-[80%] -mb-10 sm:-mb-14 flex justify-center">
               <picture className="w-full block">
                 <source type="image/webp" srcSet="/assets/images/hero-models-mobile.webp" />
                 <img
                   src="/assets/images/hero-models-mobile.png"
                   alt="TeesZone workforce models with custom branded apparel"
-                  className="w-full h-auto max-h-[290px] sm:max-h-[330px] object-contain object-bottom drop-shadow-md"
+                  className="w-full h-auto max-h-[250px] sm:max-h-[280px] object-contain object-bottom drop-shadow-md"
                   loading="eager"
                 />
               </picture>
             </div>
 
-            {/* Layer 2: TEESZONE Factory Showroom Building (Positioned at bottom floor below workers' chests) */}
-            <div className="relative z-20 w-[96%] sm:w-[92%]">
+            {/* Layer 2: TEESZONE Factory Showroom Building (Cleanly positioned at front base) */}
+            <div className="relative z-20 w-[98%] sm:w-[94%]">
               <picture className="w-full block">
                 <source type="image/webp" srcSet="/assets/images/hero-factory-clean.webp" />
                 <img

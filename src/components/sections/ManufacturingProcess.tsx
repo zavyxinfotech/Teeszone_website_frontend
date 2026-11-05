@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef, useState } from 'react';
+import { useScroll, useMotionValueEvent } from 'framer-motion';
 
 interface ProcessStepItem {
   number: string;
@@ -47,6 +47,14 @@ const steps: ProcessStepItem[] = [
   },
 ];
 
+const desktopCoords = [
+  { x: 60, y: 35, rotate: 18 },
+  { x: 280, y: 95, rotate: -16 },
+  { x: 500, y: 50, rotate: 22 },
+  { x: 720, y: 95, rotate: -20 },
+  { x: 940, y: 35, rotate: 0 },
+];
+
 interface ManufacturingProcessProps {
   theme?: 'light' | 'dark';
   className?: string;
@@ -57,33 +65,22 @@ export const ManufacturingProcess: React.FC<ManufacturingProcessProps> = ({
   className = '',
 }) => {
   const isDark = theme === 'dark';
+  const sectionRef = useRef<HTMLElement>(null);
   const [activeStep, setActiveStep] = useState(0);
   const [hoveredStep, setHoveredStep] = useState<number | null>(null);
 
-  useEffect(() => {
-    const CYCLE_DURATION = 3500; // Synchronized cycle timing
-    const startTime = performance.now();
-    let animId: number;
+  // Scroll-driven step activation - only advances as the user scrolls through the section
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start 75%', 'end 25%'],
+  });
 
-    const update = (now: number) => {
-      const elapsed = (now - startTime) % CYCLE_DURATION;
-      const progress = elapsed / CYCLE_DURATION;
+  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
+    const stepIdx = Math.min(4, Math.max(0, Math.floor(latest * 5)));
+    setActiveStep(stepIdx);
+  });
 
-      // 4 curve segments connecting the 5 process steps (0 to 4)
-      let current = 0;
-      if (progress < 0.125) current = 0;
-      else if (progress < 0.375) current = 1;
-      else if (progress < 0.625) current = 2;
-      else if (progress < 0.875) current = 3;
-      else current = 4;
-
-      setActiveStep(current);
-      animId = requestAnimationFrame(update);
-    };
-
-    animId = requestAnimationFrame(update);
-    return () => cancelAnimationFrame(animId);
-  }, []);
+  const currentDisplayStep = hoveredStep !== null ? hoveredStep : activeStep;
 
   return (
     <div className={`relative w-full overflow-hidden ${className}`}>
@@ -97,7 +94,6 @@ export const ManufacturingProcess: React.FC<ManufacturingProcessProps> = ({
             className="w-full h-10 sm:h-16 md:h-24 lg:h-28 block -mb-[1px]"
             preserveAspectRatio="none"
           >
-            {/* Even solid burgundy wave matching the section */}
             <path
               d="M0,38 C240,86 480,78 760,32 C1040,-10 1240,15 1440,44 L1440,120 L0,120 Z"
               fill="#59061A"
@@ -106,12 +102,14 @@ export const ManufacturingProcess: React.FC<ManufacturingProcessProps> = ({
         </div>
       )}
 
-      {/* 2. MAIN PROCESS SECTION (Even solid background color, no different color shades) */}
+      {/* 2. MAIN PROCESS SECTION */}
       <section
-        className={`relative ${isDark
-            ? 'pt-8 sm:pt-12 md:pt-14 pb-4 sm:pb-6 md:pb-8 text-white bg-[#59061A]'
+        ref={sectionRef}
+        className={`relative ${
+          isDark
+            ? 'pt-8 sm:pt-12 md:pt-14 pb-8 sm:pb-10 md:pb-12 text-white bg-[#59061A]'
             : 'py-16 sm:py-20 bg-white text-charcoal-900 border-t border-burgundy-50'
-          }`}
+        }`}
       >
         {isDark && (
           <>
@@ -145,40 +143,15 @@ export const ManufacturingProcess: React.FC<ManufacturingProcessProps> = ({
                 </defs>
               </svg>
             </div>
-
-            {/* Mobile Vertical Flowing Cream Silk Wave (Exact Image 3 Reference) */}
-            <div className="block lg:hidden absolute inset-0 pointer-events-none select-none overflow-hidden">
-              <svg
-                viewBox="0 0 680 1020"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-full h-full opacity-90"
-                preserveAspectRatio="none"
-              >
-                {/* Flowing vertical cream satin ribbon band winding from top to bottom */}
-                <path
-                  d="M -30,160 C 180,180 240,240 680,210 L 710,920 C 450,960 200,900 -30,860 Z"
-                  fill="url(#mobileCreamGrad)"
-                />
-                <defs>
-                  <linearGradient id="mobileCreamGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="#FFFBF8" stopOpacity="0.96" />
-                    <stop offset="40%" stopColor="#F7EBE1" stopOpacity="0.98" />
-                    <stop offset="70%" stopColor="#F4E5D8" stopOpacity="0.95" />
-                    <stop offset="100%" stopColor="#FFF8F2" stopOpacity="0.97" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
           </>
         )}
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Header Section */}
-          <div className="text-center mb-6 sm:mb-10 lg:mb-12 max-w-3xl mx-auto">
+          {/* Header Section - Clean high-contrast typography, no overlapping elements */}
+          <div className="text-center mb-6 sm:mb-10 lg:mb-12 max-w-3xl mx-auto relative z-20">
             <div className="flex items-center justify-center gap-3 sm:gap-4 mb-2">
               <div className="w-8 sm:w-14 h-px bg-white/40" />
-              <span className="text-[11px] sm:text-xs md:text-sm font-heading font-extrabold uppercase tracking-[0.25em] text-white/95">
+              <span className="text-[11px] sm:text-xs md:text-sm font-heading font-extrabold uppercase tracking-[0.25em] text-white">
                 OUR PROCESS
               </span>
               <div className="w-8 sm:w-14 h-px bg-white/40" />
@@ -191,20 +164,19 @@ export const ManufacturingProcess: React.FC<ManufacturingProcessProps> = ({
               </span>
             </h2>
 
-            <p className="text-xs sm:text-sm md:text-base text-rose-100/90 font-normal mt-2 leading-relaxed px-2">
+            <p className="text-xs sm:text-sm md:text-base text-rose-100 font-normal mt-2 leading-relaxed px-4 max-w-xl mx-auto">
               A simple and transparent process to get your custom T-shirts, uniforms and apparel.
             </p>
           </div>
 
           {/* ======================================================== */}
-          {/* A. DESKTOP VIEW - 3D Traveling Arrow & Smooth Forward Zoom */}
+          {/* A. DESKTOP VIEW - Scroll-driven 3D Arrow Along Track */}
           {/* ======================================================== */}
           <div className="hidden lg:block relative mt-6 lg:mt-10">
-            {/* SVG Track with 3D Arrow Moving along the line */}
+            {/* SVG Track with 3D Arrow */}
             <div className="absolute top-[18%] left-[6%] right-[6%] h-36 pointer-events-none select-none z-0">
               <svg viewBox="0 0 1000 120" fill="none" className="w-full h-full" preserveAspectRatio="none">
                 <defs>
-                  {/* Clean 3D Arrow Metallic Gradients (No Neon Glow) */}
                   <linearGradient id="arrowTopFacetGrad" x1="0" y1="1" x2="1" y2="0">
                     <stop offset="0%" stopColor="#C41C44" />
                     <stop offset="60%" stopColor="#FFA6B6" />
@@ -230,7 +202,6 @@ export const ManufacturingProcess: React.FC<ManufacturingProcessProps> = ({
                     <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0.8" />
                   </linearGradient>
 
-                  {/* Clean 3D Elevation Drop Shadow (Realistic Dark Shadow, No Color Glow) */}
                   <filter id="arrow3DDepth" x="-50%" y="-50%" width="200%" height="200%">
                     <feDropShadow dx="0" dy="4" stdDeviation="2.5" floodColor="#0D0004" floodOpacity="0.75" />
                   </filter>
@@ -252,37 +223,25 @@ export const ManufacturingProcess: React.FC<ManufacturingProcessProps> = ({
                   strokeDasharray="6 6"
                 />
 
-                {/* Animated traveling dash stream */}
-                <path
-                  d="M 60,35 C 150,35 190,95 280,95 C 370,95 410,50 500,50 C 590,50 630,95 720,95 C 810,95 850,35 940,35"
-                  stroke="rgba(255, 220, 230, 0.9)"
-                  strokeWidth="2.2"
-                  strokeDasharray="8 8"
-                  style={{ animation: 'travelingFlow 1.2s linear infinite' }}
-                />
-
-                {/* 3D TRAVELING ARROW - Clean, volumetric, moves smoothly along the path */}
-                <g filter="url(#arrow3DDepth)">
-                  {/* Subtle speed trail */}
+                {/* 3D ARROW - Positioned strictly at current active step coordinate */}
+                <g
+                  transform={`translate(${desktopCoords[currentDisplayStep].x}, ${desktopCoords[currentDisplayStep].y}) rotate(${desktopCoords[currentDisplayStep].rotate})`}
+                  className="transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                  filter="url(#arrow3DDepth)"
+                >
                   <polygon
                     points="-1,0 -20,-1 -20,1"
                     fill="url(#arrowTrailGrad)"
                     opacity="0.7"
                   />
-
-                  {/* 3D Arrowhead Bottom Facet (Shadow side) */}
                   <polygon
                     points="15,0 -1,0 -4,6.5"
                     fill="url(#arrowBottomFacetGrad)"
                   />
-
-                  {/* 3D Arrowhead Top Facet (Highlight side) */}
                   <polygon
                     points="15,0 -4,-6.5 -1,0"
                     fill="url(#arrowTopFacetGrad)"
                   />
-
-                  {/* Central 3D Razor Ridge */}
                   <line
                     x1="-1"
                     y1="0"
@@ -293,8 +252,6 @@ export const ManufacturingProcess: React.FC<ManufacturingProcessProps> = ({
                     strokeLinecap="round"
                     opacity="0.95"
                   />
-
-                  {/* 3D Spherical Core */}
                   <circle
                     cx="0"
                     cy="0"
@@ -303,31 +260,20 @@ export const ManufacturingProcess: React.FC<ManufacturingProcessProps> = ({
                     stroke="rgba(255, 255, 255, 0.8)"
                     strokeWidth="0.8"
                   />
-
-                  {/* Sharp Crisp Tip Point */}
                   <circle
                     cx="15"
                     cy="0"
                     r="2"
                     fill="#FFFFFF"
                   />
-
-                  {/* Synchronized path animation */}
-                  <animateMotion
-                    path="M 60,35 C 150,35 190,95 280,95 C 370,95 410,50 500,50 C 590,50 630,95 720,95 C 810,95 850,35 940,35"
-                    dur="3.5s"
-                    repeatCount="indefinite"
-                    rotate="auto"
-                    calcMode="linear"
-                  />
                 </g>
               </svg>
             </div>
 
-            {/* 5-Step Desktop Grid with Slow-Motion Forward Zoom */}
+            {/* 5-Step Desktop Grid */}
             <div className="grid grid-cols-5 gap-3 xl:gap-5 pb-8 pt-4 px-2 sm:px-4 items-center relative z-10">
               {steps.map((step, index) => {
-                const isCurrent = (hoveredStep !== null ? hoveredStep : activeStep) === index;
+                const isCurrent = currentDisplayStep === index;
                 return (
                   <div
                     key={step.number}
@@ -343,7 +289,7 @@ export const ManufacturingProcess: React.FC<ManufacturingProcessProps> = ({
                       transformStyle: 'preserve-3d',
                     }}
                   >
-                    {/* 3D Plinth Icon Container - Slow Motion Forward Zoom-In (No Glowing Effect) */}
+                    {/* 3D Plinth Icon Container */}
                     <div
                       className={`relative w-40 h-40 lg:w-44 lg:h-44 xl:w-48 xl:h-48 flex items-center justify-center transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                         isCurrent
@@ -351,7 +297,6 @@ export const ManufacturingProcess: React.FC<ManufacturingProcessProps> = ({
                           : 'scale-100 translate-y-0'
                       }`}
                     >
-                      {/* Crisp 3D Isometric Plinth Icon with Natural Dark Drop-Shadow */}
                       <img
                         src={step.iconImg}
                         alt={step.title}
@@ -390,111 +335,108 @@ export const ManufacturingProcess: React.FC<ManufacturingProcessProps> = ({
           </div>
 
           {/* ======================================================== */}
-          {/* B. MOBILE VIEW - Clean 3D Slow-Motion Forward Zoom */}
+          {/* B. MOBILE VIEW - 100% Scroll-Driven with Visible 3D Arrow */}
           {/* ======================================================== */}
           <div className="block lg:hidden relative mt-4 sm:mt-6 max-w-md mx-auto">
-            {/* Mobile Vertical S-Curve Track with 3D Arrow */}
-            <div className="absolute top-[2%] bottom-[2%] left-[10%] sm:left-[12%] w-16 pointer-events-none select-none z-0">
-              <svg viewBox="0 0 80 420" fill="none" className="w-full h-full" preserveAspectRatio="none">
-                <defs>
-                  <filter id="arrow3DDepth-mobile" x="-50%" y="-50%" width="200%" height="200%">
-                    <feDropShadow dx="0" dy="3" stdDeviation="2" floodColor="#0D0004" floodOpacity="0.75" />
-                  </filter>
-                </defs>
-
-                {/* Guide track */}
-                <path
-                  d="M 25,25 C 55,55 55,80 25,115 C 55,145 55,170 25,205 C 55,235 55,260 25,295 C 55,325 55,350 25,385"
-                  stroke="rgba(255, 180, 200, 0.35)"
-                  strokeWidth="2"
-                  strokeDasharray="5 5"
+            {/* Dedicated Left Column Timeline with Spine and Directional 3D Arrow */}
+            <div className="relative pl-12 sm:pl-14">
+              {/* Continuous Vertical Connecting Spine Line */}
+              <div className="absolute left-4 sm:left-5 top-8 bottom-12 w-[2px] bg-rose-200/25">
+                <div
+                  className="w-full bg-[#FFA6B6] transition-all duration-500 ease-out"
+                  style={{ height: `${(currentDisplayStep / 4) * 100}%` }}
                 />
+              </div>
 
-                {/* Animated traveling dash stream */}
-                <path
-                  d="M 25,25 C 55,55 55,80 25,115 C 55,145 55,170 25,205 C 55,235 55,260 25,295 C 55,325 55,350 25,385"
-                  stroke="rgba(255, 220, 230, 0.9)"
-                  strokeWidth="2"
-                  strokeDasharray="6 6"
-                  style={{ animation: 'travelingFlow 1.2s linear infinite' }}
-                />
+              {/* Vertical Stack of Steps */}
+              <div className="flex flex-col gap-4 sm:gap-5 relative z-10">
+                {steps.map((step, index) => {
+                  const isCurrent = currentDisplayStep === index;
+                  const isPast = currentDisplayStep > index;
 
-                {/* 3D Mobile Traveling Arrow */}
-                <g filter="url(#arrow3DDepth-mobile)">
-                  <polygon points="12,0 -3,-4.5 0,0 -3,4.5" fill="url(#arrowTopFacetGrad)" />
-                  <circle cx="0" cy="0" r="2.8" fill="url(#arrowCoreSphere)" stroke="rgba(255,255,255,0.8)" strokeWidth="0.6" />
-                  <circle cx="12" cy="0" r="1.6" fill="#FFFFFF" />
-                  <animateMotion
-                    path="M 25,25 C 55,55 55,80 25,115 C 55,145 55,170 25,205 C 55,235 55,260 25,295 C 55,325 55,350 25,385"
-                    dur="3.5s"
-                    repeatCount="indefinite"
-                    rotate="auto"
-                    calcMode="linear"
-                  />
-                </g>
-              </svg>
-            </div>
-
-            {/* Vertical Stack of Steps */}
-            <div className="flex flex-col gap-4 sm:gap-5 relative z-10 pl-1 pr-2">
-              {steps.map((step, index) => {
-                const isCurrent = (hoveredStep !== null ? hoveredStep : activeStep) === index;
-                return (
-                  <div
-                    key={step.number}
-                    onClick={() => setHoveredStep(index)}
-                    className={`flex flex-row items-center gap-3 sm:gap-5 p-2 rounded-2xl transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                      isCurrent
-                        ? 'bg-white/10 backdrop-blur-sm scale-[1.04] translate-x-1'
-                        : 'opacity-75 scale-100'
-                    }`}
-                  >
-                    {/* 3D Plinth Icon - Smooth Forward Zoom (No Glowing Effect) */}
+                  return (
                     <div
-                      className={`relative w-24 h-24 sm:w-28 sm:h-28 shrink-0 flex items-center justify-center transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                        isCurrent ? 'scale-[1.22] -translate-y-2' : 'scale-100 translate-y-0'
-                      }`}
+                      key={step.number}
+                      onClick={() => setHoveredStep(index)}
+                      className="relative flex items-center"
                     >
-                      <img
-                        src={step.iconImg}
-                        alt={step.title}
-                        className={`w-full h-full object-contain filter transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                          isCurrent
-                            ? 'drop-shadow-[0_20px_24px_rgba(15,0,4,0.7)]'
-                            : 'drop-shadow-[0_10px_16px_rgba(20,0,6,0.4)]'
-                        }`}
-                        loading="lazy"
-                      />
-                    </div>
+                      {/* Left Track Node: 3D Directional Arrow for Current Step, Number / Check for others */}
+                      <div className="absolute -left-12 sm:-left-14 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center">
+                        {isCurrent ? (
+                          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#E62852] to-[#8A0024] border-2 border-white text-white flex items-center justify-center shadow-[0_4px_16px_rgba(230,40,82,0.6)] transition-transform scale-110">
+                            {/* Directional 3D Arrow pointing to current card */}
+                            <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24">
+                              <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z" />
+                            </svg>
+                          </div>
+                        ) : isPast ? (
+                          <div className="w-6 h-6 rounded-full bg-[#8A0024] border border-rose-300 text-white flex items-center justify-center text-[10px] font-bold shadow-sm">
+                            ✓
+                          </div>
+                        ) : (
+                          <div className="w-6 h-6 rounded-full bg-[#3B020E] border border-rose-200/40 text-rose-200/80 flex items-center justify-center text-[10px] font-bold">
+                            {step.number}
+                          </div>
+                        )}
+                      </div>
 
-                    {/* Typography */}
-                    <div className="flex flex-col justify-center text-left">
-                      <h3
-                        className={`font-heading font-black text-base sm:text-lg leading-snug tracking-tight transition-colors ${
+                      {/* Step Card */}
+                      <div
+                        className={`w-full flex flex-row items-center gap-3 sm:gap-4 p-2.5 sm:p-3 rounded-2xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                           isCurrent
-                            ? 'text-white'
-                            : 'text-white/85'
+                            ? 'bg-[#FFF9F6] border border-rose-200 shadow-[0_12px_28px_rgba(15,0,4,0.45)] scale-[1.03] translate-x-1'
+                            : 'bg-[#FFF9F6]/90 border border-white/20 opacity-80 scale-100'
                         }`}
                       >
-                        {step.title}
-                      </h3>
-                      <p
-                        className={`text-xs sm:text-sm font-semibold mt-0.5 leading-tight transition-colors ${
-                          isCurrent ? 'text-rose-100' : 'text-rose-100/70'
-                        }`}
-                      >
-                        {step.subtitle}
-                      </p>
+                        {/* 3D Plinth Icon */}
+                        <div
+                          className={`relative w-20 h-20 sm:w-24 sm:h-24 shrink-0 flex items-center justify-center transition-all duration-500 ${
+                            isCurrent ? 'scale-[1.18] -translate-y-1' : 'scale-100 translate-y-0'
+                          }`}
+                        >
+                          <img
+                            src={step.iconImg}
+                            alt={step.title}
+                            className={`w-full h-full object-contain filter transition-all duration-500 ${
+                              isCurrent
+                                ? 'drop-shadow-[0_16px_22px_rgba(15,0,4,0.65)]'
+                                : 'drop-shadow-[0_8px_14px_rgba(20,0,6,0.35)]'
+                            }`}
+                            loading="lazy"
+                          />
+                        </div>
+
+                        {/* Typography */}
+                        <div className="flex flex-col justify-center text-left">
+                          <span className="text-[10px] font-heading font-black uppercase tracking-wider text-[#8A0024]">
+                            Step {step.number}
+                          </span>
+                          <h3
+                            className={`font-heading font-black text-base leading-snug tracking-tight transition-colors ${
+                              isCurrent ? 'text-[#59061A]' : 'text-[#4A0010]'
+                            }`}
+                          >
+                            {step.title}
+                          </h3>
+                          <p
+                            className={`text-xs font-semibold mt-0.5 leading-tight transition-colors ${
+                              isCurrent ? 'text-[#82132C]' : 'text-[#7A1B30]'
+                            }`}
+                          >
+                            {step.subtitle}
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 3. BOTTOM SECTION DIVIDER (Even solid burgundy matching the section) */}
+      {/* 3. BOTTOM SECTION DIVIDER */}
       {isDark && (
         <div className="w-full leading-none pointer-events-none select-none bg-white">
           <svg
