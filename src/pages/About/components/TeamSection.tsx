@@ -1,156 +1,264 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { teamMembers } from '@/data/team';
-import { CheckCircle2, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Sparkles } from 'lucide-react';
+
+// Crisp Official LinkedIn Brand Icon
+const LinkedInIcon: React.FC<{ className?: string }> = ({ className = 'w-4 h-4' }) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+  </svg>
+);
 
 interface TeamSectionProps {
   className?: string;
 }
 
-export const TeamSection: React.FC<TeamSectionProps> = ({
-  className = '',
-}) => {
-  // Duplicated list for seamless non-stop infinite marquee loop
-  const marqueeMembers = [...teamMembers, ...teamMembers];
+// Exactly 4 leaders requested (Nithya & Ramya removed)
+const leadershipTeam = [
+  {
+    num: '01',
+    name: 'Sakthivel Muthusamy',
+    role: 'Founder, Managing Director',
+    image: '/assets/images/team/sakthivel.jpg',
+    about:
+      'Pioneered TeesZone with a vision to transform Tiruppur knitwear manufacturing into a seamless corporate-apparel solution provider across India.',
+    linkedin: 'https://www.linkedin.com/in/sakthivel-muthusamy-teeszone',
+    theme: {
+      ribbon: 'from-[#7A0022] to-[#550017]',
+      accent: '#7A0022',
+      badgeBg: 'bg-[#550017]',
+      foldShadow: '#3A000F',
+    },
+  },
+  {
+    num: '02',
+    name: 'Saranya S',
+    role: 'Director, Head of Operations',
+    image: '/assets/images/team/saranya.jpg',
+    about:
+      'Oversees daily plant operations, cutting-to-pack workflows, and stringent quality assurance protocols across every production batch.',
+    linkedin: 'https://www.linkedin.com/in/saranya-sakthivel-teeszone',
+    theme: {
+      ribbon: 'from-[#8E1736] to-[#6A0B23]',
+      accent: '#8E1736',
+      badgeBg: 'bg-[#6A0B23]',
+      foldShadow: '#440414',
+    },
+  },
+  {
+    num: '03',
+    name: 'Vijaya Dharshini NM',
+    role: 'E-Commerce & Digital Marketing',
+    image: '/assets/images/team/vijayadharshini.jpg',
+    about:
+      'Drives our digital presence, client onboarding platforms, and omni-channel customer experiences for businesses nationwide.',
+    linkedin: 'https://www.linkedin.com/in/vijayadarshini-teeszone',
+    theme: {
+      ribbon: 'from-[#9C2040] to-[#75112B]',
+      accent: '#9C2040',
+      badgeBg: 'bg-[#75112B]',
+      foldShadow: '#4D0819',
+    },
+  },
+  {
+    num: '04',
+    name: 'Archana R',
+    role: 'HR Manager',
+    image: '/assets/images/team/archana.jpg',
+    about:
+      'Fosters our skilled artisan and workforce ecosystem, ensuring fair trade practices and continuous upskilling in apparel craftsmanship.',
+    linkedin: 'https://www.linkedin.com/in/archana-teeszone',
+    theme: {
+      ribbon: 'from-[#6E001E] to-[#4A0014]',
+      accent: '#6E001E',
+      badgeBg: 'bg-[#4A0014]',
+      foldShadow: '#2E000B',
+    },
+  },
+];
+
+export const TeamSection: React.FC<TeamSectionProps> = ({ className = '' }) => {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Scroll Up & Scroll Down Dynamic Wave Animations
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+
+  // Staggered parallax for cards on every scroll up and down
+  const yOdd = useTransform(scrollYProgress, [0, 0.5, 1], [35, 0, -25]);
+  const yEven = useTransform(scrollYProgress, [0, 0.5, 1], [55, 0, -40]);
 
   return (
-    <section className={cn('relative w-full bg-white overflow-x-clip overflow-y-visible pt-8 sm:pt-12 md:pt-16 pb-24 sm:pb-32 lg:pb-36', className)}>
-      
-      {/* ========================================================================= */}
-      {/* 1. CENTERED BURGUNDY BOX (Minimal Rounded Border, Minimal Shadow, Matching Typography) */}
-      {/* ========================================================================= */}
-      <div className="relative max-w-5xl xl:max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="relative rounded-xl sm:rounded-2xl bg-gradient-to-b from-[#941734] to-[#7B1028] text-white pt-9 sm:pt-12 pb-26 sm:pb-30 px-4 sm:px-8 shadow-lg border border-burgundy-900/30 min-h-[460px] sm:min-h-[500px] lg:min-h-[520px] flex flex-col justify-start">
-          
-          {/* Subtle Ambient Silk Glows inside the container */}
-          <div className="absolute top-0 right-1/4 w-72 sm:w-96 h-72 sm:h-96 bg-[radial-gradient(circle,rgba(255,220,230,0.12)_0%,transparent_70%)] blur-3xl pointer-events-none" />
-
-          {/* Header Typography matching WhyChooseUs section */}
-          <div className="text-center max-w-2xl mx-auto relative z-10 px-2">
-            <div className="flex items-center justify-center gap-3 sm:gap-4 mb-2">
-              <div className="w-8 sm:w-12 h-px bg-white/40" />
-              <span className="text-[11px] sm:text-xs md:text-sm font-heading font-extrabold uppercase tracking-[0.25em] text-white/95">
-                OUR TEAM
-              </span>
-              <div className="w-8 sm:w-12 h-px bg-white/40" />
-            </div>
-
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-heading font-black tracking-tight leading-[1.12] text-white">
-              Meet the People Behind{' '}
-              <span className="bg-gradient-to-r from-white via-rose-100 to-warm-200 bg-clip-text text-transparent">
-                TeesZone
-              </span>
-            </h2>
-
-            <p className="text-xs sm:text-sm md:text-base text-rose-100/90 font-normal mt-2.5 sm:mt-3 leading-relaxed max-w-xl mx-auto">
-              A passionate team of artisans, production masters, and leaders working together to deliver high-quality custom apparel across India.
-            </p>
-          </div>
-
-        </div>
+    <section
+      ref={sectionRef}
+      className={cn(
+        'relative w-full bg-[#FAF6F2] overflow-hidden pt-12 sm:pt-16 md:pt-20 pb-16 sm:pb-20 md:pb-24 border-t border-burgundy-100/50',
+        className
+      )}
+    >
+      {/* Subtle Ambient Background Theme */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
+        <div className="absolute -top-24 right-1/4 w-[500px] h-[500px] bg-rose-200/20 rounded-full blur-[100px]" />
+        <div className="absolute -bottom-24 left-1/4 w-[450px] h-[450px] bg-amber-100/30 rounded-full blur-[90px]" />
       </div>
 
-      {/* ========================================================================= */}
-      {/* 2. CARDS ROW: Floats in from the right like flowing cloth, one-by-one */}
-      {/* ========================================================================= */}
-      <motion.div
-        initial={{ opacity: 0, x: 90 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{
-          duration: 1.0,
-          ease: [0.16, 1, 0.3, 1],
-        }}
-        className="relative -mt-64 sm:-mt-72 lg:-mt-76 w-full z-20 overflow-visible"
-      >
-        <div className="flex overflow-visible w-full select-none py-4">
-          
-          {/* Continuous Non-Stop Infinite Loop Track across entire screen */}
-          <div className="flex animate-marquee-scroll hover:[animation-play-state:paused] gap-5 sm:gap-7 items-start overflow-visible">
-            {marqueeMembers.map((member, idx) => (
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* ========================================================================= */}
+        {/* SECTION HEADER (Clean, Centered, matching Image 1 & TeesZone theme)       */}
+        {/* ========================================================================= */}
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14 space-y-2.5">
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.3 }}
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-burgundy-50 border border-burgundy-200/60 text-burgundy-700 text-xs sm:text-sm font-heading font-semibold tracking-wider uppercase shadow-2xs"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-burgundy-700" />
+            <span>— LEADERSHIP TEAM —</span>
+          </motion.div>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.35, delay: 0.05 }}
+            className="text-3xl sm:text-4xl md:text-[42px] font-heading font-bold text-charcoal-900 leading-[1.15] tracking-tight"
+          >
+            Meet the People Behind{' '}
+            <span className="text-burgundy-700">TeesZone</span>
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.35, delay: 0.1 }}
+            className="text-sm sm:text-base text-charcoal-600 max-w-xl mx-auto leading-relaxed"
+          >
+            A dedicated leadership team driving innovation, craftsmanship, and customer trust across India.
+          </motion.p>
+        </div>
+
+        {/* ========================================================================= */}
+        {/* 4 CARDS: EXACT DESIGN AS ATTACHED REFERENCE IMAGE 1 (Centered Grid)       */}
+        {/* ========================================================================= */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 lg:gap-6 justify-center">
+          {leadershipTeam.map((member, idx) => {
+            const yTransform = idx % 2 === 0 ? yOdd : yEven;
+
+            return (
               <motion.div
-                key={`${member.id}-${idx}`}
-                initial={{ opacity: 0, x: 60, y: 15 }}
-                whileInView={{ opacity: 1, x: 0, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{
-                  duration: 0.85,
-                  delay: (idx % teamMembers.length) * 0.1,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className="group relative w-[260px] sm:w-[290px] md:w-[320px] shrink-0 cursor-pointer overflow-visible"
+                key={member.num}
+                style={{ y: yTransform }}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="group relative flex flex-col bg-white rounded-2xl shadow-[0_10px_30px_rgba(128,0,32,0.06)] border border-[#EFE5DC] overflow-hidden transition-all duration-300 hover:shadow-[0_16px_36px_rgba(128,0,32,0.12)] hover:-translate-y-1.5"
               >
-                {/* White Background Card with Ultra-Thin Delicate Border */}
-                <div className="relative rounded-none bg-white border border-[#EFE7DC]/70 p-2 sm:p-2.5 transition-transform duration-300 group-hover:-translate-y-2 shadow-xs">
-                  
-                  {/* Image Section with Layered Cloth-Fold Bottom Border (matching attached reference) */}
-                  <div className="relative w-full h-44 sm:h-50 md:h-56 rounded-none overflow-hidden bg-charcoal-900">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="w-full h-full object-cover object-top rounded-none transition-transform duration-500 group-hover:scale-106"
-                      loading="lazy"
-                    />
+                {/* 1. Member Photo Container */}
+                <div className="relative w-full h-64 sm:h-68 md:h-72 overflow-hidden bg-neutral-100">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
+                    loading="lazy"
+                  />
+                  {/* Subtle top gradient shadow */}
+                  <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
+                </div>
 
-                    {/* Layered Cloth Folds Bottom Border Effect */}
-                    <svg
-                      viewBox="0 0 320 28"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="absolute bottom-0 inset-x-0 w-full h-6 pointer-events-none z-10"
-                      preserveAspectRatio="none"
+                {/* 2. Ribbon Banner (Exact 3D Folded Tab Style matching Image 1) */}
+                <div className="relative -mt-6 mx-0 z-20">
+                  <div
+                    className={cn(
+                      'relative flex items-center gap-3 py-2.5 px-3.5 bg-gradient-to-r text-white shadow-md',
+                      member.theme.ribbon
+                    )}
+                    style={{
+                      borderRadius: '0 8px 8px 0',
+                      marginRight: '8px',
+                    }}
+                  >
+                    {/* Circle Badge with Member Number */}
+                    <div
+                      className={cn(
+                        'w-9 h-9 rounded-full flex items-center justify-center font-heading font-extrabold text-sm text-white shrink-0 border-2 border-white/40 shadow-inner',
+                        member.theme.badgeBg
+                      )}
                     >
-                      {/* Topmost Fold Layer */}
-                      <path d="M0,10 Q160,24 320,10 L320,28 L0,28 Z" fill="rgba(255, 255, 255, 0.35)" />
-                      {/* Middle Fold Layer */}
-                      <path d="M0,16 Q160,26 320,16 L320,28 L0,28 Z" fill="rgba(255, 255, 255, 0.65)" />
-                      {/* Bottom Solid Base Fold */}
-                      <path d="M0,22 Q160,28 320,22 L320,28 L0,28 Z" fill="#FFFFFF" />
-                    </svg>
-
-                    {/* Department Badge Pill */}
-                    <div className="absolute top-2 left-2 px-2 py-0.5 bg-black/65 backdrop-blur-md text-white text-[10px] sm:text-[11px] font-heading font-semibold rounded-none border border-white/20 tracking-wider z-20">
-                      {member.department}
+                      {member.num}
                     </div>
 
-                    {/* Top-Right Arrow Indicator */}
-                    <div className="absolute top-2 right-2 w-6 h-6 bg-white/90 backdrop-blur-sm flex items-center justify-center text-charcoal-900 rounded-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                      <ArrowUpRight className="w-3.5 h-3.5 text-burgundy-700" />
+                    {/* Member Name & Role */}
+                    <div className="min-w-0 flex-1 leading-tight text-left">
+                      <h3 className="font-heading font-bold text-sm sm:text-[15px] text-white truncate">
+                        {member.name}
+                      </h3>
+                      <p className="text-[11px] sm:text-xs text-rose-100/90 font-medium truncate mt-0.5">
+                        {member.role}
+                      </p>
                     </div>
+
+                    {/* 3D Folded Ribbon Tab Triangle Effect on Right Side */}
+                    <div
+                      className="absolute right-0 -bottom-2 w-0 h-0 border-solid pointer-events-none"
+                      style={{
+                        borderWidth: '8px 8px 0 0',
+                        borderColor: `${member.theme.foldShadow} transparent transparent transparent`,
+                      }}
+                    />
                   </div>
+                </div>
 
-                  {/* Member Name & Role (Centered at bottom of card) */}
-                  <div className="pt-2.5 sm:pt-3 pb-1 text-center">
-                    <h3 className="font-heading font-semibold text-sm sm:text-base text-charcoal-900 tracking-tight leading-snug">
-                      {member.name}
-                    </h3>
-                    <p className="text-xs sm:text-[13px] text-burgundy-900 font-normal mt-0.5 line-clamp-1">
-                      {member.role}
+                {/* 3. Card Body: About Me Section & LinkedIn Navigation */}
+                <div className="flex-1 flex flex-col justify-between p-5 pt-4 text-left space-y-4">
+                  {/* About Me Title & Description */}
+                  <div className="space-y-1.5">
+                    <span
+                      className="text-xs font-heading font-bold uppercase tracking-wider block"
+                      style={{ color: member.theme.accent }}
+                    >
+                      About Me
+                    </span>
+                    <p className="text-xs sm:text-[13px] text-charcoal-700 leading-relaxed font-normal">
+                      {member.about}
                     </p>
                   </div>
 
-                  {/* Details Card: Slides down smoothly from behind during hover with bio */}
-                  <div className="absolute top-full left-0 right-0 z-50 bg-white border-x border-b border-[#EFE7DC] p-3.5 sm:p-4 transition-all duration-300 ease-out opacity-0 -translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto rounded-none shadow-xl">
-                    <div className="space-y-1.5 text-left">
-                      <div className="flex items-center gap-1.5 text-xs sm:text-[13px] font-heading font-bold text-burgundy-800">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-burgundy-700 shrink-0" />
-                        <span>{member.role}</span>
+                  {/* LinkedIn Navigation Link at Bottom of Card */}
+                  <div className="pt-3 border-t border-[#F2E7DF]">
+                    <a
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-between w-full px-3 py-2 rounded-lg bg-[#FAF4EF] hover:bg-burgundy-50 border border-[#EBDCD2] text-burgundy-800 hover:text-burgundy-950 text-xs font-heading font-semibold transition-all duration-200 group/link"
+                      title={`Visit ${member.name}'s LinkedIn profile`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <LinkedInIcon className="w-4 h-4 text-[#0077b5] group-hover/link:scale-110 transition-transform" />
+                        <span>Connect on LinkedIn</span>
                       </div>
-                      <p className="text-xs sm:text-[13px] text-charcoal-600 leading-relaxed font-normal">
-                        {member.bio}
-                      </p>
-                    </div>
+                      <ArrowUpRight className="w-3.5 h-3.5 text-burgundy-700 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                    </a>
                   </div>
-
                 </div>
               </motion.div>
-            ))}
-          </div>
-
+            );
+          })}
         </div>
-      </motion.div>
 
+      </div>
     </section>
   );
 };
