@@ -300,79 +300,78 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
           MOBILE HERO VIEW (Exact match to Reference Image 2 right side)
           Centered typography, side-by-side buttons, unhidden chest logos, and 4-column badges row
           ========================================================================= */}
-      <div className="md:hidden flex flex-col w-full bg-[#FAF6F2] pt-20">
+      <div className="md:hidden flex flex-col w-full bg-[#FAF6F2] pt-16 sm:pt-20">
 
-        {/* Top Text Content Area */}
-        <div className="px-5 pt-4 pb-4 space-y-3.5 bg-transparent text-center">
-          <span className="text-xs font-heading font-semibold uppercase tracking-wider text-burgundy-700 block">
+        {/* Top Text Content Area - Compact to fit within mobile viewport height */}
+        <div className="px-4 pt-2 pb-2 space-y-2 bg-transparent text-center">
+          <span className="text-[11px] font-heading font-semibold uppercase tracking-wider text-burgundy-700 block">
             PREMIUM T-SHIRT MANUFACTURER
           </span>
 
-          <h1 className="text-3xl font-heading font-bold text-charcoal-900 leading-[1.12] tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-heading font-bold text-charcoal-900 leading-[1.12] tracking-tight">
             CUSTOM APPAREL <br />
             <span className="text-burgundy-700">FOR EVERY SECTOR</span>
           </h1>
 
-          <p className="text-sm text-charcoal-700 leading-relaxed font-normal max-w-sm mx-auto">
-            High-quality customized T-shirts, uniforms and apparel for businesses, organizations,
-            events and brands across India.
+          <p className="text-xs sm:text-sm text-charcoal-700 leading-relaxed font-normal max-w-xs mx-auto">
+            High-quality customized T-shirts, uniforms and apparel for businesses and teams across India.
           </p>
 
           {/* Dual Action Buttons Centered Side-by-Side */}
-          <div className="flex items-center justify-center gap-3 pt-1.5">
+          <div className="flex items-center justify-center gap-2.5 pt-1">
             <Button
               variant="primary"
-              size="md"
+              size="sm"
               withArrow
               onClick={onOpenQuote}
               to={!onOpenQuote ? '/contact?mode=quote' : undefined}
-              className="rounded-full shadow-soft text-xs py-2.5 px-5 bg-burgundy-700 hover:bg-burgundy-800 text-white font-medium"
+              className="rounded-full shadow-soft text-xs py-2 px-4 bg-burgundy-700 hover:bg-burgundy-800 text-white font-medium"
             >
               Get a Quote
             </Button>
 
             <Button
               variant="outline"
-              size="md"
+              size="sm"
               to="/products"
               withArrow
-              className="rounded-full bg-white hover:bg-burgundy-50 border-2 border-burgundy-700 text-burgundy-700 hover:!text-burgundy-900 text-xs py-2.5 px-5 font-semibold"
+              className="rounded-full bg-white hover:bg-burgundy-50 border-2 border-burgundy-700 text-burgundy-700 hover:!text-burgundy-900 text-xs py-2 px-4 font-semibold"
             >
               Explore Products
             </Button>
           </div>
         </div>
 
-        {/* Mobile Collage: Uploaded Workforce Models placed cleanly behind the Factory Building */}
-        <div className="relative w-full overflow-hidden bg-transparent px-3 pt-2 pb-0 flex flex-col items-center">
-          <div className="relative w-full max-w-[430px] flex flex-col items-center justify-end">
+        {/* Mobile Collage: Model image and building scaled down to comfortably fit within mobile height */}
+        <div className="relative w-full overflow-hidden bg-transparent px-2 pt-1 pb-0 flex flex-col items-center">
+          <div className="relative w-full max-w-[380px] flex flex-col items-center justify-end">
             {/* "One Brand Every Sector" Cursive Script for Mobile */}
-            <div className="w-full flex justify-end pr-3 -mb-2 sm:-mb-4 z-30 pointer-events-none select-none">
+            <div className="w-full flex justify-end pr-4 -mb-1 z-30 pointer-events-none select-none">
               <div className="transform -rotate-[10deg] text-right">
-                <span className="block font-['Brush_Script_MT',_'Dancing_Script',_cursive] italic text-2xl sm:text-[28px] text-[#580819] leading-tight drop-shadow-xs font-semibold">
+                <span className="block font-['Brush_Script_MT',_'Dancing_Script',_cursive] italic text-xl sm:text-2xl text-[#580819] leading-tight drop-shadow-xs font-semibold">
                   One Brand,
                 </span>
-                <span className="block font-['Brush_Script_MT',_'Dancing_Script',_cursive] italic text-2xl sm:text-[28px] text-[#580819] leading-tight pl-4 drop-shadow-xs font-semibold">
+                <span className="block font-['Brush_Script_MT',_'Dancing_Script',_cursive] italic text-xl sm:text-2xl text-[#580819] leading-tight pl-3 drop-shadow-xs font-semibold">
                   Every Sector
                 </span>
               </div>
             </div>
 
-            {/* Layer 1: Workers (Positioned cleanly behind the factory building, clearly visible with full chest logos) */}
-            <div className="relative z-10 w-[84%] sm:w-[80%] -mb-10 sm:-mb-14 flex justify-center">
+            {/* Layer 1: Workers (Scaled down so they fit within mobile view height) */}
+            <div className="relative z-10 w-[68%] sm:w-[65%] -mb-7 sm:-mb-9 flex justify-center">
               <picture className="w-full block">
                 <source type="image/webp" srcSet="/assets/images/hero-models-mobile.webp" />
                 <img
                   src="/assets/images/hero-models-mobile.png"
                   alt="TeesZone workforce models with custom branded apparel"
-                  className="w-full h-auto max-h-[250px] sm:max-h-[280px] object-contain object-bottom drop-shadow-md"
+                  className="w-full h-auto max-h-[160px] sm:max-h-[190px] object-contain object-bottom drop-shadow-md"
                   loading="eager"
                 />
               </picture>
             </div>
 
-            {/* Layer 2: TEESZONE Factory Showroom Building (Cleanly positioned at front base) */}
-            <div className="relative z-20 w-[98%] sm:w-[94%]">
+            {/* Layer 2: TEESZONE Factory Showroom Building (Cleanly proportioned at front base) */}
+            <div className="relative z-20 w-[82%] sm:w-[80%] max-w-[320px]">
               <picture className="w-full block">
                 <source type="image/webp" srcSet="/assets/images/hero-factory-clean.webp" />
                 <img
@@ -387,7 +386,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
         </div>
 
         {/* Mobile 4 Trust Badges in a 4-Column Row with compact icons and generous spacing */}
-        <div className="w-full bg-[#FAF6F2] py-4 px-4 border-b border-burgundy-100/40">
+        <div className="w-full bg-[#FAF6F2] py-3 px-3 border-b border-burgundy-100/40">
           <div className="flex items-start justify-around gap-3 sm:gap-5">
             {heroTrustFeatures.map((item) => (
               <div key={item.id} className="flex flex-col items-center text-center gap-1 flex-1">

@@ -5,6 +5,7 @@ import { OurStory } from './components/OurStory';
 import { ManufacturingProcess } from './components/ManufacturingProcess';
 import { CompanyStrengths } from './components/CompanyStrengths';
 import { TeamSection } from './components/TeamSection';
+import { OurClients } from '@/components/sections/OurClients';
 import { QuoteCTA } from '@/components/sections/QuoteCTA';
 
 interface AboutProps {
@@ -32,7 +33,10 @@ export const About: React.FC<AboutProps> = ({ onOpenQuote }) => {
       {/* 6. Meet the Team Behind TeesZone */}
       <TeamSection />
 
-      {/* 7. Bottom Brand CTA */}
+      {/* 7. 3000+ Clients Honeycomb Showcase */}
+      <OurClients />
+
+      {/* 8. Bottom Brand CTA */}
       <QuoteCTA
         title="Let's Build Your Brand Together"
         subtitle="Partner with TeesZone for high-quality, stylish and affordable T-shirts, uniforms and custom apparel for your business, team or event."

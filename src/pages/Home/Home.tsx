@@ -5,7 +5,6 @@ import { AboutPreview } from './components/AboutPreview';
 import { ManufacturingPreview } from './components/ManufacturingPreview';
 import { SectorShowcase } from './components/SectorShowcase';
 import { WhyChooseUs } from '@/components/sections/WhyChooseUs';
-import { OurClients } from '@/components/sections/OurClients';
 import { QuoteCTA } from '@/components/sections/QuoteCTA';
 
 interface HomeProps {
@@ -33,10 +32,7 @@ export const Home: React.FC<HomeProps> = ({ onOpenQuote }) => {
       {/* 6. Why Choose TeesZone Strengths Section */}
       <WhyChooseUs theme="light" />
 
-      {/* 7. Our Clients 3000+ Honeycomb Showcase */}
-      <OurClients />
-
-      {/* 8. Bottom Banner CTA */}
+      {/* 7. Bottom Banner CTA */}
       <QuoteCTA
         title="Let's Create Your Custom T-Shirts"
         subtitle="Partner with TeesZone for high-quality, stylish and affordable T-shirts, uniforms and custom apparel for your business, team or event."
