@@ -1,7 +1,11 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { ArrowUpRight, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
+
+interface TeamSectionProps {
+  className?: string;
+}
 
 // Crisp Official LinkedIn Brand Icon
 const LinkedInIcon: React.FC<{ className?: string }> = ({ className = 'w-4 h-4' }) => (
@@ -15,19 +19,14 @@ const LinkedInIcon: React.FC<{ className?: string }> = ({ className = 'w-4 h-4' 
   </svg>
 );
 
-interface TeamSectionProps {
-  className?: string;
-}
-
-// Exactly 4 leaders requested (Nithya & Ramya removed)
+// Exactly 5 Team Leaders: 1 line on desktop, 3 on top + 2 centered on mobile
 const leadershipTeam = [
   {
     num: '01',
     name: 'Sakthivel Muthusamy',
-    role: 'Founder, Managing Director',
+    role: 'Managing Director',
     image: '/assets/images/team/sakthivel.jpg',
-    about:
-      'Pioneered TeesZone with a vision to transform Tiruppur knitwear manufacturing into a seamless corporate-apparel solution provider across India.',
+    about: 'Pioneered TeesZone with a vision to transform Tiruppur knitwear into seamless custom-apparel solutions nationwide.',
     linkedin: 'https://www.linkedin.com/in/sakthivel-muthusamy-teeszone',
     theme: {
       ribbon: 'from-[#7A0022] to-[#550017]',
@@ -39,10 +38,9 @@ const leadershipTeam = [
   {
     num: '02',
     name: 'Saranya S',
-    role: 'Director, Head of Operations',
+    role: 'Head of Operations',
     image: '/assets/images/team/saranya.jpg',
-    about:
-      'Oversees daily plant operations, cutting-to-pack workflows, and stringent quality assurance protocols across every production batch.',
+    about: 'Oversees daily plant operations, cutting-to-pack workflows, and stringent QA protocols on every production batch.',
     linkedin: 'https://www.linkedin.com/in/saranya-sakthivel-teeszone',
     theme: {
       ribbon: 'from-[#8E1736] to-[#6A0B23]',
@@ -56,8 +54,7 @@ const leadershipTeam = [
     name: 'Vijaya Dharshini NM',
     role: 'E-Commerce & Digital Marketing',
     image: '/assets/images/team/vijayadharshini.jpg',
-    about:
-      'Drives our digital presence, client onboarding platforms, and omni-channel customer experiences for businesses nationwide.',
+    about: 'Drives our digital presence, client onboarding platforms, and omni-channel customer experiences nationwide.',
     linkedin: 'https://www.linkedin.com/in/vijayadarshini-teeszone',
     theme: {
       ribbon: 'from-[#9C2040] to-[#75112B]',
@@ -71,8 +68,7 @@ const leadershipTeam = [
     name: 'Archana R',
     role: 'HR Manager',
     image: '/assets/images/team/archana.jpg',
-    about:
-      'Fosters our skilled artisan and workforce ecosystem, ensuring fair trade practices and continuous upskilling in apparel craftsmanship.',
+    about: 'Fosters our skilled artisan ecosystem, ensuring fair trade practices and continuous upskilling in apparel craft.',
     linkedin: 'https://www.linkedin.com/in/archana-teeszone',
     theme: {
       ribbon: 'from-[#6E001E] to-[#4A0014]',
@@ -81,28 +77,45 @@ const leadershipTeam = [
       foldShadow: '#2E000B',
     },
   },
+  {
+    num: '05',
+    name: 'Vasuki Thangaraj',
+    role: 'Full Stack Developer',
+    image: '/assets/images/team/vasuki.jpg',
+    about: 'Builds and optimizes TeesZone digital portals, quotation calculators, and automated manufacturing platforms.',
+    linkedin: 'https://www.linkedin.com/in/vasuki-thangaraj',
+    theme: {
+      ribbon: 'from-[#800020] to-[#5C0017]',
+      accent: '#800020',
+      badgeBg: 'bg-[#5C0017]',
+      foldShadow: '#3B000F',
+    },
+  },
 ];
 
 export const TeamSection: React.FC<TeamSectionProps> = ({ className = '' }) => {
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Scroll Up & Scroll Down Dynamic Wave Animations
+  // 3D Paper-Folding Scroll Animations (Tactile Origami Concertina Tilt on Scroll)
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end start'],
   });
 
-  // Staggered parallax for cards on every scroll up and down
-  const yOdd = useTransform(scrollYProgress, [0, 0.5, 1], [35, 0, -25]);
-  const yEven = useTransform(scrollYProgress, [0, 0.5, 1], [55, 0, -40]);
+  // Paper-folding angle transforms (rotates like folded accordion paper on scroll up & down)
+  const foldAngleLeft = useTransform(scrollYProgress, [0, 0.5, 1], [-9, 0, 9]);
+  const foldAngleRight = useTransform(scrollYProgress, [0, 0.5, 1], [9, 0, -9]);
+  const foldAngleCenter = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0, 0]);
+  const foldElevation = useTransform(scrollYProgress, [0, 0.5, 1], [20, 0, -15]);
 
   return (
     <section
       ref={sectionRef}
       className={cn(
-        'relative w-full bg-[#FAF6F2] overflow-hidden pt-12 sm:pt-16 md:pt-20 pb-16 sm:pb-20 md:pb-24 border-t border-burgundy-100/50',
+        'relative w-full bg-[#FAF6F2] overflow-hidden pt-10 sm:pt-14 md:pt-16 pb-14 sm:pb-18 md:pb-20 border-t border-burgundy-100/50',
         className
       )}
+      style={{ perspective: 1400 }}
     >
       {/* Subtle Ambient Background Theme */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
@@ -110,152 +123,305 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ className = '' }) => {
         <div className="absolute -bottom-24 left-1/4 w-[450px] h-[450px] bg-amber-100/30 rounded-full blur-[90px]" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 w-full max-w-[1580px] mx-auto px-2 sm:px-4 lg:px-6">
         
-        {/* ========================================================================= */}
-        {/* SECTION HEADER (Clean, Centered, matching Image 1 & TeesZone theme)       */}
-        {/* ========================================================================= */}
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14 space-y-2.5">
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10 space-y-2">
           <motion.div
-            initial={{ opacity: 0, y: -8 }}
+            initial={{ opacity: 0, y: -6 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.3 }}
-            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-burgundy-50 border border-burgundy-200/60 text-burgundy-700 text-xs sm:text-sm font-heading font-semibold tracking-wider uppercase shadow-2xs"
+            className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-burgundy-50 border border-burgundy-200/60 text-burgundy-700 text-xs sm:text-sm font-heading font-semibold tracking-wider uppercase shadow-2xs"
           >
             <Sparkles className="w-3.5 h-3.5 text-burgundy-700" />
             <span>— LEADERSHIP TEAM —</span>
           </motion.div>
 
           <motion.h2
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 8 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.35, delay: 0.05 }}
-            className="text-3xl sm:text-4xl md:text-[42px] font-heading font-bold text-charcoal-900 leading-[1.15] tracking-tight"
+            className="text-2xl sm:text-3xl md:text-[38px] font-heading font-bold text-charcoal-900 leading-[1.15] tracking-tight"
           >
             Meet the People Behind{' '}
             <span className="text-burgundy-700">TeesZone</span>
           </motion.h2>
 
           <motion.p
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 8 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.35, delay: 0.1 }}
-            className="text-sm sm:text-base text-charcoal-600 max-w-xl mx-auto leading-relaxed"
+            className="text-xs sm:text-sm text-charcoal-600 max-w-lg mx-auto leading-relaxed"
           >
-            A dedicated leadership team driving innovation, craftsmanship, and customer trust across India.
+            A dedicated team driving precision manufacturing, technology, and customer trust across India.
           </motion.p>
         </div>
 
         {/* ========================================================================= */}
-        {/* 4 CARDS: EXACT DESIGN AS ATTACHED REFERENCE IMAGE 1 (Centered Grid)       */}
+        {/* DESKTOP VIEW: ALL 5 CARDS IN A SINGLE HORIZONTAL LINE                      */}
+        {/* (Rounded border removed, decreased card size, decreased ribbon width)      */}
         {/* ========================================================================= */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 lg:gap-6 justify-center">
+        <div className="hidden md:grid md:grid-cols-5 gap-3.5 lg:gap-4 justify-center">
           {leadershipTeam.map((member, idx) => {
-            const yTransform = idx % 2 === 0 ? yOdd : yEven;
+            // Paper folding 3D alternating effect
+            const rotateY =
+              idx === 0
+                ? foldAngleLeft
+                : idx === 1
+                ? foldAngleRight
+                : idx === 2
+                ? foldAngleCenter
+                : idx === 3
+                ? foldAngleLeft
+                : foldAngleRight;
 
             return (
               <motion.div
                 key={member.num}
-                style={{ y: yTransform }}
-                initial={{ opacity: 0, y: 25 }}
+                style={{ rotateY, y: foldElevation, transformStyle: 'preserve-3d' }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="group relative flex flex-col bg-white rounded-2xl shadow-[0_10px_30px_rgba(128,0,32,0.06)] border border-[#EFE5DC] overflow-hidden transition-all duration-300 hover:shadow-[0_16px_36px_rgba(128,0,32,0.12)] hover:-translate-y-1.5"
+                transition={{ duration: 0.45, delay: idx * 0.07 }}
+                className="group relative flex flex-col bg-white rounded-none border border-[#EBE2D8] shadow-[0_8px_20px_rgba(128,0,32,0.05)] overflow-hidden transition-all duration-300 hover:shadow-[0_14px_30px_rgba(128,0,32,0.12)] hover:-translate-y-1"
               >
-                {/* 1. Member Photo Container */}
-                <div className="relative w-full h-64 sm:h-68 md:h-72 overflow-hidden bg-neutral-100">
+                {/* 1. Member Photo Container (Compact Height) */}
+                <div className="relative w-full h-52 lg:h-56 overflow-hidden bg-neutral-100">
                   <img
                     src={member.image}
                     alt={member.name}
-                    className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
                     loading="lazy"
                   />
-                  {/* Subtle top gradient shadow */}
-                  <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
+                  <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/35 to-transparent pointer-events-none" />
                 </div>
 
-                {/* 2. Ribbon Banner (Exact 3D Folded Tab Style matching Image 1) */}
-                <div className="relative -mt-6 mx-0 z-20">
+                {/* 2. Compact Ribbon Banner (Decreased Width & Padding, 3D Fold) */}
+                <div className="relative -mt-5 mx-0 z-20">
                   <div
                     className={cn(
-                      'relative flex items-center gap-3 py-2.5 px-3.5 bg-gradient-to-r text-white shadow-md',
+                      'relative flex items-center gap-2 py-1.5 px-2.5 bg-gradient-to-r text-white shadow-sm',
                       member.theme.ribbon
                     )}
                     style={{
-                      borderRadius: '0 8px 8px 0',
-                      marginRight: '8px',
+                      borderRadius: '0 6px 6px 0',
+                      maxWidth: '92%',
                     }}
                   >
                     {/* Circle Badge with Member Number */}
                     <div
                       className={cn(
-                        'w-9 h-9 rounded-full flex items-center justify-center font-heading font-extrabold text-sm text-white shrink-0 border-2 border-white/40 shadow-inner',
+                        'w-7 h-7 rounded-full flex items-center justify-center font-heading font-extrabold text-xs text-white shrink-0 border border-white/50 shadow-inner',
                         member.theme.badgeBg
                       )}
                     >
                       {member.num}
                     </div>
 
-                    {/* Member Name & Role */}
+                    {/* Member Name & Role (Compact Typography) */}
                     <div className="min-w-0 flex-1 leading-tight text-left">
-                      <h3 className="font-heading font-bold text-sm sm:text-[15px] text-white truncate">
+                      <h3 className="font-heading font-bold text-xs lg:text-[13px] text-white truncate">
                         {member.name}
                       </h3>
-                      <p className="text-[11px] sm:text-xs text-rose-100/90 font-medium truncate mt-0.5">
+                      <p className="text-[10px] text-rose-100/90 font-medium truncate mt-0.5">
                         {member.role}
                       </p>
                     </div>
 
-                    {/* 3D Folded Ribbon Tab Triangle Effect on Right Side */}
+                    {/* 3D Folded Ribbon Tab Triangle */}
                     <div
-                      className="absolute right-0 -bottom-2 w-0 h-0 border-solid pointer-events-none"
+                      className="absolute right-0 -bottom-1.5 w-0 h-0 border-solid pointer-events-none"
                       style={{
-                        borderWidth: '8px 8px 0 0',
+                        borderWidth: '6px 6px 0 0',
                         borderColor: `${member.theme.foldShadow} transparent transparent transparent`,
                       }}
                     />
                   </div>
                 </div>
 
-                {/* 3. Card Body: About Me Section & LinkedIn Navigation */}
-                <div className="flex-1 flex flex-col justify-between p-5 pt-4 text-left space-y-4">
-                  {/* About Me Title & Description */}
-                  <div className="space-y-1.5">
+                {/* 3. Card Body: Compact About Me & ONLY LinkedIn Logo Button */}
+                <div className="flex-1 flex flex-col justify-between p-3.5 pt-3 text-left space-y-3">
+                  {/* About Me */}
+                  <div className="space-y-1">
                     <span
-                      className="text-xs font-heading font-bold uppercase tracking-wider block"
+                      className="text-[11px] font-heading font-bold uppercase tracking-wider block"
                       style={{ color: member.theme.accent }}
                     >
                       About Me
                     </span>
-                    <p className="text-xs sm:text-[13px] text-charcoal-700 leading-relaxed font-normal">
+                    <p className="text-[11px] text-charcoal-700 leading-relaxed font-normal line-clamp-4">
                       {member.about}
                     </p>
                   </div>
 
-                  {/* LinkedIn Navigation Link at Bottom of Card */}
-                  <div className="pt-3 border-t border-[#F2E7DF]">
+                  {/* ONLY LinkedIn Logo Icon at Bottom (No unwanted text) */}
+                  <div className="pt-2 border-t border-[#F2E7DF] flex justify-center">
                     <a
                       href={member.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-between w-full px-3 py-2 rounded-lg bg-[#FAF4EF] hover:bg-burgundy-50 border border-[#EBDCD2] text-burgundy-800 hover:text-burgundy-950 text-xs font-heading font-semibold transition-all duration-200 group/link"
-                      title={`Visit ${member.name}'s LinkedIn profile`}
+                      className="w-8 h-8 rounded-full bg-[#FAF4EF] hover:bg-burgundy-700 text-[#0077b5] hover:text-white border border-[#EBDCD2] flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-2xs"
+                      title={`${member.name} on LinkedIn`}
+                      aria-label={`${member.name} LinkedIn`}
                     >
-                      <div className="flex items-center gap-2">
-                        <LinkedInIcon className="w-4 h-4 text-[#0077b5] group-hover/link:scale-110 transition-transform" />
-                        <span>Connect on LinkedIn</span>
-                      </div>
-                      <ArrowUpRight className="w-3.5 h-3.5 text-burgundy-700 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                      <LinkedInIcon className="w-4 h-4" />
                     </a>
                   </div>
                 </div>
               </motion.div>
             );
           })}
+        </div>
+
+        {/* ========================================================================= */}
+        {/* MOBILE VIEW: 3 CARDS IN ROW 1, 2 CARDS CENTERED IN ROW 2                  */}
+        {/* (Tactile 3D Paper-Fold Effect, No rounded corners, Only LinkedIn Logo)     */}
+        {/* ========================================================================= */}
+        <div className="md:hidden flex flex-col space-y-2.5">
+          {/* Row 1: 3 Cards in One Row */}
+          <div className="grid grid-cols-3 gap-2">
+            {leadershipTeam.slice(0, 3).map((member, idx) => {
+              const rotateY = idx === 0 ? foldAngleLeft : idx === 1 ? foldAngleCenter : foldAngleRight;
+
+              return (
+                <motion.div
+                  key={member.num}
+                  style={{ rotateY, y: foldElevation, transformStyle: 'preserve-3d' }}
+                  className="flex flex-col bg-white rounded-none border border-[#EBE2D8] shadow-[0_4px_12px_rgba(128,0,32,0.04)] overflow-hidden"
+                >
+                  {/* Photo */}
+                  <div className="relative w-full h-28 sm:h-36 overflow-hidden bg-neutral-100">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-cover object-top"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  {/* Ribbon Banner */}
+                  <div className="relative -mt-4 mx-0 z-20">
+                    <div
+                      className={cn(
+                        'relative flex items-center gap-1.5 py-1 px-1.5 bg-gradient-to-r text-white',
+                        member.theme.ribbon
+                      )}
+                      style={{ borderRadius: '0 4px 4px 0', maxWidth: '94%' }}
+                    >
+                      <div
+                        className={cn(
+                          'w-5 h-5 rounded-full flex items-center justify-center font-extrabold text-[9px] text-white shrink-0',
+                          member.theme.badgeBg
+                        )}
+                      >
+                        {member.num}
+                      </div>
+                      <div className="min-w-0 flex-1 leading-none text-left">
+                        <h4 className="font-bold text-[10px] text-white truncate">
+                          {member.name.split(' ')[0]}
+                        </h4>
+                        <p className="text-[8px] text-rose-100/90 truncate mt-0.5">
+                          {member.role.split(' ')[0]}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Body & ONLY LinkedIn Logo */}
+                  <div className="p-2 pt-1.5 flex flex-col justify-between flex-1 space-y-1.5 text-center">
+                    <p className="text-[9px] text-charcoal-700 leading-snug line-clamp-3 text-left">
+                      {member.about}
+                    </p>
+                    <div className="pt-1 border-t border-[#F2E7DF] flex justify-center">
+                      <a
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-6 h-6 rounded-full bg-[#FAF4EF] hover:bg-burgundy-700 text-[#0077b5] hover:text-white border border-[#EBDCD2] flex items-center justify-center transition-transform active:scale-95 shadow-2xs"
+                        aria-label={`${member.name} LinkedIn`}
+                      >
+                        <LinkedInIcon className="w-3 h-3" />
+                      </a>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Row 2: 2 Cards Centered in 2nd Row */}
+          <div className="flex justify-center gap-2">
+            {leadershipTeam.slice(3, 5).map((member, idx) => {
+              const rotateY = idx === 0 ? foldAngleLeft : foldAngleRight;
+
+              return (
+                <motion.div
+                  key={member.num}
+                  style={{ rotateY, y: foldElevation, transformStyle: 'preserve-3d' }}
+                  className="w-[calc(33.333%-5px)] flex flex-col bg-white rounded-none border border-[#EBE2D8] shadow-[0_4px_12px_rgba(128,0,32,0.04)] overflow-hidden"
+                >
+                  {/* Photo */}
+                  <div className="relative w-full h-28 sm:h-36 overflow-hidden bg-neutral-100">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-cover object-top"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  {/* Ribbon Banner */}
+                  <div className="relative -mt-4 mx-0 z-20">
+                    <div
+                      className={cn(
+                        'relative flex items-center gap-1.5 py-1 px-1.5 bg-gradient-to-r text-white',
+                        member.theme.ribbon
+                      )}
+                      style={{ borderRadius: '0 4px 4px 0', maxWidth: '94%' }}
+                    >
+                      <div
+                        className={cn(
+                          'w-5 h-5 rounded-full flex items-center justify-center font-extrabold text-[9px] text-white shrink-0',
+                          member.theme.badgeBg
+                        )}
+                      >
+                        {member.num}
+                      </div>
+                      <div className="min-w-0 flex-1 leading-none text-left">
+                        <h4 className="font-bold text-[10px] text-white truncate">
+                          {member.name.split(' ')[0]}
+                        </h4>
+                        <p className="text-[8px] text-rose-100/90 truncate mt-0.5">
+                          {member.role.split(' ')[0]}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Body & ONLY LinkedIn Logo */}
+                  <div className="p-2 pt-1.5 flex flex-col justify-between flex-1 space-y-1.5 text-center">
+                    <p className="text-[9px] text-charcoal-700 leading-snug line-clamp-3 text-left">
+                      {member.about}
+                    </p>
+                    <div className="pt-1 border-t border-[#F2E7DF] flex justify-center">
+                      <a
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-6 h-6 rounded-full bg-[#FAF4EF] hover:bg-burgundy-700 text-[#0077b5] hover:text-white border border-[#EBDCD2] flex items-center justify-center transition-transform active:scale-95 shadow-2xs"
+                        aria-label={`${member.name} LinkedIn`}
+                      >
+                        <LinkedInIcon className="w-3 h-3" />
+                      </a>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
 
       </div>
