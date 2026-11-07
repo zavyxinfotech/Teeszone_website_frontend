@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '@/components/common/Button';
+import { WaveDivider } from '@/components/common/WaveDivider';
 import { RevealAnimation } from '@/components/common/RevealAnimation';
 import { ExternalLink } from 'lucide-react';
 import { Cinematic3DReviews } from './Cinematic3DReviews';
@@ -36,7 +37,7 @@ const GoogleIcon = ({ className = 'w-4 h-4' }: { className?: string }) => (
 );
 
 const StarRating = () => (
-  <div className="flex items-center gap-0.5 text-amber-400">
+  <div className="flex items-center gap-0.5 text-[#FFC629]">
     {[...Array(5)].map((_, i) => (
       <svg key={i} className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20" aria-hidden="true">
         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
@@ -51,24 +52,23 @@ export const QuoteCTA: React.FC<QuoteCTAProps> = ({
   onOpenQuote,
 }) => {
   return (
-    <section className="relative bg-gradient-to-br from-[#80011F] via-[#650017] to-[#40000E] text-white overflow-hidden py-8 sm:py-10 lg:py-12">
+    <section className="relative bg-gradient-to-br from-[#73011c] via-[#4d0012] to-[#30000a] text-white overflow-hidden py-8 sm:py-10 md:py-12">
+      {/* Wave transition at top */}
+      <WaveDivider position="top" variant="white-to-burgundy" className="absolute top-0 inset-x-0" />
+
       {/* Subtle background ambient glow */}
       <div
-        className="absolute top-1/4 right-1/4 w-96 h-96 bg-rose-600/10 rounded-full blur-3xl pointer-events-none"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute bottom-10 left-10 w-80 h-80 bg-burgundy-900/30 rounded-full blur-2xl pointer-events-none"
+        className="absolute top-1/2 right-1/4 -translate-y-1/2 w-96 h-96 bg-rose-600/10 rounded-full blur-3xl pointer-events-none"
         aria-hidden="true"
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Left Side: Exact Content from Reference Image 1 */}
-          <div className="lg:col-span-7 space-y-5 text-center lg:text-left">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
+          {/* Left Side: Text and Actions (Exact as Reference Image 1) */}
+          <div className="lg:col-span-6 space-y-4 text-center lg:text-left">
             <RevealAnimation direction="up">
-              {/* Trust Pill: Google Reviews Link & Star Rating */}
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-3">
+              {/* Pills: Bulk Manufacturing + Google Reviews */}
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 mb-3">
                 <span className="inline-block text-xs uppercase font-heading font-bold tracking-wider px-3 py-1 rounded-full bg-white/10 text-warm-200 border border-white/20">
                   Bulk Manufacturing Made Simple
                 </span>
@@ -84,7 +84,7 @@ export const QuoteCTA: React.FC<QuoteCTAProps> = ({
                     <GoogleIcon className="w-3.5 h-3.5" />
                   </span>
                   <StarRating />
-                  <span className="text-amber-300 font-bold">5.0</span>
+                  <span className="text-[#FFC629] font-bold">5.0</span>
                   <span className="hidden sm:inline text-warm-100 font-medium">on Google</span>
                   <ExternalLink className="w-3 h-3 text-warm-200 group-hover:text-white transition-colors" />
                 </a>
@@ -93,14 +93,14 @@ export const QuoteCTA: React.FC<QuoteCTAProps> = ({
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-extrabold tracking-tight text-white leading-tight">
                 {title}
               </h2>
-              <p className="text-base sm:text-lg text-burgundy-100 max-w-xl mx-auto lg:mx-0 mt-3 leading-relaxed">
+              <p className="text-sm sm:text-base text-burgundy-100 max-w-xl mx-auto lg:mx-0 mt-3 leading-relaxed">
                 {subtitle}
               </p>
             </RevealAnimation>
 
             {/* CTA Buttons */}
             <RevealAnimation direction="up" delay={0.15}>
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-1">
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3.5 pt-2">
                 <Button
                   variant="white"
                   size="lg"
@@ -122,18 +122,18 @@ export const QuoteCTA: React.FC<QuoteCTAProps> = ({
               </div>
 
               {/* Trust Proof Micro-Strip */}
-              <div className="pt-2.5 flex items-center justify-center lg:justify-start gap-3">
+              <div className="pt-3.5 flex items-center justify-center lg:justify-start gap-3">
                 <div className="flex -space-x-2">
-                  <div className="w-7 h-7 rounded-full bg-amber-500 border-2 border-burgundy-700 flex items-center justify-center text-[10px] font-bold text-burgundy-950 shadow-sm">
+                  <div className="w-7 h-7 rounded-full bg-[#FF8C00] border-2 border-[#73011c] flex items-center justify-center text-[10px] font-bold text-burgundy-950 shadow-sm">
                     K
                   </div>
-                  <div className="w-7 h-7 rounded-full bg-rose-400 border-2 border-burgundy-700 flex items-center justify-center text-[10px] font-bold text-white shadow-sm">
+                  <div className="w-7 h-7 rounded-full bg-rose-400 border-2 border-[#73011c] flex items-center justify-center text-[10px] font-bold text-white shadow-sm">
                     S
                   </div>
-                  <div className="w-7 h-7 rounded-full bg-emerald-500 border-2 border-burgundy-700 flex items-center justify-center text-[10px] font-bold text-white shadow-sm">
+                  <div className="w-7 h-7 rounded-full bg-emerald-500 border-2 border-[#73011c] flex items-center justify-center text-[10px] font-bold text-white shadow-sm">
                     P
                   </div>
-                  <div className="w-7 h-7 rounded-full bg-sky-500 border-2 border-burgundy-700 flex items-center justify-center text-[9px] font-extrabold text-white shadow-sm">
+                  <div className="w-7 h-7 rounded-full bg-[#0288D1] border-2 border-[#73011c] flex items-center justify-center text-[9px] font-extrabold text-white shadow-sm">
                     500+
                   </div>
                 </div>
@@ -144,8 +144,8 @@ export const QuoteCTA: React.FC<QuoteCTAProps> = ({
             </RevealAnimation>
           </div>
 
-          {/* Right Side: Exact 3D Vertically Stacked Google Reviews from Reference Image 1 */}
-          <div className="lg:col-span-5 flex justify-center items-center w-full">
+          {/* Right Side: Cinematic 3D Vertically Stacked Google Reviews (S-Wave Flow Alignment) */}
+          <div className="lg:col-span-6 flex justify-center items-center w-full">
             <RevealAnimation direction="left" delay={0.2} className="w-full flex justify-center">
               <Cinematic3DReviews />
             </RevealAnimation>
