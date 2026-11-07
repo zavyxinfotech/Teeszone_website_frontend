@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Button } from '@/components/common/Button';
 import { WaveDivider } from '@/components/common/WaveDivider';
 import { RevealAnimation } from '@/components/common/RevealAnimation';
 import { CheckCircle2, ShieldCheck, Factory, Truck, ExternalLink } from 'lucide-react';
+import { Cinematic3DReviews } from './Cinematic3DReviews';
 
 interface QuoteCTAProps {
   title?: string;
@@ -45,47 +46,11 @@ const StarRating = () => (
   </div>
 );
 
-const GOOGLE_REVIEWS = [
-  {
-    name: 'Karthik Raja',
-    role: 'Corporate HR & Procurement',
-    rating: 5,
-    text: 'Ordered 350+ customized polo t-shirts with embroidered company logos. Fabric quality (bio-wash combed cotton) and fitting are top-notch. Delivered 2 days ahead of our corporate event!',
-    tag: 'Verified Corporate Buyer',
-  },
-  {
-    name: 'Suresh Kumar',
-    role: 'Event Director',
-    rating: 5,
-    text: 'Outstanding quality and on-time bulk delivery from their Texvalley facility. Screen print durability is excellent even after multiple washes. Best apparel manufacturer in Tiruppur & Erode.',
-    tag: 'Verified Event Client',
-  },
-  {
-    name: 'Praveen Murugan',
-    role: 'Institution Coordinator',
-    rating: 5,
-    text: 'Superb responsiveness and transparent factory pricing! Managed our urgent order of 500 round neck tees flawlessly. The entire team loved the vibrant colors and breathable fabric.',
-    tag: 'Verified Client',
-  },
-];
-
 export const QuoteCTA: React.FC<QuoteCTAProps> = ({
   title = "Let's Create Your Custom T-Shirts",
   subtitle = 'Partner with TeesZone for high-quality, stylish and affordable T-shirts, uniforms and custom apparel for your business, team or event.',
   onOpenQuote,
 }) => {
-  const [activeReviewIndex, setActiveReviewIndex] = useState(0);
-
-  // Auto-cycle through reviews every 6 seconds
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveReviewIndex((prev) => (prev + 1) % GOOGLE_REVIEWS.length);
-    }, 6000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const activeReview = GOOGLE_REVIEWS[activeReviewIndex];
-
   return (
     <section className="relative bg-burgundy-700 text-white overflow-hidden pt-12 pb-14 md:py-16">
       {/* Wave transition at top */}
@@ -93,7 +58,7 @@ export const QuoteCTA: React.FC<QuoteCTAProps> = ({
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-4">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Text and Actions */}
+          {/* Left Side: Text and Actions (Preserved intact) */}
           <div className="lg:col-span-7 space-y-5 text-center lg:text-left">
             <RevealAnimation direction="up">
               {/* Trust Pill: Google Reviews Link & Star Rating */}
@@ -173,99 +138,10 @@ export const QuoteCTA: React.FC<QuoteCTAProps> = ({
             </RevealAnimation>
           </div>
 
-          {/* Editorial Visual + Live Floating Google Review Card */}
-          <div className="lg:col-span-5 flex justify-center">
-            <RevealAnimation direction="left" delay={0.2}>
-              <div className="relative max-w-md w-full pb-8 sm:pb-6">
-                {/* Main Visual */}
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-white/10">
-                  <img
-                    src="/assets/images/hanging-tees.webp"
-                    alt="TeesZone custom branded t-shirt manufacturing lineup"
-                    className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-burgundy-950/80 via-transparent to-transparent flex items-end p-4">
-                    <span className="text-xs font-semibold text-warm-200 tracking-wide">
-                      Tiruppur Quality Guaranteed • Custom Embroidery &amp; Prints
-                    </span>
-                  </div>
-                </div>
-
-                {/* Floating Glassmorphic Google Review Card */}
-                <div className="relative sm:absolute -mt-6 sm:mt-0 sm:-bottom-5 sm:-left-6 sm:right-6 bg-burgundy-950/95 backdrop-blur-md border border-white/20 rounded-2xl p-4 shadow-2xl transition-all duration-500 z-20">
-                  {/* Review Header */}
-                  <div className="flex items-center justify-between gap-2 mb-2">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-500 to-rose-500 text-white font-bold text-xs flex items-center justify-center shadow-md shrink-0">
-                        {activeReview.name.charAt(0)}
-                      </div>
-                      <div>
-                        <p className="text-xs font-bold text-white leading-tight">
-                          {activeReview.name}
-                        </p>
-                        <p className="text-[10px] text-burgundy-200">
-                          {activeReview.role}
-                        </p>
-                      </div>
-                    </div>
-
-                    <a
-                      href={GOOGLE_REVIEWS_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-1 rounded-full bg-white shadow-sm shrink-0 hover:scale-110 transition-transform"
-                      title="Read review on Google"
-                    >
-                      <GoogleIcon className="w-3.5 h-3.5" />
-                    </a>
-                  </div>
-
-                  {/* Rating + Tag */}
-                  <div className="flex items-center justify-between gap-2 mb-1.5">
-                    <div className="flex items-center gap-1.5">
-                      <StarRating />
-                      <span className="text-[11px] font-bold text-amber-300">5.0</span>
-                    </div>
-                    <span className="text-[9px] font-semibold uppercase tracking-wider text-emerald-300 bg-emerald-950/60 border border-emerald-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
-                      <CheckCircle2 className="w-2.5 h-2.5 text-emerald-400" />
-                      {activeReview.tag}
-                    </span>
-                  </div>
-
-                  {/* Review Quote */}
-                  <p className="text-[11px] text-burgundy-100 leading-relaxed italic line-clamp-3 min-h-[3rem]">
-                    "{activeReview.text}"
-                  </p>
-
-                  {/* Review Footer with pagination dots and direct Google link */}
-                  <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-white/10 text-[10px]">
-                    <div className="flex items-center gap-1.5">
-                      {GOOGLE_REVIEWS.map((_, idx) => (
-                        <button
-                          key={idx}
-                          onClick={() => setActiveReviewIndex(idx)}
-                          className={`w-2 h-2 rounded-full transition-all ${
-                            idx === activeReviewIndex
-                              ? 'bg-amber-400 w-4'
-                              : 'bg-white/30 hover:bg-white/60'
-                          }`}
-                          aria-label={`View review ${idx + 1}`}
-                        />
-                      ))}
-                    </div>
-
-                    <a
-                      href={GOOGLE_REVIEWS_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-amber-200 hover:text-white underline underline-offset-2 font-medium flex items-center gap-1"
-                    >
-                      <span>Read on Google</span>
-                      <ExternalLink className="w-2.5 h-2.5" />
-                    </a>
-                  </div>
-                </div>
-              </div>
+          {/* Right Side: Cinematic 3D Vertically Stacked Google Reviews */}
+          <div className="lg:col-span-5 flex justify-center items-center w-full">
+            <RevealAnimation direction="left" delay={0.2} className="w-full flex justify-center">
+              <Cinematic3DReviews />
             </RevealAnimation>
           </div>
         </div>
