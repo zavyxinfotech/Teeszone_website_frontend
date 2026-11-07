@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button } from '@/components/common/Button';
-import { WaveDivider } from '@/components/common/WaveDivider';
 import { RevealAnimation } from '@/components/common/RevealAnimation';
 import { ExternalLink } from 'lucide-react';
 import { Cinematic3DReviews } from './Cinematic3DReviews';
@@ -46,31 +45,40 @@ const StarRating = () => (
   </div>
 );
 
-export const QuoteCTA: React.FC<QuoteCTAProps> = ({
-  title = "Let's Create Your Custom T-Shirts",
-  subtitle = 'Partner with TeesZone for high-quality, stylish and affordable T-shirts, uniforms and custom apparel for your business, team or event.',
-  onOpenQuote,
-}) => {
+export const QuoteCTA: React.FC<QuoteCTAProps> = ({ onOpenQuote }) => {
   return (
-    <section className="relative bg-gradient-to-br from-[#73011c] via-[#4d0012] to-[#30000a] text-white overflow-hidden py-8 sm:py-10 md:py-12">
-      {/* Wave transition at top */}
-      <WaveDivider position="top" variant="white-to-burgundy" className="absolute top-0 inset-x-0" />
-
-      {/* Subtle background ambient glow */}
+    <section
+      className="relative bg-gradient-to-br from-[#73011c] via-[#4d0012] to-[#30000a] text-white overflow-hidden py-10 sm:py-12 md:py-14"
+      aria-labelledby="customer-reviews-heading"
+    >
+      {/* Seamless Wave Transition: Pure white background cutting down with zero line or color mismatch */}
       <div
-        className="absolute top-1/2 right-1/4 -translate-y-1/2 w-96 h-96 bg-rose-600/10 rounded-full blur-3xl pointer-events-none"
+        className="absolute top-0 inset-x-0 overflow-hidden leading-none pointer-events-none z-10"
         aria-hidden="true"
-      />
+      >
+        <svg
+          viewBox="0 0 1440 70"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="relative block w-full h-5 sm:h-8 md:h-11"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,0 L1440,0 L1440,15 C1200,55 920,70 620,40 C320,10 120,40 0,25 Z"
+            fill="#FFFFFF"
+          />
+        </svg>
+      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-2 sm:pt-4">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
-          {/* Left Side: Text and Actions (Exact as Reference Image 1) */}
+          {/* Left Side: Optimized Content */}
           <div className="lg:col-span-6 space-y-4 text-center lg:text-left">
             <RevealAnimation direction="up">
-              {/* Pills: Bulk Manufacturing + Google Reviews */}
+              {/* Pills: Eyebrow + Google Reviews Link */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 mb-3">
-                <span className="inline-block text-xs uppercase font-heading font-bold tracking-wider px-3 py-1 rounded-full bg-white/10 text-warm-200 border border-white/20">
-                  Bulk Manufacturing Made Simple
+                <span className="inline-block text-xs uppercase font-heading font-bold tracking-wider px-3.5 py-1 rounded-full bg-white/10 text-warm-200 border border-white/20">
+                  Trusted by Businesses. Loved by Clients.
                 </span>
 
                 <a
@@ -79,6 +87,7 @@ export const QuoteCTA: React.FC<QuoteCTAProps> = ({
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 hover:bg-white/25 border border-white/30 backdrop-blur-sm transition-all duration-300 group shadow-sm text-xs font-semibold text-white"
                   title="View verified reviews for TeesZone Clothing Private Limited on Google"
+                  aria-label="View verified 5.0 Google Reviews for TeesZone"
                 >
                   <span className="p-0.5 rounded-full bg-white flex items-center justify-center shrink-0">
                     <GoogleIcon className="w-3.5 h-3.5" />
@@ -90,15 +99,29 @@ export const QuoteCTA: React.FC<QuoteCTAProps> = ({
                 </a>
               </div>
 
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-extrabold tracking-tight text-white leading-tight">
-                {title}
+              {/* Main Heading */}
+              <h2
+                id="customer-reviews-heading"
+                className="text-3xl sm:text-4xl md:text-5xl font-heading font-extrabold tracking-tight text-white leading-tight"
+              >
+                Real Clients. Real Experiences.
               </h2>
-              <p className="text-sm sm:text-base text-burgundy-100 max-w-xl mx-auto lg:mx-0 mt-3 leading-relaxed">
-                {subtitle}
-              </p>
+
+              {/* Semantic Description Paragraphs for SEO & User Trust */}
+              <div className="space-y-3 mt-4 text-sm sm:text-base text-burgundy-100 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
+                <p>
+                  Discover why businesses, corporate teams, startups and organizations choose TeesZone for custom T-shirt manufacturing and personalized apparel.
+                </p>
+                <p>
+                  From customized corporate uniforms and branded polo T-shirts to event merchandise and bulk apparel orders, our focus is on quality, customization and reliable service.
+                </p>
+                <p>
+                  Explore genuine customer experiences and see how TeesZone helps bring brands, teams and creative ideas to life through custom apparel.
+                </p>
+              </div>
             </RevealAnimation>
 
-            {/* CTA Buttons */}
+            {/* Action Buttons */}
             <RevealAnimation direction="up" delay={0.15}>
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3.5 pt-2">
                 <Button
@@ -144,7 +167,7 @@ export const QuoteCTA: React.FC<QuoteCTAProps> = ({
             </RevealAnimation>
           </div>
 
-          {/* Right Side: Cinematic 3D Vertically Stacked Google Reviews (S-Wave Flow Alignment) */}
+          {/* Right Side: Cinematic 3D Vertically Stacked Google Reviews */}
           <div className="lg:col-span-6 flex justify-center items-center w-full">
             <RevealAnimation direction="left" delay={0.2} className="w-full flex justify-center">
               <Cinematic3DReviews />

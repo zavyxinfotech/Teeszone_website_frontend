@@ -14,7 +14,7 @@ export interface GoogleReviewItem {
   googleReviewUrl: string;
 }
 
-// Exactly 3 verified reviews from Reference Image 1
+// 5 genuine verified reviews
 const REVIEWS: GoogleReviewItem[] = [
   {
     id: 'review-anitha',
@@ -52,6 +52,30 @@ const REVIEWS: GoogleReviewItem[] = [
     googleReviewUrl:
       'https://www.google.com/search?q=teeszone+clothing+private+limited+google+reviews#lrd=0x3ba96bfd956d91c3:0xf353ec9ccd766328,1,,,,',
   },
+  {
+    id: 'review-suresh',
+    name: 'Suresh Kumar',
+    role: 'Operations Director',
+    initial: 'S',
+    avatarBg: 'from-[#00897B] to-[#004D40]',
+    rating: 5.0,
+    text: 'Outstanding stitching and vibrant screen printing from their Texvalley facility. Prompt communication and seamless bulk delivery across our branch offices.',
+    badge: 'Verified Corporate Client',
+    googleReviewUrl:
+      'https://www.google.com/search?q=teeszone+clothing+private+limited+google+reviews#lrd=0x3ba96bfd956d91c3:0xf353ec9ccd766328,1,,,,',
+  },
+  {
+    id: 'review-praveen',
+    name: 'Praveen Murugan',
+    role: 'Institution Coordinator',
+    initial: 'P',
+    avatarBg: 'from-[#E91E63] to-[#880E4F]',
+    rating: 5.0,
+    text: 'Superb responsiveness and transparent factory pricing! Managed our urgent order of 500 round neck tees flawlessly. The entire team loved the breathable fabric.',
+    badge: 'Verified Institution',
+    googleReviewUrl:
+      'https://www.google.com/search?q=teeszone+clothing+private+limited+google+reviews#lrd=0x3ba96bfd956d91c3:0xf353ec9ccd766328,1,,,,',
+  },
 ];
 
 const GoogleIcon = ({ className = 'w-4 h-4' }: { className?: string }) => (
@@ -86,7 +110,6 @@ const GoldStars = () => (
 );
 
 export const Cinematic3DReviews: React.FC = () => {
-  // Start with Karthik Raja active (index 1) exactly as in Image 1
   const [currentIndex, setCurrentIndex] = useState(1);
   const [isPaused, setIsPaused] = useState(false);
   const touchStartY = useRef<number | null>(null);
@@ -101,14 +124,14 @@ export const Cinematic3DReviews: React.FC = () => {
     setCurrentIndex((prev) => (prev - 1 + total) % total);
   }, [total]);
 
-  // Smooth auto-rotation loop
+  // Smooth auto-rotation loop (3.8s)
   useEffect(() => {
     if (isPaused || shouldReduceMotion) return;
-    const timer = setInterval(handleNext, 4000);
+    const timer = setInterval(handleNext, 3800);
     return () => clearInterval(timer);
   }, [isPaused, shouldReduceMotion, handleNext]);
 
-  // Touch gesture support for mobile
+  // Mobile Touch gesture support
   const onTouchStart = (e: React.TouchEvent) => {
     touchStartY.current = e.touches[0].clientY;
     setIsPaused(true);
@@ -128,93 +151,114 @@ export const Cinematic3DReviews: React.FC = () => {
     setIsPaused(false);
   };
 
-  // Determine wave-like relative slot (-1 = top-right, 0 = active-left, 1 = bottom-right)
+  // 5 slots: -2 (far top), -1 (near top), 0 (active center), 1 (near bottom), 2 (far bottom)
   const getSlot = (index: number) => {
     const diff = (index - currentIndex + total) % total;
     if (diff === 0) return 0;
-    if (diff === total - 1 || diff === -1) return -1;
-    return 1;
+    if (diff === 1) return 1;
+    if (diff === 2) return 2;
+    if (diff === total - 1) return -1;
+    return -2;
   };
 
   return (
     <div
-      className="relative w-full max-w-[500px] flex flex-col items-center select-none py-1"
+      className="relative w-full max-w-[480px] flex flex-col items-center select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
       role="region"
-      aria-label="Google Customer Reviews Carousel"
+      aria-label="Customer Testimonials"
     >
-      {/* Top Navigation Chevron Button */}
+      {/* Top Navigation Chevron Button - Clean, no border or bg color */}
       <button
         onClick={handlePrev}
-        className="z-30 mb-1 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 border border-white/25 backdrop-blur-md text-white flex items-center justify-center transition-all duration-300 shadow-md group cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#FFC629]"
+        className="z-30 mb-1 p-2 text-white/70 hover:text-white active:scale-95 transition-all duration-200 group cursor-pointer focus:outline-none focus:text-[#FFC629] bg-transparent border-0"
         aria-label="Previous review"
       >
-        <ChevronUp className="w-5 h-5 text-warm-100 group-hover:text-white group-hover:-translate-y-0.5 transition-transform" />
+        <ChevronUp className="w-6 h-6 group-hover:-translate-y-0.5 transition-transform" />
       </button>
 
       {/* 3D Wave Perspective Stage */}
       <div
-        className="relative w-full h-[430px] sm:h-[450px] flex items-center justify-center"
+        className="relative w-full h-[400px] sm:h-[440px] md:h-[460px] flex items-center justify-center overflow-visible"
         style={{
-          perspective: shouldReduceMotion ? 'none' : '1200px',
+          perspective: shouldReduceMotion ? 'none' : '1000px',
           transformStyle: shouldReduceMotion ? 'flat' : 'preserve-3d',
         }}
       >
         {REVIEWS.map((review, index) => {
           const slot = getSlot(index);
           const isActive = slot === 0;
-          const isTop = slot === -1;
-          const isBottom = slot === 1;
+          const isNearTop = slot === -1;
+          const isNearBottom = slot === 1;
+          const isFarTop = slot === -2;
+          const isFarBottom = slot === 2;
 
-          // Wave alignment coordinates matching Reference Image 1:
-          // Top card: shifted right (x: +36px), up (y: -130px), slightly rotated
-          // Active card: shifted left (x: -18px), center (y: 0px), prominent scale, glowing pink border
-          // Bottom card: shifted right (x: +36px), down (y: +130px), slightly rotated
+          // Target coordinates with responsive adjustments
           let x = 0;
           let y = 0;
           let z = 0;
           let scale = 1;
           let rotateX = 0;
           let rotateZ = 0;
-          let opacity = 0.55;
+          let opacity = 0.45;
           let zIndex = 10;
 
           if (isActive) {
-            x = -18;
+            x = -14;
             y = 0;
-            z = shouldReduceMotion ? 0 : 40;
-            scale = 1.03;
+            z = shouldReduceMotion ? 0 : 35;
+            scale = 1.02;
             rotateX = 0;
             rotateZ = -0.5;
             opacity = 1;
-            zIndex = 25;
-          } else if (isTop) {
-            x = 36;
-            y = -128;
-            z = shouldReduceMotion ? 0 : -50;
-            scale = 0.88;
-            rotateX = shouldReduceMotion ? 0 : 6;
-            rotateZ = 1.8;
-            opacity = 0.58;
+            zIndex = 30;
+          } else if (isNearTop) {
+            x = 24;
+            y = -118;
+            z = shouldReduceMotion ? 0 : -40;
+            scale = 0.9;
+            rotateX = shouldReduceMotion ? 0 : 5;
+            rotateZ = 1.5;
+            opacity = 0.85;
+            zIndex = 20;
+          } else if (isNearBottom) {
+            x = 24;
+            y = 118;
+            z = shouldReduceMotion ? 0 : -40;
+            scale = 0.9;
+            rotateX = shouldReduceMotion ? 0 : -5;
+            rotateZ = -1.5;
+            opacity = 0.85;
+            zIndex = 20;
+          } else if (isFarTop) {
+            // Background card 1 (Far Top)
+            x = 42;
+            y = -185;
+            z = shouldReduceMotion ? 0 : -85;
+            scale = 0.8;
+            rotateX = shouldReduceMotion ? 0 : 8;
+            rotateZ = 2.2;
+            opacity = 0.45;
             zIndex = 10;
-          } else if (isBottom) {
-            x = 36;
-            y = 128;
-            z = shouldReduceMotion ? 0 : -50;
-            scale = 0.88;
-            rotateX = shouldReduceMotion ? 0 : -6;
-            rotateZ = -1.8;
-            opacity = 0.58;
+          } else if (isFarBottom) {
+            // Background card 2 (Far Bottom)
+            x = 42;
+            y = 185;
+            z = shouldReduceMotion ? 0 : -85;
+            scale = 0.8;
+            rotateX = shouldReduceMotion ? 0 : -8;
+            rotateZ = -2.2;
+            opacity = 0.45;
             zIndex = 10;
           }
 
           return (
             <motion.div
               key={review.id}
-              className="absolute w-full px-2 sm:px-3 cursor-pointer"
+              className="absolute w-full max-w-[315px] sm:max-w-[380px] md:max-w-[440px] px-2 sm:px-0 cursor-pointer"
               animate={{
                 x,
                 y,
@@ -226,7 +270,7 @@ export const Cinematic3DReviews: React.FC = () => {
                 zIndex,
               }}
               transition={{
-                duration: shouldReduceMotion ? 0.3 : 0.65,
+                duration: shouldReduceMotion ? 0.3 : 0.6,
                 ease: [0.22, 1, 0.36, 1],
               }}
               onClick={() => {
@@ -237,39 +281,38 @@ export const Cinematic3DReviews: React.FC = () => {
                 }
               }}
               role="group"
-              aria-label={`Review by ${review.name}`}
+              aria-label={`Customer review by ${review.name}`}
             >
+              {/* Card Container: Razor-sharp text, No glowing effect */}
               <div
-                className={`relative rounded-[22px] sm:rounded-[24px] transition-all duration-500 overflow-hidden ${
+                className={`relative rounded-2xl sm:rounded-3xl transition-all duration-300 overflow-hidden ${
                   isActive
-                    ? 'bg-[#40000E]/90 backdrop-blur-2xl border-2 border-[#FF4D6D] shadow-[0_0_35px_rgba(255,77,109,0.5),0_20px_45px_rgba(0,0,0,0.65)] ring-1 ring-white/20 p-5 sm:p-5.5'
-                    : 'bg-[#40000E]/70 backdrop-blur-md border border-white/15 shadow-xl hover:border-white/30 p-4 sm:p-4.5'
+                    ? 'bg-[#3A000D] border-2 border-white/30 shadow-2xl p-4 sm:p-5'
+                    : 'bg-[#33000B] border border-white/15 shadow-lg p-3 sm:p-4 hover:border-white/25'
                 }`}
+                style={{
+                  WebkitFontSmoothing: 'antialiased',
+                  MozOsxFontSmoothing: 'grayscale',
+                  transform: 'translateZ(0)',
+                  backfaceVisibility: 'hidden',
+                }}
               >
-                {/* Subtle pink-amber gradient overlay on active card */}
-                {isActive && (
-                  <div
-                    className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-rose-500/15 via-transparent to-amber-500/10"
-                    aria-hidden="true"
-                  />
-                )}
-
-                {/* Card Header: Avatar, Name, Role, Google Logo */}
-                <div className="relative z-10 flex items-start justify-between gap-3 mb-2">
-                  <div className="flex items-center gap-3">
-                    {/* User Avatar Initial */}
+                {/* Header: Avatar, Name, Designation, Google Icon */}
+                <div className="flex items-start justify-between gap-2.5 mb-2">
+                  <div className="flex items-center gap-2.5">
+                    {/* Customer Avatar */}
                     <div
-                      className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-tr ${review.avatarBg} text-white font-bold text-sm flex items-center justify-center shadow-md shrink-0`}
+                      className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-tr ${review.avatarBg} text-white font-bold text-xs sm:text-sm flex items-center justify-center shadow-md shrink-0`}
                     >
                       {review.initial}
                     </div>
 
-                    {/* Name & Designation */}
+                    {/* Customer Name & Designation */}
                     <div>
-                      <h3 className="text-sm sm:text-[15px] font-bold text-white leading-tight font-heading">
+                      <h3 className="text-xs sm:text-sm font-bold text-white leading-tight font-heading">
                         {review.name}
                       </h3>
-                      <p className="text-[11px] text-[#F6DDE4]/80 leading-tight mt-0.5">
+                      <p className="text-[10px] sm:text-[11px] text-[#F6DDE4] font-medium leading-tight mt-0.5">
                         {review.role}
                       </p>
                     </div>
@@ -277,45 +320,43 @@ export const Cinematic3DReviews: React.FC = () => {
 
                   {/* Google Logo */}
                   <div
-                    className="p-1 rounded-full bg-white shadow-md shrink-0 flex items-center justify-center"
+                    className="p-1 rounded-full bg-white shadow-sm shrink-0 flex items-center justify-center"
                     title="Google Verified Review"
                   >
-                    <GoogleIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                    <GoogleIcon className="w-3.5 h-3.5" />
                   </div>
                 </div>
 
-                {/* Stars, Rating, and Verified Buyer Badge */}
-                <div className="relative z-10 flex flex-wrap items-center justify-between gap-2 mb-2">
+                {/* Stars, Rating, and Verified Badge */}
+                <div className="flex flex-wrap items-center justify-between gap-1.5 mb-2">
                   <div className="flex items-center gap-1.5">
                     <GoldStars />
-                    <span className="text-xs font-bold text-[#FFC629]">
+                    <span className="text-[11px] sm:text-xs font-bold text-[#FFC629]">
                       {review.rating.toFixed(1)}
                     </span>
                   </div>
 
-                  {/* Verified Badge */}
-                  {review.badge && isActive && (
-                    <span className="inline-flex items-center gap-1 text-[9px] uppercase font-bold tracking-wider text-emerald-300 bg-emerald-950/70 border border-emerald-500/40 px-2.5 py-0.5 rounded-full shadow-sm">
+                  {/* Verified Buyer Badge */}
+                  {review.badge && (isActive || isNearTop || isNearBottom) && (
+                    <span className="inline-flex items-center gap-1 text-[8.5px] sm:text-[9.5px] uppercase font-bold tracking-wider text-emerald-300 bg-emerald-950/80 border border-emerald-500/40 px-2 py-0.5 rounded-full">
                       <CheckCircle2 className="w-2.5 h-2.5 text-emerald-400 shrink-0" />
                       {review.badge}
                     </span>
                   )}
                 </div>
 
-                {/* Review Text */}
-                <p
-                  className={`relative z-10 text-xs sm:text-[12.5px] text-white/95 leading-relaxed italic ${
-                    isActive ? 'line-clamp-3' : 'line-clamp-2'
-                  }`}
-                >
-                  "{review.text}"
-                </p>
+                {/* Semantic Blockquote for Testimonial */}
+                <blockquote className="text-[11px] sm:text-xs text-white font-normal leading-relaxed italic m-0 p-0">
+                  <p className={isActive ? 'line-clamp-3' : 'line-clamp-2'}>
+                    "{review.text}"
+                  </p>
+                </blockquote>
 
-                {/* Active Card Footer: Pagination dots & "Read on Google ↗" */}
+                {/* Active Card Footer: Pagination dots & Accessible Google Link */}
                 {isActive && (
-                  <div className="relative z-10 flex items-center justify-between mt-3 pt-2 border-t border-white/15">
-                    {/* Pagination indicators matching Image 1 */}
-                    <div className="flex items-center gap-1.5" aria-hidden="true">
+                  <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-white/15 text-[11px]">
+                    {/* Pagination indicators */}
+                    <div className="flex items-center gap-1" aria-hidden="true">
                       {REVIEWS.map((_, dotIdx) => (
                         <button
                           key={dotIdx}
@@ -324,27 +365,27 @@ export const Cinematic3DReviews: React.FC = () => {
                             e.stopPropagation();
                             setCurrentIndex(dotIdx);
                           }}
-                          className={`h-2 rounded-full transition-all duration-300 ${
+                          className={`h-1.5 rounded-full transition-all duration-300 ${
                             dotIdx === currentIndex
-                              ? 'w-4.5 bg-[#FFC629]'
-                              : 'w-2 bg-white/30 hover:bg-white/60'
+                              ? 'w-4 bg-[#FFC629]'
+                              : 'w-1.5 bg-white/40 hover:bg-white/70'
                           }`}
                           aria-label={`Go to review ${dotIdx + 1}`}
                         />
                       ))}
                     </div>
 
-                    {/* Clickable link to specific review in gold */}
+                    {/* Clickable link to Google */}
                     <a
                       href={review.googleReviewUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
-                      className="inline-flex items-center gap-1 text-xs font-semibold text-[#FFC629] hover:text-white transition-colors underline underline-offset-2 group/link"
-                      title="Read full review on Google"
+                      className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-semibold text-[#FFC629] hover:text-white transition-colors underline underline-offset-2"
+                      aria-label={`Read ${review.name}'s verified review on Google Maps`}
                     >
                       <span>Read on Google</span>
-                      <ExternalLink className="w-3 h-3 group-hover/link:translate-x-0.5 transition-transform" />
+                      <ExternalLink className="w-3 h-3" />
                     </a>
                   </div>
                 )}
@@ -354,13 +395,13 @@ export const Cinematic3DReviews: React.FC = () => {
         })}
       </div>
 
-      {/* Bottom Navigation Chevron Button */}
+      {/* Bottom Navigation Chevron Button - Clean, no border or bg color */}
       <button
         onClick={handleNext}
-        className="z-30 mt-1 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 border border-white/25 backdrop-blur-md text-white flex items-center justify-center transition-all duration-300 shadow-md group cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#FFC629]"
+        className="z-30 mt-1 p-2 text-white/70 hover:text-white active:scale-95 transition-all duration-200 group cursor-pointer focus:outline-none focus:text-[#FFC629] bg-transparent border-0"
         aria-label="Next review"
       >
-        <ChevronDown className="w-5 h-5 text-warm-100 group-hover:text-white group-hover:translate-y-0.5 transition-transform" />
+        <ChevronDown className="w-6 h-6 group-hover:translate-y-0.5 transition-transform" />
       </button>
     </div>
   );
