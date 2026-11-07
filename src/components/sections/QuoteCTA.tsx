@@ -1,8 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/common/Button';
-import { WaveDivider } from '@/components/common/WaveDivider';
 import { RevealAnimation } from '@/components/common/RevealAnimation';
-import { CheckCircle2, ShieldCheck, Factory, Truck, ExternalLink } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { Cinematic3DReviews } from './Cinematic3DReviews';
 
 interface QuoteCTAProps {
@@ -16,7 +15,7 @@ const GOOGLE_REVIEWS_URL =
   'https://www.google.com/search?q=teeszone+clothing+private+limited+google+reviews&sca_esv=19979f682c69d8b4&sxsrf=AKL5yDjv2CRh-6O55mllzvFm6xvtFjeHbw%3A1794028012384&ei=7LHuasuLF4qehvcP46-Y0Ac&biw=1600&bih=773&uact=5&oq=teeszone+clothing+private+limited+google+reviews#lrd=0x3ba96bfd956d91c3:0xf353ec9ccd766328,1,,,,';
 
 const GoogleIcon = ({ className = 'w-4 h-4' }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none">
+  <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
     <path
       d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
       fill="#4285F4"
@@ -39,7 +38,7 @@ const GoogleIcon = ({ className = 'w-4 h-4' }: { className?: string }) => (
 const StarRating = () => (
   <div className="flex items-center gap-0.5 text-amber-400">
     {[...Array(5)].map((_, i) => (
-      <svg key={i} className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20">
+      <svg key={i} className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20" aria-hidden="true">
         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
       </svg>
     ))}
@@ -52,13 +51,20 @@ export const QuoteCTA: React.FC<QuoteCTAProps> = ({
   onOpenQuote,
 }) => {
   return (
-    <section className="relative bg-burgundy-700 text-white overflow-hidden pt-12 pb-14 md:py-16">
-      {/* Wave transition at top */}
-      <WaveDivider position="top" variant="white-to-burgundy" className="absolute top-0 inset-x-0" />
+    <section className="relative bg-gradient-to-br from-[#80011F] via-[#650017] to-[#40000E] text-white overflow-hidden py-8 sm:py-10 lg:py-12">
+      {/* Subtle background ambient glow */}
+      <div
+        className="absolute top-1/4 right-1/4 w-96 h-96 bg-rose-600/10 rounded-full blur-3xl pointer-events-none"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute bottom-10 left-10 w-80 h-80 bg-burgundy-900/30 rounded-full blur-2xl pointer-events-none"
+        aria-hidden="true"
+      />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Left Side: Text and Actions (Preserved intact) */}
+          {/* Left Side: Exact Content from Reference Image 1 */}
           <div className="lg:col-span-7 space-y-5 text-center lg:text-left">
             <RevealAnimation direction="up">
               {/* Trust Pill: Google Reviews Link & Star Rating */}
@@ -94,7 +100,7 @@ export const QuoteCTA: React.FC<QuoteCTAProps> = ({
 
             {/* CTA Buttons */}
             <RevealAnimation direction="up" delay={0.15}>
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-1">
                 <Button
                   variant="white"
                   size="lg"
@@ -116,7 +122,7 @@ export const QuoteCTA: React.FC<QuoteCTAProps> = ({
               </div>
 
               {/* Trust Proof Micro-Strip */}
-              <div className="pt-3 flex items-center justify-center lg:justify-start gap-3">
+              <div className="pt-2.5 flex items-center justify-center lg:justify-start gap-3">
                 <div className="flex -space-x-2">
                   <div className="w-7 h-7 rounded-full bg-amber-500 border-2 border-burgundy-700 flex items-center justify-center text-[10px] font-bold text-burgundy-950 shadow-sm">
                     K
@@ -138,31 +144,11 @@ export const QuoteCTA: React.FC<QuoteCTAProps> = ({
             </RevealAnimation>
           </div>
 
-          {/* Right Side: Cinematic 3D Vertically Stacked Google Reviews */}
+          {/* Right Side: Exact 3D Vertically Stacked Google Reviews from Reference Image 1 */}
           <div className="lg:col-span-5 flex justify-center items-center w-full">
             <RevealAnimation direction="left" delay={0.2} className="w-full flex justify-center">
               <Cinematic3DReviews />
             </RevealAnimation>
-          </div>
-        </div>
-
-        {/* 4 Bottom Micro-Badges */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 pt-8 border-t border-white/15">
-          <div className="flex items-center gap-2.5 justify-center lg:justify-start text-xs sm:text-sm text-warm-100 font-medium">
-            <ShieldCheck className="w-4 h-4 text-warm-300 shrink-0" />
-            <span>Quality Products</span>
-          </div>
-          <div className="flex items-center gap-2.5 justify-center lg:justify-start text-xs sm:text-sm text-warm-100 font-medium">
-            <CheckCircle2 className="w-4 h-4 text-warm-300 shrink-0" />
-            <span>Custom Solutions</span>
-          </div>
-          <div className="flex items-center gap-2.5 justify-center lg:justify-start text-xs sm:text-sm text-warm-100 font-medium">
-            <Factory className="w-4 h-4 text-warm-300 shrink-0" />
-            <span>Bulk Production</span>
-          </div>
-          <div className="flex items-center gap-2.5 justify-center lg:justify-start text-xs sm:text-sm text-warm-100 font-medium">
-            <Truck className="w-4 h-4 text-warm-300 shrink-0" />
-            <span>On-Time Delivery</span>
           </div>
         </div>
       </div>

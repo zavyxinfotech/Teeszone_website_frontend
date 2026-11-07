@@ -165,7 +165,7 @@ export const Cinematic3DReviews: React.FC<{
 
   return (
     <div
-      className="relative w-full max-w-[480px] lg:max-w-[500px] flex flex-col items-center select-none"
+      className="relative w-full max-w-[490px] lg:max-w-[520px] flex flex-col items-center select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={onTouchStart}
@@ -177,17 +177,17 @@ export const Cinematic3DReviews: React.FC<{
       {/* Top Navigation Chevron Button */}
       <button
         onClick={handlePrev}
-        className="z-30 mb-2 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 border border-white/20 backdrop-blur-md text-white flex items-center justify-center transition-all duration-300 shadow-md group cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#FFC629]"
+        className="z-30 mb-1 w-8 h-8 rounded-full bg-white/10 hover:bg-white/25 active:scale-90 border border-white/25 backdrop-blur-md text-white flex items-center justify-center transition-all duration-300 shadow-md group cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#FFC629]"
         aria-label="Previous review"
       >
-        <ChevronUp className="w-5 h-5 text-warm-100 group-hover:text-white group-hover:-translate-y-0.5 transition-transform" />
+        <ChevronUp className="w-4 h-4 text-warm-100 group-hover:text-white group-hover:-translate-y-0.5 transition-transform" />
       </button>
 
       {/* 3D Perspective Stage */}
       <div
-        className="relative w-full h-[400px] sm:h-[420px] flex items-center justify-center"
+        className="relative w-full h-[450px] sm:h-[480px] lg:h-[500px] flex items-center justify-center"
         style={{
-          perspective: shouldReduceMotion ? 'none' : '1100px',
+          perspective: shouldReduceMotion ? 'none' : '1200px',
           transformStyle: shouldReduceMotion ? 'flat' : 'preserve-3d',
         }}
       >
@@ -198,7 +198,7 @@ export const Cinematic3DReviews: React.FC<{
           const isBottom = position === 1;
           const isVisible = isActive || isTop || isBottom;
 
-          // Target 3D coordinates based on slot
+          // Target 3D coordinates exactly matching Reference Image 1
           let y = 0;
           let z = 0;
           let scale = 1;
@@ -208,37 +208,37 @@ export const Cinematic3DReviews: React.FC<{
 
           if (isActive) {
             y = 0;
-            z = shouldReduceMotion ? 0 : 35;
-            scale = 1.02;
+            z = shouldReduceMotion ? 0 : 40;
+            scale = 1.03;
             rotateX = 0;
             opacity = 1;
             zIndex = 25;
           } else if (isTop) {
-            y = -115;
-            z = shouldReduceMotion ? 0 : -60;
+            y = -142;
+            z = shouldReduceMotion ? 0 : -50;
             scale = 0.88;
-            rotateX = shouldReduceMotion ? 0 : 8;
-            opacity = 0.55;
+            rotateX = shouldReduceMotion ? 0 : 10;
+            opacity = 0.68;
             zIndex = 10;
           } else if (isBottom) {
-            y = 115;
-            z = shouldReduceMotion ? 0 : -60;
+            y = 142;
+            z = shouldReduceMotion ? 0 : -50;
             scale = 0.88;
-            rotateX = shouldReduceMotion ? 0 : -8;
-            opacity = 0.55;
+            rotateX = shouldReduceMotion ? 0 : -10;
+            opacity = 0.68;
             zIndex = 10;
           } else if (position < -1) {
-            y = -190;
+            y = -220;
             z = shouldReduceMotion ? 0 : -100;
             scale = 0.75;
-            rotateX = 14;
+            rotateX = 16;
             opacity = 0;
             zIndex = 0;
           } else {
-            y = 190;
+            y = 220;
             z = shouldReduceMotion ? 0 : -100;
             scale = 0.75;
-            rotateX = -14;
+            rotateX = -16;
             opacity = 0;
             zIndex = 0;
           }
@@ -258,7 +258,7 @@ export const Cinematic3DReviews: React.FC<{
                 zIndex,
               }}
               transition={{
-                duration: shouldReduceMotion ? 0.3 : 0.6,
+                duration: shouldReduceMotion ? 0.3 : 0.65,
                 ease: [0.22, 1, 0.36, 1],
               }}
               onClick={() => {
@@ -274,36 +274,36 @@ export const Cinematic3DReviews: React.FC<{
               aria-hidden={!isVisible}
             >
               <div
-                className={`relative rounded-[22px] sm:rounded-[24px] transition-all duration-500 overflow-hidden ${
+                className={`relative rounded-[22px] transition-all duration-500 overflow-hidden ${
                   isActive
-                    ? 'bg-[#45000F]/90 backdrop-blur-xl border-2 border-rose-400/90 shadow-[0_0_35px_rgba(244,63,94,0.45),0_20px_45px_rgba(0,0,0,0.6)] ring-1 ring-white/20 p-5 sm:p-6'
-                    : 'bg-[#45000F]/70 backdrop-blur-md border border-white/15 shadow-xl hover:border-white/30 p-4 sm:p-5'
+                    ? 'bg-[#45000F]/92 backdrop-blur-xl border-2 border-rose-400/90 shadow-[0_0_35px_rgba(244,63,94,0.55),0_18px_40px_rgba(0,0,0,0.65)] ring-1 ring-white/20 p-4 sm:p-5'
+                    : 'bg-[#45000F]/65 backdrop-blur-md border border-white/15 shadow-xl hover:border-white/30 p-3.5 sm:p-4'
                 }`}
               >
                 {/* Subtle soft burgundy-pink glow inside card */}
                 {isActive && (
                   <div
-                    className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-rose-500/10 via-transparent to-amber-500/10"
+                    className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-rose-500/15 via-transparent to-amber-500/10"
                     aria-hidden="true"
                   />
                 )}
 
-                {/* Header: Avatar, Name, Designation, Verified Badge, Google Icon */}
-                <div className="relative z-10 flex items-start justify-between gap-3 mb-2.5">
-                  <div className="flex items-center gap-3">
+                {/* Header: Avatar, Name, Designation, Google Icon */}
+                <div className="relative z-10 flex items-start justify-between gap-3 mb-1.5">
+                  <div className="flex items-center gap-2.5">
                     {/* User Avatar */}
                     <div
-                      className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-tr ${review.avatarBg} text-white font-bold text-sm flex items-center justify-center shadow-md shrink-0`}
+                      className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-tr ${review.avatarBg} text-white font-bold text-xs sm:text-sm flex items-center justify-center shadow-md shrink-0`}
                     >
                       {review.initial}
                     </div>
 
                     {/* Name & Designation */}
                     <div>
-                      <h3 className="text-sm sm:text-base font-bold text-white leading-tight font-heading">
+                      <h3 className="text-xs sm:text-sm font-bold text-white leading-tight font-heading">
                         {review.name}
                       </h3>
-                      <p className="text-[11px] sm:text-xs text-[#F6DDE4]/80 leading-tight">
+                      <p className="text-[10px] sm:text-[11px] text-[#F6DDE4]/85 leading-tight">
                         {review.role}
                       </p>
                     </div>
@@ -314,12 +314,12 @@ export const Cinematic3DReviews: React.FC<{
                     className="p-1 rounded-full bg-white shadow-md shrink-0 flex items-center justify-center"
                     title="Google Verified Review"
                   >
-                    <GoogleIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                    <GoogleIcon className="w-3.5 h-3.5" />
                   </div>
                 </div>
 
                 {/* Stars, Rating, and Optional Verified Badge */}
-                <div className="relative z-10 flex flex-wrap items-center justify-between gap-2 mb-2">
+                <div className="relative z-10 flex flex-wrap items-center justify-between gap-2 mb-1.5">
                   <div className="flex items-center gap-1.5">
                     <GoldStars />
                     <span className="text-xs font-bold text-[#FFC629]">
@@ -329,8 +329,8 @@ export const Cinematic3DReviews: React.FC<{
 
                   {/* Verified Buyer Pill Badge (Prominent on Active Card) */}
                   {review.badge && isActive && (
-                    <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] uppercase font-bold tracking-wider text-emerald-300 bg-emerald-950/70 border border-emerald-500/40 px-2.5 py-0.5 rounded-full shadow-sm">
-                      <CheckCircle2 className="w-3 h-3 text-emerald-400 shrink-0" />
+                    <span className="inline-flex items-center gap-1 text-[9px] uppercase font-bold tracking-wider text-emerald-300 bg-emerald-950/70 border border-emerald-500/40 px-2 py-0.5 rounded-full shadow-sm">
+                      <CheckCircle2 className="w-2.5 h-2.5 text-emerald-400 shrink-0" />
                       {review.badge}
                     </span>
                   )}
@@ -338,7 +338,7 @@ export const Cinematic3DReviews: React.FC<{
 
                 {/* Actual Review Quote */}
                 <p
-                  className={`relative z-10 text-xs sm:text-[13px] text-white/95 leading-relaxed italic ${
+                  className={`relative z-10 text-[11px] sm:text-xs text-white/95 leading-relaxed italic ${
                     isActive ? 'line-clamp-3' : 'line-clamp-2'
                   }`}
                 >
@@ -347,7 +347,7 @@ export const Cinematic3DReviews: React.FC<{
 
                 {/* Active Card Footer: Pagination dots & "Read on Google ↗" */}
                 {isActive && (
-                  <div className="relative z-10 flex items-center justify-between mt-3 pt-2.5 border-t border-white/15">
+                  <div className="relative z-10 flex items-center justify-between mt-2.5 pt-2 border-t border-white/15">
                     {/* Pagination indicators */}
                     <div className="flex items-center gap-1.5" aria-hidden="true">
                       {reviews.map((_, dotIdx) => (
@@ -358,10 +358,10 @@ export const Cinematic3DReviews: React.FC<{
                             e.stopPropagation();
                             setCurrentIndex(dotIdx);
                           }}
-                          className={`h-2 rounded-full transition-all duration-300 ${
+                          className={`h-1.5 rounded-full transition-all duration-300 ${
                             dotIdx === currentIndex
-                              ? 'w-5 bg-[#FFC629]'
-                              : 'w-2 bg-white/30 hover:bg-white/60'
+                              ? 'w-4 bg-[#FFC629]'
+                              : 'w-1.5 bg-white/35 hover:bg-white/60'
                           }`}
                           aria-label={`Go to review ${dotIdx + 1}`}
                         />
@@ -374,11 +374,11 @@ export const Cinematic3DReviews: React.FC<{
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
-                      className="inline-flex items-center gap-1 text-xs font-semibold text-[#FFC629] hover:text-white transition-colors underline underline-offset-2 group/link"
+                      className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-semibold text-[#FFC629] hover:text-white transition-colors underline underline-offset-2 group/link"
                       title="Read full review on Google"
                     >
                       <span>Read on Google</span>
-                      <ExternalLink className="w-3 h-3 group-hover/link:translate-x-0.5 transition-transform" />
+                      <ExternalLink className="w-2.5 h-2.5 group-hover/link:translate-x-0.5 transition-transform" />
                     </a>
                   </div>
                 )}
@@ -391,11 +391,12 @@ export const Cinematic3DReviews: React.FC<{
       {/* Bottom Navigation Chevron Button */}
       <button
         onClick={handleNext}
-        className="z-30 mt-2 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 border border-white/20 backdrop-blur-md text-white flex items-center justify-center transition-all duration-300 shadow-md group cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#FFC629]"
+        className="z-30 mt-1 w-8 h-8 rounded-full bg-white/10 hover:bg-white/25 active:scale-90 border border-white/25 backdrop-blur-md text-white flex items-center justify-center transition-all duration-300 shadow-md group cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#FFC629]"
         aria-label="Next review"
       >
-        <ChevronDown className="w-5 h-5 text-warm-100 group-hover:text-white group-hover:translate-y-0.5 transition-transform" />
+        <ChevronDown className="w-4 h-4 text-warm-100 group-hover:text-white group-hover:translate-y-0.5 transition-transform" />
       </button>
     </div>
   );
 };
+
