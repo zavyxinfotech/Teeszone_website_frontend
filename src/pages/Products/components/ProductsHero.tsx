@@ -5,7 +5,7 @@ import { Sparkles, Layers, ShieldCheck, CheckCircle } from 'lucide-react';
 
 export const ProductsHero: React.FC = () => {
   return (
-    <section className="relative bg-gradient-to-b from-white via-warm-50 to-warm-100/60 pt-10 pb-16 md:pb-24 overflow-hidden">
+    <section className="relative bg-gradient-to-b from-white via-warm-50 to-warm-100/60 pt-28 sm:pt-32 md:pt-36 lg:pt-40 pb-16 md:pb-24 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         <RevealAnimation direction="down" immediate>
           <span className="inline-flex items-center gap-1.5 text-xs font-heading font-extrabold uppercase tracking-widest text-burgundy-700 bg-burgundy-50 border border-burgundy-100 px-3.5 py-1.5 rounded-full shadow-soft-sm">

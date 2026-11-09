@@ -153,7 +153,7 @@ const MobileFeatureCard: React.FC<{
       }}
       className="absolute inset-x-0 mx-auto w-full max-w-[325px] sm:max-w-[340px] px-5 py-5 sm:p-6 rounded-3xl bg-white/95 backdrop-blur-md border border-rose-200/80 shadow-[0_16px_36px_rgba(138,0,36,0.16)] flex flex-col items-center text-center z-20"
     >
-      <div className="text-[11px] font-heading font-black tracking-widest text-[#8A0024] uppercase mb-2 bg-rose-50 px-3.5 py-0.5 rounded-full border border-rose-100">
+      <div className="text-xs font-heading font-black tracking-widest text-[#8A0024] uppercase mb-2 bg-rose-50 px-3.5 py-0.5 rounded-full border border-rose-100">
         Feature 0{index + 1} of 06
       </div>
 
@@ -161,13 +161,13 @@ const MobileFeatureCard: React.FC<{
         <IconComp className="w-7 h-7 stroke-[2.2]" />
       </div>
 
-      <h3 className="font-heading font-black text-base sm:text-lg text-[#8A0024] tracking-wide">
+      <h3 className="font-heading font-black text-lg sm:text-xl text-[#8A0024] tracking-wide">
         {feature.title}
       </h3>
 
       <div className="w-10 h-[2px] bg-[#8A0024] rounded-full my-2" />
 
-      <p className="text-[13px] sm:text-sm text-[#334155] font-normal leading-relaxed px-1">
+      <p className="text-sm sm:text-base text-[#334155] font-normal leading-relaxed px-1">
         {feature.description}
       </p>
     </motion.div>
@@ -304,19 +304,19 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
           ========================================================================= */}
       <div className="hidden lg:block relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 overflow-hidden pt-4 sm:pt-5 lg:pt-5 pb-3 sm:pb-4 lg:pb-4">
         
-        {/* Top Header */}
+        {/* Top Header: Increased size without increasing boldness */}
         <div className="text-center mb-1.5">
-          <p className="text-[11px] sm:text-xs font-heading font-black tracking-[0.24em] text-[#1B2A4A] uppercase">
+          <p className="text-xs sm:text-sm font-heading font-black tracking-[0.24em] text-[#1B2A4A] uppercase">
             WHY CHOOSE
           </p>
 
-          <h2 className="text-4xl sm:text-5xl md:text-5xl font-heading font-black text-[#8A0024] tracking-tight leading-none my-1 select-none">
-            <span className="inline-block px-4 sm:px-5 py-1 rounded-2xl sm:rounded-3xl bg-[#8A0024]/[0.06] border border-[#8A0024]/15 drop-shadow-[0_4px_14px_rgba(138,0,36,0.12)]">
+          <h2 className="text-5xl sm:text-6xl md:text-6xl font-heading font-black text-[#8A0024] tracking-tight leading-none my-1 select-none">
+            <span className="inline-block px-5 sm:px-6 py-1.5 rounded-2xl sm:rounded-3xl bg-[#8A0024]/[0.06] border border-[#8A0024]/15 drop-shadow-[0_4px_14px_rgba(138,0,36,0.12)]">
               TEESZONE?
             </span>
           </h2>
 
-          <p className="text-[11px] sm:text-xs font-heading font-extrabold tracking-wider text-[#1B2A4A] mt-0.5">
+          <p className="text-xs sm:text-sm font-heading font-extrabold tracking-wider text-[#1B2A4A] mt-0.5">
             BEYOND CUSTOM T-SHIRTS.{' '}
             <span className="text-[#8A0024]">YOUR APPAREL PARTNER.</span>
           </p>
@@ -434,14 +434,14 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
                     <IconComp className="w-6 h-6 stroke-[2.2]" />
                   </div>
 
-                  <h3 className="font-heading font-black text-xs sm:text-[13.5px] text-[#8A0024] tracking-wide mt-1 mb-0.5">
+                  <h3 className="font-heading font-black text-sm sm:text-[14.5px] text-[#8A0024] tracking-wide mt-1 mb-0.5">
                     {item.title}
                   </h3>
 
                   <div className="w-6 h-[1.5px] bg-[#8A0024] rounded-full mb-0.5" />
 
                   {/* 2-line concise description in increased text size, not bold */}
-                  <p className="text-[12.5px] sm:text-[13.5px] text-[#334155] font-normal leading-snug max-w-[220px]">
+                  <p className="text-[13px] sm:text-[14px] text-[#334155] font-normal leading-snug max-w-[220px]">
                     {item.description}
                   </p>
                 </motion.div>
@@ -485,14 +485,14 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
                     <IconComp className="w-6 h-6 stroke-[2.2]" />
                   </div>
 
-                  <h3 className="font-heading font-black text-xs sm:text-[13.5px] text-[#8A0024] tracking-wide mt-1 mb-0.5">
+                  <h3 className="font-heading font-black text-sm sm:text-[14.5px] text-[#8A0024] tracking-wide mt-1 mb-0.5">
                     {item.title}
                   </h3>
 
                   <div className="w-6 h-[1.5px] bg-[#8A0024] rounded-full mb-0.5" />
 
                   {/* 2-line concise description in increased text size, not bold */}
-                  <p className="text-[12.5px] sm:text-[13.5px] text-[#334155] font-normal leading-snug max-w-[220px]">
+                  <p className="text-[13px] sm:text-[14px] text-[#334155] font-normal leading-snug max-w-[220px]">
                     {item.description}
                   </p>
                 </motion.div>
@@ -569,15 +569,15 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
             style={{ y: mobileHeadingY, scale: mobileHeadingScale }}
             className="text-center max-w-sm mx-auto z-30 shrink-0 origin-center"
           >
-            <p className="text-[11px] sm:text-xs font-heading font-black tracking-[0.24em] text-[#1B2A4A] uppercase">
+            <p className="text-xs sm:text-sm font-heading font-black tracking-[0.24em] text-[#1B2A4A] uppercase">
               WHY CHOOSE
             </p>
-            <h2 className="text-3xl sm:text-4xl font-heading font-black text-[#8A0024] tracking-tight leading-none my-1 select-none">
+            <h2 className="text-4xl sm:text-5xl font-heading font-black text-[#8A0024] tracking-tight leading-none my-1 select-none">
               <span className="inline-block px-4 py-1 rounded-2xl bg-[#8A0024]/[0.06] border border-[#8A0024]/15 drop-shadow-[0_2px_8px_rgba(138,0,36,0.08)]">
                 TEESZONE?
               </span>
             </h2>
-            <p className="text-xs font-heading font-extrabold tracking-wider text-[#1B2A4A] mt-0.5">
+            <p className="text-sm font-heading font-extrabold tracking-wider text-[#1B2A4A] mt-0.5">
               BEYOND CUSTOM T-SHIRTS.{' '}
               <span className="text-[#8A0024]">YOUR APPAREL PARTNER.</span>
             </p>

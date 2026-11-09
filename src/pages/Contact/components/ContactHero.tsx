@@ -4,7 +4,7 @@ import { Clock, HelpCircle, Sparkles } from 'lucide-react';
 
 export const ContactHero: React.FC = () => {
   return (
-    <section className="relative bg-gradient-to-b from-white via-warm-50 to-warm-100/50 pt-8 pb-12 md:pb-16 overflow-hidden">
+    <section className="relative bg-gradient-to-b from-white via-warm-50 to-warm-100/50 pt-28 sm:pt-32 md:pt-36 lg:pt-40 pb-12 md:pb-16 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left Text */}

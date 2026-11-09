@@ -195,19 +195,19 @@ export const SectorShowcase: React.FC = () => {
               {/* Eyebrow */}
               <div className="flex items-center justify-center gap-2.5 mb-2 mx-auto">
                 <span className="w-5 h-[1.5px] bg-[#82132C] rounded-full inline-block" />
-                <span className="text-[11px] sm:text-xs font-heading font-extrabold uppercase tracking-widest text-[#82132C]">
+                <span className="text-xs sm:text-sm font-heading font-extrabold uppercase tracking-widest text-[#82132C]">
                   Custom T-Shirts For Every Sector
                 </span>
                 <span className="w-5 h-[1.5px] bg-[#82132C] rounded-full inline-block" />
               </div>
 
-              {/* Main Title */}
-              <h2 className="text-3xl sm:text-4xl md:text-[44px] font-heading font-black tracking-tight leading-[1.12] text-charcoal-900">
+              {/* Main Title: Increased size without increasing boldness */}
+              <h2 className="text-4xl sm:text-5xl md:text-[50px] font-heading font-black tracking-tight leading-[1.12] text-charcoal-900">
                 Stay Branded, <span className="text-[#82132C]">Stay Professional</span>
               </h2>
 
-              {/* Subtitle */}
-              <p className="text-xs sm:text-[13px] text-charcoal-600 font-normal mt-1.5 max-w-2xl leading-relaxed mx-auto">
+              {/* Subtitle: Increased size without increasing boldness */}
+              <p className="text-sm sm:text-base text-charcoal-600 font-normal mt-2 max-w-2xl leading-relaxed mx-auto">
                 Engineered uniforms and custom apparel specifically crafted for your industry's standards, complete with high-definition embroidery and durable fabric weaves.
               </p>
             </motion.div>
@@ -335,13 +335,13 @@ export const SectorShowcase: React.FC = () => {
           <div className="text-center max-w-sm mx-auto z-10 shrink-0">
             <div className="flex items-center justify-center gap-2 mb-1.5 mx-auto">
               <span className="w-4 h-[1.5px] bg-[#82132C] rounded-full inline-block" />
-              <span className="text-[11px] font-heading font-extrabold uppercase tracking-widest text-[#82132C]">
+              <span className="text-xs sm:text-sm font-heading font-extrabold uppercase tracking-widest text-[#82132C]">
                 Custom T-Shirts For Every Sector
               </span>
               <span className="w-4 h-[1.5px] bg-[#82132C] rounded-full inline-block" />
             </div>
 
-            <h2 className="text-2xl sm:text-[26px] font-heading font-black tracking-tight leading-tight text-charcoal-900">
+            <h2 className="text-[26px] sm:text-[30px] font-heading font-black tracking-tight leading-tight text-charcoal-900">
               Stay Branded, <span className="text-[#82132C]">Stay Professional</span>
             </h2>
           </div>
@@ -401,10 +401,10 @@ export const SectorShowcase: React.FC = () => {
                 transition={{ duration: 0.25 }}
                 className="mb-1.5"
               >
-                <h3 className="font-heading font-black text-lg text-charcoal-900 leading-snug">
+                <h3 className="font-heading font-black text-xl text-charcoal-900 leading-snug">
                   {activeMobileCard.title}
                 </h3>
-                <p className="text-xs text-charcoal-600 font-medium mt-0.5">
+                <p className="text-sm text-charcoal-600 font-medium mt-0.5">
                   {activeMobileCard.subtitle}
                 </p>
               </motion.div>

@@ -151,20 +151,20 @@ export const ManufacturingProcess: React.FC<ManufacturingProcessProps> = ({
           <div className="text-center mb-6 sm:mb-10 lg:mb-12 max-w-3xl mx-auto relative z-20">
             <div className="flex items-center justify-center gap-3 sm:gap-4 mb-2">
               <div className="w-8 sm:w-14 h-px bg-white/40" />
-              <span className="text-[11px] sm:text-xs md:text-sm font-heading font-extrabold uppercase tracking-[0.25em] text-white">
+              <span className="text-xs sm:text-sm md:text-base font-heading font-extrabold uppercase tracking-[0.25em] text-white">
                 OUR PROCESS
               </span>
               <div className="w-8 sm:w-14 h-px bg-white/40" />
             </div>
 
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-heading font-black text-white tracking-tight leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-heading font-black text-white tracking-tight leading-tight">
               From Your Idea to{' '}
               <span className="bg-gradient-to-r from-white via-rose-100 to-warm-200 bg-clip-text text-transparent">
                 Your T-Shirts
               </span>
             </h2>
 
-            <p className="text-xs sm:text-sm md:text-base text-rose-100 font-normal mt-2 leading-relaxed px-4 max-w-xl mx-auto">
+            <p className="text-sm sm:text-base md:text-lg text-rose-100 font-normal mt-2.5 leading-relaxed px-4 max-w-xl mx-auto">
               A simple and transparent process to get your custom T-shirts, uniforms and apparel.
             </p>
           </div>
@@ -311,7 +311,7 @@ export const ManufacturingProcess: React.FC<ManufacturingProcessProps> = ({
 
                     {/* Step Title */}
                     <h3
-                      className={`font-heading font-extrabold text-sm sm:text-base mt-3 mb-1 leading-snug transition-all duration-500 ${
+                      className={`font-heading font-extrabold text-base sm:text-lg mt-3 mb-1 leading-snug transition-all duration-500 ${
                         isCurrent
                           ? 'text-white font-black scale-105'
                           : 'text-white/80'
@@ -322,7 +322,7 @@ export const ManufacturingProcess: React.FC<ManufacturingProcessProps> = ({
 
                     {/* Step Subtitle */}
                     <p
-                      className={`text-[11px] sm:text-xs font-medium leading-normal max-w-[200px] transition-all duration-500 ${
+                      className={`text-xs sm:text-sm font-medium leading-normal max-w-[210px] transition-all duration-500 ${
                         isCurrent ? 'text-rose-100 font-semibold' : 'text-rose-100/70'
                       }`}
                     >
@@ -408,18 +408,18 @@ export const ManufacturingProcess: React.FC<ManufacturingProcessProps> = ({
 
                         {/* Typography */}
                         <div className="flex flex-col justify-center text-left">
-                          <span className="text-[10px] font-heading font-black uppercase tracking-wider text-[#8A0024]">
+                          <span className="text-xs font-heading font-black uppercase tracking-wider text-[#8A0024]">
                             Step {step.number}
                           </span>
                           <h3
-                            className={`font-heading font-black text-base leading-snug tracking-tight transition-colors ${
+                            className={`font-heading font-black text-lg leading-snug tracking-tight transition-colors ${
                               isCurrent ? 'text-[#59061A]' : 'text-[#4A0010]'
                             }`}
                           >
                             {step.title}
                           </h3>
                           <p
-                            className={`text-xs font-semibold mt-0.5 leading-tight transition-colors ${
+                            className={`text-sm font-semibold mt-0.5 leading-tight transition-colors ${
                               isCurrent ? 'text-[#82132C]' : 'text-[#7A1B30]'
                             }`}
                           >

@@ -17,20 +17,20 @@ export const AboutPreview: React.FC = () => {
           <div className="w-full lg:w-[46%] xl:w-[44%] shrink-0 flex flex-col items-center lg:items-start text-center lg:text-left justify-center">
             {/* Category Eyebrow matching Image 1: ABOUT TEESZONE — */}
             <div className="inline-flex items-center justify-center lg:justify-start gap-2 mb-2 sm:mb-2.5">
-              <span className="text-xs sm:text-sm font-heading font-extrabold uppercase tracking-widest text-[#A41535]">
+              <span className="text-sm sm:text-base font-heading font-extrabold uppercase tracking-widest text-[#A41535]">
                 ABOUT TEESZONE
               </span>
               <span className="w-5 h-[1.5px] bg-[#A41535] rounded-full inline-block" />
             </div>
 
-            {/* Main Headline */}
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-heading font-black leading-[1.08] tracking-tight">
+            {/* Main Headline: Increased size without increasing boldness */}
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[60px] font-heading font-black leading-[1.08] tracking-tight">
               <span className="text-charcoal-900 block">MORE THAN JUST</span>
               <span className="text-burgundy-700 block">T-SHIRTS</span>
             </h2>
 
-            {/* Subtitle Description */}
-            <p className="text-sm sm:text-base md:text-lg text-charcoal-600 leading-relaxed max-w-xl mt-3.5 sm:mt-4 font-normal mx-auto lg:mx-0">
+            {/* Subtitle Description: Increased size without increasing boldness */}
+            <p className="text-base sm:text-lg md:text-xl text-charcoal-600 leading-relaxed max-w-xl mt-3.5 sm:mt-4 font-normal mx-auto lg:mx-0">
               We manufacture high-quality T-shirts that help individuals, businesses and brands express their identity with style and confidence.
             </p>
 
@@ -38,7 +38,7 @@ export const AboutPreview: React.FC = () => {
             <div className="mt-5 sm:mt-6 flex justify-center lg:justify-start w-full">
               <Link
                 to="/about"
-                className="inline-flex items-center gap-2 px-7 sm:px-8 py-2.5 sm:py-3 rounded-full bg-burgundy-700 hover:bg-burgundy-800 text-white font-heading font-bold text-sm sm:text-base transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 group w-fit"
+                className="inline-flex items-center gap-2 px-7 sm:px-8 py-3 sm:py-3.5 rounded-full bg-burgundy-700 hover:bg-burgundy-800 text-white font-heading font-bold text-base sm:text-lg transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 group w-fit"
               >
                 <span>Our Story</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -84,10 +84,10 @@ export const AboutPreview: React.FC = () => {
                   <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-burgundy-50 border border-burgundy-100/70 flex items-center justify-center mb-1.5 text-burgundy-700 mx-auto sm:mx-0">
                     <Layers className="w-4 h-4 sm:w-5 sm:h-5 text-burgundy-700" />
                   </div>
-                  <p className="text-xs sm:text-sm md:text-base font-heading font-bold text-charcoal-900 leading-tight whitespace-nowrap">
+                  <p className="text-sm sm:text-base md:text-lg font-heading font-bold text-charcoal-900 leading-tight whitespace-nowrap">
                     Custom &amp; Blank
                   </p>
-                  <p className="text-[11px] sm:text-xs text-burgundy-700 font-medium whitespace-nowrap mt-0.5">
+                  <p className="text-xs sm:text-sm text-burgundy-700 font-medium whitespace-nowrap mt-0.5">
                     Apparel
                   </p>
                 </div>
@@ -100,10 +100,10 @@ export const AboutPreview: React.FC = () => {
                   <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-burgundy-50 border border-burgundy-100/70 flex items-center justify-center mb-1.5 text-burgundy-700 mx-auto sm:mx-0">
                     <Award className="w-4 h-4 sm:w-5 sm:h-5 text-burgundy-700" />
                   </div>
-                  <p className="text-xs sm:text-sm md:text-base font-heading font-bold text-charcoal-900 leading-tight whitespace-nowrap">
+                  <p className="text-sm sm:text-base md:text-lg font-heading font-bold text-charcoal-900 leading-tight whitespace-nowrap">
                     Complete B2B
                   </p>
-                  <p className="text-[11px] sm:text-xs text-burgundy-700 font-medium whitespace-nowrap mt-0.5">
+                  <p className="text-xs sm:text-sm text-burgundy-700 font-medium whitespace-nowrap mt-0.5">
                     Solutions
                   </p>
                 </div>
@@ -116,10 +116,10 @@ export const AboutPreview: React.FC = () => {
                   <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-burgundy-50 border border-burgundy-100/70 flex items-center justify-center mb-1.5 text-burgundy-700 mx-auto sm:mx-0">
                     <Truck className="w-4 h-4 sm:w-5 sm:h-5 text-burgundy-700" />
                   </div>
-                  <p className="text-xs sm:text-sm md:text-base font-heading font-bold text-charcoal-900 leading-tight whitespace-nowrap">
+                  <p className="text-sm sm:text-base md:text-lg font-heading font-bold text-charcoal-900 leading-tight whitespace-nowrap">
                     Nationwide
                   </p>
-                  <p className="text-[11px] sm:text-xs text-burgundy-700 font-medium whitespace-nowrap mt-0.5">
+                  <p className="text-xs sm:text-sm text-burgundy-700 font-medium whitespace-nowrap mt-0.5">
                     Bulk Supply
                   </p>
                 </div>

@@ -37,7 +37,7 @@ export const App: React.FC = () => {
       <Navbar onOpenQuote={() => openQuote()} />
 
       {/* Routed Page Content */}
-      <main className={`flex-1 ${isHomePage ? '' : 'pt-16 sm:pt-20'}`}>
+      <main className="flex-1">
         <PageTransition>
           <Outlet />
         </PageTransition>

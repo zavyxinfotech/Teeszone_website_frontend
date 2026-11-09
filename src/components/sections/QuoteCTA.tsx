@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Button } from '@/components/common/Button';
 import { RevealAnimation } from '@/components/common/RevealAnimation';
 import { ExternalLink } from 'lucide-react';
@@ -36,7 +36,7 @@ const GoogleIcon = ({ className = 'w-4 h-4' }: { className?: string }) => (
 );
 
 const StarRating = () => (
-  <div className="flex items-center gap-0.5 text-[#FFC629]">
+  <div className="flex items-center gap-0.5 text-[#FBBC04]">
     {[...Array(5)].map((_, i) => (
       <svg key={i} className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20" aria-hidden="true">
         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
@@ -46,8 +46,11 @@ const StarRating = () => (
 );
 
 export const QuoteCTA: React.FC<QuoteCTAProps> = ({ onOpenQuote }) => {
+  const sectionRef = useRef<HTMLElement>(null);
+
   return (
     <section
+      ref={sectionRef}
       className="relative bg-gradient-to-br from-[#73011c] via-[#4d0012] to-[#30000a] text-white overflow-hidden py-10 sm:py-12 md:py-14"
       aria-labelledby="customer-reviews-heading"
     >
@@ -75,50 +78,43 @@ export const QuoteCTA: React.FC<QuoteCTAProps> = ({ onOpenQuote }) => {
           {/* Left Side: Optimized Content */}
           <div className="lg:col-span-6 space-y-4 text-center lg:text-left">
             <RevealAnimation direction="up">
-              {/* Pills: Eyebrow + Google Reviews Link */}
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 mb-3">
-                <span className="inline-block text-xs uppercase font-heading font-bold tracking-wider px-3.5 py-1 rounded-full bg-white/10 text-warm-200 border border-white/20">
-                  Trusted by Businesses. Loved by Clients.
-                </span>
+              {/* Clean Eyebrow + Google Reviews Link: Zero border, zero background pill */}
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-3">
+                <div className="inline-flex items-center gap-2 text-sm sm:text-base uppercase font-heading font-extrabold tracking-widest text-[#FFC1D0]">
+                  <span className="w-3.5 sm:w-4.5 h-[2px] bg-[#FFC1D0] rounded-full inline-block" />
+                  <span>Trusted by Businesses. Loved by Clients.</span>
+                </div>
 
                 <a
                   href={GOOGLE_REVIEWS_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 hover:bg-white/25 border border-white/30 backdrop-blur-sm transition-all duration-300 group shadow-sm text-xs font-semibold text-white"
+                  className="inline-flex items-center gap-1.5 hover:opacity-90 transition-opacity group text-sm sm:text-base font-semibold text-white bg-transparent border-0 p-0"
                   title="View verified reviews for TeesZone Clothing Private Limited on Google"
                   aria-label="View verified 5.0 Google Reviews for TeesZone"
                 >
-                  <span className="p-0.5 rounded-full bg-white flex items-center justify-center shrink-0">
+                  <span className="p-1 rounded-full bg-white shadow-sm flex items-center justify-center shrink-0">
                     <GoogleIcon className="w-3.5 h-3.5" />
                   </span>
                   <StarRating />
-                  <span className="text-[#FFC629] font-bold">5.0</span>
-                  <span className="hidden sm:inline text-warm-100 font-medium">on Google</span>
-                  <ExternalLink className="w-3 h-3 text-warm-200 group-hover:text-white transition-colors" />
+                  <span className="text-[#FBBC04] font-bold">5.0</span>
+                  <span className="text-white/95 font-medium">on Google</span>
+                  <ExternalLink className="w-3.5 h-3.5 text-white/70 group-hover:text-white transition-colors" />
                 </a>
               </div>
 
-              {/* Main Heading */}
+              {/* Main Heading: Increased size without increasing boldness */}
               <h2
                 id="customer-reviews-heading"
-                className="text-3xl sm:text-4xl md:text-5xl font-heading font-extrabold tracking-tight text-white leading-tight"
+                className="text-4xl sm:text-5xl md:text-6xl font-heading font-extrabold tracking-tight text-white leading-tight"
               >
                 Real Clients. Real Experiences.
               </h2>
 
-              {/* Semantic Description Paragraphs for SEO & User Trust */}
-              <div className="space-y-3 mt-4 text-sm sm:text-base text-burgundy-100 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
-                <p>
-                  Discover why businesses, corporate teams, startups and organizations choose TeesZone for custom T-shirt manufacturing and personalized apparel.
-                </p>
-                <p>
-                  From customized corporate uniforms and branded polo T-shirts to event merchandise and bulk apparel orders, our focus is on quality, customization and reliable service.
-                </p>
-                <p>
-                  Explore genuine customer experiences and see how TeesZone helps bring brands, teams and creative ideas to life through custom apparel.
-                </p>
-              </div>
+              {/* Concise Single-Point Semantic Description: Increased size without increasing boldness */}
+              <p className="mt-4 sm:mt-5 text-base sm:text-lg md:text-xl text-burgundy-100 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
+                From premium corporate uniforms to high-volume event merchandise, discover how 500+ businesses and teams bring their apparel vision to life with TeesZone's trusted quality, custom finishes, and reliable on-time delivery.
+              </p>
             </RevealAnimation>
 
             {/* Action Buttons */}
@@ -130,6 +126,7 @@ export const QuoteCTA: React.FC<QuoteCTAProps> = ({ onOpenQuote }) => {
                   withArrow
                   onClick={onOpenQuote}
                   to={!onOpenQuote ? '/contact?mode=quote' : undefined}
+                  className="text-base sm:text-lg py-3 px-8"
                 >
                   Get a Quote
                 </Button>
@@ -137,41 +134,44 @@ export const QuoteCTA: React.FC<QuoteCTAProps> = ({ onOpenQuote }) => {
                   variant="outline"
                   size="lg"
                   to="/contact"
-                  className="border-white/80 text-white hover:bg-white hover:text-burgundy-700"
+                  className="border-white/80 text-white hover:bg-white hover:text-burgundy-700 text-base sm:text-lg py-3 px-8"
                   withArrow
                 >
                   Contact Us
                 </Button>
               </div>
 
-              {/* Trust Proof Micro-Strip */}
-              <div className="pt-3.5 flex items-center justify-center lg:justify-start gap-3">
+              {/* Trust Proof Micro-Strip with Increased Text Size without Extra Boldness */}
+              <div className="pt-4 flex items-center justify-center lg:justify-start gap-3.5">
                 <div className="flex -space-x-2">
-                  <div className="w-7 h-7 rounded-full bg-[#FF8C00] border-2 border-[#73011c] flex items-center justify-center text-[10px] font-bold text-burgundy-950 shadow-sm">
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#EA4335] border-2 border-[#73011c] flex items-center justify-center text-xs sm:text-[13px] font-heading font-black text-white shadow-sm">
                     K
                   </div>
-                  <div className="w-7 h-7 rounded-full bg-rose-400 border-2 border-[#73011c] flex items-center justify-center text-[10px] font-bold text-white shadow-sm">
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#FBBC05] border-2 border-[#73011c] flex items-center justify-center text-xs sm:text-[13px] font-heading font-black text-gray-900 shadow-sm">
                     S
                   </div>
-                  <div className="w-7 h-7 rounded-full bg-emerald-500 border-2 border-[#73011c] flex items-center justify-center text-[10px] font-bold text-white shadow-sm">
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#34A853] border-2 border-[#73011c] flex items-center justify-center text-xs sm:text-[13px] font-heading font-black text-white shadow-sm">
                     P
                   </div>
-                  <div className="w-7 h-7 rounded-full bg-[#0288D1] border-2 border-[#73011c] flex items-center justify-center text-[9px] font-extrabold text-white shadow-sm">
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#4285F4] border-2 border-[#73011c] flex items-center justify-center text-[10px] sm:text-[11px] font-heading font-black text-white shadow-sm">
                     500+
                   </div>
                 </div>
-                <p className="text-xs text-burgundy-100 font-medium">
-                  <span className="font-bold text-white">500+ Happy Brands &amp; Clients</span> across Tamil Nadu &amp; India
-                </p>
+                <div className="text-left">
+                  <span className="font-heading font-black text-white text-sm sm:text-base tracking-wide">
+                    500+ Happy Brands &amp; Clients
+                  </span>
+                  <span className="block sm:inline sm:ml-1 text-xs sm:text-sm font-sans text-rose-200/90 font-medium">
+                    across Tamil Nadu &amp; India
+                  </span>
+                </div>
               </div>
             </RevealAnimation>
           </div>
 
-          {/* Right Side: Cinematic 3D Vertically Stacked Google Reviews */}
-          <div className="lg:col-span-6 flex justify-center items-center w-full">
-            <RevealAnimation direction="left" delay={0.2} className="w-full flex justify-center">
-              <Cinematic3DReviews />
-            </RevealAnimation>
+          {/* Right Side: Cinematic 3D Angled Slider Google Reviews with mobile clearance */}
+          <div className="lg:col-span-6 flex justify-center items-center w-full relative mt-6 sm:mt-8 lg:mt-0 pt-2 lg:pt-0">
+            <Cinematic3DReviews />
           </div>
         </div>
       </div>

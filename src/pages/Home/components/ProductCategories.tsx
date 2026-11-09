@@ -50,19 +50,19 @@ export const ProductCategories: React.FC = () => {
         <div>
           {/* Section Badge consistent with other sections (centered on mobile) */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FCECEF] border border-burgundy-100/60 mb-2.5 sm:mb-3 shadow-2xs mx-auto sm:mx-0">
-            <span className="w-3 h-[1.5px] bg-[#82132C] rounded-full inline-block" />
-            <span className="text-[11px] sm:text-xs font-heading font-bold uppercase tracking-wider text-[#82132C]">
+            <span className="w-3.5 h-[1.5px] bg-[#82132C] rounded-full inline-block" />
+            <span className="text-xs sm:text-sm font-heading font-bold uppercase tracking-wider text-[#82132C]">
               Our Products
             </span>
           </div>
 
-          {/* Section Title */}
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-heading font-black tracking-tight text-charcoal-900 leading-[1.12]">
+          {/* Section Title: Increased size without increasing boldness */}
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-heading font-black tracking-tight text-charcoal-900 leading-[1.12]">
             Apparel for <span className="text-[#82132C]">Every Need</span>
           </h2>
 
-          {/* Subtitle */}
-          <p className="text-xs sm:text-sm md:text-base text-charcoal-600 font-normal mt-2 sm:mt-2.5 max-w-2xl leading-relaxed mx-auto sm:mx-0">
+          {/* Subtitle: Increased size without increasing boldness */}
+          <p className="text-sm sm:text-base md:text-lg text-charcoal-600 font-normal mt-2.5 sm:mt-3 max-w-2xl leading-relaxed mx-auto sm:mx-0">
             From corporate executive uniforms and blank apparel to school collections, promotional event wear, and academic sports kits.
           </p>
         </div>
@@ -104,7 +104,7 @@ export const ProductCategories: React.FC = () => {
                 </div>
                 <div className="space-y-1 text-center">
                   <div className="min-h-[2.5rem] sm:min-h-[2.75rem] flex items-center justify-center">
-                    <h3 className="font-heading font-bold text-sm sm:text-base text-charcoal-900 group-hover:text-burgundy-700 transition-colors leading-snug">
+                    <h3 className="font-heading font-bold text-base sm:text-lg text-charcoal-900 group-hover:text-burgundy-700 transition-colors leading-snug">
                       {item.name}
                     </h3>
                   </div>

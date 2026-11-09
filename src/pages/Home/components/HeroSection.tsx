@@ -153,7 +153,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: 'easeOut' }}
               >
-                <span className="text-xs sm:text-sm font-heading font-semibold uppercase tracking-wider text-burgundy-700 block">
+                <span className="text-sm sm:text-base font-heading font-semibold uppercase tracking-wider text-burgundy-700 block">
                   PREMIUM T-SHIRT MANUFACTURER
                 </span>
               </motion.div>
@@ -164,7 +164,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
               >
-                <h1 className="text-4xl sm:text-5xl lg:text-[52px] xl:text-[58px] font-heading font-bold text-charcoal-900 leading-[1.08] tracking-tight">
+                <h1 className="text-4xl sm:text-5xl lg:text-[56px] xl:text-[62px] font-heading font-bold text-charcoal-900 leading-[1.08] tracking-tight">
                   CUSTOM APPAREL <br />
                   <span className="text-burgundy-700">FOR EVERY SECTOR</span>
                 </h1>
@@ -176,7 +176,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
               >
-                <p className="text-base sm:text-lg lg:text-[18px] text-charcoal-700 leading-relaxed font-normal max-w-xl">
+                <p className="text-lg sm:text-xl lg:text-[20px] text-charcoal-700 leading-relaxed font-normal max-w-xl">
                   High-quality, customized T-shirts, uniforms and apparel for businesses,
                   organizations, events and brands across India.
                 </p>
@@ -196,7 +196,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
                     withArrow
                     onClick={onOpenQuote}
                     to={!onOpenQuote ? '/contact?mode=quote' : undefined}
-                    className="rounded-full shadow-soft hover:shadow-soft-lg text-sm sm:text-base py-3 px-7 sm:px-8 bg-burgundy-700 hover:bg-burgundy-800 text-white font-medium transition-all"
+                    className="rounded-full shadow-soft hover:shadow-soft-lg text-base sm:text-lg py-3 px-8 sm:px-9 bg-burgundy-700 hover:bg-burgundy-800 text-white font-medium transition-all"
                   >
                     Get a Quote
                   </Button>
@@ -209,7 +209,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
                     size="md"
                     to="/products"
                     withArrow
-                    className="rounded-full bg-white hover:bg-burgundy-50 border-2 border-burgundy-700 text-burgundy-700 hover:!text-burgundy-900 hover:border-burgundy-800 text-sm sm:text-base py-3 px-7 sm:px-8 transition-all duration-200 font-semibold shadow-2xs"
+                    className="rounded-full bg-white hover:bg-burgundy-50 border-2 border-burgundy-700 text-burgundy-700 hover:!text-burgundy-900 hover:border-burgundy-800 text-base sm:text-lg py-3 px-8 sm:px-9 transition-all duration-200 font-semibold shadow-2xs"
                   >
                     Explore Products
                   </Button>
@@ -240,10 +240,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
                       </div>
                       {/* 2-line title and subtitle */}
                       <div className="text-center leading-tight">
-                        <span className="text-[11px] sm:text-xs lg:text-[12px] font-heading font-medium text-charcoal-900 block whitespace-nowrap">
+                        <span className="text-xs sm:text-[13px] lg:text-[14px] font-heading font-medium text-charcoal-900 block whitespace-nowrap">
                           {item.title}
                         </span>
-                        <span className="text-[10px] sm:text-[10.5px] lg:text-[11px] font-heading font-medium text-burgundy-700 block whitespace-nowrap">
+                        <span className="text-[11px] sm:text-xs lg:text-[12px] font-heading font-medium text-burgundy-700 block whitespace-nowrap">
                           {item.subtitle}
                         </span>
                       </div>
@@ -303,17 +303,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
       <div className="md:hidden flex flex-col w-full bg-[#FAF6F2] pt-16 sm:pt-20">
 
         {/* Top Text Content Area - Compact to fit within mobile viewport height */}
-        <div className="px-4 pt-2 pb-2 space-y-2 bg-transparent text-center">
-          <span className="text-[11px] font-heading font-semibold uppercase tracking-wider text-burgundy-700 block">
+        <div className="px-4 pt-2 pb-2 space-y-2.5 bg-transparent text-center">
+          <span className="text-xs sm:text-sm font-heading font-semibold uppercase tracking-wider text-burgundy-700 block">
             PREMIUM T-SHIRT MANUFACTURER
           </span>
 
-          <h1 className="text-2xl sm:text-3xl font-heading font-bold text-charcoal-900 leading-[1.12] tracking-tight">
+          <h1 className="text-[26px] sm:text-3xl font-heading font-bold text-charcoal-900 leading-[1.12] tracking-tight">
             CUSTOM APPAREL <br />
             <span className="text-burgundy-700">FOR EVERY SECTOR</span>
           </h1>
 
-          <p className="text-xs sm:text-sm text-charcoal-700 leading-relaxed font-normal max-w-xs mx-auto">
+          <p className="text-sm sm:text-base text-charcoal-700 leading-relaxed font-normal max-w-xs mx-auto">
             High-quality customized T-shirts, uniforms and apparel for businesses and teams across India.
           </p>
 
@@ -325,7 +325,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
               withArrow
               onClick={onOpenQuote}
               to={!onOpenQuote ? '/contact?mode=quote' : undefined}
-              className="rounded-full shadow-soft text-xs py-2 px-4 bg-burgundy-700 hover:bg-burgundy-800 text-white font-medium"
+              className="rounded-full shadow-soft text-sm py-2.5 px-5 bg-burgundy-700 hover:bg-burgundy-800 text-white font-medium"
             >
               Get a Quote
             </Button>
@@ -335,7 +335,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
               size="sm"
               to="/products"
               withArrow
-              className="rounded-full bg-white hover:bg-burgundy-50 border-2 border-burgundy-700 text-burgundy-700 hover:!text-burgundy-900 text-xs py-2 px-4 font-semibold"
+              className="rounded-full bg-white hover:bg-burgundy-50 border-2 border-burgundy-700 text-burgundy-700 hover:!text-burgundy-900 text-sm py-2.5 px-5 font-semibold"
             >
               Explore Products
             </Button>
@@ -400,10 +400,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
                   />
                 </div>
                 <div className="text-center leading-tight">
-                  <span className="text-[10px] font-heading font-medium text-charcoal-900 block whitespace-nowrap">
+                  <span className="text-[11px] sm:text-xs font-heading font-medium text-charcoal-900 block whitespace-nowrap">
                     {item.title}
                   </span>
-                  <span className="text-[9px] font-heading font-medium text-burgundy-700 block whitespace-nowrap">
+                  <span className="text-[10px] sm:text-[11px] font-heading font-medium text-burgundy-700 block whitespace-nowrap">
                     {item.subtitle}
                   </span>
                 </div>

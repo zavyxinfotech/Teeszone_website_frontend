@@ -1,9 +1,8 @@
 import React from 'react';
 import { AboutHero } from './components/AboutHero';
-import { VisionMission } from './components/VisionMission';
 import { OurStory } from './components/OurStory';
-import { ManufacturingProcess } from './components/ManufacturingProcess';
-import { CompanyStrengths } from './components/CompanyStrengths';
+import { VisionMission } from './components/VisionMission';
+import { ExpansionJourney } from '@/components/sections/ExpansionJourney';
 import { TeamSection } from './components/TeamSection';
 import { OurClients } from '@/components/sections/OurClients';
 import { QuoteCTA } from '@/components/sections/QuoteCTA';
@@ -18,25 +17,22 @@ export const About: React.FC<AboutProps> = ({ onOpenQuote }) => {
       {/* 1. About Hero: Built to Represent Your Brand */}
       <AboutHero onOpenQuote={onOpenQuote} />
 
-      {/* 2. Vision & Mission Cards */}
-      <VisionMission />
-
-      {/* 3. Our Story: From Fabric to Your Brand */}
+      {/* 2. Our Story (Placed ABOVE Vision & Mission) */}
       <OurStory />
 
-      {/* 4. 5-Step Process */}
-      <ManufacturingProcess />
+      {/* 3. Vision & Mission Cards */}
+      <VisionMission />
 
-      {/* 5. Company Strengths */}
-      <CompanyStrengths />
+      {/* 4. Expansion Journey: Growing Closer to Your Business */}
+      <ExpansionJourney />
 
-      {/* 6. Meet the Team Behind TeesZone */}
+      {/* 5. Meet the Team Behind TeesZone */}
       <TeamSection />
 
-      {/* 7. 3000+ Clients Honeycomb Showcase */}
+      {/* 6. 3000+ Clients Honeycomb Showcase */}
       <OurClients />
 
-      {/* 8. Bottom Brand CTA */}
+      {/* 7. Bottom Brand CTA */}
       <QuoteCTA
         title="Let's Build Your Brand Together"
         subtitle="Partner with TeesZone for high-quality, stylish and affordable T-shirts, uniforms and custom apparel for your business, team or event."
