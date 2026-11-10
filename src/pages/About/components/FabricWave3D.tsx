@@ -5,7 +5,7 @@ interface FabricWave3DProps {
   scrollYProgress?: any;
 }
 
-export const FabricWave3D: React.FC<FabricWave3DProps> = ({ scrollYProgress }) => {
+export const FabricWave3D: React.FC<FabricWave3DProps> = () => {
   const shouldReduceMotion = useReducedMotion();
 
   return (
@@ -15,158 +15,152 @@ export const FabricWave3D: React.FC<FabricWave3DProps> = ({ scrollYProgress }) =
     >
       {/* =========================================================================
           DESKTOP 3D FABRIC WAVE (Vector SVG)
-          - Decreased wave height on the right side so polo shirt is fully prominent
-          - Wave starts gentle at left, crests at center-right, then swoops low at right edge
-          - Multi-layered velvet and satin burgundy gradients
-          - Glowing cream specular rim highlight
+          - Exactly calibrated to Image 1:
+            * Starts low on left (~8% of hero height)
+            * Dips gently to ~2% near center-left (x ~ 400-500)
+            * Sweeps smoothly up to ~18-20% on the right (x ~ 1100-1300)
+            * Cleanly cradles the bottom of the polo shirt without covering buttons or branding
+            * Multi-layered velvet & satin burgundy folds with glowing cream specular rim
           ========================================================================= */}
       <motion.div
-        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 30 }}
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 1, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
         className="hidden sm:block w-full will-change-transform"
       >
         <motion.div
           animate={
             !shouldReduceMotion
               ? {
-                  y: [0, -4, 0],
-                }
+                y: [0, -3.5, 0],
+              }
               : {}
           }
           transition={{
-            duration: 7,
+            duration: 6,
             repeat: Infinity,
             ease: 'easeInOut',
           }}
           className="w-full"
         >
           <svg
-            viewBox="0 0 1440 280"
+            viewBox="0 0 1440 200"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-auto block filter drop-shadow-[0_-12px_28px_rgba(87,0,24,0.30)]"
+            className="w-full h-auto block filter drop-shadow-[0_-8px_20px_rgba(80,1,20,0.25)]"
             preserveAspectRatio="none"
           >
             <defs>
               {/* Layer 1: Deep Velvet Shadow Gradient */}
-              <linearGradient id="deepVelvetGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#38000C" />
-                <stop offset="50%" stopColor="#4D0014" />
-                <stop offset="100%" stopColor="#30000A" />
+              <linearGradient id="waveDeepVelvet" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#280006" />
+                <stop offset="50%" stopColor="#3E000F" />
+                <stop offset="100%" stopColor="#220005" />
               </linearGradient>
 
               {/* Layer 2: Middle Satin Fold Gradient */}
-              <linearGradient id="satinFoldGrad" x1="0%" y1="20%" x2="100%" y2="80%">
-                <stop offset="0%" stopColor="#630117" />
-                <stop offset="45%" stopColor="#78011D" />
-                <stop offset="85%" stopColor="#520015" />
-                <stop offset="100%" stopColor="#3D0010" />
+              <linearGradient id="waveSatinFold" x1="0%" y1="20%" x2="100%" y2="80%">
+                <stop offset="0%" stopColor="#550114" />
+                <stop offset="45%" stopColor="#6C0119" />
+                <stop offset="85%" stopColor="#4A0012" />
+                <stop offset="100%" stopColor="#36000E" />
               </linearGradient>
 
               {/* Layer 3: Foreground Main Ribbon Gradient */}
-              <linearGradient id="foregroundRibbonGrad" x1="10%" y1="0%" x2="90%" y2="100%">
-                <stop offset="0%" stopColor="#8A0927" />
+              <linearGradient id="waveForeground" x1="10%" y1="0%" x2="90%" y2="100%">
+                <stop offset="0%" stopColor="#7E0824" />
                 <stop offset="35%" stopColor="#80011F" />
-                <stop offset="65%" stopColor="#6B011A" />
-                <stop offset="100%" stopColor="#4A0012" />
+                <stop offset="65%" stopColor="#680118" />
+                <stop offset="100%" stopColor="#480012" />
               </linearGradient>
 
               {/* Specular Cream Edge Line Gradient */}
-              <linearGradient id="specularCreamGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <linearGradient id="waveCreamEdge" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stopColor="#FFF8F5" stopOpacity="0.4" />
-                <stop offset="40%" stopColor="#FFF9F7" stopOpacity="0.95" />
+                <stop offset="35%" stopColor="#FFF9F7" stopOpacity="0.95" />
                 <stop offset="70%" stopColor="#FFF2EE" stopOpacity="0.9" />
                 <stop offset="100%" stopColor="#FFE8E2" stopOpacity="0.6" />
               </linearGradient>
-
-              {/* Specular Glow Filter */}
-              <filter id="silkEdgeGlow" x="-20%" y="-40%" width="140%" height="180%">
-                <feGaussianBlur stdDeviation="3.5" result="glow" />
-                <feComposite in="SourceGraphic" in2="glow" operator="over" />
-              </filter>
             </defs>
 
             {/* FOLD 1: Deep Background Shadow Fold */}
             <path
-              d="M0,195 C320,215 580,185 820,165 C1080,145 1280,185 1440,215 L1440,280 L0,280 Z"
-              fill="url(#deepVelvetGrad)"
+              d="M0,165 C320,178 540,185 780,162 C1020,135 1240,105 1440,120 L1440,200 L0,200 Z"
+              fill="url(#waveDeepVelvet)"
             />
 
             {/* FOLD 2: Middle Satin Burgundy Swell */}
             <path
-              d="M0,225 C300,238 560,195 820,152 C1080,120 1280,175 1440,205 L1440,280 L0,280 Z"
-              fill="url(#satinFoldGrad)"
+              d="M0,170 C300,182 560,188 820,158 C1060,122 1260,90 1440,105 L1440,200 L0,200 Z"
+              fill="url(#waveSatinFold)"
             />
 
-            {/* FOLD 3: Foreground Main Ribbon Wave - Low on Right Side */}
+            {/* FOLD 3: Main Foreground Ribbon */}
             <path
-              d="M0,248 C280,260 550,210 820,145 C1060,105 1260,165 1440,198 L1440,280 L0,280 Z"
-              fill="url(#foregroundRibbonGrad)"
+              d="M0,175 C340,186 580,192 840,152 C1080,110 1280,78 1440,92 L1440,200 L0,200 Z"
+              fill="url(#waveForeground)"
             />
 
-            {/* SPECULAR RIM: Glowing Cream Highlight Curve */}
+            {/* Specular Cream Edge Line (Crisp luminous silk rim) */}
             <path
-              d="M0,248 C280,260 550,210 820,145 C1060,105 1260,165 1440,198"
-              stroke="url(#specularCreamGrad)"
-              strokeWidth="3.2"
+              d="M0,175 C340,186 580,192 840,152 C1080,110 1280,78 1440,92"
+              stroke="url(#waveCreamEdge)"
+              strokeWidth="2.2"
               fill="none"
-              filter="url(#silkEdgeGlow)"
+              strokeLinecap="round"
             />
           </svg>
         </motion.div>
       </motion.div>
 
       {/* =========================================================================
-          MOBILE 3D FABRIC WAVE (Dedicated Narrow Screen View)
+          MOBILE 3D FABRIC WAVE (Vector SVG)
+          - Scaled down, low profile (~12% height from bottom)
+          - Keeps polo shirt completely visible above it
           ========================================================================= */}
       <motion.div
-        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.1, delay: 0.35, ease: 'easeOut' }}
+        transition={{ duration: 0.9, delay: 0.2 }}
         className="block sm:hidden w-full will-change-transform"
       >
         <svg
-          viewBox="0 0 390 140"
+          viewBox="0 0 390 90"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-auto block filter drop-shadow-[0_-8px_20px_rgba(87,0,24,0.30)]"
+          className="w-full h-auto block filter drop-shadow-[0_-4px_12px_rgba(80,1,20,0.22)]"
           preserveAspectRatio="none"
         >
           <defs>
-            <linearGradient id="mobVelvetGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#4A0012" />
-              <stop offset="100%" stopColor="#2E0008" />
-            </linearGradient>
-            <linearGradient id="mobSatinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#8A0927" />
+            <linearGradient id="waveMobileForeground" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#7E0824" />
               <stop offset="50%" stopColor="#80011F" />
-              <stop offset="100%" stopColor="#520014" />
+              <stop offset="100%" stopColor="#4A0012" />
             </linearGradient>
-            <linearGradient id="mobRimGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <linearGradient id="waveMobileEdge" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="#FFF8F5" stopOpacity="0.4" />
               <stop offset="50%" stopColor="#FFF9F7" stopOpacity="0.95" />
-              <stop offset="100%" stopColor="#FFE8E2" stopOpacity="0.7" />
+              <stop offset="100%" stopColor="#FFE8E2" stopOpacity="0.6" />
             </linearGradient>
           </defs>
 
-          {/* Mobile Fold 1 */}
+          {/* Background subtle fold */}
           <path
-            d="M0,95 C90,110 180,95 270,75 C320,65 365,75 390,85 L390,140 L0,140 Z"
-            fill="url(#mobVelvetGrad)"
+            d="M0,78 C110,84 210,80 300,56 C345,44 375,48 390,52 L390,90 L0,90 Z"
+            fill="#450012"
           />
 
-          {/* Mobile Fold 2 */}
+          {/* Foreground ribbon */}
           <path
-            d="M0,115 C90,125 180,105 270,68 C320,52 365,65 390,75 L390,140 L0,140 Z"
-            fill="url(#mobSatinGrad)"
+            d="M0,82 C120,87 220,82 300,50 C345,36 375,40 390,45 L390,90 L0,90 Z"
+            fill="url(#waveMobileForeground)"
           />
 
-          {/* Mobile Specular Rim */}
+          {/* Cream specular highlight */}
           <path
-            d="M0,115 C90,125 180,105 270,68 C320,52 365,65 390,75"
-            stroke="url(#mobRimGrad)"
-            strokeWidth="2.6"
+            d="M0,82 C120,87 220,82 300,50 C345,36 375,40 390,45"
+            stroke="url(#waveMobileEdge)"
+            strokeWidth="1.8"
             fill="none"
           />
         </svg>
