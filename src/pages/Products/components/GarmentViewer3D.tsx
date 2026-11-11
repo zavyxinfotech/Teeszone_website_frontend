@@ -159,3 +159,4 @@ export const GarmentViewer3D: React.FC<GarmentViewer3DProps> = ({
     </div>
   );
 };
+

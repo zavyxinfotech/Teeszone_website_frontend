@@ -176,3 +176,4 @@ export const PedestalPlatform3D: React.FC<PedestalPlatform3DProps> = ({
     </div>
   );
 };
+
