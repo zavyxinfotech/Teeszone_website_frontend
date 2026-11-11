@@ -166,15 +166,15 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
               className="w-full h-full flex flex-col justify-center"
             >
               {/* DESKTOP T-SHIRT VISUAL */}
-              <div className="hidden lg:flex absolute right-[-1%] xl:right-0 top-[6.5svh] xl:top-[6svh] bottom-0 z-10 w-[54vw] xl:w-[56vw] max-w-[940px] 2xl:max-w-[1060px] justify-end items-start pointer-events-none">
+              <div className="hidden lg:flex absolute right-0 bottom-[-18px] xl:bottom-[-22px] 2xl:bottom-[-28px] z-10 w-[52vw] xl:w-[54vw] max-w-[880px] xl:max-w-[980px] 2xl:max-w-[1100px] justify-end items-end pointer-events-none">
                 <ClothFoldingPolo
-                  className="w-full flex justify-end pt-1 xl:pt-2"
-                  imgClassName="max-h-[87svh] xl:max-h-[91svh] w-auto object-contain object-right"
+                  className="w-full h-full flex justify-end items-end"
+                  imgClassName="h-[84svh] xl:h-[88svh] 2xl:h-[90svh] max-h-[840px] xl:max-h-[920px] 2xl:max-h-[1050px] w-auto max-w-none object-contain object-right-bottom"
                 />
               </div>
 
               {/* CONTENT CONTAINER */}
-              <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex-1 flex flex-col justify-center pt-14 sm:pt-16 lg:pt-24 xl:pt-28 pb-4 sm:pb-8 lg:pb-16">
+              <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex-1 flex flex-col justify-center pt-0 lg:pt-24 xl:pt-28 pb-0 lg:pb-16 h-full">
                 {/* 1. DESKTOP VIEW */}
                 <div className="hidden lg:grid lg:grid-cols-12 gap-8 items-center">
                   <div className="lg:col-span-7 xl:col-span-7 space-y-5 xl:space-y-6 text-left">
@@ -230,14 +230,15 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
                   <div className="lg:col-span-5 xl:col-span-5" aria-hidden="true" />
                 </div>
 
-                {/* 2. MOBILE VIEW */}
-                <div className="flex lg:hidden flex-col items-center text-center h-full pt-2 pb-0 overflow-hidden">
-                  <div className="flex flex-col items-center space-y-2 sm:space-y-2.5 w-full px-4 pt-0 z-10 shrink-0">
+                {/* 2. MOBILE VIEW (Viewport Height & Width Optimized, Seamless Connection to Bottom Wave) */}
+                <div className="flex lg:hidden flex-col items-center justify-between text-center h-full w-full pt-[64px] xs:pt-[70px] sm:pt-[78px] pb-0 overflow-hidden relative">
+                  {/* Top Block: Heading, Description, CTA */}
+                  <div className="flex flex-col items-center space-y-2 xs:space-y-2.5 w-full px-4 pt-1 z-10 shrink-0">
                     <motion.h1
                       initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.7, delay: 0.15 }}
-                      className="text-2xl sm:text-3xl font-heading font-medium leading-tight tracking-tight text-center"
+                      className="text-[20px] xs:text-[23px] sm:text-[28px] font-heading font-medium leading-[1.18] tracking-tight text-center max-w-[320px] xs:max-w-[360px] mx-auto"
                     >
                       <span className="block text-[#1A1D20]">
                         Your Trusted Partner in
@@ -251,7 +252,7 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
                       initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.65, delay: 0.25 }}
-                      className="text-xs sm:text-sm text-[#4A4D52] font-normal leading-snug max-w-[320px] text-center mx-auto"
+                      className="text-xs xs:text-[13px] sm:text-sm text-[#4A4D52] font-normal leading-snug max-w-[280px] xs:max-w-[320px] text-center mx-auto"
                     >
                       Customised T-Shirts, Polo T-Shirts and<br />
                       Corporate Uniforms for Businesses.
@@ -266,7 +267,7 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
                       <a
                         href="#our-story"
                         onClick={handleScrollToStory}
-                        className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-gradient-to-r from-[#80011F] via-[#6B011A] to-[#570018] text-white font-heading font-medium text-xs shadow-md transition-all cursor-pointer"
+                        className="inline-flex items-center gap-2 px-5 py-2 xs:px-6 xs:py-2.5 rounded-full bg-gradient-to-r from-[#80011F] via-[#6B011A] to-[#570018] text-white font-heading font-medium text-xs xs:text-sm shadow-md transition-all active:scale-95 cursor-pointer"
                       >
                         <span>Know More About Us</span>
                         <ArrowRight className="w-3.5 h-3.5" />
@@ -274,17 +275,20 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
                     </motion.div>
                   </div>
 
+                  {/* Bottom Visual: T-Shirt Connected Seamlessly Behind Wave */}
                   <motion.div
                     initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
-                    className="w-full max-w-[420px] sm:max-w-[480px] relative z-10 flex justify-center items-start mt-[-32px] sm:mt-[-40px] px-1 flex-1 min-h-0"
+                    className="w-full flex-1 min-h-0 relative z-10 flex justify-center items-end overflow-visible pb-0"
                   >
-                    <ClothFoldingPolo
-                      isMobile
-                      className="w-full flex justify-center"
-                      imgClassName="max-h-[58svh] sm:max-h-[62svh] w-full object-contain mx-auto scale-105"
-                    />
+                    <div className="relative w-full h-full flex justify-center items-end bottom-[-16px] xs:bottom-[-20px]">
+                      <ClothFoldingPolo
+                        isMobile
+                        className="w-full h-full flex justify-center items-end"
+                        imgClassName="h-[48svh] xs:h-[50svh] sm:h-[52svh] max-h-[460px] min-h-[290px] w-auto max-w-none object-contain object-bottom translate-x-[-3%]"
+                      />
+                    </div>
                   </motion.div>
                 </div>
               </div>
@@ -319,9 +323,9 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
         type="button"
         onClick={prevSlide}
         aria-label="Previous slide"
-        className="absolute left-2 sm:left-4 lg:left-6 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/70 hover:bg-white text-burgundy-800 shadow-[0_4px_16px_rgba(0,0,0,0.08)] flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 border border-white/80 backdrop-blur-xs cursor-pointer group"
+        className="absolute left-2 sm:left-4 lg:left-6 top-[52%] sm:top-1/2 -translate-y-1/2 z-30 w-8 h-8 xs:w-9 xs:h-9 sm:w-11 sm:h-11 rounded-full bg-white/80 hover:bg-white text-burgundy-800 shadow-[0_4px_16px_rgba(0,0,0,0.08)] flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 border border-white/90 backdrop-blur-xs cursor-pointer group"
       >
-        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:-translate-x-0.5" />
+        <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6 transition-transform group-hover:-translate-x-0.5" />
       </button>
 
       {/* Right Navigation Arrow */}
@@ -329,13 +333,13 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
         type="button"
         onClick={nextSlide}
         aria-label="Next slide"
-        className="absolute right-2 sm:right-4 lg:right-6 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/70 hover:bg-white text-burgundy-800 shadow-[0_4px_16px_rgba(0,0,0,0.08)] flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 border border-white/80 backdrop-blur-xs cursor-pointer group"
+        className="absolute right-2 sm:right-4 lg:right-6 top-[52%] sm:top-1/2 -translate-y-1/2 z-30 w-8 h-8 xs:w-9 xs:h-9 sm:w-11 sm:h-11 rounded-full bg-white/80 hover:bg-white text-burgundy-800 shadow-[0_4px_16px_rgba(0,0,0,0.08)] flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 border border-white/90 backdrop-blur-xs cursor-pointer group"
       >
-        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:translate-x-0.5" />
+        <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6 transition-transform group-hover:translate-x-0.5" />
       </button>
 
       {/* Bottom Center Carousel Indicators (Positioned safely above bottom wave) */}
-      <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
+      <div className="absolute bottom-3 xs:bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
         {Array.from({ length: totalSlides }).map((_, idx) => (
           <button
             key={idx}
@@ -344,8 +348,8 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
             aria-label={`Go to slide ${idx + 1}`}
             className={`transition-all duration-300 rounded-full cursor-pointer ${
               currentSlide === idx
-                ? 'w-7 sm:w-8 h-2 sm:h-2.5 bg-[#80011F] shadow-[0_2px_8px_rgba(128,1,31,0.4)]'
-                : 'w-2 sm:w-2.5 h-2 sm:h-2.5 bg-burgundy-300/80 hover:bg-burgundy-500'
+                ? 'w-6 xs:w-7 sm:w-8 h-1.5 xs:h-2 sm:h-2.5 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.35)]'
+                : 'w-1.5 xs:w-2 sm:w-2.5 h-1.5 xs:h-2 sm:h-2.5 bg-white/50 hover:bg-white/80'
             }`}
           />
         ))}

@@ -47,19 +47,19 @@ export const App: React.FC = () => {
       <Footer />
 
       {/* Floating WhatsApp Action Button - Icon Only */}
-      <aside aria-label="WhatsApp quick chat" className="fixed bottom-6 right-6 z-40">
+      <aside aria-label="WhatsApp quick chat" className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40">
         <a
           href={`https://wa.me/${companyContact.whatsapp}?text=Hi%20TeesZone,%20I%20would%20like%20to%20inquire%20about%20custom%20bulk%20t-shirts.`}
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-[#25D366] hover:bg-[#20ba5a] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+          className="group flex items-center justify-center w-11 h-11 xs:w-12 xs:h-12 sm:w-14 sm:h-14 bg-[#25D366] hover:bg-[#20ba5a] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 active:scale-95"
           aria-label="Chat on WhatsApp"
         >
           {/* Official WhatsApp SVG Logo */}
           <svg
             viewBox="0 0 24 24"
             fill="currentColor"
-            className="w-6 h-6 sm:w-7 sm:h-7 fill-current shrink-0"
+            className="w-5 h-5 xs:w-6 xs:h-6 sm:w-7 sm:h-7 fill-current shrink-0"
             aria-hidden="true"
           >
             <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2ZM12.04 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.16 12.04 20.16C10.66 20.16 9.3 19.8 8.11 19.1L7.83 18.93L4.71 19.75L5.54 16.71L5.35 16.41C4.58 15.19 4.17 13.57 4.17 11.92C4.17 7.38 7.87 3.67 12.04 3.67ZM8.53 7.33C8.37 7.33 8.1 7.39 7.87 7.64C7.65 7.89 7.02 8.48 7.02 9.69C7.02 10.9 7.9 12.06 8.02 12.22C8.14 12.38 9.74 14.86 12.21 15.93C14.26 16.81 14.68 16.64 15.12 16.59C15.57 16.55 16.57 16 16.77 15.42C16.98 14.85 16.98 14.36 16.92 14.26C16.86 14.15 16.7 14.09 16.45 13.97C16.21 13.84 15.01 13.25 14.79 13.17C14.56 13.09 14.4 13.05 14.24 13.29C14.07 13.54 13.6 14.09 13.46 14.26C13.32 14.42 13.17 14.44 12.93 14.32C12.69 14.2 11.91 13.94 10.98 13.11C10.26 12.46 9.77 11.66 9.63 11.42C9.49 11.18 9.61 11.04 9.74 10.92C9.85 10.81 9.98 10.63 10.11 10.49C10.23 10.35 10.27 10.24 10.35 10.08C10.43 9.92 10.39 9.78 10.33 9.66C10.27 9.54 9.77 8.32 9.57 7.83C9.37 7.36 9.17 7.42 9.02 7.42C8.88 7.41 8.71 7.33 8.53 7.33Z" />

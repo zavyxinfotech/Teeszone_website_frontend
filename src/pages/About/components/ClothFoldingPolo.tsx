@@ -55,7 +55,7 @@ export const ClothFoldingPolo: React.FC<ClothFoldingPoloProps> = ({
           repeat: Infinity,
           ease: 'easeInOut',
         }}
-        className="relative will-change-transform"
+        className="relative h-full flex items-end justify-center will-change-transform"
         style={{ transformStyle: 'preserve-3d' }}
       >
         {/* 3. Gentle Fabric Flutter on Lower Body / Loose Edges (3-4s per cycle) */}
@@ -75,13 +75,13 @@ export const ClothFoldingPolo: React.FC<ClothFoldingPoloProps> = ({
             ease: 'easeInOut',
           }}
           style={{ transformOrigin: isMobile ? '50% 18%' : '40% 18%' }}
-          className="relative"
+          className="relative h-full flex items-end justify-center"
         >
           {/* Main Polo Shirt Image - High-Definition Transparent Cutout */}
           <img
             src="/assets/images/about/burgundy-polo-hd.png"
             alt="TeesZone Premium Burgundy Polo T-Shirt"
-            className={`w-full h-auto object-contain filter drop-shadow-[0_20px_35px_rgba(70,0,20,0.22)] block ${imgClassName}`}
+            className={`object-contain filter drop-shadow-[0_20px_35px_rgba(70,0,20,0.22)] block ${imgClassName || 'w-full h-auto'}`}
             loading="eager"
             draggable={false}
           />
@@ -90,7 +90,11 @@ export const ClothFoldingPolo: React.FC<ClothFoldingPoloProps> = ({
               - Flows naturally across the fabric folds from left to right
               - Uses mix-blend-soft-light and overlay so all logos, stitching, and textures stay 100% sharp */}
           {!shouldReduceMotion && (
-            <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl [mask-image:url(/assets/images/about/burgundy-polo-hd.png)] [mask-size:contain] [mask-repeat:no-repeat] [mask-position:center]">
+            <div
+              className={`absolute inset-0 pointer-events-none overflow-hidden rounded-2xl [mask-image:url(/assets/images/about/burgundy-polo-hd.png)] [mask-size:contain] [mask-repeat:no-repeat] ${
+                isMobile ? '[mask-position:bottom]' : '[mask-position:right_bottom]'
+              }`}
+            >
               {/* Ripple band 1: soft light sweep */}
               <motion.div
                 animate={{

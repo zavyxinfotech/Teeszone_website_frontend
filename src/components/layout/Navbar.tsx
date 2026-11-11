@@ -39,7 +39,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
               <img
                 src="/assets/logo/teeszone-logo.png"
                 alt="TeesZone - elevate your style with custom tees"
-                className="h-10 sm:h-11 md:h-12 lg:h-[48px] xl:h-[50px] w-auto object-contain transition-transform duration-300 group-hover:scale-102"
+                className="h-8 xs:h-9 sm:h-11 md:h-12 lg:h-[48px] xl:h-[50px] w-auto object-contain transition-transform duration-300 group-hover:scale-102"
               />
             </Link>
 
@@ -76,11 +76,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
             </div>
 
             {/* Mobile Hamburger Button */}
-            <div className="flex md:hidden items-center gap-2">
+            <div className="flex md:hidden items-center gap-1.5">
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(true)}
-                className="p-2 text-charcoal-900 hover:text-burgundy-700 hover:bg-burgundy-50 rounded-lg transition-colors cursor-pointer"
+                className="p-1.5 xs:p-2 text-charcoal-900 hover:text-burgundy-700 hover:bg-burgundy-50 rounded-lg transition-colors cursor-pointer"
                 aria-label="Open menu"
                 aria-expanded={mobileMenuOpen}
               >
