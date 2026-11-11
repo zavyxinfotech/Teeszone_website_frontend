@@ -37,7 +37,7 @@ export const OurStory: React.FC = () => {
             </h2>
 
             <p className="text-base xl:text-lg text-charcoal-600 font-normal leading-relaxed pt-1">
-              TeesZone Clothing Private Limited is a leading custom apparel and corporate uniform manufacturer based in Erode, Tamil Nadu. We specialise in designing and producing high-quality T-Shirts, Polo T-Shirts, Corporate Uniforms, School &amp; Institutional Apparel, and Custom Branded Clothing for businesses, institutions, and organizations across India.
+              TeesZone Clothing Private Limited is a leading custom apparel and corporate uniform manufacturer based in Erode, Tamil Nadu. We specialise in designing and producing <strong className="font-semibold text-charcoal-800">high-quality T-Shirts</strong>, <strong className="font-semibold text-charcoal-800">Polo T-Shirts</strong>, <strong className="font-semibold text-charcoal-800">Corporate Uniforms</strong>, <strong className="font-semibold text-charcoal-800">School &amp; Institutional Apparel</strong>, and <strong className="font-semibold text-charcoal-800">Custom Branded Clothing</strong> for businesses, institutions, and organizations across India.
             </p>
 
             <div className="pt-3">
@@ -86,8 +86,8 @@ export const OurStory: React.FC = () => {
           </h2>
 
           {/* 4. Description */}
-          <p className="text-sm sm:text-base text-charcoal-600 font-normal leading-relaxed">
-            TeesZone Clothing Private Limited is a leading custom apparel and corporate uniform manufacturer based in Erode, Tamil Nadu. We specialise in designing and producing high-quality T-Shirts, Polo T-Shirts, Corporate Uniforms, School &amp; Institutional Apparel, and Custom Branded Clothing for businesses, institutions, and organizations across India.
+          <p className="text-[15px] sm:text-base text-charcoal-600 font-normal leading-relaxed">
+            TeesZone Clothing Private Limited is a leading custom apparel and corporate uniform manufacturer based in Erode, Tamil Nadu. We specialise in designing and producing <strong className="font-semibold text-charcoal-800">high-quality T-Shirts</strong>, <strong className="font-semibold text-charcoal-800">Polo T-Shirts</strong>, <strong className="font-semibold text-charcoal-800">Corporate Uniforms</strong>, <strong className="font-semibold text-charcoal-800">School &amp; Institutional Apparel</strong>, and <strong className="font-semibold text-charcoal-800">Custom Branded Clothing</strong> for businesses, institutions, and organizations across India.
           </p>
 
           {/* 5. CTA Button */}
@@ -107,8 +107,8 @@ export const OurStory: React.FC = () => {
 
         {/* =====================================================================
             3. HORIZONTAL STATISTICS STRIP (Matching Reference)
-            - 10,000+ Garments Delivered (Garment hanger icon)
-            - 200+ Happy Clients (Users icon)
+            - 10 Lakhs+ Garments Delivered (Garment hanger icon)
+            - 500+ Happy Clients (Users icon)
             - 20+ Product Variants (Layers icon)
             - Pan-India Delivery (MapPin icon)
             - Clean vertical separators between all items
@@ -118,7 +118,7 @@ export const OurStory: React.FC = () => {
           {/* DESKTOP PILL STRIP */}
           <div className="hidden sm:flex items-center justify-between bg-white rounded-full border border-gray-200/90 shadow-xs py-5 px-6 lg:px-12">
 
-            {/* Stat 1: 10,000+ Garments Delivered */}
+            {/* Stat 1: 10 Lakhs+ Garments Delivered */}
             <div className="flex items-center gap-3.5 xl:gap-4 flex-1 justify-center">
               <svg
                 className="w-8 h-8 xl:w-9 xl:h-9 text-[#80011F] shrink-0"
@@ -135,7 +135,7 @@ export const OurStory: React.FC = () => {
               </svg>
               <div className="text-left">
                 <p className="text-lg xl:text-xl font-heading font-black text-charcoal-900 leading-none">
-                  10,000+
+                  10 Lakhs+
                 </p>
                 <p className="text-xs xl:text-sm text-charcoal-500 font-medium mt-1">
                   Garments Delivered
@@ -146,12 +146,12 @@ export const OurStory: React.FC = () => {
             {/* Separator */}
             <div className="w-[1px] h-10 bg-gray-200/90 shrink-0" aria-hidden="true" />
 
-            {/* Stat 2: 200+ Happy Clients */}
+            {/* Stat 2: 500+ Happy Clients */}
             <div className="flex items-center gap-3.5 xl:gap-4 flex-1 justify-center">
               <Users className="w-8 h-8 xl:w-9 xl:h-9 text-[#80011F] stroke-[1.9] shrink-0" aria-hidden="true" />
               <div className="text-left">
                 <p className="text-lg xl:text-xl font-heading font-black text-charcoal-900 leading-none">
-                  200+
+                  500+
                 </p>
                 <p className="text-xs xl:text-sm text-charcoal-500 font-medium mt-1">
                   Happy Clients
@@ -211,14 +211,14 @@ export const OurStory: React.FC = () => {
                 <path d="M12 2a3 3 0 0 0-3 3c0 .8.4 1.5 1 2L2 14.5a1.5 1.5 0 0 0 1 2.5h18a1.5 1.5 0 0 0 1-2.5L14 7c.6-.5 1-1.2 1-2a3 3 0 0 0-3-3z" />
                 <path d="M2 17h20" />
               </svg>
-              <p className="text-xs font-heading font-black text-charcoal-900 leading-tight">10,000+</p>
+              <p className="text-xs font-heading font-black text-charcoal-900 leading-tight">10 Lakhs+</p>
               <p className="text-[10px] text-charcoal-500 font-normal leading-tight mt-0.5">Delivered</p>
             </div>
 
             {/* Stat 2 */}
             <div className="flex flex-col items-center text-center px-1">
               <Users className="w-6 h-6 text-[#80011F] stroke-[1.9] mb-1" aria-hidden="true" />
-              <p className="text-xs font-heading font-black text-charcoal-900 leading-tight">200+</p>
+              <p className="text-xs font-heading font-black text-charcoal-900 leading-tight">500+</p>
               <p className="text-[10px] text-charcoal-500 font-normal leading-tight mt-0.5">Clients</p>
             </div>
 

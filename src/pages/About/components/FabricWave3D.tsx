@@ -44,10 +44,10 @@ export const FabricWave3D: React.FC<FabricWave3DProps> = () => {
           className="w-full"
         >
           <svg
-            viewBox="0 0 1440 200"
+            viewBox="0 0 1440 220"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-auto block filter drop-shadow-[0_-8px_20px_rgba(80,1,20,0.25)]"
+            className="w-full h-[175px] sm:h-[205px] lg:h-[235px] xl:h-[260px] 2xl:h-[285px] block filter drop-shadow-[0_-8px_20px_rgba(80,1,20,0.25)]"
             preserveAspectRatio="none"
           >
             <defs>
@@ -85,25 +85,25 @@ export const FabricWave3D: React.FC<FabricWave3DProps> = () => {
 
             {/* FOLD 1: Deep Background Shadow Fold */}
             <path
-              d="M0,165 C320,178 540,185 780,162 C1020,135 1240,105 1440,120 L1440,200 L0,200 Z"
+              d="M0,180 C320,192 540,200 780,172 C1020,138 1240,96 1440,108 L1440,220 L0,220 Z"
               fill="url(#waveDeepVelvet)"
             />
 
             {/* FOLD 2: Middle Satin Burgundy Swell */}
             <path
-              d="M0,170 C300,182 560,188 820,158 C1060,122 1260,90 1440,105 L1440,200 L0,200 Z"
+              d="M0,185 C300,196 560,202 820,166 C1060,122 1260,80 1440,94 L1440,220 L0,220 Z"
               fill="url(#waveSatinFold)"
             />
 
             {/* FOLD 3: Main Foreground Ribbon */}
             <path
-              d="M0,175 C340,186 580,192 840,152 C1080,110 1280,78 1440,92 L1440,200 L0,200 Z"
+              d="M0,190 C340,202 580,206 840,160 C1080,110 1280,68 1440,82 L1440,220 L0,220 Z"
               fill="url(#waveForeground)"
             />
 
             {/* Specular Cream Edge Line (Crisp luminous silk rim) */}
             <path
-              d="M0,175 C340,186 580,192 840,152 C1080,110 1280,78 1440,92"
+              d="M0,190 C340,202 580,206 840,160 C1080,110 1280,68 1440,82"
               stroke="url(#waveCreamEdge)"
               strokeWidth="2.2"
               fill="none"

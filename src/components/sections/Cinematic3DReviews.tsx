@@ -186,15 +186,15 @@ export const Cinematic3DReviews: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className="relative w-full max-w-[420px] flex flex-col items-center select-none py-1"
+      className="relative w-full max-w-[480px] sm:max-w-[510px] xl:max-w-[550px] flex flex-col items-center select-none py-1"
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
       role="region"
       aria-label="Google Customer Reviews 3D Slider"
     >
-      {/* 3D Angled Perspective Stage - Compact height & scale */}
+      {/* 3D Angled Perspective Stage - Increased height & spacious cards */}
       <div
-        className="relative w-full h-[290px] sm:h-[320px] md:h-[350px] flex items-center justify-center overflow-visible"
+        className="relative w-full h-[320px] sm:h-[350px] md:h-[380px] xl:h-[410px] flex items-center justify-center overflow-visible"
         style={{
           perspective: shouldReduceMotion ? 'none' : '1100px',
           perspectiveOrigin: '50% 50%',
@@ -219,7 +219,7 @@ export const Cinematic3DReviews: React.FC = () => {
             const isFarTop = slot === -2;
             const isFarBottom = slot === 2;
 
-            // Slider Coordinate & Scale offsets along the tilted diagonal axis (compacted size)
+            // Slider Coordinate & Scale offsets along the tilted diagonal axis
             let x = 0;
             let y = 0;
             let z = 0;
@@ -229,56 +229,56 @@ export const Cinematic3DReviews: React.FC = () => {
             let filterBlur = 'blur(4px)';
 
             if (isActive) {
-              // CENTER CARD: Decreased compact size, sharp, 0 blur, elevated
+              // CENTER CARD: Elevated, sharp, 0 blur, full readability
               x = 0;
               y = 0;
               z = shouldReduceMotion ? 0 : 40;
-              scale = 0.98;
+              scale = 1;
               opacity = 1;
               zIndex = 35;
               filterBlur = 'blur(0px)';
             } else if (isNearTop) {
-              // TOP CARD: Shifted up-right along track, compact, blurred
-              x = 16;
-              y = -95;
+              // TOP CARD: Shifted up-right along track
+              x = 18;
+              y = -105;
               z = shouldReduceMotion ? 0 : -30;
-              scale = 0.78;
-              opacity = 0.6;
+              scale = 0.82;
+              opacity = 0.65;
               zIndex = 20;
-              filterBlur = 'blur(2.5px)';
+              filterBlur = 'blur(2px)';
             } else if (isNearBottom) {
-              // BOTTOM CARD: Shifted down-left along track, compact, blurred
-              x = -16;
-              y = 95;
+              // BOTTOM CARD: Shifted down-left along track
+              x = -18;
+              y = 105;
               z = shouldReduceMotion ? 0 : -30;
-              scale = 0.78;
-              opacity = 0.6;
+              scale = 0.82;
+              opacity = 0.65;
               zIndex = 20;
-              filterBlur = 'blur(2.5px)';
+              filterBlur = 'blur(2px)';
             } else if (isFarTop) {
-              // FAR TOP CARD: Further along track, very small & blurred
-              x = 28;
-              y = -160;
+              // FAR TOP CARD
+              x = 32;
+              y = -180;
               z = shouldReduceMotion ? 0 : -70;
-              scale = 0.65;
-              opacity = 0.2;
+              scale = 0.68;
+              opacity = 0.25;
               zIndex = 10;
-              filterBlur = 'blur(5px)';
+              filterBlur = 'blur(4.5px)';
             } else if (isFarBottom) {
-              // FAR BOTTOM CARD: Further along track, very small & blurred
-              x = -28;
-              y = 160;
+              // FAR BOTTOM CARD
+              x = -32;
+              y = 180;
               z = shouldReduceMotion ? 0 : -70;
-              scale = 0.65;
-              opacity = 0.2;
+              scale = 0.68;
+              opacity = 0.25;
               zIndex = 10;
-              filterBlur = 'blur(5px)';
+              filterBlur = 'blur(4.5px)';
             }
 
             return (
               <motion.div
                 key={review.id}
-                className="absolute w-full max-w-[260px] sm:max-w-[300px] md:max-w-[340px] px-1.5 sm:px-0 cursor-pointer"
+                className="absolute w-full max-w-[290px] xs:max-w-[330px] sm:max-w-[390px] md:max-w-[430px] xl:max-w-[470px] px-1 sm:px-0 cursor-pointer"
                 animate={{
                   x,
                   y,
@@ -302,7 +302,7 @@ export const Cinematic3DReviews: React.FC = () => {
                 role="group"
                 aria-label={`Customer review by ${review.name}`}
               >
-                {/* Real Google Review Card (Pure White with Compact Padding) */}
+                {/* Real Google Review Card with Expanded Padding & Crisp Contrast */}
                 <motion.div
                   style={{
                     rotateX: isActive ? dynamicTiltX : 0,
@@ -310,64 +310,64 @@ export const Cinematic3DReviews: React.FC = () => {
                   }}
                   className={`relative rounded-xl sm:rounded-2xl transition-all duration-300 overflow-hidden bg-white text-gray-900 ${
                     isActive
-                      ? 'border border-gray-200/90 shadow-[0_16px_36px_rgba(0,0,0,0.32)] p-3 sm:p-3.5 ring-1 ring-black/5'
-                      : 'border border-gray-100 shadow-[0_8px_20px_rgba(0,0,0,0.18)] p-2.5 sm:p-3 hover:border-gray-300'
+                      ? 'border border-gray-200/90 shadow-[0_18px_40px_rgba(0,0,0,0.30)] p-4 sm:p-5 ring-1 ring-black/5'
+                      : 'border border-gray-100 shadow-[0_8px_20px_rgba(0,0,0,0.18)] p-3 sm:p-3.5 hover:border-gray-300'
                   }`}
                 >
                   {/* Card Header: Avatar, Name, Designation, Google G Logo */}
-                  <div className="flex items-start justify-between gap-2 mb-1.5">
-                    <div className="flex items-center gap-2">
+                  <div className="flex items-start justify-between gap-2.5 mb-2 sm:mb-2.5">
+                    <div className="flex items-center gap-2.5">
                       <div
-                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full ${review.avatarBg} text-white font-heading font-black text-[11px] sm:text-xs flex items-center justify-center shadow-xs shrink-0`}
+                        className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full ${review.avatarBg} text-white font-heading font-black text-xs sm:text-[13px] flex items-center justify-center shadow-xs shrink-0`}
                       >
                         {review.initial}
                       </div>
 
                       <div>
-                        <h3 className="text-[11.5px] sm:text-[13px] font-heading font-bold text-gray-900 leading-tight">
+                        <h3 className="text-xs sm:text-[13.5px] md:text-sm font-heading font-bold text-gray-900 leading-tight">
                           {review.name}
                         </h3>
-                        <p className="text-[9.5px] sm:text-[10.5px] text-gray-500 font-medium leading-tight mt-0.5">
+                        <p className="text-[10px] sm:text-[11px] md:text-xs text-gray-500 font-medium leading-tight mt-0.5">
                           {review.role}
                         </p>
                       </div>
                     </div>
 
                     <div
-                      className="p-1 rounded-full bg-gray-50 border border-gray-100 shadow-2xs shrink-0 flex items-center justify-center"
+                      className="p-1.5 rounded-full bg-gray-50 border border-gray-100 shadow-2xs shrink-0 flex items-center justify-center"
                       title="Verified Google Review"
                     >
-                      <GoogleIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                      <GoogleIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     </div>
                   </div>
 
                   {/* Stars, Rating, and Verified Client Badge */}
-                  <div className="flex flex-wrap items-center justify-between gap-1 mb-1.5">
-                    <div className="flex items-center gap-1">
+                  <div className="flex flex-wrap items-center justify-between gap-1.5 mb-2 sm:mb-2.5">
+                    <div className="flex items-center gap-1.5">
                       <GoogleStars />
-                      <span className="text-[10px] sm:text-[11px] font-bold text-gray-800">
+                      <span className="text-[11px] sm:text-xs font-bold text-gray-800">
                         {review.rating.toFixed(1)}
                       </span>
                     </div>
 
                     {review.badge && (isActive || isNearTop || isNearBottom) && (
-                      <span className="inline-flex items-center gap-1 text-[8px] sm:text-[8.5px] uppercase font-bold tracking-wider text-[#137333] bg-[#E6F4EA] border border-[#CEEAD6] px-1.5 py-0.5 rounded-full">
-                        <CheckCircle2 className="w-2 h-2 text-[#137333] shrink-0" />
+                      <span className="inline-flex items-center gap-1 text-[8.5px] sm:text-[9.5px] uppercase font-bold tracking-wider text-[#137333] bg-[#E6F4EA] border border-[#CEEAD6] px-2 py-0.5 rounded-full">
+                        <CheckCircle2 className="w-2.5 h-2.5 text-[#137333] shrink-0" />
                         {review.badge}
                       </span>
                     )}
                   </div>
 
                   {/* Testimonial Quote */}
-                  <blockquote className="text-[10.5px] sm:text-[11.5px] text-gray-700 font-normal leading-snug m-0 p-0">
-                    <p className={isActive ? 'line-clamp-3' : 'line-clamp-2'}>
+                  <blockquote className="text-[11.5px] sm:text-[12.5px] md:text-[13px] text-gray-700 font-normal leading-relaxed m-0 p-0">
+                    <p className={isActive ? 'line-clamp-4' : 'line-clamp-2'}>
                       "{review.text}"
                     </p>
                   </blockquote>
 
                   {/* Active Card Footer: Integrated Slider Controls & Google Link */}
                   {isActive && (
-                    <div className="flex items-center justify-between mt-2 pt-2 border-t border-gray-100 text-[10px]">
+                    <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-gray-100 text-[11px]">
                       {/* Integrated Minimalist Slider Navigation ( < > ) */}
                       <div className="flex items-center gap-1">
                         <button

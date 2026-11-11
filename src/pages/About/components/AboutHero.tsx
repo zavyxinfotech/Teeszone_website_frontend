@@ -69,22 +69,25 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
 
   const slideVariants = {
     enter: (dir: number) => ({
-      x: shouldReduceMotion ? 0 : dir > 0 ? 40 : -40,
+      x: shouldReduceMotion ? 0 : dir > 0 ? 32 : -32,
       opacity: 0,
+      scale: shouldReduceMotion ? 1 : 0.985,
     }),
     center: {
       x: 0,
       opacity: 1,
+      scale: 1,
       transition: {
-        duration: 0.65,
+        duration: 0.75,
         ease: [0.22, 1, 0.36, 1] as const,
       },
     },
     exit: (dir: number) => ({
-      x: shouldReduceMotion ? 0 : dir > 0 ? -40 : 40,
+      x: shouldReduceMotion ? 0 : dir > 0 ? -28 : 28,
       opacity: 0,
+      scale: shouldReduceMotion ? 1 : 0.99,
       transition: {
-        duration: 0.45,
+        duration: 0.55,
         ease: [0.22, 1, 0.36, 1] as const,
       },
     }),
@@ -151,7 +154,7 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
           CAROUSEL SLIDES CONTAINER WITH ANIMATE PRESENCE
           ========================================================================= */}
       <div className="relative z-10 w-full flex-1 flex flex-col justify-center overflow-hidden">
-        <AnimatePresence initial={false} custom={direction} mode="wait">
+        <AnimatePresence initial={false} custom={direction} mode="popLayout">
           {currentSlide === 0 ? (
             /* ===================================================================
                SLIDE 1: BRANDED APPAREL SOLUTIONS & 3D POLO SHIRT
@@ -166,10 +169,10 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
               className="w-full h-full flex flex-col justify-center"
             >
               {/* DESKTOP T-SHIRT VISUAL */}
-              <div className="hidden lg:flex absolute right-0 bottom-[-18px] xl:bottom-[-22px] 2xl:bottom-[-28px] z-10 w-[52vw] xl:w-[54vw] max-w-[880px] xl:max-w-[980px] 2xl:max-w-[1100px] justify-end items-end pointer-events-none">
+              <div className="hidden lg:flex absolute right-0 bottom-[-15px] xl:bottom-[-20px] 2xl:bottom-[-25px] z-10 w-[48vw] xl:w-[50vw] max-w-[820px] xl:max-w-[900px] 2xl:max-w-[1020px] justify-end items-end pointer-events-none">
                 <ClothFoldingPolo
                   className="w-full h-full flex justify-end items-end"
-                  imgClassName="h-[84svh] xl:h-[88svh] 2xl:h-[90svh] max-h-[840px] xl:max-h-[920px] 2xl:max-h-[1050px] w-auto max-w-none object-contain object-right-bottom"
+                  imgClassName="h-[82svh] xl:h-[86svh] 2xl:h-[88svh] max-h-[820px] xl:max-h-[890px] 2xl:max-h-[980px] w-auto max-w-none object-contain object-right-bottom"
                 />
               </div>
 
@@ -238,7 +241,7 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
                       initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.7, delay: 0.15 }}
-                      className="text-[20px] xs:text-[23px] sm:text-[28px] font-heading font-medium leading-[1.18] tracking-tight text-center max-w-[320px] xs:max-w-[360px] mx-auto"
+                      className="text-[21px] xs:text-[24px] sm:text-[28px] font-heading font-medium leading-[1.18] tracking-tight text-center max-w-[330px] xs:max-w-[370px] mx-auto"
                     >
                       <span className="block text-[#1A1D20]">
                         Your Trusted Partner in
@@ -252,7 +255,7 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
                       initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.65, delay: 0.25 }}
-                      className="text-xs xs:text-[13px] sm:text-sm text-[#4A4D52] font-normal leading-snug max-w-[280px] xs:max-w-[320px] text-center mx-auto"
+                      className="text-[13px] xs:text-[14px] sm:text-[15px] text-[#4A4D52] font-normal leading-relaxed max-w-[300px] xs:max-w-[330px] text-center mx-auto"
                     >
                       Customised T-Shirts, Polo T-Shirts and<br />
                       Corporate Uniforms for Businesses.
@@ -316,16 +319,16 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
       </div>
 
       {/* =========================================================================
-          CAROUSEL CONTROLS: ELEGANT SIDE ARROWS & BOTTOM PILL INDICATORS
+          CAROUSEL CONTROLS: CLEAN MINIMAL BURGUNDY NAVIGATION ARROWS & BOTTOM PILL INDICATORS
           ========================================================================= */}
       {/* Left Navigation Arrow */}
       <button
         type="button"
         onClick={prevSlide}
         aria-label="Previous slide"
-        className="absolute left-2 sm:left-4 lg:left-6 top-[52%] sm:top-1/2 -translate-y-1/2 z-30 w-8 h-8 xs:w-9 xs:h-9 sm:w-11 sm:h-11 rounded-full bg-white/80 hover:bg-white text-burgundy-800 shadow-[0_4px_16px_rgba(0,0,0,0.08)] flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 border border-white/90 backdrop-blur-xs cursor-pointer group"
+        className="absolute left-1 sm:left-3 lg:left-5 top-[52%] sm:top-1/2 -translate-y-1/2 z-30 p-2 sm:p-2.5 text-[#80011F] hover:text-[#570018] flex items-center justify-center transition-all duration-200 hover:scale-115 active:scale-90 cursor-pointer group"
       >
-        <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6 transition-transform group-hover:-translate-x-0.5" />
+        <ChevronLeft className="w-8 h-8 sm:w-10 sm:h-10 xl:w-11 xl:h-11 stroke-[2.4] transition-transform group-hover:-translate-x-1" />
       </button>
 
       {/* Right Navigation Arrow */}
@@ -333,9 +336,9 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
         type="button"
         onClick={nextSlide}
         aria-label="Next slide"
-        className="absolute right-2 sm:right-4 lg:right-6 top-[52%] sm:top-1/2 -translate-y-1/2 z-30 w-8 h-8 xs:w-9 xs:h-9 sm:w-11 sm:h-11 rounded-full bg-white/80 hover:bg-white text-burgundy-800 shadow-[0_4px_16px_rgba(0,0,0,0.08)] flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 border border-white/90 backdrop-blur-xs cursor-pointer group"
+        className="absolute right-1 sm:right-3 lg:right-5 top-[52%] sm:top-1/2 -translate-y-1/2 z-30 p-2 sm:p-2.5 text-[#80011F] hover:text-[#570018] flex items-center justify-center transition-all duration-200 hover:scale-115 active:scale-90 cursor-pointer group"
       >
-        <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6 transition-transform group-hover:translate-x-0.5" />
+        <ChevronRight className="w-8 h-8 sm:w-10 sm:h-10 xl:w-11 xl:h-11 stroke-[2.4] transition-transform group-hover:translate-x-1" />
       </button>
 
       {/* Bottom Center Carousel Indicators (Positioned safely above bottom wave) */}
