@@ -168,11 +168,11 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
               exit="exit"
               className="w-full h-full flex flex-col justify-center"
             >
-              {/* DESKTOP T-SHIRT VISUAL */}
-              <div className="hidden lg:flex absolute right-0 bottom-[-15px] xl:bottom-[-20px] 2xl:bottom-[-25px] z-10 w-[48vw] xl:w-[50vw] max-w-[820px] xl:max-w-[900px] 2xl:max-w-[1020px] justify-end items-end pointer-events-none">
+              {/* DESKTOP T-SHIRT VISUAL (Transparent 1024x682 Cutout Attached Behind Wave) */}
+              <div className="hidden lg:flex absolute right-0 bottom-[-6px] xl:bottom-[-10px] 2xl:bottom-[-12px] z-10 w-[53vw] xl:w-[55vw] max-w-[920px] xl:max-w-[1020px] 2xl:max-w-[1140px] justify-end items-end pointer-events-none">
                 <ClothFoldingPolo
                   className="w-full h-full flex justify-end items-end"
-                  imgClassName="h-[82svh] xl:h-[86svh] 2xl:h-[88svh] max-h-[820px] xl:max-h-[890px] 2xl:max-h-[980px] w-auto max-w-none object-contain object-right-bottom"
+                  imgClassName="h-[76svh] xl:h-[80svh] 2xl:h-[83svh] max-h-[720px] xl:max-h-[800px] 2xl:max-h-[900px] w-auto max-w-none object-contain object-right-bottom"
                 />
               </div>
 

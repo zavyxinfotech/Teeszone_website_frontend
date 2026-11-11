@@ -4,18 +4,21 @@ interface ClothFoldingPoloProps {
   className?: string;
   imgClassName?: string;
   isMobile?: boolean;
+  src?: string;
 }
 
 export const ClothFoldingPolo: React.FC<ClothFoldingPoloProps> = ({
   className = '',
   imgClassName = '',
   isMobile = false,
+  src,
 }) => {
-  // Desktop view specifically uses the transparent background cutout of the provided studio image
-  // Mobile view continues using its dedicated optimized responsive asset
-  const imageSrc = isMobile
-    ? '/assets/images/about/burgundy-polo-hd.png'
-    : '/assets/images/about/burgundy-polo-desktop.png';
+  // Use user-provided transparent landscape cutout on desktop, and vertical cutout on mobile
+  const imageSrc =
+    src ||
+    (isMobile
+      ? '/assets/images/about/burgundy-polo-hd.png'
+      : '/assets/images/about/burgundy-polo-desktop.png');
 
   return (
     <div className={`relative select-none ${className}`}>
