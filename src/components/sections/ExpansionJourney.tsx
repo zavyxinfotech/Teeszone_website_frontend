@@ -1,530 +1,858 @@
-import React from 'react';
-import { motion, useReducedMotion, Variants } from 'framer-motion';
-import { Award, Layers, Truck, Handshake, MapPin, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { Building2, Store, Factory, ChevronLeft, ChevronRight } from 'lucide-react';
+
+interface LocationItem {
+  id: string;
+  name: string;
+  category: string;
+  shortLabel: string;
+  type: 'office' | 'franchise' | 'factory';
+  description: string;
+  image: string;
+  coords: { x: number; y: number }; // Percentage relative to map container
+  labelOffset: { x: number; y: number };
+}
+
+// 5 Official Locations (Chunguvachtram completely removed)
+const LOCATIONS: LocationItem[] = [
+  {
+    id: 'erode',
+    name: 'Erode Tex Valley',
+    category: 'Corporate Office',
+    shortLabel: 'Corporate Office',
+    type: 'office',
+    description:
+      'Our corporate headquarters at Erode Tex Valley, driving innovation, operations, and growth across all locations.',
+    image: '/assets/images/locations/erode-tex-valley.jpg',
+    coords: { x: 30.5, y: 67.5 },
+    labelOffset: { x: 18, y: -8 },
+  },
+  {
+    id: 'chennai',
+    name: 'Chennai',
+    category: 'Franchise',
+    shortLabel: 'Franchise',
+    type: 'franchise',
+    description:
+      'Serving metropolitan brands, IT parks, and corporate enterprises across Chennai with prompt turnaround and doorstep service.',
+    image: '/assets/images/locations/chennai.jpg',
+    coords: { x: 77.0, y: 19.5 },
+    labelOffset: { x: 18, y: -6 },
+  },
+  {
+    id: 'bengaluru',
+    name: 'Bengaluru',
+    category: 'Franchise',
+    shortLabel: 'Franchise',
+    type: 'franchise',
+    description:
+      'Delivering premium custom apparel, branded hoodies, and corporate uniforms to India’s leading tech hubs and startups.',
+    image: '/assets/images/locations/bengaluru.jpg',
+    coords: { x: 26.5, y: 23.5 },
+    labelOffset: { x: 18, y: -6 },
+  },
+  {
+    id: 'kanchipuram',
+    name: 'Kanchipuram',
+    category: 'Franchise',
+    shortLabel: 'Franchise',
+    type: 'franchise',
+    description:
+      'Expanding our dedicated franchise presence into Kanchipuram, offering bulk customized T-shirts and institutional apparel.',
+    image: '/assets/images/locations/kanchipuram.jpg',
+    coords: { x: 59.0, y: 44.0 },
+    labelOffset: { x: 18, y: -6 },
+  },
+  {
+    id: 'tiruppur',
+    name: 'Tiruppur',
+    category: 'Manufacturing Factory',
+    shortLabel: 'Factory',
+    type: 'factory',
+    description:
+      'Our state-of-the-art manufacturing powerhouse in Tiruppur featuring precision knitting, bio-washing, and high-capacity screen printing.',
+    image: '/assets/images/locations/tiruppur.jpg',
+    coords: { x: 57.0, y: 79.5 },
+    labelOffset: { x: 18, y: -6 },
+  },
+];
 
 export const ExpansionJourney: React.FC = () => {
+  const [selectedId, setSelectedId] = useState<string>('erode');
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
   const shouldReduceMotion = useReducedMotion();
 
-  // Motion variants with full prefers-reduced-motion support
-  const fadeUp: Variants = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 24 },
-    visible: (customDelay: number = 0) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.65,
-        delay: customDelay,
-        ease: 'easeOut',
-      },
-    }),
+  const activeId = hoveredId || selectedId;
+  const activeLocation = LOCATIONS.find((loc) => loc.id === activeId) || LOCATIONS[0];
+  const activeIndex = LOCATIONS.findIndex((loc) => loc.id === activeLocation.id);
+
+  // Cycle on mobile/tablet or keyboard navigation
+  const handlePrev = () => {
+    const prevIndex = (activeIndex - 1 + LOCATIONS.length) % LOCATIONS.length;
+    setSelectedId(LOCATIONS[prevIndex].id);
   };
 
-  const scaleReveal: Variants = {
-    hidden: { opacity: 0, scale: shouldReduceMotion ? 1 : 0.96 },
-    visible: (customDelay: number = 0) => ({
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.75,
-        delay: customDelay,
-        ease: 'easeOut',
-      },
-    }),
-  };
-
-  const badgeFloat: Variants = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 12, scale: 0.95 },
-    visible: (customDelay: number = 0.3) => ({
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.6,
-        delay: customDelay,
-        ease: 'easeOut',
-      },
-    }),
+  const handleNext = () => {
+    const nextIndex = (activeIndex + 1) % LOCATIONS.length;
+    setSelectedId(LOCATIONS[nextIndex].id);
   };
 
   return (
     <section
       id="expansion-journey"
-      className="relative w-full overflow-hidden bg-[#FAF6F3] py-14 sm:py-20 lg:py-24 select-none"
-      aria-label="TeesZone Expansion Journey"
+      className="relative w-full overflow-hidden bg-gradient-to-b from-[#FFFDFD] via-[#FDF5F6] to-[#FAF0F2] py-10 sm:py-14 lg:py-16 select-none"
+      aria-label="TeesZone Presence Across India"
     >
-      {/* =========================================================================
-          BACKGROUND: INDIA MAP BACKGROUND (DESKTOP & MOBILE DEDICATED ASSETS)
-          - Desktop (1st image): india-map-desktop.png (1024x576)
-          - Mobile (2nd image): india-map-mobile.png (576x1024)
-          ========================================================================= */}
-      <div className="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 1, ease: 'easeOut' }}
-          className="w-full h-full"
+      {/* 3D Pin Rotation Keyframe Animation with Realistic Lighting */}
+      <style>{`
+        @keyframes pinRotate3D {
+          0% {
+            transform: rotateY(0deg);
+          }
+          100% {
+            transform: rotateY(360deg);
+          }
+        }
+        @keyframes pinLightingGlow {
+          0%, 100% {
+            filter: brightness(1) drop-shadow(0 4px 8px rgba(128, 1, 31, 0.25));
+          }
+          25% {
+            filter: brightness(1.15) drop-shadow(2px 5px 10px rgba(128, 1, 31, 0.35));
+          }
+          50% {
+            filter: brightness(0.92) drop-shadow(0 4px 6px rgba(128, 1, 31, 0.2));
+          }
+          75% {
+            filter: brightness(1.12) drop-shadow(-2px 5px 10px rgba(128, 1, 31, 0.35));
+          }
+        }
+        .pin-rotator {
+          transform-style: preserve-3d;
+          perspective: 900px;
+          animation: pinRotate3D 4.2s linear infinite, pinLightingGlow 4.2s ease-in-out infinite;
+          transform-origin: 50% 92.8%;
+          will-change: transform, filter;
+          backface-visibility: visible;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .pin-rotator {
+            animation: none !important;
+          }
+        }
+      `}</style>
+
+      {/* Subtle Background Ribbon Curves (Clean & Minimal without Heavy Glows) */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        <svg
+          className="absolute inset-0 w-full h-full opacity-15"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1440 900"
+          preserveAspectRatio="none"
         >
-          {/* Desktop Background */}
-          <img
-            src="/assets/images/locations/india-map-desktop.png"
-            alt="India expansion route map"
-            className="hidden lg:block w-full h-full object-cover object-center opacity-95"
-            loading="lazy"
+          <path
+            d="M-50,220 C320,120 540,320 920,160 C1220,40 1360,260 1520,180"
+            fill="none"
+            stroke="#80011F"
+            strokeWidth="1.2"
+            strokeDasharray="4 6"
           />
-          {/* Mobile Background */}
-          <img
-            src="/assets/images/locations/india-map-mobile.png"
-            alt="India expansion route map mobile"
-            className="block lg:hidden w-full h-full object-cover object-top opacity-95"
-            loading="lazy"
+          <path
+            d="M-40,680 C260,540 620,720 1020,580 C1280,480 1420,620 1550,560"
+            fill="none"
+            stroke="#80011F"
+            strokeWidth="1.2"
+            strokeDasharray="4 6"
           />
-        </motion.div>
+        </svg>
       </div>
 
-      <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* =====================================================================
-            1. DESKTOP VIEW (LARGE TEXT & ICONS, LOGO REMOVED AT TOP-LEFT)
-            - Top-Left: Eyebrow, Main Heading (Large), Description (Large), 4 Benefits (Large)
-            - Top-Right: Sunguvarchatram Building in Organic Frame + "Now in" Badge
-            - Bottom-Left: Ernakulam in Organic Frame + "Coming Soon" Badge
-            - Bottom-Right: OUR PRESENCE, 2 Locations (Large), Explore CTA Button (Large)
-            ===================================================================== */}
-        <div className="hidden lg:grid lg:grid-cols-12 gap-8 xl:gap-14 items-center">
+        {/* =========================================================================
+            UPPER SECTION (COMPLETELY PRESERVED & UNTOUCHED):
+            - Top-Left: Logo, OUR LOCATIONS eyebrow, Big Heading, Description, 2 Stat Badges
+            - Right/Center: 3D India Map with rotating 3D burgundy pins, labels & dotted arcs
+            - Chunguvachtram REMOVED completely (only 5 locations remain)
+            ========================================================================= */}
+        <div className="hidden lg:block">
           
-          {/* ==================== TOP-LEFT CONTENT AREA ==================== */}
-          <div className="lg:col-span-6 space-y-6 text-left">
+          {/* Top Row: Left Content Column + Right 3D Map Area */}
+          <div className="grid grid-cols-12 gap-8 items-center mb-6 xl:mb-8">
             
-            {/* Eyebrow Heading (TeesZone logo removed as requested) */}
-            <motion.div
-              custom={0.05}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              className="flex items-center gap-2.5 pt-1"
-            >
-              <span className="text-sm sm:text-base font-heading font-extrabold uppercase tracking-widest text-[#80011F]">
-                OUR EXPANSION JOURNEY
-              </span>
-              <span className="w-8 h-[2px] bg-[#80011F] rounded-full inline-block" />
-            </motion.div>
+            {/* Left Content Column */}
+            <div className="col-span-5 space-y-5 text-left pr-4">
+              
+              {/* TeesZone Official Brand Logo */}
+              <div className="inline-block">
+                <img
+                  src="/assets/logo/teeszone-logo.png"
+                  alt="TeesZone - Elevate Your Style with Custom Tees"
+                  className="h-9 w-auto object-contain"
+                />
+              </div>
 
-            {/* Main Heading: Increased size to match other sections */}
-            <motion.h2
-              custom={0.12}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              className="text-4xl sm:text-5xl lg:text-[54px] xl:text-[60px] font-heading font-black leading-[1.08] tracking-tight"
-            >
-              <span className="text-[#1A1D20] block">Growing Closer to</span>
-              <span className="text-[#80011F] block">Your Business</span>
-            </motion.h2>
+              {/* Eyebrow Label with Accent Line */}
+              <div className="flex items-center gap-3">
+                <span className="text-xs uppercase tracking-[0.28em] font-extrabold text-[#80011F]">
+                  OUR LOCATIONS
+                </span>
+                <span className="w-12 h-[2px] bg-[#80011F]/30 rounded-full" />
+              </div>
 
-            {/* Description: Increased size without increasing boldness */}
-            <motion.p
-              custom={0.18}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              className="text-lg sm:text-xl xl:text-[21px] text-charcoal-600 font-normal leading-relaxed max-w-xl"
-            >
-              From the textile roots of Erode to new destinations, TeesZone is expanding to serve businesses across Tamil Nadu, Kerala and beyond.
-            </motion.p>
+              {/* Main Heading */}
+              <h2 className="text-4xl xl:text-5xl font-black text-[#1F1F1F] tracking-tight leading-[1.12]">
+                Our Presence <br />
+                <span className="text-[#80011F]">Across India</span>
+              </h2>
 
-            {/* 4 Benefits Horizontal Strip: Increased text & icon size */}
-            <motion.div
-              custom={0.24}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              className="pt-2"
-            >
-              <div className="flex items-center gap-5 xl:gap-6 border-y border-gray-300/80 py-4 max-w-xl">
+              {/* Descriptive Subtitle */}
+              <p className="text-base text-gray-600 leading-relaxed max-w-md font-normal">
+                A growing network of franchisees and state-of-the-art facilities, bringing
+                TeesZone closer to you.
+              </p>
+
+              {/* Stat & Facility Highlights */}
+              <div className="flex items-center gap-6 pt-1">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-2xl bg-[#80011F]/10 flex items-center justify-center text-[#80011F]">
+                    <Store className="w-5 h-5 stroke-[2]" />
+                  </div>
+                  <div>
+                    <div className="text-sm font-black text-gray-900 leading-tight">5 Franchise</div>
+                    <div className="text-xs text-gray-500 font-semibold">Locations</div>
+                  </div>
+                </div>
+
+                <div className="w-[1px] h-9 bg-gray-200" />
+
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-2xl bg-[#80011F]/10 flex items-center justify-center text-[#80011F]">
+                    <Factory className="w-5 h-5 stroke-[2]" />
+                  </div>
+                  <div>
+                    <div className="text-sm font-black text-gray-900 leading-tight">Manufacturing</div>
+                    <div className="text-xs text-gray-500 font-semibold">Excellence</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Prominent 3D India Map Model with 5 Pins & Labels */}
+            <div className="col-span-7 relative">
+              <div className="relative w-full max-w-[700px] mx-auto aspect-[1024/580]">
                 
-                {/* 1. Wider Reach */}
-                <div className="flex items-center gap-2.5 xl:gap-3">
-                  <Award className="w-6 h-6 xl:w-7 xl:h-7 text-[#80011F] shrink-0 stroke-[2.2]" />
-                  <span className="text-sm xl:text-base font-heading font-bold text-charcoal-800 whitespace-nowrap">
-                    Wider Reach
-                  </span>
-                </div>
+                {/* 3D Map Base Model */}
+                <motion.img
+                  src="/assets/images/locations/map-3d-model.png"
+                  alt="TeesZone 3D India Presence Map"
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.8, ease: 'easeOut' }}
+                  className="w-full h-full object-contain pointer-events-none select-none drop-shadow-[0_16px_28px_rgba(128,1,31,0.12)]"
+                />
 
-                <div className="w-[1.5px] h-6 bg-gray-300 shrink-0" aria-hidden="true" />
+                {/* Connecting Dotted Route Arcs Between 5 Locations (Chunguvachtram Removed) */}
+                <svg
+                  className="absolute inset-0 w-full h-full pointer-events-none z-10"
+                  viewBox="0 0 100 100"
+                  preserveAspectRatio="none"
+                >
+                  {/* Bengaluru to Erode */}
+                  <path
+                    d="M 27 25 Q 26 48 30.5 67.5"
+                    fill="none"
+                    stroke="#80011F"
+                    strokeWidth="0.45"
+                    strokeDasharray="1.2 1.2"
+                    strokeOpacity="0.45"
+                  />
+                  {/* Erode to Tiruppur */}
+                  <path
+                    d="M 30.5 67.5 Q 43 76 57 79.5"
+                    fill="none"
+                    stroke="#80011F"
+                    strokeWidth="0.45"
+                    strokeDasharray="1.2 1.2"
+                    strokeOpacity="0.45"
+                  />
+                  {/* Erode to Kanchipuram */}
+                  <path
+                    d="M 30.5 67.5 Q 44 54 59 44"
+                    fill="none"
+                    stroke="#80011F"
+                    strokeWidth="0.45"
+                    strokeDasharray="1.2 1.2"
+                    strokeOpacity="0.45"
+                  />
+                  {/* Kanchipuram to Chennai */}
+                  <path
+                    d="M 59 44 Q 68 31 77 19.5"
+                    fill="none"
+                    stroke="#80011F"
+                    strokeWidth="0.45"
+                    strokeDasharray="1.2 1.2"
+                    strokeOpacity="0.45"
+                  />
+                </svg>
 
-                {/* 2. Higher Capacity */}
-                <div className="flex items-center gap-2.5 xl:gap-3">
-                  <Layers className="w-6 h-6 xl:w-7 xl:h-7 text-[#80011F] shrink-0 stroke-[2.2]" />
-                  <span className="text-sm xl:text-base font-heading font-bold text-charcoal-800 whitespace-nowrap">
-                    Higher Capacity
-                  </span>
-                </div>
+                {/* 5 Geographically Positioned 3D Rotating Location Pins & Interactive Labels */}
+                {LOCATIONS.map((loc) => {
+                  const isSelected = activeId === loc.id;
+                  const isErode = loc.id === 'erode';
 
-                <div className="w-[1.5px] h-6 bg-gray-300 shrink-0" aria-hidden="true" />
+                  return (
+                    <div
+                      key={loc.id}
+                      className="absolute z-20 cursor-pointer group"
+                      style={{
+                        left: `${loc.coords.x}%`,
+                        top: `${loc.coords.y}%`,
+                        transform: 'translate(-50%, -92.8%)',
+                      }}
+                      onMouseEnter={() => setHoveredId(loc.id)}
+                      onMouseLeave={() => setHoveredId(null)}
+                      onClick={() => setSelectedId(loc.id)}
+                    >
+                      {/* Floor Beacon Ring: Anchored to Pointed Bottom Tip */}
+                      <div className="absolute left-1/2 top-[92.8%] -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
+                        <img
+                          src="/assets/images/locations/pin-beacon-ring.png"
+                          alt=""
+                          className={`w-11 h-5 object-contain -translate-y-1/2 transition-opacity duration-300 ${
+                            isSelected ? 'opacity-100 scale-110' : 'opacity-70'
+                          }`}
+                        />
 
-                {/* 3. Faster Delivery */}
-                <div className="flex items-center gap-2.5 xl:gap-3">
-                  <Truck className="w-6 h-6 xl:w-7 xl:h-7 text-[#80011F] shrink-0 stroke-[2.2]" />
-                  <span className="text-sm xl:text-base font-heading font-bold text-charcoal-800 whitespace-nowrap">
-                    Faster Delivery
-                  </span>
-                </div>
+                        {/* Pulsing Concentric Rings for Active Pin */}
+                        {isSelected && (
+                          <>
+                            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-4 rounded-full bg-amber-400/35 border border-amber-400/90 animate-ping" />
+                            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-7 rounded-full bg-[#80011F]/20 border border-[#80011F]/70 animate-pulse" />
+                          </>
+                        )}
+                      </div>
 
-                <div className="w-[1.5px] h-6 bg-gray-300 shrink-0" aria-hidden="true" />
+                      {/* Continuous 360-Degree Vertically Rotating 3D Pin */}
+                      <div className="relative">
+                        <div
+                          className={`pin-rotator transition-all duration-300 ${
+                            isSelected
+                              ? 'scale-115 drop-shadow-[0_8px_16px_rgba(128,1,31,0.45)]'
+                              : 'scale-95 group-hover:scale-105 drop-shadow-[0_4px_8px_rgba(128,1,31,0.25)]'
+                          }`}
+                        >
+                          <img
+                            src="/assets/images/locations/pin-3d-front.png"
+                            alt={`${loc.name} pin`}
+                            className="w-8 xl:w-9 h-auto object-contain pointer-events-none select-none"
+                          />
+                        </div>
+                      </div>
 
-                {/* 4. Better Support */}
-                <div className="flex items-center gap-2.5 xl:gap-3">
-                  <Handshake className="w-6 h-6 xl:w-7 xl:h-7 text-[#80011F] shrink-0 stroke-[2.2]" />
-                  <span className="text-sm xl:text-base font-heading font-bold text-charcoal-800 whitespace-nowrap">
-                    Better Support
-                  </span>
-                </div>
-
+                      {/* Location Name & Category Pill Label */}
+                      <div
+                        className={`absolute left-full top-[25%] -translate-y-1/2 ml-2 transition-all duration-300 whitespace-nowrap pointer-events-auto ${
+                          isSelected ? 'z-30 scale-105' : 'z-20 group-hover:scale-102 opacity-95'
+                        }`}
+                      >
+                        {isSelected || (isErode && !hoveredId) ? (
+                          // Active Highlighted Pill: Rich Burgundy Background with White Text
+                          <div className="flex items-center gap-2 bg-[#80011F] text-white px-3.5 py-1.5 rounded-full shadow-md border border-white/60">
+                            {loc.type === 'office' && <Building2 className="w-3.5 h-3.5 text-amber-300 stroke-[2]" />}
+                            {loc.type === 'factory' && <Factory className="w-3.5 h-3.5 text-amber-300 stroke-[2]" />}
+                            {loc.type === 'franchise' && <Store className="w-3.5 h-3.5 text-amber-300 stroke-[2]" />}
+                            <div className="leading-tight">
+                              <span className="text-xs font-black tracking-tight block">
+                                {loc.name}
+                              </span>
+                              <span className="text-[10px] text-amber-200/90 font-semibold block">
+                                ({loc.category})
+                              </span>
+                            </div>
+                          </div>
+                        ) : (
+                          // Standard Pill: Clean White Card with Burgundy Accent & Subtle Shadow
+                          <div className="flex items-center gap-2 bg-white/95 backdrop-blur px-3 py-1 rounded-full shadow-sm border border-gray-100 hover:border-[#80011F]/30 hover:shadow transition-all">
+                            {loc.type === 'factory' ? (
+                              <div className="w-5 h-5 rounded-full bg-[#80011F]/10 flex items-center justify-center text-[#80011F]">
+                                <Factory className="w-3 h-3 stroke-[2]" />
+                              </div>
+                            ) : null}
+                            <div className="leading-tight text-left">
+                              <span className="text-xs font-bold text-gray-900 block">
+                                {loc.name}
+                              </span>
+                              <span className="text-[10px] text-[#80011F] font-semibold block">
+                                ({loc.category})
+                              </span>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-            </motion.div>
-
+            </div>
           </div>
 
-          {/* ==================== TOP-RIGHT: SUNGUVARCHATRAM ==================== */}
-          <div className="lg:col-span-6 relative flex justify-center lg:justify-end">
-            <motion.div
-              custom={0.2}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              variants={scaleReveal}
-              className="relative w-full max-w-[560px] xl:max-w-[620px]"
-            >
-              {/* Organic Frame Photograph */}
-              <img
-                src="/assets/images/locations/sunguvarchatram-tight.png"
-                alt="TeesZone Sunguvarchatram facility in Vijaya Complex"
-                className="w-full h-auto object-contain filter drop-shadow-[0_22px_44px_rgba(128,1,31,0.20)]"
-                loading="eager"
-              />
-
-              {/* Floating Badge: Now in Sunguvarchatram (Increased size) */}
-              <motion.div
-                custom={0.35}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={badgeFloat}
-                className="absolute top-2 left-4 xl:top-3 xl:left-8 z-20"
-              >
-                <div className="inline-flex items-center gap-3 px-5 py-2.5 xl:px-6 xl:py-3 rounded-full bg-white/95 backdrop-blur-md border border-gray-200/90 shadow-md">
-                  <div className="w-8 h-8 rounded-full bg-[#80011F]/10 flex items-center justify-center text-[#80011F]">
-                    <MapPin className="w-4 h-4 xl:w-5 xl:h-5 fill-[#80011F]" />
-                  </div>
-                  <div className="text-left">
-                    <p className="text-[11px] xl:text-xs font-semibold text-charcoal-500 uppercase tracking-wider leading-none">
-                      Now in
-                    </p>
-                    <p className="text-sm xl:text-base font-heading font-black text-charcoal-900 leading-tight mt-0.5">
-                      Sunguvarchatram
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
-          </div>
-
-          {/* ==================== BOTTOM-LEFT: ERNAKULAM ==================== */}
-          <div className="lg:col-span-6 relative flex justify-center lg:justify-start pt-6 xl:pt-10">
-            <motion.div
-              custom={0.2}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              variants={scaleReveal}
-              className="relative w-full max-w-[560px] xl:max-w-[620px]"
-            >
-              {/* Organic Frame Photograph */}
-              <img
-                src="/assets/images/locations/ernakulam-tight.png"
-                alt="TeesZone upcoming location in Ernakulam, Kerala"
-                className="w-full h-auto object-contain filter drop-shadow-[0_22px_44px_rgba(128,1,31,0.20)]"
-                loading="lazy"
-              />
-
-              {/* Floating Badge: Coming Soon - Ernakulam, Kerala (Increased size) */}
-              <motion.div
-                custom={0.35}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={badgeFloat}
-                className="absolute top-2 right-4 xl:top-3 xl:right-8 z-20"
-              >
-                <div className="inline-flex items-center gap-3 px-5 py-2.5 xl:px-6 xl:py-3 rounded-full bg-white/95 backdrop-blur-md border border-gray-200/90 shadow-md">
-                  <div className="w-8 h-8 rounded-full bg-[#80011F]/10 flex items-center justify-center text-[#80011F]">
-                    <MapPin className="w-4 h-4 xl:w-5 xl:h-5 fill-[#80011F]" />
-                  </div>
-                  <div className="text-left">
-                    <p className="text-[11px] xl:text-xs font-bold text-[#80011F] uppercase tracking-wider leading-none">
-                      Coming Soon
-                    </p>
-                    <p className="text-sm xl:text-base font-heading font-black text-charcoal-900 leading-tight mt-0.5">
-                      Ernakulam, Kerala
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
-          </div>
-
-          {/* ==================== BOTTOM-RIGHT: OUR PRESENCE & CTA ==================== */}
-          <div className="lg:col-span-6 space-y-6 xl:space-y-7 text-left pt-6 xl:pt-10 pl-4 xl:pl-8">
+          {/* =========================================================================
+              EXACT ASYMMETRIC ORGANIC CURVED CARD (FOLLOWING REFERENCE IMAGE 2)
+              - Asymmetrical flowing outer silhouette with rounded bulbous left edge
+              - Burgundy information panel (30-35% width) flowing naturally into photograph
+              - Photograph (65-70% width) enclosed in an organic curved frame with layered white & burgundy strokes
+              - Fixed responsive aspect ratio: identical silhouette across all locations
+              - Floating white pill-shaped location navigation bar underneath with 5 locations
+              ========================================================================= */}
+          <div className="relative pt-2 pb-6 max-w-[1240px] mx-auto">
             
-            {/* Eyebrow */}
-            <motion.div
-              custom={0.1}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              className="flex items-center gap-2.5"
-            >
-              <span className="text-sm sm:text-base font-heading font-extrabold uppercase tracking-widest text-[#80011F]">
-                OUR PRESENCE
-              </span>
-              <span className="w-8 h-[2px] bg-[#80011F] rounded-full inline-block" />
-            </motion.div>
+            {/* Main Card Container with Organic Silhouette & Layered Outlines */}
+            <div className="relative rounded-[48px] xl:rounded-[56px] overflow-hidden bg-[#80011F] border-2 border-white shadow-[0_12px_32px_rgba(128,1,31,0.14)] ring-1 ring-[#80011F]/20">
+              
+              <div className="grid grid-cols-12 min-h-[310px] xl:min-h-[340px] items-stretch">
+                
+                {/* Left Information Panel: Deep Burgundy (#80011F) with Professional Icons */}
+                <div className="col-span-4 p-8 xl:p-12 flex flex-col justify-center text-left relative z-20 text-white">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeLocation.id}
+                      initial={{ opacity: 0, x: -14 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 14 }}
+                      transition={{ duration: 0.3, ease: 'easeOut' }}
+                      className="space-y-3"
+                    >
+                      {/* Professional Vector Outline Icon */}
+                      <div className="w-11 h-11 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white mb-2 shadow-sm">
+                        {activeLocation.type === 'office' && <Building2 className="w-5 h-5 stroke-[2] text-white" />}
+                        {activeLocation.type === 'factory' && <Factory className="w-5 h-5 stroke-[2] text-white" />}
+                        {activeLocation.type === 'franchise' && <Store className="w-5 h-5 stroke-[2] text-white" />}
+                      </div>
 
-            {/* Two Location Columns: Increased size */}
-            <motion.div
-              custom={0.16}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              className="flex items-center gap-8 xl:gap-14"
-            >
-              {/* Location 1 */}
-              <div className="flex items-start gap-3.5">
-                <div className="w-10 h-10 xl:w-11 xl:h-11 rounded-full bg-[#80011F]/10 flex items-center justify-center text-[#80011F] shrink-0 mt-0.5">
-                  <MapPin className="w-5 h-5 xl:w-6 xl:h-6 fill-[#80011F]" />
+                      {/* Small Uppercase Location Category */}
+                      <span className="text-[11px] xl:text-xs font-bold uppercase tracking-[0.2em] text-white/80 block">
+                        {activeLocation.category}
+                      </span>
+
+                      {/* Location Name in Large Bold Typography */}
+                      <h3 className="text-2xl sm:text-3xl xl:text-4xl font-black text-white tracking-tight leading-tight">
+                        {activeLocation.name}
+                      </h3>
+
+                      {/* Short White Decorative Divider */}
+                      <div className="w-12 h-[2px] bg-white/60 rounded-full my-2.5" />
+
+                      {/* White Location Description */}
+                      <p className="text-xs xl:text-sm text-white/90 leading-relaxed font-normal max-w-sm">
+                        {activeLocation.description}
+                      </p>
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
-                <div>
-                  <h3 className="text-lg sm:text-xl xl:text-2xl font-heading font-black text-charcoal-900 leading-tight">
-                    Sunguvarchatram
-                  </h3>
-                  <p className="text-sm xl:text-base text-charcoal-500 font-medium mt-1">
-                    Kanchipuram, Tamil Nadu
-                  </p>
+
+                {/* Right Location Image Frame: 65-70% width with Asymmetric Flowing Oval-like Curved Frame */}
+                <div className="col-span-8 relative overflow-hidden bg-[#570016]">
+                  
+                  {/* Dynamic Location Photograph with Smooth Fade Transition */}
+                  <div className="w-full h-full">
+                    <AnimatePresence mode="wait">
+                      <motion.img
+                        key={activeLocation.id}
+                        src={activeLocation.image}
+                        alt={activeLocation.name}
+                        initial={{ opacity: 0, scale: 1.03 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.98 }}
+                        transition={{ duration: 0.4, ease: 'easeOut' }}
+                        className="w-full h-full object-cover object-center"
+                      />
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Layered Organic Burgundy Wave Overlay with Crisp White Outlines (Exact IMAGE 2 Silhouette) */}
+                  <svg
+                    className="absolute inset-0 w-full h-full pointer-events-none z-10"
+                    viewBox="0 0 700 400"
+                    preserveAspectRatio="none"
+                  >
+                    {/* Top Sweeping Burgundy Hood Wave */}
+                    <path
+                      d="M 0,0 L 700,0 L 700,42 C 540,68 360,62 190,42 C 100,32 30,16 0,0 Z"
+                      fill="#80011F"
+                    />
+                    <path
+                      d="M 0,0 C 30,16 100,32 190,42 C 360,62 540,68 700,42"
+                      fill="none"
+                      stroke="#FFFFFF"
+                      strokeWidth="3"
+                    />
+
+                    {/* Bottom Sweeping Burgundy Base Wave */}
+                    <path
+                      d="M 0,400 L 700,400 L 700,360 C 520,335 340,340 170,362 C 85,374 25,388 0,400 Z"
+                      fill="#80011F"
+                    />
+                    <path
+                      d="M 0,400 C 25,388 85,374 170,362 C 340,340 520,335 700,360"
+                      fill="none"
+                      stroke="#FFFFFF"
+                      strokeWidth="3"
+                    />
+
+                    {/* Left Flowing Convex Curve Blending naturally into Information Panel */}
+                    <path
+                      d="M 0,0 C 42,110 42,290 0,400 Z"
+                      fill="#80011F"
+                    />
+                    <path
+                      d="M 0,0 C 42,110 42,290 0,400"
+                      fill="none"
+                      stroke="#FFFFFF"
+                      strokeWidth="3"
+                    />
+                  </svg>
                 </div>
               </div>
+            </div>
 
-              {/* Vertical Divider */}
-              <div className="w-[1.5px] h-12 xl:h-14 bg-gray-300" aria-hidden="true" />
+            {/* Bottom Floating Pill-Shaped Location Navigation Bar (Refined 5-Location Proportions) */}
+            <div className="relative -mt-6 xl:-mt-7 z-30 max-w-4xl mx-auto px-4">
+              <div className="bg-[#FFFDFD] rounded-full py-2 px-3 sm:px-6 shadow-[0_8px_24px_rgba(128,1,31,0.09)] border border-[#80011F]/20 flex items-center justify-between gap-1 overflow-x-auto no-scrollbar">
+                {LOCATIONS.map((loc, index) => {
+                  const isActive = activeId === loc.id;
+                  return (
+                    <React.Fragment key={loc.id}>
+                      {/* Thin Vertical Burgundy Separator */}
+                      {index > 0 && (
+                        <div className="w-[1px] h-6 bg-[#80011F]/15 shrink-0 mx-1 hidden sm:block" />
+                      )}
 
-              {/* Location 2 */}
-              <div className="flex items-start gap-3.5">
-                <div className="w-10 h-10 xl:w-11 xl:h-11 rounded-full bg-[#80011F]/10 flex items-center justify-center text-[#80011F] shrink-0 mt-0.5">
-                  <MapPin className="w-5 h-5 xl:w-6 xl:h-6 fill-[#80011F]" />
-                </div>
-                <div>
-                  <h3 className="text-lg sm:text-xl xl:text-2xl font-heading font-black text-charcoal-900 leading-tight">
-                    Ernakulam <span className="text-sm font-bold text-[#80011F] block sm:inline">(Coming Soon)</span>
-                  </h3>
-                  <p className="text-sm xl:text-base text-charcoal-500 font-medium mt-1">
-                    Kerala
-                  </p>
-                </div>
+                      <button
+                        onClick={() => {
+                          setSelectedId(loc.id);
+                          setHoveredId(null);
+                        }}
+                        onMouseEnter={() => setHoveredId(loc.id)}
+                        onMouseLeave={() => setHoveredId(null)}
+                        className={`flex items-center gap-2 sm:gap-2.5 px-3.5 sm:px-4 py-2 rounded-full transition-all duration-200 cursor-pointer shrink-0 ${
+                          isActive
+                            ? 'bg-white shadow-[0_2px_10px_rgba(128,1,31,0.14)] border border-[#80011F]/30 ring-1 ring-[#80011F]/15 scale-102'
+                            : 'hover:bg-[#80011F]/5 text-gray-700'
+                        }`}
+                      >
+                        {/* Professional Burgundy Outline Icon */}
+                        <div className={`shrink-0 ${isActive ? 'text-[#80011F]' : 'text-[#80011F]/70'}`}>
+                          {loc.type === 'office' && <Building2 className="w-4 h-4 stroke-[2]" />}
+                          {loc.type === 'factory' && <Factory className="w-4 h-4 stroke-[2]" />}
+                          {loc.type === 'franchise' && <Store className="w-4 h-4 stroke-[2]" />}
+                        </div>
+
+                        {/* Location Name & Secondary Category Label Below */}
+                        <div className="flex flex-col text-left leading-tight">
+                          <span className={`text-xs font-bold whitespace-nowrap ${isActive ? 'text-[#80011F]' : 'text-gray-900'}`}>
+                            {loc.name}
+                          </span>
+                          <span className={`text-[10px] font-medium whitespace-nowrap ${isActive ? 'text-[#80011F]/80' : 'text-gray-500'}`}>
+                            ({loc.category === 'Manufacturing Factory' ? 'Factory' : loc.category})
+                          </span>
+                        </div>
+                      </button>
+                    </React.Fragment>
+                  );
+                })}
               </div>
-            </motion.div>
-
-            {/* Explore Locations CTA Button: Increased size */}
-            <motion.div
-              custom={0.24}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              className="pt-2"
-            >
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2.5 px-9 py-4 rounded-full bg-gradient-to-r from-[#80011F] via-[#70011B] to-[#570018] hover:from-[#570018] hover:to-[#3E0011] text-white font-heading font-bold text-base xl:text-lg shadow-md hover:shadow-lg transition-all duration-300 group"
-              >
-                <span>Explore Our Locations</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
-              </Link>
-            </motion.div>
+            </div>
 
           </div>
-
         </div>
 
-        {/* =====================================================================
-            2. MOBILE VIEW (INCREASED TEXT & ICON SIZES, LOGO REMOVED)
-            1. OUR EXPANSION JOURNEY eyebrow centered
-            2. Growing Closer to Your Business heading (large)
-            3. Expansion description (large)
-            4. Four benefits in compact horizontal row (increased icons & text)
-            5. Sunguvarchatram image in organic frame + floating badge
-            6. Ernakulam image in organic frame + floating badge
-            7. OUR PRESENCE heading centered
-            8. Two locations details with icons and divider (large)
-            9. Explore Our Locations CTA button (large)
-            ===================================================================== */}
-        <div className="block lg:hidden space-y-6 text-center max-w-lg mx-auto">
+        {/* =========================================================================
+            MOBILE & TABLET VIEW (lg:hidden)
+            - Upper section (Map, Header, Pins) UNCHANGED
+            - Chunguvachtram removed completely
+            - Same Organic Curved Card Silhouette and Flowing Photographic Frame
+            - Professional Lucide Icons
+            - Identical Fixed Card Dimensions across all locations
+            - Touch-friendly Pagination Controls & Quick-Select Dock
+            ========================================================================= */}
+        <div className="block lg:hidden space-y-6">
           
-          {/* 1. Eyebrow Centered (Logo removed) */}
-          <div className="flex items-center justify-center gap-2 pt-2">
-            <span className="w-6 h-[2px] bg-[#80011F] rounded-full inline-block" />
-            <span className="text-xs sm:text-sm font-heading font-extrabold uppercase tracking-widest text-[#80011F]">
-              OUR EXPANSION JOURNEY
-            </span>
-            <span className="w-6 h-[2px] bg-[#80011F] rounded-full inline-block" />
+          {/* Centered Mobile Header (Unchanged) */}
+          <div className="text-center space-y-3 max-w-md mx-auto">
+            <div className="flex justify-center">
+              <img
+                src="/assets/logo/teeszone-logo.png"
+                alt="TeesZone"
+                className="h-8 w-auto object-contain"
+              />
+            </div>
+
+            <div className="flex items-center justify-center gap-3">
+              <span className="w-8 h-[2px] bg-[#80011F]/30 rounded-full" />
+              <span className="text-xs uppercase tracking-[0.25em] font-extrabold text-[#80011F]">
+                OUR LOCATIONS
+              </span>
+              <span className="w-8 h-[2px] bg-[#80011F]/30 rounded-full" />
+            </div>
+
+            <h2 className="text-2xl sm:text-3xl font-black text-[#1F1F1F] tracking-tight leading-tight">
+              Our Presence <br />
+              <span className="text-[#80011F]">Across India</span>
+            </h2>
+
+            <p className="text-xs sm:text-sm text-gray-600 leading-relaxed px-4">
+              A growing network of franchisees and state-of-the-art facilities, bringing TeesZone closer to you.
+            </p>
           </div>
 
-          {/* 2. Heading Centered (Increased size) */}
-          <h2 className="text-3xl sm:text-4xl font-heading font-black leading-tight tracking-tight">
-            <span className="text-[#1A1D20] block">Growing Closer to</span>
-            <span className="text-[#80011F] block">Your Business</span>
-          </h2>
-
-          {/* 3. Description Centered (Increased size) */}
-          <p className="text-sm sm:text-base text-charcoal-600 font-normal leading-relaxed max-w-md mx-auto px-2">
-            From the textile roots of Erode to new destinations, TeesZone is expanding to serve businesses across Tamil Nadu, Kerala and beyond.
-          </p>
-
-          {/* 4. Four Benefits (Increased icon & text size) */}
-          <div className="flex items-center justify-between border-y border-gray-300/80 py-3.5 px-1">
-            <div className="flex flex-col items-center flex-1">
-              <Award className="w-5 h-5 sm:w-6 sm:h-6 text-[#80011F] mb-1 stroke-[2.2]" />
-              <span className="text-xs sm:text-sm font-heading font-bold text-charcoal-800 leading-tight">
-                Wider<br />Reach
-              </span>
-            </div>
-            <div className="w-[1px] h-7 bg-gray-300" aria-hidden="true" />
-            <div className="flex flex-col items-center flex-1">
-              <Layers className="w-5 h-5 sm:w-6 sm:h-6 text-[#80011F] mb-1 stroke-[2.2]" />
-              <span className="text-xs sm:text-sm font-heading font-bold text-charcoal-800 leading-tight">
-                Higher<br />Capacity
-              </span>
-            </div>
-            <div className="w-[1px] h-7 bg-gray-300" aria-hidden="true" />
-            <div className="flex flex-col items-center flex-1">
-              <Truck className="w-5 h-5 sm:w-6 sm:h-6 text-[#80011F] mb-1 stroke-[2.2]" />
-              <span className="text-xs sm:text-sm font-heading font-bold text-charcoal-800 leading-tight">
-                Faster<br />Delivery
-              </span>
-            </div>
-            <div className="w-[1px] h-7 bg-gray-300" aria-hidden="true" />
-            <div className="flex flex-col items-center flex-1">
-              <Handshake className="w-5 h-5 sm:w-6 sm:h-6 text-[#80011F] mb-1 stroke-[2.2]" />
-              <span className="text-xs sm:text-sm font-heading font-bold text-charcoal-800 leading-tight">
-                Better<br />Support
-              </span>
-            </div>
-          </div>
-
-          {/* 5. Sunguvarchatram Image in Organic Frame */}
-          <div className="relative w-full max-w-[440px] mx-auto pt-2">
+          {/* Mobile 3D Map Container (Unchanged with 5 Locations) */}
+          <div className="relative w-full max-w-[440px] mx-auto aspect-[1024/580] my-2">
+            
+            {/* 3D Map Base */}
             <img
-              src="/assets/images/locations/sunguvarchatram-tight.png"
-              alt="TeesZone Sunguvarchatram facility"
-              className="w-full h-auto object-contain filter drop-shadow-[0_14px_28px_rgba(128,1,31,0.18)]"
-              loading="eager"
+              src="/assets/images/locations/map-3d-model.png"
+              alt="TeesZone 3D India Network Map"
+              className="w-full h-full object-contain pointer-events-none select-none drop-shadow-[0_10px_20px_rgba(128,1,31,0.1)]"
             />
-            {/* Floating Badge */}
-            <div className="absolute top-1 left-2 sm:top-2 sm:left-4 z-20">
-              <div className="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-full bg-white/95 backdrop-blur-md border border-gray-200 shadow-sm">
-                <div className="w-6 h-6 rounded-full bg-[#80011F]/10 flex items-center justify-center text-[#80011F]">
-                  <MapPin className="w-3.5 h-3.5 fill-[#80011F]" />
+
+            {/* Connecting Dotted Route Arcs for 5 Locations */}
+            <svg
+              className="absolute inset-0 w-full h-full pointer-events-none z-10"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+            >
+              <path
+                d="M 27 25 Q 26 48 30.5 67.5"
+                fill="none"
+                stroke="#80011F"
+                strokeWidth="0.6"
+                strokeDasharray="1.2 1.2"
+                strokeOpacity="0.45"
+              />
+              <path
+                d="M 30.5 67.5 Q 43 76 57 79.5"
+                fill="none"
+                stroke="#80011F"
+                strokeWidth="0.6"
+                strokeDasharray="1.2 1.2"
+                strokeOpacity="0.45"
+              />
+              <path
+                d="M 30.5 67.5 Q 44 54 59 44"
+                fill="none"
+                stroke="#80011F"
+                strokeWidth="0.6"
+                strokeDasharray="1.2 1.2"
+                strokeOpacity="0.45"
+              />
+              <path
+                d="M 59 44 Q 68 31 77 19.5"
+                fill="none"
+                stroke="#80011F"
+                strokeWidth="0.6"
+                strokeDasharray="1.2 1.2"
+                strokeOpacity="0.45"
+              />
+            </svg>
+
+            {/* 5 Geographically Positioned Pins for Mobile */}
+            {LOCATIONS.map((loc) => {
+              const isSelected = selectedId === loc.id;
+              const isErode = loc.id === 'erode';
+
+              return (
+                <div
+                  key={loc.id}
+                  className="absolute z-20 cursor-pointer"
+                  style={{
+                    left: `${loc.coords.x}%`,
+                    top: `${loc.coords.y}%`,
+                    transform: 'translate(-50%, -92.8%)',
+                  }}
+                  onClick={() => setSelectedId(loc.id)}
+                >
+                  {/* Floor Beacon Ring */}
+                  <div className="absolute left-1/2 top-[92.8%] -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
+                    <img
+                      src="/assets/images/locations/pin-beacon-ring.png"
+                      alt=""
+                      className={`w-8 h-4 object-contain -translate-y-1/2 ${
+                        isSelected ? 'opacity-100 scale-125' : 'opacity-70'
+                      }`}
+                    />
+                    {isSelected && (
+                      <>
+                        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-4 rounded-full bg-amber-400/40 border border-amber-400 animate-ping" />
+                        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-6 rounded-full bg-[#80011F]/20 border border-[#80011F]/60 animate-pulse" />
+                      </>
+                    )}
+                  </div>
+
+                  {/* Rotating 3D Pin */}
+                  <div className="relative">
+                    <div
+                      className={`pin-rotator transition-all duration-300 ${
+                        isSelected
+                          ? 'scale-115 drop-shadow-[0_6px_12px_rgba(128,1,31,0.4)]'
+                          : 'scale-90 drop-shadow-[0_3px_6px_rgba(128,1,31,0.2)]'
+                      }`}
+                    >
+                      <img
+                        src="/assets/images/locations/pin-3d-front.png"
+                        alt={`${loc.name} pin`}
+                        className="w-6 sm:w-7 h-auto object-contain pointer-events-none select-none"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Mobile Compact Label */}
+                  <div
+                    className={`absolute left-full top-[25%] -translate-y-1/2 ml-1 whitespace-nowrap transition-all duration-300 ${
+                      isSelected ? 'z-30 scale-105' : 'z-20 opacity-90'
+                    }`}
+                  >
+                    {isSelected || isErode ? (
+                      <div className="bg-[#80011F] text-white px-2 py-0.5 rounded-full shadow text-[9px] font-bold border border-white/60 leading-tight">
+                        <span>{loc.name}</span>
+                      </div>
+                    ) : (
+                      <div className="bg-white/95 px-1.5 py-0.5 rounded-full shadow-sm text-[8px] font-bold text-gray-800 border border-gray-100 leading-tight">
+                        <span>{loc.name}</span>
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <div className="text-left">
-                  <p className="text-[10px] font-medium text-charcoal-500 uppercase leading-none">Now in</p>
-                  <p className="text-xs sm:text-sm font-heading font-black text-charcoal-900 leading-tight">Sunguvarchatram</p>
-                </div>
-              </div>
-            </div>
+              );
+            })}
           </div>
 
-          {/* 6. Ernakulam Image in Organic Frame */}
-          <div className="relative w-full max-w-[440px] mx-auto pt-2">
-            <img
-              src="/assets/images/locations/ernakulam-tight.png"
-              alt="TeesZone upcoming location in Ernakulam, Kerala"
-              className="w-full h-auto object-contain filter drop-shadow-[0_14px_28px_rgba(128,1,31,0.18)]"
-              loading="lazy"
-            />
-            {/* Floating Badge */}
-            <div className="absolute top-1 right-2 sm:top-2 sm:right-4 z-20">
-              <div className="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-full bg-white/95 backdrop-blur-md border border-gray-200 shadow-sm">
-                <div className="w-6 h-6 rounded-full bg-[#80011F]/10 flex items-center justify-center text-[#80011F]">
-                  <MapPin className="w-3.5 h-3.5 fill-[#80011F]" />
-                </div>
-                <div className="text-left">
-                  <p className="text-[10px] font-bold text-[#80011F] uppercase leading-none">Coming Soon</p>
-                  <p className="text-xs sm:text-sm font-heading font-black text-charcoal-900 leading-tight">Ernakulam, Kerala</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* Mobile Showcase Card with Organic Curved Silhouette and Layered Outlines */}
+          <div className="relative rounded-3xl overflow-hidden bg-[#80011F] border-2 border-white shadow-md text-white">
+            
+            {/* Top Curved Photographic Frame with Overlaid Organic Arches */}
+            <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#570016]">
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={activeLocation.id}
+                  src={activeLocation.image}
+                  alt={activeLocation.name}
+                  initial={{ opacity: 0, scale: 1.04 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.97 }}
+                  transition={{ duration: 0.35 }}
+                  className="w-full h-full object-cover object-center"
+                />
+              </AnimatePresence>
 
-          {/* 7. OUR PRESENCE & Locations (Increased text size) */}
-          <div className="pt-2 space-y-4">
-            <div className="flex items-center justify-center gap-2">
-              <span className="w-6 h-[2px] bg-[#80011F] rounded-full inline-block" />
-              <span className="text-xs sm:text-sm font-heading font-extrabold uppercase tracking-widest text-[#80011F]">
-                OUR PRESENCE
-              </span>
-              <span className="w-6 h-[2px] bg-[#80011F] rounded-full inline-block" />
-            </div>
-
-            <div className="flex items-center justify-center gap-6 sm:gap-10 text-left">
-              {/* Loc 1 */}
-              <div className="flex items-start gap-2.5">
-                <div className="w-8 h-8 rounded-full bg-[#80011F]/10 flex items-center justify-center text-[#80011F] shrink-0 mt-0.5">
-                  <MapPin className="w-4 h-4 fill-[#80011F]" />
-                </div>
-                <div>
-                  <p className="text-sm sm:text-base font-heading font-black text-charcoal-900 leading-tight">
-                    Sunguvarchatram
-                  </p>
-                  <p className="text-xs text-charcoal-500 font-medium">
-                    Kanchipuram, TN
-                  </p>
-                </div>
-              </div>
-
-              <div className="w-[1px] h-9 bg-gray-300" aria-hidden="true" />
-
-              {/* Loc 2 */}
-              <div className="flex items-start gap-2.5">
-                <div className="w-8 h-8 rounded-full bg-[#80011F]/10 flex items-center justify-center text-[#80011F] shrink-0 mt-0.5">
-                  <MapPin className="w-4 h-4 fill-[#80011F]" />
-                </div>
-                <div>
-                  <p className="text-sm sm:text-base font-heading font-black text-charcoal-900 leading-tight">
-                    Ernakulam <span className="text-xs text-[#80011F] font-bold">(Coming Soon)</span>
-                  </p>
-                  <p className="text-xs text-charcoal-500 font-medium">
-                    Kerala
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* 8. CTA Button Centered (Increased size) */}
-            <div className="pt-3">
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-gradient-to-r from-[#80011F] via-[#70011B] to-[#570018] text-white font-heading font-bold text-sm sm:text-base shadow-md"
+              {/* Organic Curved SVG Borders for Mobile */}
+              <svg
+                className="absolute inset-0 w-full h-full pointer-events-none z-10"
+                viewBox="0 0 400 250"
+                preserveAspectRatio="none"
               >
-                <span>Explore Our Locations</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+                <path d="M 0,0 L 400,0 L 400,24 C 280,44 120,44 0,24 Z" fill="#80011F" />
+                <path d="M 0,24 C 120,44 280,44 400,24" fill="none" stroke="#FFFFFF" strokeWidth="2.5" />
+                <path d="M 0,250 L 400,250 L 400,226 C 280,206 120,206 0,226 Z" fill="#80011F" />
+                <path d="M 0,226 C 120,206 280,206 400,226" fill="none" stroke="#FFFFFF" strokeWidth="2.5" />
+              </svg>
+
+              {/* Category Pill Tag */}
+              <div className="absolute top-3 left-3 z-20 bg-[#80011F]/95 backdrop-blur-md text-white px-2.5 py-0.5 rounded-full text-[11px] font-bold shadow border border-white/30">
+                {activeLocation.category}
+              </div>
             </div>
+
+            {/* Mobile Information Panel Directly Beneath Image */}
+            <div className="p-4 sm:p-5 space-y-2 text-left bg-[#80011F]">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center text-white border border-white/20">
+                  {activeLocation.type === 'office' && <Building2 className="w-4 h-4 stroke-[2] text-white" />}
+                  {activeLocation.type === 'factory' && <Factory className="w-4 h-4 stroke-[2] text-white" />}
+                  {activeLocation.type === 'franchise' && <Store className="w-4 h-4 stroke-[2] text-white" />}
+                </div>
+                <div>
+                  <div className="text-[10px] text-amber-200/90 font-bold uppercase tracking-wider">
+                    {activeLocation.category}
+                  </div>
+                  <h3 className="text-lg font-black text-white leading-tight">
+                    {activeLocation.name}
+                  </h3>
+                </div>
+              </div>
+
+              {/* Decorative Divider */}
+              <div className="w-10 h-[2px] bg-white/40 rounded-full" />
+
+              <p className="text-xs text-white/90 leading-relaxed font-normal pt-0.5">
+                {activeLocation.description}
+              </p>
+            </div>
+          </div>
+
+          {/* Mobile Pagination Controls (< Prev, Dots, Next >) */}
+          <div className="flex items-center justify-center gap-4 pt-1">
+            <button
+              onClick={handlePrev}
+              aria-label="Previous Location"
+              className="w-9 h-9 rounded-full bg-white shadow-sm border border-gray-200 flex items-center justify-center text-[#80011F] hover:bg-[#80011F] hover:text-white transition-all cursor-pointer"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+
+            {/* Indicator Dots for 5 Locations */}
+            <div className="flex items-center gap-1.5">
+              {LOCATIONS.map((loc) => (
+                <button
+                  key={loc.id}
+                  onClick={() => setSelectedId(loc.id)}
+                  aria-label={`Select ${loc.name}`}
+                  className={`transition-all duration-300 rounded-full cursor-pointer ${
+                    activeId === loc.id
+                      ? 'w-6 h-2 bg-[#80011F]'
+                      : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
+                  }`}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={handleNext}
+              aria-label="Next Location"
+              className="w-9 h-9 rounded-full bg-white shadow-sm border border-gray-200 flex items-center justify-center text-[#80011F] hover:bg-[#80011F] hover:text-white transition-all cursor-pointer"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Mobile Horizontal Quick-Select Pill Dock (5 Locations) */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar px-1">
+            {LOCATIONS.map((loc) => {
+              const isActive = activeId === loc.id;
+              return (
+                <button
+                  key={loc.id}
+                  onClick={() => setSelectedId(loc.id)}
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 transition-all cursor-pointer ${
+                    isActive
+                      ? 'bg-[#80011F] text-white shadow font-bold'
+                      : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-50'
+                  }`}
+                >
+                  {loc.type === 'office' && <Building2 className="w-3.5 h-3.5 stroke-[2]" />}
+                  {loc.type === 'factory' && <Factory className="w-3.5 h-3.5 stroke-[2]" />}
+                  {loc.type === 'franchise' && <Store className="w-3.5 h-3.5 stroke-[2]" />}
+                  <div className="flex flex-col text-left leading-none">
+                    <span>{loc.name}</span>
+                    <span className={`text-[9px] ${isActive ? 'text-amber-200' : 'text-gray-400'}`}>
+                      ({loc.shortLabel})
+                    </span>
+                  </div>
+                </button>
+              );
+            })}
           </div>
 
         </div>
