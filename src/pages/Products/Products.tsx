@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { productsData, ProductItem } from '@/data/products';
-import { ProductShowcase3D } from './components/ProductShowcase3D';
-import { ProductCTA } from './components/ProductCTA';
-import { QuoteCTA } from '@/components/sections/QuoteCTA';
 import { useQuoteModal } from '@/app/providers';
+import { ProductsHero } from './components/ProductsHero';
+import { ProductAdvantages } from './components/ProductAdvantages';
+import { ProductGrid } from './components/ProductGrid';
+import { ProductsCTA } from './components/ProductsCTA';
 
 interface ProductsProps {
   onOpenQuote?: (productName?: string) => void;
@@ -14,33 +14,32 @@ export const Products: React.FC<ProductsProps> = ({ onOpenQuote }) => {
   const navigate = useNavigate();
   const { openQuote } = useQuoteModal();
 
-  const handleRequestQuote = (product: ProductItem) => {
+  const handleOpenQuote = (productName?: string) => {
     if (onOpenQuote) {
-      onOpenQuote(product.name);
+      onOpenQuote(productName);
     } else if (openQuote) {
-      openQuote(product.name);
+      openQuote(productName);
     } else {
-      navigate(`/contact?product=${encodeURIComponent(product.name)}&mode=quote`);
+      navigate(`/contact?mode=quote${productName ? `&product=${encodeURIComponent(productName)}` : ''}`);
     }
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-warm-50 text-charcoal-900">
-      {/* 1. Full-Width 3D Interactive Showroom */}
-      <ProductShowcase3D
-        products={productsData}
-        onRequestQuote={handleRequestQuote}
-      />
+    <div className="flex flex-col min-h-screen bg-[#FAF2F4] text-[#211D20] selection:bg-[#80011F] selection:text-white">
+      {/* 1. Hero Section: Cinematic 3D Floating Apparel Showcase on Pedestal */}
+      <ProductsHero onExploreClick={() => {
+        const el = document.getElementById('our-products');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }} />
 
-      {/* 2. Custom Knits & Tech Pack CTA */}
-      <ProductCTA />
+      {/* 2. Key Advantages Horizontal Feature Strip */}
+      <ProductAdvantages />
 
-      {/* 3. Tiruppur Direct Factory Quote Banner */}
-      <QuoteCTA
-        title="Ready to Manufacture Your Custom Order?"
-        subtitle="Submit your requirements to receive sample swatches and transparent Tiruppur factory pricing within 24 hours."
-        onOpenQuote={() => (onOpenQuote ? onOpenQuote() : openQuote ? openQuote() : navigate('/contact?mode=quote'))}
-      />
+      {/* 3. Our Products: 5 Premium Fashion Category Cards with Models */}
+      <ProductGrid onRequestQuote={handleOpenQuote} />
+
+      {/* 4. Final CTA Section: Flowing Burgundy Banner with Folded Tees Stack */}
+      <ProductsCTA onOpenQuote={() => handleOpenQuote()} />
     </div>
   );
 };
