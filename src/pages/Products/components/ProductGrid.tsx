@@ -8,7 +8,7 @@ const CATEGORIES: CategoryCardData[] = [
     id: 'corporate',
     title: 'Corporate Wear',
     description: 'Polos, T-Shirts & Office Apparel',
-    image: '/assets/images/products/model-corporate.jpg',
+    image: '/assets/images/products/model-corporate.png',
     icon: Shirt,
     link: '/category/corporate',
   },
@@ -16,7 +16,7 @@ const CATEGORIES: CategoryCardData[] = [
     id: 'blank',
     title: 'Blank Apparel',
     description: 'T-Shirts, Polos, Hoodies & More',
-    image: '/assets/images/products/model-blank.jpg',
+    image: '/assets/images/products/model-blank.png',
     icon: Layers,
     link: '/category/blank',
   },
@@ -24,7 +24,7 @@ const CATEGORIES: CategoryCardData[] = [
     id: 'school',
     title: 'School & Institutional',
     description: 'Uniforms, T-Shirts & House Kits',
-    image: '/assets/images/products/model-school.jpg',
+    image: '/assets/images/products/model-school.png',
     icon: GraduationCap,
     link: '/category/school',
   },
@@ -32,19 +32,17 @@ const CATEGORIES: CategoryCardData[] = [
     id: 'promotional',
     title: 'Promotional & Events',
     description: 'Event Tees, Merchandise & Campaign Apparel',
-    image: '/assets/images/products/model-promotional.jpg',
+    image: '/assets/images/products/model-promotional.png',
     icon: Calendar,
     link: '/category/promotional',
-    isWide: true,
   },
   {
     id: 'sports',
     title: 'Sports for Academics',
     description: 'Jerseys, Sports Tees & Team Kits',
-    image: '/assets/images/products/model-sports.jpg',
+    image: '/assets/images/products/model-sports.png',
     icon: Trophy,
     link: '/category/sports',
-    isWide: true,
   },
 ];
 
@@ -62,26 +60,32 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ onRequestQuote }) => {
   return (
     <section
       id="our-products"
-      className="relative w-full py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-[#FAF2F4] via-[#FFFDFD] to-[#FAF2F4] select-none"
+      className="relative w-full py-16 sm:py-20 lg:py-28 bg-gradient-to-b from-[#FFFDFD] via-[#FAF3F5] to-[#FFFDFD] select-none overflow-hidden"
       aria-label="TeesZone Product Range"
     >
-      <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Background Soft Ambient Accents */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] bg-[#80011F]/[0.025] rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 -right-32 w-[550px] h-[550px] bg-[#80011F]/[0.03] rounded-full blur-3xl" />
+      </div>
+
+      <div className="relative z-10 max-w-[1260px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="text-center space-y-3 mb-12 sm:mb-16 max-w-2xl mx-auto"
         >
-          {/* Eyebrow Label with Accent Lines */}
+          {/* Eyebrow Label with Delicate Burgundy Accent Lines */}
           <div className="flex items-center justify-center gap-3">
-            <span className="w-8 h-[2px] bg-[#80011F]/30 rounded-full" />
+            <span className="w-8 h-[1.5px] bg-[#80011F]/35 rounded-full" />
             <span className="text-xs uppercase tracking-[0.25em] font-extrabold text-[#80011F]">
               OUR PRODUCTS
             </span>
-            <span className="w-8 h-[2px] bg-[#80011F]/30 rounded-full" />
+            <span className="w-8 h-[1.5px] bg-[#80011F]/35 rounded-full" />
           </div>
 
           {/* Main Headline */}
@@ -96,11 +100,11 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ onRequestQuote }) => {
           </p>
         </motion.div>
 
-        {/* Desktop Product Grid: Row 1 (3 cards) + Row 2 (2 centered cards) */}
-        <div className="space-y-6 sm:space-y-8">
+        {/* Editorial Product Cards Showcase */}
+        <div className="space-y-6 sm:space-y-7 lg:space-y-8">
           
-          {/* Row 1: 3 Columns on Large Displays */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {/* Row 1: Exactly 3 Equal Columns on Desktop */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 lg:gap-8 items-stretch">
             {row1.map((card, idx) => (
               <ProductCategoryCard
                 key={card.id}
@@ -111,11 +115,13 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ onRequestQuote }) => {
             ))}
           </div>
 
-          {/* Row 2: 2 Centered Columns on Large Displays */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 sm:gap-8">
-            <div className="hidden lg:block lg:col-span-1" />
+          {/* Row 2: Exactly 2 Centered Cards with Identical Width & Height to Row 1 */}
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-7 lg:gap-8">
             {row2.map((card, idx) => (
-              <div key={card.id} className="lg:col-span-5">
+              <div
+                key={card.id}
+                className="w-full sm:w-[calc(50%-14px)] lg:w-[calc((100%-2rem*2)/3)] flex"
+              >
                 <ProductCategoryCard
                   card={card}
                   index={3 + idx}
@@ -123,7 +129,6 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ onRequestQuote }) => {
                 />
               </div>
             ))}
-            <div className="hidden lg:block lg:col-span-1" />
           </div>
 
         </div>

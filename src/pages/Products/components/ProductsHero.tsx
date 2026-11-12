@@ -69,7 +69,8 @@ export const ProductsHero: React.FC<ProductsHeroProps> = ({ onExploreClick }) =>
           {/* Left Hero Content */}
           <motion.div
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.15 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="lg:col-span-5 text-left space-y-5 sm:space-y-6"
           >
@@ -111,7 +112,8 @@ export const ProductsHero: React.FC<ProductsHeroProps> = ({ onExploreClick }) =>
               transformStyle: 'preserve-3d',
             }}
             initial={{ opacity: 0, scale: 0.94 }}
-            animate={{ opacity: 1, scale: 1 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: false, amount: 0.15 }}
             transition={{ duration: 0.8, ease: 'easeOut', delay: 0.15 }}
             className="lg:col-span-7 relative flex items-center justify-center"
           >
@@ -160,3 +162,4 @@ export const ProductsHero: React.FC<ProductsHeroProps> = ({ onExploreClick }) =>
 };
 
 export default ProductsHero;
+

@@ -20,7 +20,7 @@ export const ProductsCTA: React.FC<ProductsCTAProps> = ({ onOpenQuote }) => {
         <motion.div
           initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.98 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.7, ease: 'easeOut' }}
           className="relative rounded-[36px] sm:rounded-[48px] overflow-hidden bg-gradient-to-r from-[#570016] via-[#80011F] to-[#570016] text-white p-8 sm:p-12 lg:p-16 shadow-[0_20px_50px_rgba(128,1,31,0.2)] border-2 border-white/40"
         >
@@ -90,3 +90,4 @@ export const ProductsCTA: React.FC<ProductsCTAProps> = ({ onOpenQuote }) => {
 };
 
 export default ProductsCTA;
+

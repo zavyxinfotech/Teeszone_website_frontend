@@ -1,0 +1,117 @@
+
+  <svg width="800" height="1060" viewBox="0 0 800 1060" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Base Background Gradient -->
+      <linearGradient id="baseBg" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FFFBF9" />
+        <stop offset="45%" stop-color="#FCF3F5" />
+        <stop offset="85%" stop-color="#F9EAEF" />
+        <stop offset="100%" stop-color="#F5E4EA" />
+      </linearGradient>
+
+      <!-- Upper Arch Fill Gradient -->
+      <linearGradient id="archFill" x1="50%" y1="0%" x2="50%" y2="100%">
+        <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9" />
+        <stop offset="40%" stop-color="#FDF2F4" stop-opacity="0.7" />
+        <stop offset="100%" stop-color="#F8E5EB" stop-opacity="0.3" />
+      </linearGradient>
+
+      <!-- Burgundy Wave Primary Gradient -->
+      <linearGradient id="burgundyWavePrimary" x1="20%" y1="10%" x2="90%" y2="90%">
+        <stop offset="0%" stop-color="#A51435" />
+        <stop offset="40%" stop-color="#80011F" />
+        <stop offset="85%" stop-color="#570016" />
+        <stop offset="100%" stop-color="#3D000F" />
+      </linearGradient>
+
+      <!-- Burgundy Wave Secondary Subtle Gradient -->
+      <linearGradient id="burgundyWaveSecondary" x1="10%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#C0264A" stop-opacity="0.35" />
+        <stop offset="60%" stop-color="#80011F" stop-opacity="0.25" />
+        <stop offset="100%" stop-color="#570016" stop-opacity="0.1" />
+      </linearGradient>
+
+      <!-- Soft Shadow for Wave -->
+      <filter id="waveShadow" x="-10%" y="-10%" width="130%" height="130%">
+        <feDropShadow dx="-4" dy="-6" stdDeviation="12" flood-color="#80011F" flood-opacity="0.18" />
+      </filter>
+
+      <!-- Ambient Glow for Arch -->
+      <radialGradient id="archGlow" cx="50%" cy="30%" r="60%">
+        <stop offset="0%" stop-color="#FFF0F3" stop-opacity="0.8" />
+        <stop offset="100%" stop-color="#F5E4EA" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+
+    <!-- Base Rounded Card Container -->
+    <rect width="800" height="1060" rx="64" fill="url(#baseBg)" />
+
+    <!-- Ambient Glow behind Model Area -->
+    <circle cx="400" cy="420" r="340" fill="url(#archGlow)" />
+
+    <!-- Upper Editorial Arched Shape Frame -->
+    <path d="M 120 70 
+             C 240 45, 560 45, 680 70 
+             C 740 85, 750 140, 750 240 
+             L 750 680 
+             C 750 740, 700 760, 640 760 
+             L 160 760 
+             C 100 760, 50 740, 50 680 
+             L 50 240 
+             C 50 140, 60 85, 120 70 Z" 
+          fill="url(#archFill)" 
+          stroke="#80011F" 
+          stroke-opacity="0.08" 
+          stroke-width="1.5" />
+
+    <!-- Secondary Soft Burgundy Wave (Back layer for depth) -->
+    <path d="M 520 380 
+             C 640 400, 760 470, 800 560 
+             L 800 860 
+             C 750 920, 660 920, 560 850 
+             C 480 790, 440 680, 460 540 
+             C 475 440, 490 400, 520 380 Z" 
+          fill="url(#burgundyWaveSecondary)" />
+
+    <!-- Primary Flowing Burgundy Wave (Sweeping from right shoulder down to lower-right) -->
+    <path d="M 570 460 
+             C 650 470, 750 540, 800 640 
+             L 800 1000 
+             C 800 1035, 775 1060, 740 1060 
+             L 580 1060 
+             C 520 1060, 460 990, 480 910 
+             C 500 830, 550 780, 540 700 
+             C 530 620, 510 560, 540 500 
+             C 548 480, 558 468, 570 460 Z" 
+          fill="url(#burgundyWavePrimary)" 
+          filter="url(#waveShadow)" />
+
+    <!-- Delicate White Highlight Curve Along Wave Edge -->
+    <path d="M 570 460 
+             C 650 470, 750 540, 800 640" 
+          stroke="#FFFFFF" 
+          stroke-width="3" 
+          stroke-linecap="round" 
+          stroke-opacity="0.6" />
+
+    <!-- Second Delicate Highlight Ribbon -->
+    <path d="M 540 500 
+             C 510 560, 530 620, 540 700 
+             C 550 780, 500 830, 480 910" 
+          stroke="#FFFFFF" 
+          stroke-width="2" 
+          stroke-linecap="round" 
+          stroke-opacity="0.35" />
+
+    <!-- Subtle Golden-Burgundy Ambient Rim Light -->
+    <path d="M 600 480 
+             C 690 520, 770 600, 796 680" 
+          stroke="#FFA5B5" 
+          stroke-width="1.5" 
+          stroke-linecap="round" 
+          stroke-opacity="0.5" />
+
+    <!-- Soft Border on Card Edge -->
+    <rect width="800" height="1060" rx="64" fill="none" stroke="#80011F" stroke-opacity="0.12" stroke-width="2" />
+  </svg>
+  

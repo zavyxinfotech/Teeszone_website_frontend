@@ -33,7 +33,7 @@ export const ProductAdvantages: React.FC = () => {
       <motion.div
         initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
         className="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl p-5 sm:p-7 shadow-[0_10px_30px_rgba(128,1,31,0.06)] border border-gray-100"
       >
@@ -70,3 +70,4 @@ export const ProductAdvantages: React.FC = () => {
 };
 
 export default ProductAdvantages;
+
