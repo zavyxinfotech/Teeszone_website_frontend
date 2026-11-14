@@ -319,9 +319,9 @@ export const TeamSection: React.FC = () => {
             </svg>
           </div>
 
-          {/* Bottom-Left Corner Burgundy Gradient Wave Swoosh */}
-          <div className="absolute bottom-0 left-0 w-72 sm:w-96 lg:w-[460px] h-72 sm:h-96 lg:h-[460px] opacity-90">
-            <svg viewBox="0 0 460 460" className="w-full h-full" fill="none">
+          {/* Bottom-Left Corner Burgundy Gradient Wave Swoosh - Decreased Height */}
+          <div className="absolute bottom-0 left-0 w-64 sm:w-80 lg:w-[420px] h-24 sm:h-32 lg:h-40 opacity-85">
+            <svg viewBox="0 0 420 160" className="w-full h-full" fill="none" preserveAspectRatio="none">
               <defs>
                 <linearGradient id="waveBottomLeftGrad" x1="0%" y1="100%" x2="100%" y2="0%">
                   <stop offset="0%" stopColor="#80011F" stopOpacity="0.9" />
@@ -329,11 +329,11 @@ export const TeamSection: React.FC = () => {
                 </linearGradient>
               </defs>
               <path
-                d="M0 300C150 270 240 370 370 460H0V300Z"
+                d="M0 50C140 40 240 100 420 160H0V50Z"
                 fill="url(#waveBottomLeftGrad)"
               />
               <path
-                d="M0 370C100 350 170 400 250 460H0V370Z"
+                d="M0 95C100 90 180 125 280 160H0V95Z"
                 fill="#9E1438"
                 fillOpacity="0.45"
               />
