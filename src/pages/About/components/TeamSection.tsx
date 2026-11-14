@@ -91,52 +91,57 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
       }}
       className="relative flex flex-col items-center cursor-pointer group text-center select-none"
     >
-      {/* 1. Organic Blob Frame Container */}
+      {/* 1. Organic Blob Frame Container - Enlarged Frame Size */}
       <div
         className={`relative flex items-center justify-center w-full mx-auto ${
           isMobile
-            ? 'h-[140px] xs:h-[160px] max-w-[150px]'
-            : 'h-[220px] lg:h-[260px] xl:h-[280px] max-w-[240px]'
+            ? 'h-[160px] xs:h-[180px] max-w-[170px]'
+            : 'h-[250px] lg:h-[285px] xl:h-[310px] max-w-[270px] lg:max-w-[290px]'
         }`}
       >
-        {/* Normal Standard Frame: Dual-layer blush pink & burgundy blob */}
+        {/* Normal Standard Frame: Dual-layer blush pink & burgundy blob (Enlarged) */}
         <motion.img
           src="/assets/images/team/blob-dual.png"
           alt="Organic Frame"
           animate={{ opacity: isActive ? 0 : 1 }}
           transition={{ duration: 0.4 }}
-          className="absolute inset-0 w-full h-full object-contain pointer-events-none select-none"
+          className="absolute inset-0 w-full h-full object-contain pointer-events-none select-none scale-[1.18] sm:scale-[1.22]"
         />
 
-        {/* Active Frame: Deep burgundy gradient blob */}
+        {/* Active Frame: Deep burgundy gradient blob (Enlarged) */}
         <motion.img
           src="/assets/images/team/blob-active-ring.png"
           alt="Active Frame"
           animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: 0.4 }}
-          className="absolute inset-0 w-full h-full object-contain pointer-events-none select-none drop-shadow-[0_15px_30px_rgba(128,1,31,0.28)]"
+          className="absolute inset-0 w-full h-full object-contain pointer-events-none select-none scale-[1.18] sm:scale-[1.22] drop-shadow-[0_18px_35px_rgba(128,1,31,0.32)]"
         />
 
-        {/* Continuous Rotating 3D Glowing Orbit Ring for Active Portrait */}
+        {/* Centered Glowing Rotating Orbit Ring - Aligned Directly Around the Image */}
         {isActive && !shouldReduceMotion && (
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20 overflow-visible">
-            {/* Outer Glowing Light Ring with 3D Perspective Tilt and Smooth Rotation */}
             <div
-              className="absolute w-[120%] h-[48%] rounded-[50%] border-[3.5px] border-[#FFE4EB] shadow-[0_0_15px_rgba(255,185,200,0.95),0_0_35px_rgba(128,1,31,0.7),inset_0_0_10px_rgba(255,220,230,0.6)] animate-spin-orbit"
+              className="w-[112%] sm:w-[116%] h-[40%] sm:h-[44%] rounded-[50%] border-[3.5px] border-[#FFE4EB] shadow-[0_0_16px_rgba(255,185,200,0.95),0_0_35px_rgba(128,1,31,0.7),inset_0_0_10px_rgba(255,220,230,0.6)] animate-spin-orbit"
               style={{
-                transform: 'rotateX(72deg) rotateY(-18deg)',
+                transform: 'rotateX(70deg) rotateY(-18deg)',
               }}
             />
           </div>
         )}
 
-        {/* Team Member Cutout Photograph properly positioned inside/over the blob */}
-        <div className="relative w-full h-full flex items-end justify-center z-10 overflow-hidden">
+        {/* Team Member Cutout Photograph - Decreased Height with Organic Wavy Bottom Curve */}
+        <div
+          className="relative w-full h-full flex items-end justify-center z-10 overflow-hidden"
+          style={{
+            WebkitMaskImage: 'radial-gradient(125% 92% at 50% 12%, black 76%, transparent 92%)',
+            maskImage: 'radial-gradient(125% 92% at 50% 12%, black 76%, transparent 92%)',
+          }}
+        >
           <img
             src={member.image}
             alt={member.name}
             className={`object-contain object-bottom transition-transform duration-500 ${
-              isMobile ? 'h-[92%] max-w-[90%]' : 'h-[94%] max-w-[92%]'
+              isMobile ? 'h-[78%] max-w-[85%]' : 'h-[75%] lg:h-[78%] max-w-[86%]'
             } ${isActive ? 'scale-105' : 'group-hover:scale-103'}`}
             loading="eager"
           />
