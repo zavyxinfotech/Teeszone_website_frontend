@@ -1,6 +1,7 @@
 import React from 'react';
 import { GalleryHeroCinematic } from './components/GalleryHeroCinematic';
 import { ManufacturingShowcase3D } from './components/ManufacturingShowcase3D';
+import { ClientReviews3DGallery } from './components/ClientReviews3DGallery';
 import { GalleryPortfolioGrid } from './components/GalleryPortfolioGrid';
 
 interface GalleryProps {
@@ -13,10 +14,13 @@ export const Gallery: React.FC<GalleryProps> = ({ onOpenQuote }) => {
       {/* 1. Full-Screen Cinematic Opening Hero Section with Image 1 */}
       <GalleryHeroCinematic />
 
-      {/* 2. Premium 3D Manufacturing Showcase with Vertical Flip Card Animation & SEO Content */}
-      <ManufacturingShowcase3D />
+      {/* 2. Premium 3D Manufacturing Showcase with Horizontal Image-Focus Animation & SEO Content */}
+      <ManufacturingShowcase3D onOpenQuote={onOpenQuote} />
 
-      {/* 3. Clean Light-Coloured Portfolio Grid & Archive Panel */}
+      {/* 3. Dedicated 3D Rotating Client Reviews Gallery with All 30 Genuine Reviews */}
+      <ClientReviews3DGallery onOpenQuote={onOpenQuote} />
+
+      {/* 4. Clean Light-Coloured Portfolio Grid & Archive Panel */}
       <GalleryPortfolioGrid onOpenQuote={onOpenQuote} />
     </div>
   );

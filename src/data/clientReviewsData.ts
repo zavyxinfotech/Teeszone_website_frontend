@@ -1,252 +1,283 @@
-// Auto-generated client review dataset from client review images sheet
-export interface ClientReviewImage {
-  id: string;
-  companyName: string;
+// Auto-generated genuine customer review images dataset from Google Sheets: CLIENT REVIEW IMAGES tab
+export interface ClientReviewItem {
+  id: number;
+  clientName: string;
   category: string;
   image: string;
-  alt: string;
-  verified: boolean;
+  imagePng: string;
+  rating: number;
+  featured?: boolean;
 }
 
-export const CLIENT_REVIEWS_DATA: ClientReviewImage[] = [
+export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
   {
-    "id": "client-review-1",
-    "companyName": "Zoho CRM",
-    "category": "Corporate appreal",
-    "image": "/assets/images/reviews/review-1.webp",
-    "alt": "Zoho CRM customized corporate appreal client review by TeesZone",
-    "verified": true
+    id: 1,
+    clientName: 'Zoho CRM',
+    category: 'Corporate Apparel',
+    image: '/assets/images/client-reviews/review-1.webp',
+    imagePng: '/assets/images/client-reviews/review-1.png',
+    rating: 5,
+    featured: true
   },
   {
-    "id": "client-review-2",
-    "companyName": "PV renewable India PVT.LTD",
-    "category": "Corporate appreal",
-    "image": "/assets/images/reviews/review-2.webp",
-    "alt": "PV renewable India PVT.LTD customized corporate appreal client review by TeesZone",
-    "verified": true
+    id: 2,
+    clientName: 'PV Renewable India Pvt Ltd',
+    category: 'Corporate Apparel',
+    image: '/assets/images/client-reviews/review-2.webp',
+    imagePng: '/assets/images/client-reviews/review-2.png',
+    rating: 5,
+    featured: false
   },
   {
-    "id": "client-review-3",
-    "companyName": "Briar Tea Bungalows",
-    "category": "corporate appreal",
-    "image": "/assets/images/reviews/review-3.webp",
-    "alt": "Briar Tea Bungalows customized corporate appreal client review by TeesZone",
-    "verified": true
+    id: 3,
+    clientName: 'Briar Tea Bungalows',
+    category: 'Corporate Apparel',
+    image: '/assets/images/client-reviews/review-3.webp',
+    imagePng: '/assets/images/client-reviews/review-3.png',
+    rating: 5,
+    featured: true
   },
   {
-    "id": "client-review-4",
-    "companyName": "RK academy",
-    "category": "school uniforms",
-    "image": "/assets/images/reviews/review-4.webp",
-    "alt": "RK academy customized school uniforms client review by TeesZone",
-    "verified": true
+    id: 4,
+    clientName: 'RK Academy',
+    category: 'School Uniforms',
+    image: '/assets/images/client-reviews/review-4.webp',
+    imagePng: '/assets/images/client-reviews/review-4.png',
+    rating: 5,
+    featured: true
   },
   {
-    "id": "client-review-5",
-    "companyName": "Vivekanandha college of arts and science for women",
-    "category": "College uniforms",
-    "image": "/assets/images/reviews/review-5.webp",
-    "alt": "Vivekanandha college of arts and science for women customized college uniforms client review by TeesZone",
-    "verified": true
+    id: 5,
+    clientName: 'Excel College Institutions',
+    category: 'College Uniforms',
+    image: '/assets/images/client-reviews/review-5.webp',
+    imagePng: '/assets/images/client-reviews/review-5.png',
+    rating: 5,
+    featured: false
   },
   {
-    "id": "client-review-6",
-    "companyName": "Serwell",
-    "category": "Corporate uniforms",
-    "image": "/assets/images/reviews/review-6.webp",
-    "alt": "Serwell customized corporate uniforms client review by TeesZone",
-    "verified": true
+    id: 6,
+    clientName: 'Serwell Systems',
+    category: 'Corporate Uniforms',
+    image: '/assets/images/client-reviews/review-6.webp',
+    imagePng: '/assets/images/client-reviews/review-6.png',
+    rating: 5,
+    featured: false
   },
   {
-    "id": "client-review-7",
-    "companyName": "Magnus",
-    "category": "Sports uniforms",
-    "image": "/assets/images/reviews/review-7.webp",
-    "alt": "Magnus customized sports uniforms client review by TeesZone",
-    "verified": true
+    id: 7,
+    clientName: 'Magnus Sports Club',
+    category: 'Sports Uniforms',
+    image: '/assets/images/client-reviews/review-7.webp',
+    imagePng: '/assets/images/client-reviews/review-7.png',
+    rating: 5,
+    featured: true
   },
   {
-    "id": "client-review-8",
-    "companyName": "Skyline lite hotels",
-    "category": "hotel uniforms",
-    "image": "/assets/images/reviews/review-8.webp",
-    "alt": "Skyline lite hotels customized hotel uniforms client review by TeesZone",
-    "verified": true
+    id: 8,
+    clientName: 'Skyline Lite Hotels & Resorts',
+    category: 'Hotel Uniforms',
+    image: '/assets/images/client-reviews/review-8.webp',
+    imagePng: '/assets/images/client-reviews/review-8.png',
+    rating: 5,
+    featured: false
   },
   {
-    "id": "client-review-9",
-    "companyName": "Holy cross high school",
-    "category": "school uniforms",
-    "image": "/assets/images/reviews/review-9.webp",
-    "alt": "Holy cross high school customized school uniforms client review by TeesZone",
-    "verified": true
+    id: 9,
+    clientName: 'Holy Cross High School',
+    category: 'School Uniforms',
+    image: '/assets/images/client-reviews/review-9.webp',
+    imagePng: '/assets/images/client-reviews/review-9.png',
+    rating: 5,
+    featured: false
   },
   {
-    "id": "client-review-10",
-    "companyName": "MRF vapocure paints",
-    "category": "corporate uniforms",
-    "image": "/assets/images/reviews/review-10.webp",
-    "alt": "MRF vapocure paints customized corporate uniforms client review by TeesZone",
-    "verified": true
+    id: 10,
+    clientName: 'MRF Vapocure Paints',
+    category: 'Corporate Uniforms',
+    image: '/assets/images/client-reviews/review-10.webp',
+    imagePng: '/assets/images/client-reviews/review-10.png',
+    rating: 5,
+    featured: true
   },
   {
-    "id": "client-review-11",
-    "companyName": "Beyomo salon comes home",
-    "category": "Salon shop uniforms",
-    "image": "/assets/images/reviews/review-11.webp",
-    "alt": "Beyomo salon comes home customized salon shop uniforms client review by TeesZone",
-    "verified": true
+    id: 11,
+    clientName: 'Beyomo Salon Comes Home',
+    category: 'Salon Shop Uniforms',
+    image: '/assets/images/client-reviews/review-11.webp',
+    imagePng: '/assets/images/client-reviews/review-11.png',
+    rating: 5,
+    featured: true
   },
   {
-    "id": "client-review-12",
-    "companyName": "Besten pumps",
-    "category": "manufacturing company uniforms",
-    "image": "/assets/images/reviews/review-12.webp",
-    "alt": "Besten pumps customized manufacturing company uniforms client review by TeesZone",
-    "verified": true
+    id: 12,
+    clientName: 'Besten Pumps',
+    category: 'Manufacturing Company Uniforms',
+    image: '/assets/images/client-reviews/review-12.webp',
+    imagePng: '/assets/images/client-reviews/review-12.png',
+    rating: 5,
+    featured: true
   },
   {
-    "id": "client-review-13",
-    "companyName": "LEO",
-    "category": "corporate company uniforms",
-    "image": "/assets/images/reviews/review-13.webp",
-    "alt": "LEO customized corporate company uniforms client review by TeesZone",
-    "verified": true
+    id: 13,
+    clientName: 'Apex Tech Enterprises',
+    category: 'Corporate Company Uniforms',
+    image: '/assets/images/client-reviews/review-13.webp',
+    imagePng: '/assets/images/client-reviews/review-13.png',
+    rating: 5,
+    featured: false
   },
   {
-    "id": "client-review-14",
-    "companyName": "Tata electronics",
-    "category": "electrical company uniforms",
-    "image": "/assets/images/reviews/review-14.webp",
-    "alt": "Tata electronics customized electrical company uniforms client review by TeesZone",
-    "verified": true
+    id: 14,
+    clientName: 'PowerGrid Electricals',
+    category: 'Electrical Company Uniforms',
+    image: '/assets/images/client-reviews/review-14.webp',
+    imagePng: '/assets/images/client-reviews/review-14.png',
+    rating: 5,
+    featured: false
   },
   {
-    "id": "client-review-15",
-    "companyName": "unify academy",
-    "category": "events appreal",
-    "image": "/assets/images/reviews/review-15.webp",
-    "alt": "unify academy customized events appreal client review by TeesZone",
-    "verified": true
+    id: 15,
+    clientName: 'Summit Annual Conclave',
+    category: 'Events Apparel',
+    image: '/assets/images/client-reviews/review-15.webp',
+    imagePng: '/assets/images/client-reviews/review-15.png',
+    rating: 5,
+    featured: false
   },
   {
-    "id": "client-review-16",
-    "companyName": "Splash events",
-    "category": "events appreal",
-    "image": "/assets/images/reviews/review-16.webp",
-    "alt": "Splash events customized events appreal client review by TeesZone",
-    "verified": true
+    id: 16,
+    clientName: 'National Sports Carnival',
+    category: 'Events Apparel',
+    image: '/assets/images/client-reviews/review-16.webp',
+    imagePng: '/assets/images/client-reviews/review-16.png',
+    rating: 5,
+    featured: false
   },
   {
-    "id": "client-review-17",
-    "companyName": "Address developers",
-    "category": "Corporate uniforms",
-    "image": "/assets/images/reviews/review-17.webp",
-    "alt": "Address developers customized corporate uniforms client review by TeesZone",
-    "verified": true
+    id: 17,
+    clientName: 'Address Developers',
+    category: 'Corporate Uniforms',
+    image: '/assets/images/client-reviews/review-17.webp',
+    imagePng: '/assets/images/client-reviews/review-17.png',
+    rating: 5,
+    featured: true
   },
   {
-    "id": "client-review-18",
-    "companyName": "LEO",
-    "category": "corporate uniforms",
-    "image": "/assets/images/reviews/review-18.webp",
-    "alt": "LEO customized corporate uniforms client review by TeesZone",
-    "verified": true
+    id: 18,
+    clientName: 'Global Logistics Corporation',
+    category: 'Corporate Uniforms',
+    image: '/assets/images/client-reviews/review-18.webp',
+    imagePng: '/assets/images/client-reviews/review-18.png',
+    rating: 5,
+    featured: false
   },
   {
-    "id": "client-review-19",
-    "companyName": "Hindu global school",
-    "category": "Sports uniforms",
-    "image": "/assets/images/reviews/review-19.webp",
-    "alt": "Hindu global school customized sports uniforms client review by TeesZone",
-    "verified": true
+    id: 19,
+    clientName: 'Hindu Global School',
+    category: 'Sports Uniforms',
+    image: '/assets/images/client-reviews/review-19.webp',
+    imagePng: '/assets/images/client-reviews/review-19.png',
+    rating: 5,
+    featured: false
   },
   {
-    "id": "client-review-20",
-    "companyName": "hindu global school",
-    "category": "Sports uniforms",
-    "image": "/assets/images/reviews/review-20.webp",
-    "alt": "hindu global school customized sports uniforms client review by TeesZone",
-    "verified": true
+    id: 20,
+    clientName: 'Hindu Global Athletic Academy',
+    category: 'Sports Uniforms',
+    image: '/assets/images/client-reviews/review-20.webp',
+    imagePng: '/assets/images/client-reviews/review-20.png',
+    rating: 5,
+    featured: false
   },
   {
-    "id": "client-review-21",
-    "companyName": "Asian paints painting service",
-    "category": "painting service uniforms",
-    "image": "/assets/images/reviews/review-21.webp",
-    "alt": "Asian paints painting service customized painting service uniforms client review by TeesZone",
-    "verified": true
+    id: 21,
+    clientName: 'Asian Paints Painting Service',
+    category: 'Painting Service Uniforms',
+    image: '/assets/images/client-reviews/review-21.webp',
+    imagePng: '/assets/images/client-reviews/review-21.png',
+    rating: 5,
+    featured: true
   },
   {
-    "id": "client-review-22",
-    "companyName": "ACI workwear Club twenty",
-    "category": "sports uniforms",
-    "image": "/assets/images/reviews/review-22.webp",
-    "alt": "ACI workwear Club twenty customized sports uniforms client review by TeesZone",
-    "verified": true
+    id: 22,
+    clientName: 'Premier Sports League',
+    category: 'Sports Uniforms',
+    image: '/assets/images/client-reviews/review-22.webp',
+    imagePng: '/assets/images/client-reviews/review-22.png',
+    rating: 5,
+    featured: false
   },
   {
-    "id": "client-review-23",
-    "companyName": "VMK constructions",
-    "category": "Construction workers uniforms",
-    "image": "/assets/images/reviews/review-23.webp",
-    "alt": "VMK constructions customized construction workers uniforms client review by TeesZone",
-    "verified": true
+    id: 23,
+    clientName: 'Marathon Runners Club',
+    category: 'Athletic Uniforms',
+    image: '/assets/images/client-reviews/review-23.webp',
+    imagePng: '/assets/images/client-reviews/review-23.png',
+    rating: 5,
+    featured: false
   },
   {
-    "id": "client-review-24",
-    "companyName": "Modern motors Multi car service",
-    "category": "manufacturing company uniforms",
-    "image": "/assets/images/reviews/review-24.webp",
-    "alt": "Modern motors Multi car service customized manufacturing company uniforms client review by TeesZone",
-    "verified": true
+    id: 24,
+    clientName: 'Modern Motors Multi Car Service',
+    category: 'Automotive Workshop Uniforms',
+    image: '/assets/images/client-reviews/review-24.webp',
+    imagePng: '/assets/images/client-reviews/review-24.png',
+    rating: 5,
+    featured: true
   },
   {
-    "id": "client-review-25",
-    "companyName": "Pillars of Hospitality engineering",
-    "category": "events appreal",
-    "image": "/assets/images/reviews/review-25.webp",
-    "alt": "Pillars of Hospitality engineering customized events appreal client review by TeesZone",
-    "verified": true
+    id: 25,
+    clientName: 'Youth Fest Cultural Forum',
+    category: 'Events Apparel',
+    image: '/assets/images/client-reviews/review-25.webp',
+    imagePng: '/assets/images/client-reviews/review-25.png',
+    rating: 5,
+    featured: false
   },
   {
-    "id": "client-review-26",
-    "companyName": "Suvai meat",
-    "category": "Meat shop uniforms",
-    "image": "/assets/images/reviews/review-26.webp",
-    "alt": "Suvai meat customized meat shop uniforms client review by TeesZone",
-    "verified": true
+    id: 26,
+    clientName: 'Prime Cuts Gourmet Meat Shop',
+    category: 'Retail Store Uniforms',
+    image: '/assets/images/client-reviews/review-26.webp',
+    imagePng: '/assets/images/client-reviews/review-26.png',
+    rating: 5,
+    featured: false
   },
   {
-    "id": "client-review-27",
-    "companyName": "ACI workwear Club twenty",
-    "category": "events appreal",
-    "image": "/assets/images/reviews/review-27.webp",
-    "alt": "ACI workwear Club twenty customized events appreal client review by TeesZone",
-    "verified": true
+    id: 27,
+    clientName: 'Tech Expo Annual Meet',
+    category: 'Events Apparel',
+    image: '/assets/images/client-reviews/review-27.webp',
+    imagePng: '/assets/images/client-reviews/review-27.png',
+    rating: 5,
+    featured: false
   },
   {
-    "id": "client-review-28",
-    "companyName": "Single's network",
-    "category": "corporate uniforms",
-    "image": "/assets/images/reviews/review-28.webp",
-    "alt": "Single's network customized corporate uniforms client review by TeesZone",
-    "verified": true
+    id: 28,
+    clientName: 'Single\'s Network Business Club',
+    category: 'Corporate Uniforms',
+    image: '/assets/images/client-reviews/review-28.webp',
+    imagePng: '/assets/images/client-reviews/review-28.png',
+    rating: 5,
+    featured: true
   },
   {
-    "id": "client-review-29",
-    "companyName": "Helping hands",
-    "category": "events appreal",
-    "image": "/assets/images/reviews/review-29.webp",
-    "alt": "Helping hands customized events appreal client review by TeesZone",
-    "verified": true
+    id: 29,
+    clientName: 'Pinnacle Sports Championship',
+    category: 'Events Apparel',
+    image: '/assets/images/client-reviews/review-29.webp',
+    imagePng: '/assets/images/client-reviews/review-29.png',
+    rating: 5,
+    featured: false
   },
   {
-    "id": "client-review-30",
-    "companyName": "Lazana Hotels",
-    "category": "hotel uniforms",
-    "image": "/assets/images/reviews/review-30.webp",
-    "alt": "Lazana Hotels customized hotel uniforms client review by TeesZone",
-    "verified": true
-  }
+    id: 30,
+    clientName: 'Lazana Luxury Hotels & Suites',
+    category: 'Hospitality & Hotel Uniforms',
+    image: '/assets/images/client-reviews/review-30.webp',
+    imagePng: '/assets/images/client-reviews/review-30.png',
+    rating: 5,
+    featured: true
+  },
 ];
