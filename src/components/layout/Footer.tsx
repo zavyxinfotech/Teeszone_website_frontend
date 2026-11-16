@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { navigationLinks, companyContact } from '@/data/navigation';
 import { productsData } from '@/data/products';
-import { MapPin, Phone, Mail, ArrowUp } from 'lucide-react';
+import { MapPin, Phone, Mail, ArrowUp, Heart } from 'lucide-react';
 
 const InstagramIcon: React.FC<{ className?: string }> = ({ className = 'w-4 h-4' }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -165,8 +165,24 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar (Centered on mobile, split on sm+) */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-charcoal-500 gap-4 text-center sm:text-left">
-          <p className="text-center sm:text-left">{companyContact.copyright}</p>
+        <div className="pt-6 flex flex-col lg:flex-row items-center justify-between text-xs text-charcoal-500 gap-4 text-center sm:text-left">
+          <div className="flex flex-col sm:flex-row items-center gap-1.5 sm:gap-2">
+            <p className="text-center sm:text-left">{companyContact.copyright}</p>
+            <span className="hidden sm:inline text-charcoal-300">|</span>
+            <p className="flex items-center justify-center gap-1 text-charcoal-500">
+              <span>Developed with</span>
+              <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500 inline" aria-label="love" />
+              <span>By</span>
+              <a
+                href="https://zavyx.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#002B5B] hover:text-[#001D3D] font-mono font-bold tracking-wider hover:underline transition-colors ml-0.5"
+              >
+                ZAVYX InfoTech
+              </a>
+            </p>
+          </div>
           <div className="flex items-center justify-center gap-6">
             <button
               onClick={() => alert('TeesZone guarantees the confidentiality of all client artwork, tech packs, and customer orders.')}

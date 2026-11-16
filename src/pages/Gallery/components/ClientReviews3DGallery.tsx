@@ -50,9 +50,7 @@ const FiveStarRating = () => (
   </div>
 );
 
-// Alternating / Staggered Modular Grid Slot definitions strictly matching Image 2:
-// 4 columns x 3 rows grid
-// Empty cells at (Col 3, Row 1) and (Col 2, Row 2) are filled with the TeesZone watermark logo!
+// 4 columns x 3 rows grid - All 12 slots filled with review cards (No watermark logos)
 interface StaggeredSlot {
   col: number; // 1 to 4
   row: number; // 1 to 3
@@ -60,13 +58,15 @@ interface StaggeredSlot {
 }
 
 const RIGHT_GRID_SLOTS: StaggeredSlot[] = [
-  // Row 1: Col 1, Col 2, [Col 3 is Watermark 1], Col 4
+  // Row 1: Col 1, Col 2, Col 3, Col 4
   { col: 1, row: 1, reviewIndex: 0 }, // Zoho CRM
   { col: 2, row: 1, reviewIndex: 1 }, // PV Renewable India
+  { col: 3, row: 1, reviewIndex: 10 }, // Top client 11
   { col: 4, row: 1, reviewIndex: 2 }, // Briar Tea Bungalows
 
-  // Row 2: Col 1, [Col 2 is Watermark 2], Col 3, Col 4
+  // Row 2: Col 1, Col 2, Col 3, Col 4
   { col: 1, row: 2, reviewIndex: 3 }, // RK Academy
+  { col: 2, row: 2, reviewIndex: 11 }, // Top client 12
   { col: 3, row: 2, reviewIndex: 4 }, // Excel College Institutions
   { col: 4, row: 2, reviewIndex: 5 }, // Serwell Systems
 
@@ -212,15 +212,21 @@ export const ClientReviews3DGallery: React.FC<ClientReviews3DGalleryProps> = () 
                 </div>
               </div>
 
-              {/* RIGHT SIDE: Staggered Image Grid with TeesZone Watermark Logos in the Empty Slots */}
+              {/* RIGHT SIDE: 4-Col x 3-Row Image Grid with Dynamic Scroll-Driven Parallax Animations */}
               <div className="lg:col-span-7 w-full">
                 {/* Desktop 4-Col x 3-Row Alternating Staggered Mosaic */}
-                <div className="hidden sm:grid grid-cols-4 grid-rows-3 gap-2.5 xl:gap-3 w-full h-[480px] max-h-[66vh]">
-                  
-                  {/* Review Cards (Sharp Edges, rounded-none, border-0) */}
+                <div
+                  className="hidden sm:grid grid-cols-4 grid-rows-3 gap-2.5 xl:gap-3 w-full h-[480px] max-h-[66vh]"
+                  style={{ perspective: '1000px', transformStyle: 'preserve-3d' }}
+                >
+                  {/* All 12 Review Cards with Scroll-Responsive 3D Parallax */}
                   {RIGHT_GRID_SLOTS.map((slot, idx) => {
                     const review = CLIENT_REVIEWS_DATA[slot.reviewIndex];
                     if (!review) return null;
+
+                    // Scroll animation effect: odd columns shift up, even columns shift down as user scrolls
+                    const colParallax = (slot.col % 2 === 0 ? 1 : -1) * (scrollVal * 90);
+                    const rotateY = (slot.col - 2.5) * -3 * (1 + scrollVal * 2);
 
                     return (
                       <motion.div
@@ -228,10 +234,12 @@ export const ClientReviews3DGallery: React.FC<ClientReviews3DGalleryProps> = () 
                         style={{
                           gridColumnStart: slot.col,
                           gridRowStart: slot.row,
+                          transform: `translate3d(0, ${colParallax}px, 0) rotateY(${rotateY}deg)`,
+                          transformStyle: 'preserve-3d',
                         }}
-                        whileHover={{ scale: 1.04 }}
+                        whileHover={{ scale: 1.05, zIndex: 10 }}
                         onClick={() => setSelectedReview(review)}
-                        className="relative w-full h-full overflow-hidden bg-black shadow-[0_6px_20px_rgba(0,0,0,0.18)] cursor-pointer group rounded-none border-0 p-0"
+                        className="relative w-full h-full overflow-hidden bg-black shadow-[0_6px_20px_rgba(0,0,0,0.18)] cursor-pointer group rounded-none border-0 p-0 transition-all duration-300"
                       >
                         <img
                           src={review.image}
@@ -254,35 +262,6 @@ export const ClientReviews3DGallery: React.FC<ClientReviews3DGalleryProps> = () 
                       </motion.div>
                     );
                   })}
-
-                  {/* WATERMARK 1: TeesZone Emblem in Empty Slot (Col 3, Row 1) */}
-                  <div
-                    style={{ gridColumnStart: 3, gridRowStart: 1 }}
-                    className="relative w-full h-full flex flex-col items-center justify-center bg-white/40 border border-[#80011F]/10 p-4 select-none pointer-events-none rounded-none shadow-xs"
-                    aria-hidden="true"
-                  >
-                    <img
-                      src="/assets/logo/teeszone-emblem.png"
-                      alt="TeesZone watermark emblem"
-                      className="w-16 h-16 xl:w-20 xl:h-20 object-contain opacity-25 filter grayscale contrast-125"
-                    />
-                    <span className="text-[10px] font-heading font-black tracking-widest text-[#80011F]/35 uppercase mt-1">
-                      TEESZONE
-                    </span>
-                  </div>
-
-                  {/* WATERMARK 2: TeesZone Brand Logo in Empty Slot (Col 2, Row 2) */}
-                  <div
-                    style={{ gridColumnStart: 2, gridRowStart: 2 }}
-                    className="relative w-full h-full flex flex-col items-center justify-center bg-white/40 border border-[#80011F]/10 p-4 select-none pointer-events-none rounded-none shadow-xs"
-                    aria-hidden="true"
-                  >
-                    <img
-                      src="/assets/logo/teeszone-logo.png"
-                      alt="TeesZone watermark logo"
-                      className="w-28 sm:w-32 object-contain opacity-25 filter contrast-125"
-                    />
-                  </div>
                 </div>
 
                 {/* Mobile View Grid */}

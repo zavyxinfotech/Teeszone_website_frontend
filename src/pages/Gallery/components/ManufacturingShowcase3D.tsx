@@ -308,7 +308,7 @@ export const ManufacturingShowcase3D: React.FC<ManufacturingShowcase3DProps> = (
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -15 }}
                     transition={{ duration: 0.35 }}
-                    className="w-full bg-white rounded-[26px] overflow-hidden border border-[#80011F]/15 shadow-lg p-5 flex flex-col justify-between"
+                    className="w-full bg-transparent border-0 shadow-none p-1 flex flex-col justify-between"
                   >
                     {/* Top: Fluid Organic Blob Image Frame */}
                     <div className="w-full aspect-[4/3] max-h-[220px] animate-fluid-blob overflow-hidden bg-neutral-200 mb-4 shadow-md border-2 border-white/80 mx-auto">
@@ -329,8 +329,8 @@ export const ManufacturingShowcase3D: React.FC<ManufacturingShowcase3DProps> = (
                       </p>
                     </div>
 
-                    {/* Action Bar */}
-                    <div className="flex items-center justify-between pt-2 border-t border-neutral-100">
+                    {/* Action Bar without card count indicator */}
+                    <div className="flex items-center justify-start pt-2">
                       <button
                         onClick={handleCtaClick}
                         className="inline-flex items-center gap-1.5 text-xs font-heading font-black text-[#80011F]"
@@ -338,9 +338,6 @@ export const ManufacturingShowcase3D: React.FC<ManufacturingShowcase3DProps> = (
                         <span>Request a Quote</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
-                      <span className="text-xs font-heading font-bold text-[#68616A]">
-                        {index + 1} / 3
-                      </span>
                     </div>
                   </motion.div>
                 );
