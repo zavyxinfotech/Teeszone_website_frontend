@@ -37,7 +37,7 @@ const heroTrustFeatures = [
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
   return (
-    <section className="relative w-full overflow-hidden bg-[#FAF6F2]">
+    <section className="relative w-full overflow-hidden bg-[#FAF6F4]">
       {/* =========================================================================
           DESKTOP HERO VIEW (md:flex, hidden on mobile)
           - Warm luxury cream background styling with flowing organic backdrop curves
@@ -46,14 +46,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
           - All 5 workers' "YOUR LOGO HERE" text 100% visible, NOT hidden by the building
           - "One Brand Every Sector" text positioned in cross angle (-13deg)
           ========================================================================= */}
-      <div className="hidden md:flex relative w-full h-[calc(100vh)] min-h-[600px] max-h-[760px] pt-[72px] sm:pt-[76px] lg:pt-[80px] items-center overflow-hidden bg-[#FAF6F2]">
+      <div className="hidden md:flex relative w-full h-[calc(100vh)] min-h-[600px] max-h-[760px] pt-[72px] sm:pt-[76px] lg:pt-[80px] items-center overflow-hidden bg-[#FAF6F4]">
 
         {/* =====================================================================
             1. CINEMATIC BACKGROUND THEME (Warm Cream Base, Organic Curves & Ambient Radiance)
             ===================================================================== */}
-        <div className="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden bg-[#FAF6F2]">
+        <div className="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden bg-[#FAF6F4]">
           {/* Warm Cream Base with Layered Curves & Ambient Radiance */}
-          <div className="w-full h-full bg-[#FAF6F2] relative">
+          <div className="w-full h-full bg-[#FAF6F4] relative">
             {/* Soft Cream to Warm Amber Gradient Glow behind text and collage */}
             <div className="absolute top-0 right-0 w-[65%] h-full bg-gradient-to-l from-[#F5ECE1]/90 via-[#FAF4EB]/60 to-transparent pointer-events-none" />
             <div className="absolute -top-24 left-1/4 w-[550px] h-[550px] bg-[#FFF2DE]/50 rounded-full blur-3xl pointer-events-none" />
@@ -300,7 +300,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
           MOBILE HERO VIEW (Exact match to Reference Image 2 right side)
           Centered typography, side-by-side buttons, unhidden chest logos, and 4-column badges row
           ========================================================================= */}
-      <div className="md:hidden flex flex-col w-full bg-[#FAF6F2] pt-16 sm:pt-20">
+      <div className="md:hidden flex flex-col w-full bg-[#FAF6F4] pt-16 sm:pt-20">
 
         {/* Top Text Content Area - Compact to fit within mobile viewport height */}
         <div className="px-4 pt-2 pb-2 space-y-2.5 bg-transparent text-center">
@@ -386,7 +386,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
         </div>
 
         {/* Mobile 4 Trust Badges in a 4-Column Row with compact icons and generous spacing */}
-        <div className="w-full bg-[#FAF6F2] py-3 px-3 border-b border-burgundy-100/40">
+        <div className="w-full bg-[#FAF6F4] py-3 px-3 border-b border-burgundy-100/40">
           <div className="flex items-start justify-around gap-3 sm:gap-5">
             {heroTrustFeatures.map((item) => (
               <div key={item.id} className="flex flex-col items-center text-center gap-1 flex-1">

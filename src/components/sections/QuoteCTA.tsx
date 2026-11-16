@@ -68,7 +68,7 @@ export const QuoteCTA: React.FC<QuoteCTAProps> = ({ onOpenQuote }) => {
         >
           <path
             d="M0,0 L1440,0 L1440,15 C1200,55 920,70 620,40 C320,10 120,40 0,25 Z"
-            fill="#FFFFFF"
+            fill="#FAF6F4"
           />
         </svg>
       </div>

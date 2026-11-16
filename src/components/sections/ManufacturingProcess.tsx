@@ -86,7 +86,7 @@ export const ManufacturingProcess: React.FC<ManufacturingProcessProps> = ({
     <div className={`relative w-full overflow-hidden ${className}`}>
       {/* 1. TOP SECTION DIVIDER (Flows seamlessly from previous section into solid burgundy) */}
       {isDark && (
-        <div className="w-full leading-none pointer-events-none select-none bg-white">
+        <div className="w-full leading-none pointer-events-none select-none bg-[#FAF6F4]">
           <svg
             viewBox="0 0 1440 120"
             fill="none"
@@ -438,7 +438,7 @@ export const ManufacturingProcess: React.FC<ManufacturingProcessProps> = ({
 
       {/* 3. BOTTOM SECTION DIVIDER */}
       {isDark && (
-        <div className="w-full leading-none pointer-events-none select-none bg-white">
+        <div className="w-full leading-none pointer-events-none select-none bg-[#FAF6F4]">
           <svg
             viewBox="0 0 1440 120"
             fill="none"

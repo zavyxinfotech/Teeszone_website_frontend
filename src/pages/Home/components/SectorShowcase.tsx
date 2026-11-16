@@ -25,7 +25,7 @@ const sectorCards: SectorCardItem[] = [
     subtitle: 'Executive Polos with Identity Lanyards',
     image: '/assets/images/sector-corporate-event.png',
     categorySlug: 'corporate',
-    bg: '#FCEEF0',
+    bg: '#FFFFFF',
     cardHeight: 'h-[335px] sm:h-[365px] lg:h-[395px]',
     cardWidth: 'w-[195px] sm:w-[220px] lg:w-[245px]',
     cardTopOffset: 'mt-[40px] sm:mt-[46px] lg:mt-[52px]',
@@ -38,7 +38,7 @@ const sectorCards: SectorCardItem[] = [
     subtitle: 'Premium Hoodies & Custom Campaign Merch',
     image: '/assets/images/sector-promotional-apparel.png',
     categorySlug: 'promotional',
-    bg: '#FDF1F3',
+    bg: '#FFFFFF',
     cardHeight: 'h-[360px] sm:h-[390px] lg:h-[420px]',
     cardWidth: 'w-[205px] sm:w-[230px] lg:w-[255px]',
     cardTopOffset: 'mt-[20px] sm:mt-[24px] lg:mt-[28px]',
@@ -51,7 +51,7 @@ const sectorCards: SectorCardItem[] = [
     subtitle: 'Mercerized Cotton Executive Workwear',
     image: '/assets/images/sectors/sector-corporate.png',
     categorySlug: 'corporate',
-    bg: '#FCF4EB',
+    bg: '#FFFFFF',
     cardHeight: 'h-[385px] sm:h-[415px] lg:h-[450px]',
     cardWidth: 'w-[245px] sm:w-[275px] lg:w-[305px]',
     cardTopOffset: 'mt-0',
@@ -64,7 +64,7 @@ const sectorCards: SectorCardItem[] = [
     subtitle: 'Durable Bio-Wash Uniforms & House Kits',
     image: '/assets/images/sectors/sector-education.png',
     categorySlug: 'school',
-    bg: '#FDF1F3',
+    bg: '#FFFFFF',
     cardHeight: 'h-[360px] sm:h-[390px] lg:h-[420px]',
     cardWidth: 'w-[205px] sm:w-[230px] lg:w-[255px]',
     cardTopOffset: 'mt-[20px] sm:mt-[24px] lg:mt-[28px]',
@@ -77,7 +77,7 @@ const sectorCards: SectorCardItem[] = [
     subtitle: 'Breathable Dry-Fit Kits & Sublimation Tees',
     image: '/assets/images/sectors/sector-sports.png',
     categorySlug: 'sports',
-    bg: '#FCEEF0',
+    bg: '#FFFFFF',
     cardHeight: 'h-[335px] sm:h-[365px] lg:h-[395px]',
     cardWidth: 'w-[195px] sm:w-[220px] lg:w-[245px]',
     cardTopOffset: 'mt-[40px] sm:mt-[46px] lg:mt-[52px]',
@@ -264,14 +264,14 @@ export const SectorShowcase: React.FC = () => {
                       to={`/category/${sector.categorySlug}`}
                       onMouseEnter={() => setHoveredIndex(index)}
                       onMouseLeave={() => setHoveredIndex(null)}
-                      className={`group relative flex flex-col justify-between overflow-hidden transition-all duration-300 ease-out cursor-pointer w-full h-full p-3 sm:p-3.5 ${
+                      className={`group relative flex flex-col justify-between overflow-hidden transition-all duration-300 ease-out cursor-pointer w-full h-full p-3 sm:p-3.5 border border-[#82132C]/10 ${
                         sector.borderRadius
                       } ${
                         isHovered
                           ? '-translate-y-2 shadow-[0_20px_38px_rgba(122,0,39,0.18)] ring-2 ring-[#82132C]/30'
                           : isHero
-                          ? 'shadow-[0_12px_28px_rgba(122,0,39,0.12)] ring-1 ring-[#82132C]/15'
-                          : 'shadow-[0_6px_18px_rgba(0,0,0,0.05)] ring-1 ring-black/[0.04]'
+                          ? 'shadow-[0_12px_28px_rgba(122,0,39,0.10)]'
+                          : 'shadow-[0_6px_18px_rgba(0,0,0,0.05)]'
                       }`}
                       style={{ backgroundColor: sector.bg }}
                     >

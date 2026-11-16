@@ -45,7 +45,7 @@ export const ProductCategories: React.FC = () => {
   }, []);
 
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-white overflow-hidden">
+    <section className="py-12 sm:py-16 lg:py-20 bg-[#FAF6F4] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-8 text-center sm:text-left">
         <div>
           {/* Section Badge consistent with other sections (centered on mobile) */}

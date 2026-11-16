@@ -5,7 +5,7 @@ import { Layers, Award, Truck, ArrowRight } from 'lucide-react';
 
 export const AboutPreview: React.FC = () => {
   return (
-    <section className="pt-12 sm:pt-16 lg:pt-20 pb-10 sm:pb-14 lg:pb-16 bg-[#FFFDF9] relative overflow-hidden">
+    <section className="pt-12 sm:pt-16 lg:pt-20 pb-10 sm:pb-14 lg:pb-16 bg-[#FAF6F4] relative overflow-hidden">
       {/* Background soft ambient gradient ribbons (Strictly Warm Cream & Burgundy theme - no other colors) */}
       <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-burgundy-50/40 rounded-full blur-3xl pointer-events-none -z-10" />
       <div className="absolute top-1/3 left-0 w-80 h-80 bg-warm-100/50 rounded-full blur-2xl pointer-events-none -z-10" />
