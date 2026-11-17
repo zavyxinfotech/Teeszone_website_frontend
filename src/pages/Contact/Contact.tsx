@@ -5,7 +5,6 @@ import { ContactInfo } from './components/ContactInfo';
 import { ContactForm } from './components/ContactForm';
 import { LocationMap } from './components/LocationMap';
 import { BulkOrderSection } from './components/BulkOrderSection';
-import { QuoteCTA } from '@/components/sections/QuoteCTA';
 
 export const Contact: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -40,18 +39,8 @@ export const Contact: React.FC = () => {
         </div>
       </section>
 
-      {/* 4. Bulk Orders & Why Contact TeesZone */}
+      {/* 4. Bulk Orders */}
       <BulkOrderSection />
-
-      {/* 5. Bottom Brand Banner */}
-      <QuoteCTA
-        title="Let's Build Your Brand Together"
-        subtitle="Partner with TeesZone for high-quality, stylish and affordable T-shirts, uniforms and custom apparel for your business, team or event."
-        onOpenQuote={() => {
-          const el = document.getElementById('quote-form');
-          el?.scrollIntoView({ behavior: 'smooth' });
-        }}
-      />
     </div>
   );
 };

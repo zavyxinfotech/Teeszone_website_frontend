@@ -25,7 +25,6 @@ export const ProductCategoryCard: React.FC<ProductCategoryCardProps> = ({
 }) => {
   const shouldReduceMotion = useReducedMotion();
   const navigate = useNavigate();
-  const Icon = card.icon;
 
   const handleClick = () => {
     navigate(card.link);
@@ -62,12 +61,7 @@ export const ProductCategoryCard: React.FC<ProductCategoryCardProps> = ({
         loading="lazy"
       />
 
-      {/* 2. Top-Left Floating Professional Outline Icon Badge */}
-      <div className="absolute top-4 left-4 sm:top-5 sm:left-5 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/95 backdrop-blur-md border border-[#80011F]/15 shadow-sm flex items-center justify-center text-[#80011F] transition-transform duration-300 group-hover:scale-110">
-        <Icon className="w-5 h-5 stroke-[2]" />
-      </div>
-
-      {/* 3. Main Central Visual: Fashion Model on Top of Wave */}
+      {/* 2. Main Central Visual: Fashion Model on Top of Wave */}
       <div className="relative z-10 w-full flex-1 flex items-end justify-center overflow-hidden pt-6 pb-2">
         <motion.img
           src={card.image}
@@ -79,8 +73,8 @@ export const ProductCategoryCard: React.FC<ProductCategoryCardProps> = ({
         />
       </div>
 
-      {/* 4. Bottom Content Row: Title, Description, and Circular Cream/Ivory Arrow Button */}
-      <div className="relative z-20 flex items-center justify-between gap-3 pt-3.5 border-t border-[#80011F]/10">
+      {/* 3. Bottom Content Row: Title, Description, and Circular Cream/Ivory Arrow Button */}
+      <div className="relative z-20 flex items-center justify-between gap-3 pt-3.5">
         <div className="text-left space-y-0.5 max-w-[calc(100%-54px)]">
           <h3 className="text-lg sm:text-xl font-black text-[#211D20] tracking-tight group-hover:text-[#80011F] transition-colors duration-200 truncate">
             {card.title}

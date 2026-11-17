@@ -508,7 +508,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
 
           {/* Facebook */}
           <a
-            href="https://facebook.com/teeszone"
+            href="https://www.facebook.com/teeszoneindia"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="TeesZone on Facebook"
@@ -523,7 +523,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
 
           {/* Instagram */}
           <a
-            href="https://instagram.com/teeszone"
+            href="https://www.instagram.com/teeszoneindia"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="TeesZone on Instagram"
@@ -538,7 +538,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
 
           {/* LinkedIn */}
           <a
-            href="https://linkedin.com/company/teeszone"
+            href="https://www.linkedin.com/company/teeszone/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="TeesZone on LinkedIn"
@@ -546,6 +546,21 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
           >
             <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
               <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+            </svg>
+          </a>
+
+          <span className="text-[#8A0024]/50 text-xs font-semibold select-none">|</span>
+
+          {/* YouTube */}
+          <a
+            href="https://youtube.com/@teeszoneindia"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="TeesZone on YouTube"
+            className="w-7 h-7 sm:w-7.5 sm:h-7.5 rounded-full bg-[#8A0024] text-white flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-[#660018] shadow-sm"
+          >
+            <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+              <path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z" />
             </svg>
           </a>
 
@@ -636,7 +651,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
             {/* 3 Social Media Icons (Facebook, Instagram, LinkedIn - X removed) */}
             <div className="flex items-center justify-center gap-3">
               <a
-                href="https://facebook.com/teeszone"
+                href="https://www.facebook.com/teeszoneindia"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="TeesZone on Facebook"
@@ -648,7 +663,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
               </a>
 
               <a
-                href="https://instagram.com/teeszone"
+                href="https://www.instagram.com/teeszoneindia"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="TeesZone on Instagram"
@@ -660,7 +675,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
             </a>
 
             <a
-              href="https://linkedin.com/company/teeszone"
+              href="https://www.linkedin.com/company/teeszone/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="TeesZone on LinkedIn"
@@ -668,6 +683,18 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
             >
               <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                 <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+              </svg>
+            </a>
+
+            <a
+              href="https://youtube.com/@teeszoneindia"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="TeesZone on YouTube"
+              className="w-7 h-7 rounded-full bg-[#8A0024] text-white flex items-center justify-center shadow-xs"
+            >
+              <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                <path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z" />
               </svg>
             </a>
           </div>

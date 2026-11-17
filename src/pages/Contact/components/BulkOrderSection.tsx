@@ -7,10 +7,6 @@ import {
   Megaphone,
   Store,
   Layers,
-  Factory,
-  Headphones,
-  Clock,
-  Truck,
 } from 'lucide-react';
 
 export const BulkOrderSection: React.FC = () => {
@@ -95,77 +91,6 @@ export const BulkOrderSection: React.FC = () => {
         </div>
 
         <WaveDivider position="bottom" variant="burgundy-to-white" className="absolute bottom-0 inset-x-0" />
-      </section>
-
-      {/* 2. Why Contact TeesZone? 4 Capabilities */}
-      <section className="py-16 md:py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <span className="text-xs font-heading font-bold uppercase tracking-wider text-burgundy-700 bg-burgundy-50 px-3 py-1 rounded-full border border-burgundy-100">
-              Direct Partnership
-            </span>
-            <h3 className="text-2xl sm:text-3xl font-heading font-black text-charcoal-900 mt-2">
-              Why Contact <span className="text-burgundy-700">TeesZone?</span>
-            </h3>
-            <p className="text-sm text-charcoal-600 mt-2">
-              Your direct pipeline to India's premier knitwear manufacturing hub in Tiruppur.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="p-6 rounded-2xl bg-warm-50 border border-burgundy-100 hover:shadow-soft transition-all duration-300 h-full">
-              <div className="w-12 h-12 rounded-xl bg-burgundy-100 text-burgundy-700 flex items-center justify-center mb-4">
-                <Factory className="w-6 h-6" />
-              </div>
-              <h4 className="font-heading font-bold text-base text-charcoal-900 mb-1.5">
-                Direct Manufacturer
-              </h4>
-              <p className="text-xs text-charcoal-600 leading-relaxed">
-                Get the best pricing and quality directly from our Tiruppur factory with zero
-                intermediary fees.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-warm-50 border border-burgundy-100 hover:shadow-soft transition-all duration-300 h-full">
-              <div className="w-12 h-12 rounded-xl bg-burgundy-100 text-burgundy-700 flex items-center justify-center mb-4">
-                <Headphones className="w-6 h-6" />
-              </div>
-              <h4 className="font-heading font-bold text-base text-charcoal-900 mb-1.5">
-                Expert Support
-              </h4>
-              <p className="text-xs text-charcoal-600 leading-relaxed">
-                Our garment engineers help you choose the ideal GSM, weave, and branding method
-                suited for your budget.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-warm-50 border border-burgundy-100 hover:shadow-soft transition-all duration-300 h-full">
-              <div className="w-12 h-12 rounded-xl bg-burgundy-100 text-burgundy-700 flex items-center justify-center mb-4">
-                <Clock className="w-6 h-6" />
-              </div>
-              <h4 className="font-heading font-bold text-base text-charcoal-900 mb-1.5">
-                Fast Response
-              </h4>
-              <p className="text-xs text-charcoal-600 leading-relaxed">
-                We calculate itemized estimates and digital mockups within 24 hours of receiving
-                your design specs.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-warm-50 border border-burgundy-100 hover:shadow-soft transition-all duration-300 h-full">
-              <div className="w-12 h-12 rounded-xl bg-burgundy-100 text-burgundy-700 flex items-center justify-center mb-4">
-                <Truck className="w-6 h-6" />
-              </div>
-              <h4 className="font-heading font-bold text-base text-charcoal-900 mb-1.5">
-                Pan India Delivery
-              </h4>
-              <p className="text-xs text-charcoal-600 leading-relaxed">
-                Reliable express logistics across all Indian states and pin codes with real-time
-                tracking.
-              </p>
-            </div>
-          </div>
-        </div>
       </section>
     </div>
   );

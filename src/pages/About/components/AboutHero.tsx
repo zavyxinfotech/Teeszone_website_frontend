@@ -4,6 +4,7 @@ import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { ClothFoldingPolo } from './ClothFoldingPolo';
 import { FabricWave3D } from './FabricWave3D';
 import { BNIMemberSlide } from './BNIMemberSlide';
+import { PartnershipSlide } from './PartnershipSlide';
 
 interface AboutHeroProps {
   onOpenQuote?: () => void;
@@ -13,26 +14,29 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
   const heroRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
 
-  // Carousel State (0 = Apparel Solutions / Polo, 1 = BNI Tycoon Erode)
+  // Carousel State (0 = Apparel Solutions / Polo, 1 = BNI Tycoon Erode, 2 = Crafting Custom Apparel / Partnerships)
   const [currentSlide, setCurrentSlide] = useState(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       if (params.get('slide') === 'bni' || params.get('slide') === '1') {
         return 1;
       }
+      if (params.get('slide') === 'partnerships' || params.get('slide') === 'partnership' || params.get('slide') === '2') {
+        return 2;
+      }
     }
     return 0;
   });
   const [direction, setDirection] = useState(1);
   const [isPaused, setIsPaused] = useState(false);
-  const totalSlides = 2;
+  const totalSlides = 3;
 
   const nextSlide = useCallback(() => {
     setDirection(1);
     setCurrentSlide((prev) => (prev + 1) % totalSlides);
   }, [totalSlides]);
 
-  const prevSlide = useCallback(() => {
+ const prevSlide = useCallback(() => {
     setDirection(-1);
     setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
   }, [totalSlides]);
@@ -296,7 +300,7 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
                 </div>
               </div>
             </motion.div>
-          ) : (
+          ) : currentSlide === 1 ? (
             /* ===================================================================
                SLIDE 2: TEESZONE IS A PROUD MEMBER OF BNI TYCOON ERODE
                =================================================================== */
@@ -310,6 +314,24 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
               className="w-full h-full flex flex-col justify-center"
             >
               <BNIMemberSlide
+                onScrollToStory={handleScrollToStory}
+                onOpenQuote={onOpenQuote}
+              />
+            </motion.div>
+          ) : (
+            /* ===================================================================
+               SLIDE 3: CRAFTING CUSTOM APPAREL WITH TRUST, QUALITY & PARTNERSHIPS
+               =================================================================== */
+            <motion.div
+              key="slide-partnership"
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              className="w-full h-full flex flex-col justify-center"
+            >
+              <PartnershipSlide
                 onScrollToStory={handleScrollToStory}
                 onOpenQuote={onOpenQuote}
               />

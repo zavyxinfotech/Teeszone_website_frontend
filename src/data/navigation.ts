@@ -27,9 +27,9 @@ export const companyContact = {
   hours: 'Monday – Saturday, 9:00 AM – 7:00 PM IST',
   copyright: '© 2026 TeesZone Clothing Private Limited. All rights reserved.',
   socials: {
-    instagram: 'https://instagram.com/teeszone',
-    facebook: 'https://facebook.com/teeszone',
-    youtube: 'https://youtube.com/@teeszone',
-    linkedin: 'https://linkedin.com/company/teeszone',
+    instagram: 'https://www.instagram.com/teeszoneindia',
+    facebook: 'https://www.facebook.com/teeszoneindia',
+    youtube: 'https://youtube.com/@teeszoneindia',
+    linkedin: 'https://www.linkedin.com/company/teeszone/',
   },
 };

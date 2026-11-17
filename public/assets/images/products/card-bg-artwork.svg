@@ -59,10 +59,7 @@
              C 100 760, 50 740, 50 680 
              L 50 240 
              C 50 140, 60 85, 120 70 Z" 
-          fill="url(#archFill)" 
-          stroke="#80011F" 
-          stroke-opacity="0.08" 
-          stroke-width="1.5" />
+          fill="url(#archFill)" />
 
     <!-- Secondary Soft Burgundy Wave (Back layer for depth) -->
     <path d="M 520 380 
@@ -111,7 +108,5 @@
           stroke-linecap="round" 
           stroke-opacity="0.5" />
 
-    <!-- Soft Border on Card Edge -->
-    <rect width="800" height="1060" rx="64" fill="none" stroke="#80011F" stroke-opacity="0.12" stroke-width="2" />
   </svg>
   
