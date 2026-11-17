@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { BookOpen, ChevronLeft, ChevronRight, Users, Layers, MapPin, Sparkles } from 'lucide-react';
+import { BookOpen, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export interface Milestone {
   id: string;
@@ -149,188 +149,8 @@ export const OurStory: React.FC = () => {
     <div id="our-story" className="w-full bg-[#FAF5F2] select-none overflow-hidden">
       
       {/* =========================================================================
-          SECTION 1: EDITORIAL INTRODUCTION & STORY NARRATIVE
-          ========================================================================= */}
-      <section className="pt-16 sm:pt-20 md:pt-24 pb-12 sm:pb-16 bg-[#FAF5F2] relative">
-        <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
-          
-          {/* Top Badge & Header */}
-          <div className="max-w-3xl mx-auto text-center space-y-4">
-            <motion.div
-              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6 }}
-            >
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FCEEF1] border border-[#80011F]/20 text-[#80011F] font-heading font-extrabold text-xs uppercase tracking-widest">
-                <BookOpen className="w-3.5 h-3.5 text-[#80011F]" />
-                <span>OUR STORY</span>
-              </span>
-            </motion.div>
-
-            <motion.h2
-              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="text-3xl sm:text-4xl lg:text-[46px] font-heading font-black text-[#1A1D20] leading-[1.18] tracking-tight"
-            >
-              From a Small Beginning to a{' '}
-              <span className="text-[#80011F]">Growing Apparel Brand</span>
-            </motion.h2>
-
-            <motion.p
-              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="text-base sm:text-lg font-heading font-bold text-charcoal-700 tracking-wide"
-            >
-              Our Journey. Our Growth. Our Commitment.
-            </motion.p>
-          </div>
-
-          {/* Narrative Paragraphs */}
-          <motion.div
-            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.75, delay: 0.25 }}
-            className="max-w-4xl mx-auto mt-8 sm:mt-10 space-y-4 text-center sm:text-left text-[#4A4D52] text-base sm:text-lg font-normal leading-relaxed"
-          >
-            <p>
-              TeesZone began in 2024 with a simple vision in Kolathur, Chennai – to make high-quality customized apparel, corporate uniforms, and branded merchandise accessible to businesses, organizations, and communities.
-            </p>
-            <p>
-              What started as a proprietorship has grown into an incorporated business with an expanding presence across South India. Driven by a commitment to quality, customization, customer satisfaction, and reliable apparel solutions, we continue to strengthen our footprint through strategic branch expansions and dedicated business operations.
-            </p>
-            <p>
-              From our beginnings in Chennai to our corporate office at Texvalley Global Market, Erode, and our growing presence in Bengaluru, Puducherry, Kanchipuram, and Kochi, every milestone reflects our ambition to deliver dependable custom apparel solutions to more businesses and customers.
-            </p>
-          </motion.div>
-
-          {/* Highlight Quote Banner */}
-          <motion.div
-            initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.98 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="max-w-3xl mx-auto mt-8 sm:mt-10 p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border border-[#80011F]/15 shadow-sm text-center relative overflow-hidden"
-          >
-            <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#80011F] to-transparent" />
-            <Sparkles className="w-5 h-5 text-[#80011F] mx-auto mb-2 opacity-80" />
-            <p className="text-base sm:text-xl font-heading font-bold text-[#80011F] italic leading-snug">
-              &ldquo;Today, we continue to grow with one purpose: to elevate every brand through quality custom apparel.&rdquo;
-            </p>
-          </motion.div>
-
-          {/* Social Proof Stats Strip */}
-          <div className="mt-12 sm:mt-14 max-w-4xl mx-auto">
-            <div className="hidden sm:flex items-center justify-between bg-white rounded-full border border-gray-200/90 shadow-xs py-5 px-6 lg:px-12">
-              
-              {/* Stat 1 */}
-              <div className="flex items-center gap-3.5 flex-1 justify-center">
-                <svg
-                  className="w-8 h-8 text-[#80011F] shrink-0"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M12 2a3 3 0 0 0-3 3c0 .8.4 1.5 1 2L2 14.5a1.5 1.5 0 0 0 1 2.5h18a1.5 1.5 0 0 0 1-2.5L14 7c.6-.5 1-1.2 1-2a3 3 0 0 0-3-3z" />
-                  <path d="M2 17h20" />
-                </svg>
-                <div className="text-left">
-                  <p className="text-lg xl:text-xl font-heading font-black text-charcoal-900 leading-none">
-                    10 Lakhs+
-                  </p>
-                  <p className="text-xs text-charcoal-500 font-medium mt-1">
-                    Garments Delivered
-                  </p>
-                </div>
-              </div>
-
-              <div className="w-[1px] h-10 bg-gray-200/90 shrink-0" aria-hidden="true" />
-
-              {/* Stat 2 */}
-              <div className="flex items-center gap-3.5 flex-1 justify-center">
-                <Users className="w-8 h-8 text-[#80011F] stroke-[1.9] shrink-0" aria-hidden="true" />
-                <div className="text-left">
-                  <p className="text-lg xl:text-xl font-heading font-black text-charcoal-900 leading-none">
-                    500+
-                  </p>
-                  <p className="text-xs text-charcoal-500 font-medium mt-1">
-                    Happy Clients
-                  </p>
-                </div>
-              </div>
-
-              <div className="w-[1px] h-10 bg-gray-200/90 shrink-0" aria-hidden="true" />
-
-              {/* Stat 3 */}
-              <div className="flex items-center gap-3.5 flex-1 justify-center">
-                <Layers className="w-8 h-8 text-[#80011F] stroke-[1.9] shrink-0" aria-hidden="true" />
-                <div className="text-left">
-                  <p className="text-lg xl:text-xl font-heading font-black text-charcoal-900 leading-none">
-                    20+
-                  </p>
-                  <p className="text-xs text-charcoal-500 font-medium mt-1">
-                    Product Variants
-                  </p>
-                </div>
-              </div>
-
-              <div className="w-[1px] h-10 bg-gray-200/90 shrink-0" aria-hidden="true" />
-
-              {/* Stat 4 */}
-              <div className="flex items-center gap-3.5 flex-1 justify-center">
-                <MapPin className="w-8 h-8 text-[#80011F] stroke-[1.9] shrink-0" aria-hidden="true" />
-                <div className="text-left">
-                  <p className="text-lg xl:text-xl font-heading font-black text-charcoal-900 leading-none">
-                    Pan-India
-                  </p>
-                  <p className="text-xs text-charcoal-500 font-medium mt-1">
-                    Delivery
-                  </p>
-                </div>
-              </div>
-
-            </div>
-
-            {/* Mobile Stats Strip */}
-            <div className="grid grid-cols-4 sm:hidden bg-white rounded-2xl border border-gray-200/90 shadow-xs py-3.5 px-2 divide-x divide-gray-200/80">
-              <div className="flex flex-col items-center text-center px-1">
-                <p className="text-xs font-heading font-black text-charcoal-900 leading-tight">10L+</p>
-                <p className="text-[10px] text-charcoal-500 font-normal leading-tight mt-0.5">Delivered</p>
-              </div>
-              <div className="flex flex-col items-center text-center px-1">
-                <p className="text-xs font-heading font-black text-charcoal-900 leading-tight">500+</p>
-                <p className="text-[10px] text-charcoal-500 font-normal leading-tight mt-0.5">Clients</p>
-              </div>
-              <div className="flex flex-col items-center text-center px-1">
-                <p className="text-xs font-heading font-black text-charcoal-900 leading-tight">20+</p>
-                <p className="text-[10px] text-charcoal-500 font-normal leading-tight mt-0.5">Variants</p>
-              </div>
-              <div className="flex flex-col items-center text-center px-1">
-                <p className="text-xs font-heading font-black text-charcoal-900 leading-tight">Pan-India</p>
-                <p className="text-[10px] text-charcoal-500 font-normal leading-tight mt-0.5">Delivery</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-
-      {/* =========================================================================
-          SECTION 2: MAIN CINEMATIC MILESTONE SLIDER
-          - Matching exact visual reference image & reference interaction
-          - Full-width background image crossfade
-          - Left side: Title, Subtitle, Active milestone details
-          - Right side: Enlarged active image card with glowing burgundy border & horizontal previews
+          MAIN CINEMATIC MILESTONE SLIDER
+          (Intro narrative and quote banner removed as requested)
           ========================================================================= */}
       <section
         ref={carouselContainerRef}
@@ -341,7 +161,7 @@ export const OurStory: React.FC = () => {
         onKeyDown={handleKeyDown}
         tabIndex={0}
         aria-label="Interactive TeesZone Milestone Journey"
-        className="relative w-full min-h-[640px] sm:min-h-[680px] lg:min-h-[720px] xl:min-h-[760px] flex flex-col justify-between overflow-hidden outline-none"
+        className="relative w-full min-h-[640px] sm:min-h-[680px] lg:min-h-[720px] xl:min-h-[760px] flex flex-col justify-between overflow-hidden outline-none pt-6"
       >
         {/* 1. Cinematic Background Image Layer with Crossfade */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
@@ -367,7 +187,7 @@ export const OurStory: React.FC = () => {
         </div>
 
         {/* 2. Main Content Container */}
-        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-6 flex-1 flex flex-col justify-center">
+        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 pb-6 flex-1 flex flex-col justify-center">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
             
             {/* =================================================================
@@ -377,13 +197,13 @@ export const OurStory: React.FC = () => {
               
               {/* Badge */}
               <div>
-                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FCEEF1] border border-[#80011F]/20 text-[#80011F] font-heading font-extrabold text-[11px] sm:text-xs uppercase tracking-widest">
-                  <BookOpen className="w-3 h-3 text-[#80011F]" />
+                <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FCEEF1] border border-[#80011F]/20 text-[#80011F] font-heading font-extrabold text-xs uppercase tracking-widest">
+                  <BookOpen className="w-3.5 h-3.5 text-[#80011F]" />
                   <span>OUR STORY</span>
                 </span>
               </div>
 
-              {/* Main Headline matching reference */}
+              {/* Main Headline */}
               <h2 className="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-heading font-black text-[#1A1D20] leading-[1.12] tracking-tight">
                 From a Small<br />
                 Beginning to a<br />
@@ -474,7 +294,7 @@ export const OurStory: React.FC = () => {
                         {/* Bottom Gradient Overlay for typography readability */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
 
-                        {/* Card Text Information matching reference */}
+                        {/* Card Text Information */}
                         <div className="absolute bottom-0 inset-x-0 p-4 text-left pointer-events-none">
                           <p className="text-lg sm:text-xl font-heading font-black text-white leading-tight">
                             {item.yearOrDate}
@@ -494,26 +314,9 @@ export const OurStory: React.FC = () => {
           </div>
         </div>
 
-        {/* 3. Bottom Controls Bar: Pagination Pills, Circular Arrows & Counter */}
-        <div className="relative z-20 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-8 pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        {/* 3. Bottom Controls Bar: Left/Right Arrow & Counter (Loading bar removed as requested) */}
+        <div className="relative z-20 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-8 pt-4 flex items-center justify-end">
           
-          {/* Pagination Indicators (7 items) */}
-          <div className="flex items-center gap-2">
-            {MILESTONES.map((_, idx) => (
-              <button
-                key={idx}
-                type="button"
-                onClick={() => setActiveIdx(idx)}
-                aria-label={`Jump to milestone ${idx + 1}`}
-                className={`transition-all duration-300 rounded-full cursor-pointer ${
-                  activeIdx === idx
-                    ? 'w-7 sm:w-8 h-2 bg-[#80011F] shadow-sm'
-                    : 'w-2 h-2 bg-[#80011F]/30 hover:bg-[#80011F]/60'
-                }`}
-              />
-            ))}
-          </div>
-
           {/* Navigation Controls: Left Arrow, Counter 01 / 07, Right Arrow */}
           <div className="flex items-center gap-4">
             
@@ -549,14 +352,10 @@ export const OurStory: React.FC = () => {
         </div>
       </section>
 
-
       {/* =========================================================================
-          SECTION 3: OUR VISION FOR THE FUTURE
-          - Premium full-width deep burgundy section
-          - Elegant typography, subtle animated decorative lines, and smooth transition
+          SECTION: OUR VISION FOR THE FUTURE
           ========================================================================= */}
       <section className="relative w-full bg-gradient-to-br from-[#80011F] via-[#570016] to-[#3D000F] text-white py-16 sm:py-20 lg:py-24 overflow-hidden">
-        {/* Subtle Ambient Background Glow */}
         <div className="absolute inset-0 pointer-events-none opacity-20">
           <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-white/10 rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-white/10 rounded-full blur-3xl" />
@@ -564,7 +363,6 @@ export const OurStory: React.FC = () => {
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 sm:space-y-8">
           
-          {/* Eyebrow Label with Animated Horizontal Accent Lines */}
           <motion.div
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -579,7 +377,6 @@ export const OurStory: React.FC = () => {
             <span className="w-8 sm:w-12 h-[1.5px] bg-rose-200/50 rounded-full" />
           </motion.div>
 
-          {/* Heading */}
           <motion.h3
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -590,7 +387,6 @@ export const OurStory: React.FC = () => {
             Our Vision for the Future
           </motion.h3>
 
-          {/* Content Description */}
           <motion.p
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -601,7 +397,6 @@ export const OurStory: React.FC = () => {
             From our first steps in Chennai to our expanding presence across South India, TeesZone remains committed to delivering quality-driven custom apparel manufacturing, corporate uniforms, promotional T-shirts, and personalized clothing solutions.
           </motion.p>
 
-          {/* Closing Statement Quote */}
           <motion.div
             initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
