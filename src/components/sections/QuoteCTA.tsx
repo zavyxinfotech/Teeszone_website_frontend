@@ -111,8 +111,8 @@ export const QuoteCTA: React.FC<QuoteCTAProps> = ({ onOpenQuote }) => {
                 Real Clients. Real Experiences.
               </h2>
 
-              {/* Concise Single-Point Semantic Description: Increased size without increasing boldness */}
-              <p className="mt-4 sm:mt-5 text-base sm:text-lg md:text-xl text-burgundy-100 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
+              {/* Concise Single-Point Semantic Description: Hidden on mobile as requested */}
+              <p className="hidden md:block mt-4 sm:mt-5 text-base sm:text-lg md:text-xl text-burgundy-100 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
                 From premium corporate uniforms to high-volume event merchandise, discover how 500+ businesses and teams bring their apparel vision to life with TeesZone's trusted quality, custom finishes, and reliable on-time delivery.
               </p>
             </RevealAnimation>

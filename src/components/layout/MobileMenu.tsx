@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { navigationLinks, companyContact } from '@/data/navigation';
-import { X, Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
+import { navigationLinks } from '@/data/navigation';
+import { X, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/common/Button';
 
 interface MobileMenuProps {
@@ -26,51 +26,46 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, onOpenQ
             aria-hidden="true"
           />
 
-          {/* Drawer */}
+          {/* Drawer: Exactly half mobile view width (w-1/2) */}
           <motion.div
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed top-0 right-0 bottom-0 w-[85%] max-w-sm bg-warm-50 z-50 p-6 flex flex-col justify-between shadow-2xl md:hidden overflow-y-auto"
+            transition={{ type: 'spring', damping: 26, stiffness: 220 }}
+            className="fixed top-0 right-0 bottom-0 w-1/2 min-w-[200px] max-w-[280px] bg-[#FFFDF9] z-50 p-4 sm:p-5 flex flex-col justify-between shadow-2xl md:hidden overflow-y-auto"
             role="dialog"
             aria-modal="true"
             aria-label="Navigation Menu"
           >
             <div>
-              {/* Header */}
-              <div className="flex items-center justify-between pb-6 border-b border-burgundy-100">
-                <img
-                  src="/assets/logo/teeszone-logo.png"
-                  alt="TeesZone Logo"
-                  className="h-9 w-auto object-contain"
-                />
+              {/* Header: Logo removed, only Close button on the right */}
+              <div className="flex items-center justify-end pb-3 border-b border-burgundy-100/60">
                 <button
                   onClick={onClose}
-                  className="p-2 text-charcoal-700 hover:text-burgundy-700 hover:bg-burgundy-50 rounded-full transition-colors"
+                  className="p-1.5 text-charcoal-700 hover:text-[#80011F] hover:bg-burgundy-50 rounded-full transition-colors cursor-pointer"
                   aria-label="Close menu"
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-5 h-5" />
                 </button>
               </div>
 
               {/* Navigation Links */}
-              <nav className="py-6 space-y-2">
+              <nav className="py-4 space-y-1.5">
                 {navigationLinks.map((item) => (
                   <NavLink
                     key={item.path}
                     to={item.path}
                     onClick={onClose}
                     className={({ isActive }) =>
-                      `flex items-center justify-between px-4 py-3 rounded-xl font-heading font-semibold text-base transition-colors ${
+                      `flex items-center justify-between px-3 py-2.5 rounded-xl font-heading font-semibold text-sm transition-colors ${
                         isActive
-                          ? 'bg-burgundy-700 text-white shadow-soft'
-                          : 'text-charcoal-800 hover:bg-burgundy-50 hover:text-burgundy-700'
+                          ? 'bg-[#80011F] text-white shadow-soft'
+                          : 'text-charcoal-800 hover:bg-burgundy-50 hover:text-[#80011F]'
                       }`
                     }
                   >
                     <span>{item.label}</span>
-                    <ArrowRight className="w-4 h-4 opacity-60" />
+                    <ArrowRight className="w-3.5 h-3.5 opacity-60" />
                   </NavLink>
                 ))}
               </nav>
@@ -79,8 +74,8 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, onOpenQ
               <div className="pt-2">
                 <Button
                   variant="primary"
-                  size="lg"
-                  className="w-full justify-center"
+                  size="md"
+                  className="w-full justify-center text-xs py-2.5 px-3 bg-[#80011F] hover:bg-[#5B0116]"
                   withArrow
                   onClick={() => {
                     onClose();
@@ -92,27 +87,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, onOpenQ
               </div>
             </div>
 
-            {/* Quick Contact Footer in Menu */}
-            <div className="pt-6 border-t border-burgundy-100 mt-6 space-y-3 text-xs text-charcoal-600">
-              <a
-                href={`tel:${companyContact.phone}`}
-                className="flex items-center gap-2 hover:text-burgundy-700 transition-colors"
-              >
-                <Phone className="w-4 h-4 text-burgundy-700 shrink-0" />
-                <span>{companyContact.phoneDisplay}</span>
-              </a>
-              <a
-                href={`mailto:${companyContact.email}`}
-                className="flex items-center gap-2 hover:text-burgundy-700 transition-colors"
-              >
-                <Mail className="w-4 h-4 text-burgundy-700 shrink-0" />
-                <span>{companyContact.email}</span>
-              </a>
-              <div className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-burgundy-700 shrink-0 mt-0.5" />
-                <span>{companyContact.address}</span>
-              </div>
-            </div>
+            {/* Quick Contact (phone, mail, address) completely removed as requested */}
           </motion.div>
         </>
       )}

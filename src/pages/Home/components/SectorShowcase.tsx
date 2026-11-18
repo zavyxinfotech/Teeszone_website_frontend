@@ -341,13 +341,13 @@ export const SectorShowcase: React.FC = () => {
               <span className="w-4 h-[1.5px] bg-[#82132C] rounded-full inline-block" />
             </div>
 
-            <h2 className="text-[26px] sm:text-[30px] font-heading font-black tracking-tight leading-tight text-charcoal-900">
+            <h2 className="text-[28px] sm:text-[34px] font-heading font-black tracking-tight leading-tight text-charcoal-900">
               Stay Branded, <span className="text-[#82132C]">Stay Professional</span>
             </h2>
           </div>
 
-          {/* Center Product Card */}
-          <div className="relative flex-1 w-full max-w-[330px] flex items-center justify-center my-1.5 overflow-hidden z-10">
+          {/* Center Product Image Showcase: Card Design Removed, Border & Background Removed */}
+          <div className="relative flex-1 w-full max-w-[340px] flex items-center justify-center my-1.5 overflow-hidden z-10">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeMobileCard.id}
@@ -359,29 +359,28 @@ export const SectorShowcase: React.FC = () => {
               >
                 <Link
                   to={`/category/${activeMobileCard.categorySlug}`}
-                  className="w-full max-h-[360px] p-3.5 rounded-3xl flex flex-col justify-between overflow-hidden shadow-lg border border-rose-100/60"
-                  style={{ backgroundColor: activeMobileCard.bg }}
+                  className="w-full max-h-[360px] flex flex-col justify-between overflow-hidden bg-transparent border-none shadow-none p-1"
                 >
                   {/* Top Bar: Name centered above image in bigger size + Arrow with no background */}
-                  <div className="relative w-full flex items-center justify-center z-10 mb-1 px-6">
-                    <span className="text-[14px] sm:text-[15px] font-sans font-medium tracking-[0.08em] text-[#82132C] uppercase text-center">
+                  <div className="relative w-full flex items-center justify-center z-10 mb-2 px-6">
+                    <span className="text-[15px] sm:text-[17px] font-sans font-semibold tracking-[0.08em] text-[#82132C] uppercase text-center">
                       {activeMobileCard.badge}
                     </span>
 
                     <div
                       aria-label={`Explore ${activeMobileCard.title}`}
-                      className="absolute top-0 right-0 text-[#82132C] transition-transform duration-300"
+                      className="absolute top-0 right-1 text-[#82132C] transition-transform duration-300"
                     >
-                      <ArrowRight className="w-4 h-4 -rotate-45 stroke-[2.2] text-[#82132C]" />
+                      <ArrowRight className="w-5 h-5 -rotate-45 stroke-[2.4] text-[#82132C]" />
                     </div>
                   </div>
 
-                  {/* Model Image: Full view without cuts */}
+                  {/* Model Image: Pure image, No card container background or border */}
                   <div className="relative flex-1 w-full flex items-end justify-center overflow-hidden">
                     <img
                       src={activeMobileCard.image}
                       alt={activeMobileCard.title}
-                      className="w-full max-h-[290px] object-contain object-bottom drop-shadow-md"
+                      className="w-full max-h-[300px] object-contain object-bottom drop-shadow-md"
                       loading="eager"
                     />
                   </div>
@@ -390,7 +389,7 @@ export const SectorShowcase: React.FC = () => {
             </AnimatePresence>
           </div>
 
-          {/* Bottom Product Details & Action Button */}
+          {/* Bottom Product Details & Action Button: Increased font size without reducing boldness */}
           <div className="w-full max-w-sm flex flex-col items-center text-center z-10 shrink-0">
             <AnimatePresence mode="wait">
               <motion.div
@@ -401,17 +400,17 @@ export const SectorShowcase: React.FC = () => {
                 transition={{ duration: 0.25 }}
                 className="mb-1.5"
               >
-                <h3 className="font-heading font-black text-xl text-charcoal-900 leading-snug">
+                <h3 className="font-heading font-black text-2xl sm:text-[26px] text-charcoal-900 leading-snug">
                   {activeMobileCard.title}
                 </h3>
-                <p className="text-sm text-charcoal-600 font-medium mt-0.5">
+                <p className="text-sm sm:text-base text-charcoal-700 font-semibold mt-1">
                   {activeMobileCard.subtitle}
                 </p>
               </motion.div>
             </AnimatePresence>
 
             {/* Progress Indicators */}
-            <div className="flex items-center justify-center gap-2 mt-1.5">
+            <div className="flex items-center justify-center gap-2 mt-2">
               {sectorCards.map((sector, idx) => (
                 <div
                   key={sector.id}

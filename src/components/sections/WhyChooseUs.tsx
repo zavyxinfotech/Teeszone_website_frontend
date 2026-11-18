@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useMotionValueEvent, MotionValue } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
 import {
   Headset,
   Target,
@@ -80,50 +80,90 @@ const allFeatures: FeatureItem[] = [
   rightFeatures[2], // 6. CREATIVE IDEAS
 ];
 
+// Exact SVG Brand Icons for Facebook, Instagram, LinkedIn, YouTube
+const FacebookIcon: React.FC<{ className?: string }> = ({ className = 'w-6 h-6' }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+  </svg>
+);
+
+const InstagramIcon: React.FC<{ className?: string }> = ({ className = 'w-6 h-6' }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+  </svg>
+);
+
+const LinkedinIcon: React.FC<{ className?: string }> = ({ className = 'w-6 h-6' }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+  </svg>
+);
+
+const YoutubeIcon: React.FC<{ className?: string }> = ({ className = 'w-6 h-6' }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+    <path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z" />
+  </svg>
+);
+
 /**
- * Mobile Feature Card: Clean Right-Aligned Vertically-Centered Reel Card
- * - Aligned to right side of screen, vertically centered
- * - Proper spacing during scroll (exits cleanly so cards never pile in a bottom clump)
- * - Retains description text
- * - No rounded border, no shadow
- * - No loading bar / dots
+ * Mobile 3D Layered Reel Card:
+ * - Color theme matching the 3D question mark model's vibrant crimson-ruby color (#A60E30 -> #850422 -> #540214)
+ * - Increased font size without boldness (font-normal / font-medium)
+ * - Removed card border, removed icon border, removed icon background
+ * - Removed numbers (01, 02, etc.)
+ * - Center card in larger size; adjacent cards smaller and shaded behind
  */
-const MobileFocusReelCard: React.FC<{
+const MobileStackedReelCard: React.FC<{
   feature: FeatureItem;
   index: number;
   total: number;
   scrollProgress: MotionValue<number>;
 }> = ({ feature, index, total, scrollProgress }) => {
-  const startRange = 0.22;
-  const endRange = 0.98;
-  const slotSpan = (endRange - startRange) / total;
-  const start = startRange + index * slotSpan;
-  const inEnd = start + slotSpan * 0.22;
-  const outStart = start + slotSpan * 0.78;
-  const end = start + slotSpan;
+  // Cards timeline occupies scroll progress 0.22 to 0.98
+  const startOffset = 0.22;
+  const endOffset = 0.98;
+  const step = (endOffset - startOffset) / (total - 1);
+  const centerPos = startOffset + index * step;
+
+  const pFarPrev = Math.max(startOffset, centerPos - step * 1.5);
+  const pPrev = Math.max(startOffset, centerPos - step);
+  const pCenter = centerPos;
+  const pNext = Math.min(1.0, centerPos + step);
+  const pFarNext = Math.min(1.0, centerPos + step * 1.5);
+
+  const isFirst = index === 0;
   const isLast = index === total - 1;
 
-  // Clean discrete entry & exit: card arrives, stays centered, exits upward cleanly
-  const inputRange = isLast
-    ? [Math.max(0, start - 0.04), start, inEnd, 1.0]
-    : [Math.max(0, start - 0.04), start, inEnd, outStart, end, Math.min(1.0, end + 0.04)];
+  let inputPoints: number[];
+  let yPoints: number[];
+  let scalePoints: number[];
+  let opacityPoints: number[];
+  let zIndexPoints: number[];
 
-  const yRange = isLast
-    ? [60, 60, 0, 0]
-    : [60, 60, 0, 0, -60, -60];
+  if (isFirst) {
+    inputPoints = [0, startOffset, pCenter, pNext, pFarNext];
+    yPoints = [0, 0, 0, -32, -54];
+    scalePoints = [1.0, 1.0, 1.0, 0.90, 0.84];
+    opacityPoints = [1.0, 1.0, 1.0, 0.35, 0];
+    zIndexPoints = [25, 25, 25, 10, 0];
+  } else if (isLast) {
+    inputPoints = [pFarPrev, pPrev, pCenter, 1.0];
+    yPoints = [54, 32, 0, 0];
+    scalePoints = [0.84, 0.90, 1.0, 1.0];
+    opacityPoints = [0, 0.35, 1.0, 1.0];
+    zIndexPoints = [0, 10, 25, 25];
+  } else {
+    inputPoints = [pFarPrev, pPrev, pCenter, pNext, pFarNext];
+    yPoints = [54, 32, 0, -32, -54];
+    scalePoints = [0.84, 0.90, 1.0, 0.90, 0.84];
+    opacityPoints = [0, 0.35, 1.0, 0.35, 0];
+    zIndexPoints = [0, 10, 25, 10, 0];
+  }
 
-  const opacityRange = isLast
-    ? [0, 0, 1, 1]
-    : [0, 0, 1, 1, 0, 0];
-
-  const scaleRange = isLast
-    ? [0.95, 0.95, 1, 1]
-    : [0.95, 0.95, 1, 1, 0.95, 0.95];
-
-  const y = useTransform(scrollProgress, inputRange, yRange);
-  const opacity = useTransform(scrollProgress, inputRange, opacityRange);
-  const scale = useTransform(scrollProgress, inputRange, scaleRange);
-  const pointerEvents = useTransform(opacity, (o) => (o > 0.5 ? 'auto' : 'none'));
+  const y = useTransform(scrollProgress, inputPoints, yPoints);
+  const scale = useTransform(scrollProgress, inputPoints, scalePoints);
+  const opacity = useTransform(scrollProgress, inputPoints, opacityPoints);
+  const zIndex = useTransform(scrollProgress, inputPoints, zIndexPoints);
 
   const IconComp = feature.icon;
 
@@ -133,35 +173,26 @@ const MobileFocusReelCard: React.FC<{
         y,
         scale,
         opacity,
-        pointerEvents,
+        zIndex,
       }}
-      className="absolute right-2 xs:right-4 top-1/2 -translate-y-1/2 w-[82%] max-w-[305px] p-5 sm:p-6 bg-gradient-to-br from-[#2D0B14] via-[#480E1E] to-[#1E050D] text-white border-l-4 border-l-[#D98295] rounded-none shadow-none flex flex-col justify-between select-none z-20"
+      className="absolute inset-x-0 mx-auto w-[88%] xs:w-[84%] max-w-[310px] p-4 xs:p-5 rounded-2xl bg-gradient-to-br from-[#A60E30] via-[#850422] to-[#540214] text-white border-0 shadow-lg flex flex-col justify-between select-none origin-center"
     >
-      {/* Top row: Icon and large index number */}
-      <div className="flex items-start justify-between mb-3">
-        <div className="w-11 h-11 bg-white/10 text-rose-200 border border-white/15 flex items-center justify-center">
-          <IconComp className="w-6 h-6 stroke-[2.2]" />
+      {/* Top row: Pure icon without border and without background */}
+      <div className="flex items-center justify-between mb-2">
+        <div className="text-white flex items-center justify-center">
+          <IconComp className="w-7 h-7 stroke-[2.2]" />
         </div>
-        <span className="font-heading font-black text-3xl sm:text-4xl text-rose-300/35 leading-none">
-          0{index + 1}
-        </span>
       </div>
 
-      {/* Title */}
-      <h3 className="font-heading font-black text-base sm:text-lg text-white tracking-wider mb-2">
+      {/* Title: Increased font size without boldness */}
+      <h3 className="font-heading font-medium text-base xs:text-lg text-white tracking-wide mb-1 leading-snug">
         {feature.title}
       </h3>
 
-      {/* Description */}
-      <p className="text-xs sm:text-sm text-rose-100/90 font-normal leading-relaxed">
+      {/* Description: Increased font size without boldness */}
+      <p className="text-xs xs:text-sm text-rose-100 font-normal leading-relaxed">
         {feature.description}
       </p>
-
-      {/* Subtle bottom indicator */}
-      <div className="mt-4 pt-2 border-t border-white/10 flex items-center justify-between text-[11px] text-rose-200/60 font-medium">
-        <span>TEESZONE ADVANTAGE</span>
-        <span>0{index + 1} / 06</span>
-      </div>
     </motion.div>
   );
 };
@@ -176,21 +207,22 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
     offset: ['start start', 'end end'],
   });
 
-  // Mobile scroll stages:
-  const mobileHeadingY = useTransform(mobileScrollProgress, [0, 0.08, 0.16], ['16vh', '16vh', '0vh']);
-  const mobileHeadingScale = useTransform(mobileScrollProgress, [0, 0.08, 0.16], [1.08, 1.08, 1.0]);
+  // Model image zoom-in -> decrease size -> settle animation
+  // Initial (0.00): zoomed in view (scale 1.35)
+  // Transition (0.00 -> 0.20): starts decreasing size to compact view (scale 0.80) and moves above cards
+  const mobileModelScale = useTransform(mobileScrollProgress, [0, 0.08, 0.20, 0.98], [1.35, 1.35, 0.82, 0.82]);
+  const mobileModelY = useTransform(mobileScrollProgress, [0, 0.08, 0.20, 0.98], [30, 30, -8, -8]);
+  const mobileModelOpacity = useTransform(mobileScrollProgress, [0, 0.04, 0.98], [1.0, 1.0, 1.0]);
 
-  // Center model stays on the left side cleanly
-  const mobileModelOpacity = useTransform(mobileScrollProgress, [0.08, 0.14, 0.22, 0.30], [0, 0.9, 0.9, 0.4]);
-  const mobileModelScale = useTransform(mobileScrollProgress, [0.08, 0.14, 0.22, 0.30], [0.8, 1.0, 1.0, 0.7]);
-  const mobileModelX = useTransform(mobileScrollProgress, [0.14, 0.24], ['0%', '-40%']);
+  // Cards deck emerges once model image settles into position
+  const mobileCardsContainerOpacity = useTransform(mobileScrollProgress, [0, 0.16, 0.22], [0, 0.2, 1.0]);
 
   return (
     <section
       id="why-choose-us"
       className={`relative w-full bg-[#FAF6F4] pt-16 sm:pt-20 lg:pt-24 pb-10 sm:pb-14 ${className}`}
     >
-      {/* Decorative Background Swirls & Dot Matrix (Top-Right & Bottom-Left) */}
+      {/* Decorative Background Swirl: Top-Right Only (Bottom-Left removed as requested) */}
       <div className="absolute top-0 right-0 w-36 sm:w-48 md:w-56 h-36 sm:h-48 md:h-56 pointer-events-none select-none overflow-hidden z-0">
         <svg
           viewBox="0 0 300 300"
@@ -231,52 +263,12 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
         </svg>
       </div>
 
-      <div className="absolute bottom-0 left-0 w-36 sm:w-48 md:w-56 h-36 sm:h-48 md:h-56 pointer-events-none select-none overflow-hidden z-0">
-        <svg
-          viewBox="0 0 300 300"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-full opacity-75"
-        >
-          <path
-            d="M0,300 C80,260 120,180 100,80 C90,30 60,0 0,0 Z"
-            fill="url(#botSwirlGrad)"
-          />
-          <path
-            d="M0,300 C60,280 90,220 70,130 C55,70 30,30 0,10 Z"
-            fill="url(#botSwirlAccent)"
-          />
-          <g fill="#80011F" opacity="0.6">
-            {[0, 1, 2].map((row) =>
-              [0, 1, 2, 3, 4, 5].map((col) => (
-                <circle
-                  key={`bl-${row}-${col}`}
-                  cx={30 + col * 18}
-                  cy={230 + row * 18}
-                  r="2.2"
-                />
-              ))
-            )}
-          </g>
-          <defs>
-            <linearGradient id="botSwirlGrad" x1="1" y1="1" x2="0" y2="0">
-              <stop offset="0%" stopColor="#80011F" stopOpacity="0.85" />
-              <stop offset="100%" stopColor="#A41535" stopOpacity="0.4" />
-            </linearGradient>
-            <linearGradient id="botSwirlAccent" x1="0" y1="1" x2="1" y2="0">
-              <stop offset="0%" stopColor="#C41C44" stopOpacity="0.9" />
-              <stop offset="100%" stopColor="#660018" stopOpacity="0.3" />
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
-
       {/* =========================================================================
           DESKTOP CONTAINER: Expanded View (Spacious, No Crowding, No Descriptions)
           ========================================================================= */}
       <div className="hidden lg:block relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 overflow-hidden pt-2 pb-6">
         
-        {/* Top Header: Border & Background Removed for TEESZONE?, Logo Font Style */}
+        {/* Top Header */}
         <div className="text-center mb-6 sm:mb-8">
           <p className="text-xs sm:text-sm font-heading font-black tracking-[0.26em] text-[#1B2A4A] uppercase">
             WHY CHOOSE
@@ -292,7 +284,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
           </p>
         </div>
 
-        {/* 6-Point Infographic: Expanded View (Max width 6xl, height 480px, longer arrows, centered layout) */}
+        {/* 6-Point Infographic */}
         <div className="relative max-w-6xl mx-auto h-[480px]">
           
           {/* Animated SVG Dotted Arrows */}
@@ -456,11 +448,9 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
             target="_blank"
             rel="noopener noreferrer"
             aria-label="TeesZone on Facebook"
-            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#80011F] text-white flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-[#660018] shadow-xs"
+            className="text-[#80011F] hover:text-[#5B0116] transition-transform hover:scale-110 p-1"
           >
-            <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-            </svg>
+            <FacebookIcon className="w-4 h-4" />
           </a>
 
           <span className="text-[#80011F]/50 text-xs font-semibold select-none">|</span>
@@ -471,11 +461,9 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
             target="_blank"
             rel="noopener noreferrer"
             aria-label="TeesZone on Instagram"
-            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#80011F] text-white flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-[#660018] shadow-xs"
+            className="text-[#80011F] hover:text-[#5B0116] transition-transform hover:scale-110 p-1"
           >
-            <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-            </svg>
+            <InstagramIcon className="w-4 h-4" />
           </a>
 
           <span className="text-[#80011F]/50 text-xs font-semibold select-none">|</span>
@@ -486,11 +474,9 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
             target="_blank"
             rel="noopener noreferrer"
             aria-label="TeesZone on LinkedIn"
-            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#80011F] text-white flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-[#660018] shadow-xs"
+            className="text-[#80011F] hover:text-[#5B0116] transition-transform hover:scale-110 p-1"
           >
-            <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-            </svg>
+            <LinkedinIcon className="w-4 h-4" />
           </a>
 
           <span className="text-[#80011F]/50 text-xs font-semibold select-none">|</span>
@@ -501,11 +487,9 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
             target="_blank"
             rel="noopener noreferrer"
             aria-label="TeesZone on YouTube"
-            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#80011F] text-white flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-[#660018] shadow-xs"
+            className="text-[#80011F] hover:text-[#5B0116] transition-transform hover:scale-110 p-1"
           >
-            <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-              <path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z" />
-            </svg>
+            <YoutubeIcon className="w-4 h-4" />
           </a>
 
           <div className="w-16 sm:w-28 md:w-36 h-[1.5px] bg-[#80011F]/60 rounded-full" />
@@ -514,54 +498,63 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
       </div>
 
       {/* =========================================================================
-          MOBILE VIEW: Clean Right-Aligned Vertically Centered Reel View
-          - Vertically centered main card on the right side
-          - Clean spacing with no overlapping clumping
-          - Loading bar completely removed
+          MOBILE VIEW: Perfectly Fitted within Mobile Screen Height (100dvh)
+          - Section Header at top
+          - Model Image zoom-in animation -> scales down and aligns above cards
+          - Cards animation starts once model settles
+          - Card style matches 3D question mark crimson color theme
+          - Larger text without boldness, no card border, no icon border/bg, no numbers
+          - Enlarged bottom social icons
           ========================================================================= */}
-      <div ref={mobileContainerRef} className="lg:hidden relative h-[420vh]">
-        <div className="sticky top-0 h-[100dvh] w-full flex flex-col justify-between items-center overflow-hidden px-4 pt-16 pb-6 bg-[#FAF6F4]">
+      <div ref={mobileContainerRef} className="lg:hidden relative h-[450vh] w-full">
+        <div className="sticky top-0 h-[100dvh] w-full flex flex-col justify-between items-center overflow-hidden px-4 pt-14 pb-3 bg-[#FAF6F4]">
           
-          {/* Top/Center Animated Heading */}
-          <motion.div
-            style={{ y: mobileHeadingY, scale: mobileHeadingScale }}
-            className="text-center max-w-sm mx-auto z-30 shrink-0 origin-center"
-          >
-            <p className="text-xs font-heading font-black tracking-[0.24em] text-[#1B2A4A] uppercase">
+          {/* Top Section Header */}
+          <div className="text-center max-w-sm mx-auto z-30 shrink-0">
+            <p className="text-[11px] xs:text-xs font-heading font-black tracking-[0.24em] text-[#1B2A4A] uppercase">
               WHY CHOOSE
             </p>
-            <h2 className="text-4xl sm:text-5xl font-heading font-black tracking-tight text-[#80011F] leading-none my-1.5 select-none">
+            <h2 className="text-3xl xs:text-4xl font-heading font-black tracking-tight text-[#80011F] leading-none my-1 select-none">
               TEESZONE?
             </h2>
-            <p className="text-xs sm:text-sm font-heading font-extrabold tracking-wider text-[#1B2A4A] mt-0.5">
+            <p className="text-[11px] xs:text-xs sm:text-sm font-heading font-extrabold tracking-wider text-[#1B2A4A]">
               BEYOND CUSTOM T-SHIRTS.{' '}
               <span className="text-[#80011F]">YOUR APPAREL PARTNER.</span>
             </p>
-          </motion.div>
+          </div>
 
-          {/* Center Area: Vertically Centered Layout (Left Model + Right Centered Active Card) */}
-          <div className="relative flex-1 w-full max-w-md flex items-center justify-center my-auto overflow-hidden">
+          {/* Center Stage: Vertically Balanced & Fitted within Mobile Height */}
+          <div className="relative flex-1 w-full max-w-sm flex flex-col items-center justify-center my-auto overflow-hidden">
             
-            {/* Center Model (Shifts to left side when cards activate) */}
+            {/* Question Mark Model Image:
+                1. Initial scroll: zoom-in view (scale 1.35)
+                2. On scrolling: decreases in size to scale 0.82 and settles above the cards
+            */}
             <motion.div
               style={{
-                opacity: mobileModelOpacity,
                 scale: mobileModelScale,
-                x: mobileModelX,
+                y: mobileModelY,
+                opacity: mobileModelOpacity,
               }}
-              className="absolute left-0 inset-y-0 w-1/2 flex items-center justify-center pointer-events-none select-none z-10"
+              className="relative w-full h-[150px] xs:h-[165px] flex items-center justify-center pointer-events-none select-none z-10 shrink-0 origin-center"
             >
               <img
                 src="/assets/images/why-choose/question-man-center.png"
                 alt="Why Choose TeesZone"
-                className="max-h-[260px] sm:max-h-[300px] w-auto object-contain drop-shadow-[0_12px_24px_rgba(20,0,5,0.2)]"
+                className="h-full w-auto object-contain filter drop-shadow-[0_12px_24px_rgba(20,0,5,0.18)]"
               />
             </motion.div>
 
-            {/* Right-Aligned Vertically Centered Cards Container */}
-            <div className="relative z-20 w-full h-[270px] sm:h-[290px]">
+            {/* Cards Deck:
+                - Positioned directly below the settled model image
+                - Emerges once model settles, then cards scroll animation cycles through
+            */}
+            <motion.div
+              style={{ opacity: mobileCardsContainerOpacity }}
+              className="relative w-full h-[195px] xs:h-[210px] mt-1 flex items-center justify-center z-20"
+            >
               {allFeatures.map((feature, idx) => (
-                <MobileFocusReelCard
+                <MobileStackedReelCard
                   key={feature.id}
                   feature={feature}
                   index={idx}
@@ -569,23 +562,21 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
                   scrollProgress={mobileScrollProgress}
                 />
               ))}
-            </div>
+            </motion.div>
 
           </div>
 
-          {/* Bottom Social Media Icons Only (Loading bar / step indicators removed) */}
-          <div className="w-full max-w-sm flex items-center justify-center z-30 shrink-0 mb-2">
-            <div className="flex items-center justify-center gap-3">
+          {/* Bottom Social Media Bar: Increased icon sizes without disturbing other sections */}
+          <div className="w-full max-w-sm flex items-center justify-center z-30 shrink-0 mb-1">
+            <div className="flex items-center justify-center gap-5">
               <a
                 href="https://www.facebook.com/teeszoneindia"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="TeesZone on Facebook"
-                className="w-7 h-7 rounded-full bg-[#80011F] text-white flex items-center justify-center shadow-xs"
+                className="text-[#80011F] hover:text-[#5B0116] transition-transform hover:scale-115 p-1 cursor-pointer"
               >
-                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                </svg>
+                <FacebookIcon className="w-6 h-6" />
               </a>
 
               <a
@@ -593,11 +584,9 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="TeesZone on Instagram"
-                className="w-7 h-7 rounded-full bg-[#80011F] text-white flex items-center justify-center shadow-xs"
+                className="text-[#80011F] hover:text-[#5B0116] transition-transform hover:scale-115 p-1 cursor-pointer"
               >
-                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                </svg>
+                <InstagramIcon className="w-6 h-6" />
               </a>
 
               <a
@@ -605,11 +594,9 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="TeesZone on LinkedIn"
-                className="w-7 h-7 rounded-full bg-[#80011F] text-white flex items-center justify-center shadow-xs"
+                className="text-[#80011F] hover:text-[#5B0116] transition-transform hover:scale-115 p-1 cursor-pointer"
               >
-                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                </svg>
+                <LinkedinIcon className="w-6 h-6" />
               </a>
 
               <a
@@ -617,11 +604,9 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="TeesZone on YouTube"
-                className="w-7 h-7 rounded-full bg-[#80011F] text-white flex items-center justify-center shadow-xs"
+                className="text-[#80011F] hover:text-[#5B0116] transition-transform hover:scale-115 p-1 cursor-pointer"
               >
-                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                  <path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z" />
-                </svg>
+                <YoutubeIcon className="w-6 h-6" />
               </a>
             </div>
           </div>

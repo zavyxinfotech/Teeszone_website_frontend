@@ -1,9 +1,9 @@
 import React from 'react';
 import { AboutHero } from './components/AboutHero';
+import { VisionMission } from './components/VisionMission';
 import { AboutVideoSection } from './components/AboutVideoSection';
 import { AboutStatsSection } from './components/AboutStatsSection';
 import { OurStory } from './components/OurStory';
-import { VisionMission } from './components/VisionMission';
 import { ExpansionJourney } from '@/components/sections/ExpansionJourney';
 import { TeamSection } from './components/TeamSection';
 import { OurClients } from '@/components/sections/OurClients';
@@ -19,17 +19,17 @@ export const About: React.FC<AboutProps> = ({ onOpenQuote }) => {
       {/* 1. About Hero Carousel */}
       <AboutHero onOpenQuote={onOpenQuote} />
 
-      {/* 2. Text Animation Video Section (Desktop & Mobile) */}
+      {/* 2. Our Vision & Our Mission: Aligned directly below Hero section */}
+      <VisionMission />
+
+      {/* 3. Text Animation Video Section (Desktop & Mobile) */}
       <AboutVideoSection />
 
-      {/* 3. Full Desktop Width Animated Stats Section */}
+      {/* 4. Full Desktop Width Animated Stats Section */}
       <AboutStatsSection />
 
-      {/* 4. Our Story: Interactive Milestone Journey */}
+      {/* 5. Our Story: Interactive Milestone Journey */}
       <OurStory />
-
-      {/* 5. Vision & Mission Cards */}
-      <VisionMission />
 
       {/* 6. Expansion Journey: Growing Closer to Your Business */}
       <ExpansionJourney />
@@ -37,7 +37,7 @@ export const About: React.FC<AboutProps> = ({ onOpenQuote }) => {
       {/* 7. Meet the Team Behind TeesZone */}
       <TeamSection />
 
-      {/* 8. 500+ Clients Honeycomb Showcase */}
+      {/* 8. 500+ Clients Showcase */}
       <OurClients />
 
       {/* 9. Bottom Brand CTA */}

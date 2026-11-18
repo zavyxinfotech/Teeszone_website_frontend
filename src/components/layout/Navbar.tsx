@@ -39,7 +39,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
               <img
                 src="/assets/logo/teeszone-logo.png"
                 alt="TeesZone - elevate your style with custom tees"
-                className="h-8 xs:h-9 sm:h-11 md:h-12 lg:h-[48px] xl:h-[50px] w-auto object-contain transition-transform duration-300 group-hover:scale-102"
+                className="h-10 xs:h-11 sm:h-12 md:h-12 lg:h-[48px] xl:h-[50px] w-auto object-contain transition-transform duration-300 group-hover:scale-102"
               />
             </Link>
 
