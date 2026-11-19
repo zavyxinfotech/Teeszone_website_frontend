@@ -76,10 +76,10 @@ export const ProductCategoryCard: React.FC<ProductCategoryCardProps> = ({
       {/* 3. Bottom Content Row: Title, Description, and Circular Cream/Ivory Arrow Button */}
       <div className="relative z-20 flex items-center justify-between gap-3 pt-3.5">
         <div className="text-left space-y-0.5 max-w-[calc(100%-54px)]">
-          <h3 className="text-lg sm:text-xl font-black text-[#211D20] tracking-tight group-hover:text-[#80011F] transition-colors duration-200 truncate">
+          <h3 className="text-lg sm:text-xl font-heading font-bold text-charcoal-900 tracking-tight group-hover:text-burgundy-700 transition-colors duration-200 truncate">
             {card.title}
           </h3>
-          <p className="text-xs sm:text-sm text-[#68616A] leading-relaxed font-normal truncate">
+          <p className="text-xs sm:text-sm text-charcoal-600 leading-relaxed font-normal truncate">
             {card.description}
           </p>
         </div>

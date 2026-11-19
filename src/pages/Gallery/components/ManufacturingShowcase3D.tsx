@@ -156,15 +156,15 @@ export const ManufacturingShowcase3D: React.FC<ManufacturingShowcase3DProps> = (
           />
         </div>
 
-        {/* 1. TOP HEADER: Clean Editorial Two-Line Title */}
+        {/* 1. TOP HEADER: Clean Editorial Two-Line Title matching Home Page Typography */}
         <div className="relative z-20 w-full max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-4">
           <div>
-            <span className="text-xs sm:text-sm font-heading font-bold text-[#68616A] uppercase tracking-wider block mb-1">
+            <span className="text-xs sm:text-sm font-heading font-extrabold uppercase tracking-widest text-burgundy-700 block mb-1.5">
               Our Capabilities
             </span>
-            <h2 className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-heading font-black tracking-tight leading-[1.12]">
-              <span className="text-[#211D20] block">PRECISION MANUFACTURING</span>
-              <span className="text-[#80011F] block">FOR CUSTOM APPAREL</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-heading font-black tracking-tight leading-[1.12]">
+              <span className="text-charcoal-900 block">PRECISION MANUFACTURING</span>
+              <span className="text-burgundy-700 block">FOR CUSTOM APPAREL</span>
             </h2>
           </div>
 
@@ -172,10 +172,10 @@ export const ManufacturingShowcase3D: React.FC<ManufacturingShowcase3DProps> = (
             onClick={handleCtaClick}
             className="inline-flex items-center gap-2 group cursor-pointer self-start sm:self-end pb-1"
           >
-            <span className="text-xs sm:text-sm font-heading font-black tracking-wider uppercase text-[#211D20] group-hover:text-[#80011F] transition-colors">
+            <span className="text-xs sm:text-sm font-heading font-bold tracking-wider uppercase text-charcoal-900 group-hover:text-burgundy-700 transition-colors">
               Request a Quote
             </span>
-            <div className="w-8 h-8 rounded-full bg-white/80 border border-[#80011F]/20 flex items-center justify-center text-[#80011F] group-hover:bg-[#80011F] group-hover:text-white transition-all duration-300 shadow-xs">
+            <div className="w-8 h-8 rounded-full bg-white/80 border border-burgundy-700/20 flex items-center justify-center text-burgundy-700 group-hover:bg-burgundy-700 group-hover:text-white transition-all duration-300 shadow-xs">
               <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </div>
           </button>
@@ -215,10 +215,10 @@ export const ManufacturingShowcase3D: React.FC<ManufacturingShowcase3DProps> = (
                       {/* Left Column: Heading, 3-Line Description, CTA Button */}
                       <div className="col-span-6 xl:col-span-6 flex flex-col justify-between h-full py-1">
                         <div className="space-y-3">
-                          <h3 className="text-xl sm:text-2xl lg:text-[26px] font-heading font-black text-[#211D20] leading-tight">
+                          <h3 className="text-xl sm:text-2xl lg:text-[26px] font-heading font-bold text-charcoal-900 leading-tight">
                             {type.title}
                           </h3>
-                          <p className="text-xs sm:text-sm lg:text-[15px] text-[#554D56] leading-relaxed">
+                          <p className="text-sm sm:text-base text-charcoal-600 leading-relaxed font-normal">
                             {type.description}
                           </p>
                         </div>
@@ -258,7 +258,7 @@ export const ManufacturingShowcase3D: React.FC<ManufacturingShowcase3DProps> = (
                     /* INACTIVE CARD: Clean Heading at Top + Scooped Cutout Notch at Bottom-Right (Image 4 Reference) */
                     <div className="w-full h-full flex flex-col justify-between relative">
                       <div className="pr-2">
-                        <h3 className="text-lg lg:text-xl font-heading font-black text-[#211D20] leading-snug">
+                        <h3 className="text-lg lg:text-xl font-heading font-bold text-charcoal-900 leading-snug">
                           {type.title}
                         </h3>
                       </div>
@@ -321,10 +321,10 @@ export const ManufacturingShowcase3D: React.FC<ManufacturingShowcase3DProps> = (
 
                     {/* Bottom: Text Content Aligned Below the Image */}
                     <div className="space-y-2 mb-4">
-                      <h3 className="text-lg font-heading font-black text-[#211D20] leading-tight">
+                      <h3 className="text-lg font-heading font-bold text-charcoal-900 leading-tight">
                         {type.title}
                       </h3>
-                      <p className="text-xs text-[#554D56] leading-relaxed">
+                      <p className="text-xs sm:text-sm text-charcoal-600 leading-relaxed font-normal">
                         {type.description}
                       </p>
                     </div>

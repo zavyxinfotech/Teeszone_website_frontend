@@ -36,31 +36,35 @@ export const ProductsCTA: React.FC<ProductsCTAProps> = ({ onOpenQuote }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-4 sm:pt-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* Left Visual: Folded T-Shirts Stack on Soft Surface */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-start">
-            <div className="relative max-w-[380px] sm:max-w-[440px] lg:max-w-[500px] w-full">
+          {/* Left Visual: Folded T-Shirts Stack on Soft Surface - Substantially Increased Size */}
+          <div className="lg:col-span-6 flex justify-center lg:justify-start">
+            <div className="relative max-w-[460px] sm:max-w-[560px] lg:max-w-[650px] w-full">
               {/* Ambient Glow */}
-              <div className="absolute inset-0 bg-white/10 rounded-full blur-3xl -z-10" />
+              <div className="absolute inset-0 bg-white/15 rounded-full blur-3xl -z-10" />
 
               <motion.img
                 src="/assets/images/products/products-cta-tshirts.png"
                 alt="Folded premium custom polo T-shirts stack with Teeszone branding"
-                whileHover={shouldReduceMotion ? {} : { scale: 1.04, y: -4 }}
+                whileHover={shouldReduceMotion ? {} : { scale: 1.05, y: -4 }}
                 transition={{ duration: 0.4 }}
-                className="w-full h-auto object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.4)]"
+                className="w-full h-auto object-contain drop-shadow-[0_25px_45px_rgba(0,0,0,0.5)] transform scale-105 sm:scale-110 lg:scale-120 origin-center lg:origin-left"
                 loading="lazy"
               />
             </div>
           </div>
 
-          {/* Right Content: Headline, Description & Quote CTA Button */}
-          <div className="lg:col-span-7 text-center lg:text-left space-y-4 sm:space-y-6">
-            <h2 className="text-3xl sm:text-4xl xl:text-5xl font-black text-white tracking-tight leading-tight">
+          {/* Right Content: Headline, Description & Quote CTA Button - Matching Home Page Typography */}
+          <div className="lg:col-span-6 text-center lg:text-left space-y-4 sm:space-y-6">
+            <span className="text-xs sm:text-sm font-heading font-extrabold uppercase tracking-widest text-[#FFC1D0] block">
+              ELEVATE YOUR BRAND
+            </span>
+
+            <h2 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[52px] font-heading font-black text-white tracking-tight leading-[1.12]">
               Need Custom Apparel <br className="hidden sm:inline" />
               for Your Organization?
             </h2>
 
-            <p className="text-sm sm:text-base xl:text-lg text-white/90 leading-relaxed max-w-xl mx-auto lg:mx-0 font-normal">
+            <p className="text-base sm:text-lg text-white/90 leading-relaxed max-w-xl mx-auto lg:mx-0 font-normal">
               Get high-quality, branded apparel tailored to your team, event or institution.
               Fast turnaround, transparent pricing, and complete Tiruppur factory direct production.
             </p>
@@ -68,10 +72,10 @@ export const ProductsCTA: React.FC<ProductsCTAProps> = ({ onOpenQuote }) => {
             <div className="pt-2">
               <button
                 onClick={onOpenQuote}
-                className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white hover:bg-warm-50 text-[#80011F] font-black text-sm sm:text-base shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+                className="group inline-flex items-center gap-3 px-8 sm:px-9 py-3.5 sm:py-4 rounded-full bg-white hover:bg-warm-50 text-burgundy-700 hover:text-burgundy-900 font-heading font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
               >
                 <span>Get a Quote</span>
-                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
               </button>
             </div>
           </div>

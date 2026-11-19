@@ -47,10 +47,10 @@ export const ProductAdvantages: React.FC = () => {
                     <Icon className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2]" />
                   </div>
                   <div>
-                    <h3 className="text-sm sm:text-base font-bold text-[#211D20] leading-tight">
+                    <h3 className="text-sm sm:text-base font-heading font-bold text-charcoal-900 group-hover:text-burgundy-700 transition-colors leading-tight">
                       {item.title}
                     </h3>
-                    <p className="text-xs text-[#68616A] leading-relaxed pt-0.5">
+                    <p className="text-xs sm:text-[13px] text-charcoal-600 font-normal leading-relaxed pt-0.5">
                       {item.description}
                     </p>
                   </div>

@@ -4,7 +4,7 @@ import { navigationLinks, companyContact } from '@/data/navigation';
 import { productsData } from '@/data/products';
 import { MapPin, Phone, Mail, ArrowUp, Heart, X, ShieldCheck, FileText } from 'lucide-react';
 
-const InstagramIcon: React.FC<{ className?: string }> = ({ className = 'w-7 h-7' }) => (
+const InstagramIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-5 sm:w-6 sm:h-6' }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none">
     <defs>
       <radialGradient id="instaGrad" cx="30%" cy="107%" r="150%">
@@ -22,19 +22,19 @@ const InstagramIcon: React.FC<{ className?: string }> = ({ className = 'w-7 h-7'
   </svg>
 );
 
-const FacebookIcon: React.FC<{ className?: string }> = ({ className = 'w-7 h-7' }) => (
+const FacebookIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-5 sm:w-6 sm:h-6' }) => (
   <svg className={className} fill="#1877F2" viewBox="0 0 24 24">
     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
   </svg>
 );
 
-const YoutubeIcon: React.FC<{ className?: string }> = ({ className = 'w-7 h-7' }) => (
+const YoutubeIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-5 sm:w-6 sm:h-6' }) => (
   <svg className={className} fill="#FF0000" viewBox="0 0 24 24">
     <path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z" />
   </svg>
 );
 
-const LinkedinIcon: React.FC<{ className?: string }> = ({ className = 'w-7 h-7' }) => (
+const LinkedinIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-5 sm:w-6 sm:h-6' }) => (
   <svg className={className} fill="#0A66C2" viewBox="0 0 24 24">
     <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
   </svg>
@@ -104,7 +104,7 @@ export const Footer: React.FC = () => {
               <img
                 src="/assets/logo/teeszone-logo.png"
                 alt="TeesZone"
-                className="h-11 w-auto object-contain mx-auto md:mx-0"
+                className="h-14 sm:h-16 md:h-16 lg:h-[68px] w-auto object-contain mx-auto md:mx-0"
               />
             </Link>
             <p className="text-base text-charcoal-600 font-normal leading-relaxed max-w-sm mx-auto md:mx-0">
@@ -112,8 +112,8 @@ export const Footer: React.FC = () => {
               businesses, organizations, events and brands across India.
             </p>
 
-            {/* Social Icons: Exact original logo colors and increased sizes */}
-            <div className="flex items-center justify-center md:justify-start gap-3.5 pt-2">
+            {/* Social Icons: Exact original logo colors and adjusted compact sizes */}
+            <div className="flex items-center justify-center md:justify-start gap-3 pt-2">
               <a
                 href={companyContact.socials.instagram}
                 target="_blank"
@@ -121,7 +121,7 @@ export const Footer: React.FC = () => {
                 className="hover:scale-110 transition-transform p-1 inline-flex items-center justify-center"
                 aria-label="Instagram"
               >
-                <InstagramIcon className="w-7 h-7 sm:w-8 sm:h-8" />
+                <InstagramIcon className="w-5 h-5 sm:w-6 sm:h-6" />
               </a>
               <a
                 href={companyContact.socials.facebook}
@@ -130,7 +130,7 @@ export const Footer: React.FC = () => {
                 className="hover:scale-110 transition-transform p-1 inline-flex items-center justify-center"
                 aria-label="Facebook"
               >
-                <FacebookIcon className="w-7 h-7 sm:w-8 sm:h-8" />
+                <FacebookIcon className="w-5 h-5 sm:w-6 sm:h-6" />
               </a>
               <a
                 href={companyContact.socials.youtube}
@@ -139,7 +139,7 @@ export const Footer: React.FC = () => {
                 className="hover:scale-110 transition-transform p-1 inline-flex items-center justify-center"
                 aria-label="YouTube"
               >
-                <YoutubeIcon className="w-7 h-7 sm:w-8 sm:h-8" />
+                <YoutubeIcon className="w-5 h-5 sm:w-6 sm:h-6" />
               </a>
               <a
                 href={companyContact.socials.linkedin}
@@ -148,7 +148,7 @@ export const Footer: React.FC = () => {
                 className="hover:scale-110 transition-transform p-1 inline-flex items-center justify-center"
                 aria-label="LinkedIn"
               >
-                <LinkedinIcon className="w-7 h-7 sm:w-8 sm:h-8" />
+                <LinkedinIcon className="w-5 h-5 sm:w-6 sm:h-6" />
               </a>
             </div>
           </div>

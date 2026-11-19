@@ -47,6 +47,32 @@ export const ContactHero: React.FC = () => {
               </linearGradient>
             </defs>
           </svg>
+          {/* Decorative Royal Burgundy Satin Fabric Wave at Top Right Corner (Desktop ONLY - Hidden on Mobile) */}
+          <svg
+            viewBox="0 0 800 500"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="hidden md:block absolute top-0 right-0 w-[55%] h-[55%] object-cover pointer-events-none select-none z-10"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M320,0 C480,90 600,60 800,190 L800,0 Z"
+              fill="url(#desktopSatinWaveContact)"
+            />
+            <path
+              d="M440,0 C560,110 680,85 800,240 L800,0 Z"
+              fill="#800020"
+              fillOpacity="0.18"
+            />
+            <defs>
+              <linearGradient id="desktopSatinWaveContact" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stopColor="#580819" stopOpacity="0.9" />
+                <stop offset="40%" stopColor="#7A1027" stopOpacity="0.75" />
+                <stop offset="80%" stopColor="#9C1E3A" stopOpacity="0.45" />
+                <stop offset="100%" stopColor="#580819" stopOpacity="0.05" />
+              </linearGradient>
+            </defs>
+          </svg>
         </div>
       </div>
 
@@ -148,70 +174,60 @@ export const ContactHero: React.FC = () => {
 
         {/* =====================================================================
             RIGHT SIDE CONSULTATION IMAGE & "WE'RE HERE TO HELP YOU!" ABOVE IMAGE
-            - "We're Here to Help You!" positioned ABOVE the image
-            - Increased image size to fill gap between content and image
+            - "We're Here to Help You!" positioned ABOVE the image in 2 rows, center-aligned
             - Attached to right screen border (right-0) and bottom border (bottom-0)
             ===================================================================== */}
         <div className="absolute right-0 bottom-0 z-10 hidden md:flex items-end justify-end pointer-events-none select-none">
           <div className="relative flex items-end justify-end">
             
-            {/* "We're Here to Help You!" Script Text: Positioned ABOVE the image */}
-            <div className="absolute right-12 lg:right-20 xl:right-28 top-[6%] lg:top-[8%] xl:top-[10%] z-30 pointer-events-none select-none">
-              <span className="transform -rotate-[10deg] font-['Brush_Script_MT',_'Dancing_Script',_cursive] italic text-2xl lg:text-3xl xl:text-4xl text-[#80011F] font-semibold tracking-wide drop-shadow-xs block whitespace-nowrap">
-                We're Here to Help You!
-              </span>
+            {/* "We're Here to Help You!" Script Text: Positioned ABOVE the image in 2 rows, center-aligned */}
+            <div className="absolute inset-x-0 top-[-65px] lg:top-[-75px] xl:top-[-85px] z-30 pointer-events-none select-none flex justify-center text-center">
+              <div className="text-center">
+                <span className="block font-['Brush_Script_MT',_'Dancing_Script',_cursive] italic text-2xl lg:text-3xl xl:text-4xl text-[#80011F] font-semibold tracking-wide drop-shadow-xs leading-tight">
+                  We're Here
+                </span>
+                <span className="block font-['Brush_Script_MT',_'Dancing_Script',_cursive] italic text-2xl lg:text-3xl xl:text-4xl text-[#80011F] font-semibold tracking-wide drop-shadow-xs leading-tight">
+                  to Help You!
+                </span>
+              </div>
             </div>
 
             {/* Increased Width Consultation Image: Fully visible, attached right-0 and bottom-0 */}
             <img
               src="/assets/images/contact/contact-hero-consultation-transparent.png"
               alt="TeesZone custom apparel consultation with client"
-              className="h-[430px] lg:h-[500px] xl:h-[560px] w-auto max-w-[62vw] object-contain object-bottom-right drop-shadow-2xl"
+              className="h-[430px] lg:h-[500px] xl:h-[560px] w-auto max-w-[62vw] object-contain object-bottom-right drop-shadow-2xl block mb-0 align-bottom"
               loading="eager"
             />
           </div>
-        </div>
-
-        {/* Bottom Wavy Border Curve leading into next section (no grey line below!) */}
-        <div className="absolute bottom-0 inset-x-0 overflow-hidden leading-none pointer-events-none z-20">
-          <svg
-            viewBox="0 0 1440 60"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-6 lg:h-8"
-            preserveAspectRatio="none"
-          >
-            <path
-              d="M0,20 C360,55 720,0 1080,35 C1260,50 1380,25 1440,20 L1440,60 L0,60 Z"
-              fill="#FFFFFF"
-            />
-          </svg>
         </div>
 
       </div>
 
       {/* =========================================================================
           MOBILE HERO VIEW (md:hidden)
-          - Fully visible text content area at top
-          - Full-width edge-to-edge consultation image with ZERO left/right space
-          - Wavy curve at bottom
+          - Aligned strictly within mobile screen height (100dvh) without height overflow
+          - High z-index (relative z-30) guaranteed 100% visible on top of all backgrounds
+          - Mobile text content: CONTACT US, Heading, Description, Call Now button, 3 Benefit Badges
+          - Centered 2-row "We're Here to Help You!" directly above consultation image
+          - Consultation image table attached directly to the bottom (zero sandal color gap)
           ========================================================================= */}
-      <div className="md:hidden flex flex-col w-full pt-16 sm:pt-20 pb-0 z-10 bg-[#FAF6F4]">
+      <div className="md:hidden relative z-30 flex flex-col justify-between w-full h-[100dvh] max-h-[100dvh] pt-14 sm:pt-16 pb-0 overflow-hidden">
         
-        {/* Top Text Content Area */}
-        <div className="px-4 sm:px-6 pt-2 pb-2 space-y-2.5 text-center">
+        {/* Top Text Content Area: Compact, guaranteed 100% visible and fits mobile viewport */}
+        <div className="relative z-30 px-4 sm:px-6 pt-1 space-y-2 text-center">
           
-          <span className="text-xs font-heading font-extrabold uppercase tracking-widest text-[#80011F] block">
+          <span className="text-[10px] font-heading font-extrabold uppercase tracking-widest text-[#80011F] block">
             CONTACT US
           </span>
 
-          <h1 className="text-[25px] sm:text-3xl font-heading font-black tracking-tight leading-[1.14] text-center">
-            <span className="block text-charcoal-900">Let's Create</span>
+          <h1 className="text-xl xs:text-2xl font-heading font-black tracking-tight leading-[1.12] text-center">
+            <span className="block text-[#0F172A]">Let's Create</span>
             <span className="block text-[#80011F]">Your Custom T-Shirts</span>
             <span className="block text-[#80011F]">Together</span>
           </h1>
 
-          <p className="text-xs sm:text-sm text-charcoal-600 leading-relaxed font-normal max-w-xs mx-auto">
+          <p className="text-[11px] sm:text-xs text-[#475569] leading-snug font-normal max-w-xs mx-auto line-clamp-2">
             Have a requirement, idea or bulk order? Our team is here to help you with the best solutions for your business, organization or event.
           </p>
 
@@ -219,7 +235,7 @@ export const ContactHero: React.FC = () => {
           <div className="pt-0.5 flex justify-center">
             <a
               href={`tel:${companyContact.phone.replace(/\s+/g, '')}`}
-              className="inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-xs font-heading font-medium bg-burgundy-700 hover:bg-burgundy-800 text-white shadow-soft transition-all"
+              className="inline-flex items-center gap-1.5 rounded-full px-5 py-2 text-xs font-heading font-medium bg-[#80011F] hover:bg-[#6b021c] text-white shadow-soft transition-all active:scale-95 cursor-pointer"
             >
               <Phone className="w-3.5 h-3.5 text-white" />
               <span>Call Now</span>
@@ -227,40 +243,40 @@ export const ContactHero: React.FC = () => {
           </div>
 
           {/* 3 Benefit Items in a row */}
-          <div className="pt-2 border-t border-burgundy-100/60 max-w-sm mx-auto">
-            <div className="grid grid-cols-3 gap-2">
+          <div className="pt-2 border-t border-burgundy-100/60 max-w-xs mx-auto">
+            <div className="grid grid-cols-3 gap-1.5">
               <div className="flex flex-col items-center text-center">
-                <div className="text-burgundy-700 mb-0.5">
-                  <Clock className="w-5 h-5 stroke-[1.8]" />
+                <div className="text-[#80011F] mb-0.5">
+                  <Clock className="w-4 h-4 stroke-[1.8]" />
                 </div>
-                <span className="text-[11px] font-heading font-medium text-charcoal-900 block leading-tight">
+                <span className="text-[10px] font-heading font-medium text-[#0F172A] block leading-tight">
                   Quick Response
                 </span>
-                <span className="text-[9px] font-heading font-medium text-burgundy-700 block mt-0.5">
+                <span className="text-[8.5px] font-heading font-medium text-[#80011F] block mt-0.5">
                   (Within 24 Hours)
                 </span>
               </div>
 
               <div className="flex flex-col items-center text-center">
-                <div className="text-burgundy-700 mb-0.5">
-                  <HelpCircle className="w-5 h-5 stroke-[1.8]" />
+                <div className="text-[#80011F] mb-0.5">
+                  <HelpCircle className="w-4 h-4 stroke-[1.8]" />
                 </div>
-                <span className="text-[11px] font-heading font-medium text-charcoal-900 block leading-tight">
+                <span className="text-[10px] font-heading font-medium text-[#0F172A] block leading-tight">
                   Expert Guidance
                 </span>
-                <span className="text-[9px] font-heading font-medium text-burgundy-700 block mt-0.5">
+                <span className="text-[8.5px] font-heading font-medium text-[#80011F] block mt-0.5">
                   For Requirements
                 </span>
               </div>
 
               <div className="flex flex-col items-center text-center">
-                <div className="text-burgundy-700 mb-0.5">
-                  <Sparkles className="w-5 h-5 stroke-[1.8]" />
+                <div className="text-[#80011F] mb-0.5">
+                  <Sparkles className="w-4 h-4 stroke-[1.8]" />
                 </div>
-                <span className="text-[11px] font-heading font-medium text-charcoal-900 block leading-tight">
+                <span className="text-[10px] font-heading font-medium text-[#0F172A] block leading-tight">
                   Customized
                 </span>
-                <span className="text-[9px] font-heading font-medium text-burgundy-700 block mt-0.5">
+                <span className="text-[8.5px] font-heading font-medium text-[#80011F] block mt-0.5">
                   Solutions
                 </span>
               </div>
@@ -269,42 +285,31 @@ export const ContactHero: React.FC = () => {
 
         </div>
 
-        {/* Mobile Consultation Visual Area: FULL WIDTH, ZERO SPACE ON LEFT & RIGHT */}
-        <div className="relative w-full overflow-hidden bg-transparent px-0 pt-2 flex flex-col items-center">
+        {/* Mobile Consultation Visual Area: Anchored directly at bottom with ZERO gap */}
+        <div className="relative z-30 w-full overflow-hidden bg-transparent px-0 mt-auto flex flex-col items-center justify-end pb-0 mb-0 leading-none">
           
-          {/* Handwritten Script positioned above the image */}
-          <div className="w-full flex justify-end pr-5 -mb-2 z-20 pointer-events-none select-none">
-            <span className="transform -rotate-[10deg] font-['Brush_Script_MT',_'Dancing_Script',_cursive] italic text-xl text-[#80011F] font-semibold drop-shadow-xs">
-              We're Here to Help You!
-            </span>
+          {/* Handwritten Script positioned above the image in 2 rows, center aligned */}
+          <div className="w-full flex justify-center text-center z-30 pointer-events-none select-none mb-1">
+            <div className="text-center">
+              <span className="block font-['Brush_Script_MT',_'Dancing_Script',_cursive] italic text-base sm:text-lg text-[#80011F] font-semibold drop-shadow-xs leading-tight">
+                We're Here
+              </span>
+              <span className="block font-['Brush_Script_MT',_'Dancing_Script',_cursive] italic text-base sm:text-lg text-[#80011F] font-semibold drop-shadow-xs leading-tight">
+                to Help You!
+              </span>
+            </div>
           </div>
 
-          {/* Full-width image: touches both left and right edges with NO space */}
-          <div className="relative z-10 w-full flex justify-center p-0 m-0">
+          {/* Full-width image: table anchored flush at the bottom edge */}
+          <div className="relative z-30 w-full flex justify-center p-0 m-0 leading-none">
             <img
               src="/assets/images/contact/contact-hero-consultation-transparent.png"
               alt="TeesZone Custom Apparel Consultation"
-              className="w-full h-auto object-cover object-bottom drop-shadow-md"
+              className="w-full h-auto max-h-[42dvh] xs:max-h-[45dvh] object-cover object-bottom drop-shadow-md block m-0 p-0 align-bottom"
               loading="eager"
             />
           </div>
 
-        </div>
-
-        {/* Mobile Bottom Curve with zero grey line below */}
-        <div className="w-full leading-none pointer-events-none">
-          <svg
-            viewBox="0 0 1440 50"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-5"
-            preserveAspectRatio="none"
-          >
-            <path
-              d="M0,15 C360,45 720,0 1080,30 C1260,42 1380,20 1440,15 L1440,50 L0,50 Z"
-              fill="#FFFFFF"
-            />
-          </svg>
         </div>
 
       </div>

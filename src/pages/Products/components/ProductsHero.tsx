@@ -108,6 +108,33 @@ export const ProductsHero: React.FC<ProductsHeroProps> = ({ onExploreClick }) =>
       {/* 2. Top Header Backdrop Scrim (Keeps Navbar Logo and Navigation Links crystal clear) */}
       <div className="absolute top-0 left-0 right-0 h-24 sm:h-28 bg-gradient-to-b from-[#FFFDFD] via-[#FFFDFD]/85 to-transparent pointer-events-none z-[4]" />
 
+      {/* Decorative Royal Burgundy Satin Fabric Wave at Top Right Corner (Desktop ONLY - Hidden on Mobile) */}
+      <svg
+        viewBox="0 0 800 500"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="absolute top-0 right-0 w-[55%] h-[55%] object-cover hidden md:block pointer-events-none select-none z-[5]"
+        preserveAspectRatio="none"
+      >
+        <path
+          d="M320,0 C480,90 600,60 800,190 L800,0 Z"
+          fill="url(#desktopSatinWaveProducts)"
+        />
+        <path
+          d="M440,0 C560,110 680,85 800,240 L800,0 Z"
+          fill="#800020"
+          fillOpacity="0.18"
+        />
+        <defs>
+          <linearGradient id="desktopSatinWaveProducts" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#580819" stopOpacity="0.9" />
+            <stop offset="40%" stopColor="#7A1027" stopOpacity="0.75" />
+            <stop offset="80%" stopColor="#9C1E3A" stopOpacity="0.45" />
+            <stop offset="100%" stopColor="#580819" stopOpacity="0.05" />
+          </linearGradient>
+        </defs>
+      </svg>
+
       {/* 3. Dark Backdrop Tint for 100% Mobile & Desktop Legibility */}
       <div className="absolute inset-0 bg-black/45 sm:bg-black/20 lg:bg-transparent pointer-events-none z-[1]" />
 
@@ -129,26 +156,33 @@ export const ProductsHero: React.FC<ProductsHeroProps> = ({ onExploreClick }) =>
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="lg:col-span-5 text-left space-y-5 sm:space-y-6 flex flex-col justify-center"
           >
-            {/* Main Headline */}
-            <h1 className="text-3xl xs:text-4xl sm:text-5xl xl:text-6xl font-black text-white tracking-tight leading-[1.12] drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
+            {/* Eyebrow Tag matching Home Page */}
+            <div>
+              <span className="text-xs sm:text-sm font-heading font-extrabold uppercase tracking-widest text-[#FFC1D0] block">
+                OUR APPAREL COLLECTION
+              </span>
+            </div>
+
+            {/* Main Headline matching Home Page */}
+            <h1 className="text-3xl xs:text-4xl sm:text-5xl lg:text-[56px] xl:text-[62px] font-heading font-black text-white tracking-tight leading-[1.08] drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
               Apparel Crafted <br />
-              for <span className="text-[#FF4D6D] sm:text-[#FF3B62] italic font-black">Every Purpose</span>
+              for <span className="text-[#FFC1D0] sm:text-[#FF99B0] italic font-heading font-black">Every Purpose</span>
             </h1>
 
-            {/* Subtitle Description */}
-            <p className="text-base sm:text-lg text-white/95 leading-relaxed max-w-lg font-normal drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">
+            {/* Subtitle Description matching Home Page */}
+            <p className="text-base sm:text-lg lg:text-[20px] text-white/90 leading-relaxed max-w-lg font-normal drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">
               Custom-made apparel for businesses, institutions, events, and teams. Premium
               quality, scalable production, and complete customization.
             </p>
 
-            {/* CTA Button */}
+            {/* CTA Button matching Home Page */}
             <div className="pt-2 sm:pt-3">
               <button
                 onClick={scrollToProducts}
-                className="group inline-flex items-center justify-center gap-3 px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-[#80011F] hover:bg-[#A3082E] text-white font-bold text-sm sm:text-base shadow-lg shadow-[#80011F]/50 hover:shadow-xl hover:shadow-[#80011F]/70 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] cursor-pointer border border-white/20"
+                className="group inline-flex items-center justify-center gap-3 px-8 py-3.5 sm:py-4 rounded-full bg-burgundy-700 hover:bg-burgundy-800 text-white font-heading font-medium text-base sm:text-lg shadow-soft hover:shadow-soft-lg transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
               >
                 <span>Explore Products</span>
-                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
               </button>
             </div>
           </motion.div>

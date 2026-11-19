@@ -79,22 +79,22 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ onRequestQuote }) => {
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="text-center space-y-3 mb-12 sm:mb-16 max-w-2xl mx-auto"
         >
-          {/* Eyebrow Label with Delicate Burgundy Accent Lines */}
+          {/* Eyebrow Label with Delicate Burgundy Accent Lines matching Home Page */}
           <div className="flex items-center justify-center gap-3">
-            <span className="w-8 h-[1.5px] bg-[#80011F]/35 rounded-full" />
-            <span className="text-xs uppercase tracking-[0.25em] font-extrabold text-[#80011F]">
+            <span className="w-8 h-[1.5px] bg-burgundy-700/35 rounded-full" />
+            <span className="text-xs sm:text-sm font-heading font-extrabold uppercase tracking-widest text-burgundy-700 block">
               OUR PRODUCTS
             </span>
-            <span className="w-8 h-[1.5px] bg-[#80011F]/35 rounded-full" />
+            <span className="w-8 h-[1.5px] bg-burgundy-700/35 rounded-full" />
           </div>
 
-          {/* Main Headline */}
-          <h2 className="text-3xl sm:text-4xl xl:text-5xl font-black text-[#211D20] tracking-tight leading-tight">
-            Explore Our <span className="text-[#80011F]">Product Range</span>
+          {/* Main Headline matching Home Page */}
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-heading font-black tracking-tight text-charcoal-900 leading-[1.12]">
+            Explore Our <span className="text-burgundy-700">Product Range</span>
           </h2>
 
-          {/* Subtitle Description */}
-          <p className="text-sm sm:text-base text-[#68616A] leading-relaxed max-w-xl mx-auto font-normal">
+          {/* Subtitle Description matching Home Page */}
+          <p className="text-base sm:text-lg text-charcoal-600 leading-relaxed max-w-xl mx-auto font-normal">
             A versatile collection of custom apparel, designed for corporates, schools, events,
             and sports.
           </p>

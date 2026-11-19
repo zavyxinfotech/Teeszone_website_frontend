@@ -84,16 +84,16 @@ export const ClientReviews3DGallery: React.FC<ClientReviews3DGalleryProps> = () 
         />
       </div>
 
-      {/* 1. TOP HEADER */}
+      {/* 1. TOP HEADER matching Home Page Typography */}
       <div className="relative z-20 text-center max-w-4xl mx-auto px-4 sm:px-6 pt-4 mb-2">
-        <div className="text-xs sm:text-[13px] font-heading font-extrabold tracking-widest text-[#80011F] uppercase mb-1.5">
+        <span className="text-xs sm:text-sm font-heading font-extrabold uppercase tracking-widest text-burgundy-700 mb-1.5 block">
           VERIFIED CLIENT EXPERIENCES
-        </div>
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-heading font-black text-[#211D20] tracking-tight leading-[1.25]">
+        </span>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-heading font-black text-charcoal-900 tracking-tight leading-[1.12]">
           Trusted by Businesses Across India for{' '}
-          <span className="text-[#80011F]">Custom T-Shirts</span> &amp; Corporate Apparel
+          <span className="text-burgundy-700">Custom T-Shirts</span> &amp; Corporate Apparel
         </h2>
-        <p className="text-xs sm:text-sm text-[#554D56] max-w-2xl mx-auto mt-2 leading-relaxed">
+        <p className="text-base sm:text-lg text-charcoal-600 max-w-2xl mx-auto mt-3 leading-relaxed font-normal">
           Explore genuine customer experiences with Teeszone&apos;s custom T-shirt printing, bulk apparel manufacturing and personalized corporate clothing solutions.
         </p>
       </div>

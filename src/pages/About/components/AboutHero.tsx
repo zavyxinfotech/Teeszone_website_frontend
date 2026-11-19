@@ -147,6 +147,33 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
             fill="url(#silkDrapeGrad2)"
           />
         </svg>
+
+        {/* Decorative Royal Burgundy Satin Fabric Wave at Top Right Corner (Desktop ONLY - Hidden on Mobile) */}
+        <svg
+          viewBox="0 0 800 500"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute top-0 right-0 w-[55%] h-[55%] object-cover hidden md:block pointer-events-none select-none z-10"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M320,0 C480,90 600,60 800,190 L800,0 Z"
+            fill="url(#desktopSatinWaveAbout)"
+          />
+          <path
+            d="M440,0 C560,110 680,85 800,240 L800,0 Z"
+            fill="#800020"
+            fillOpacity="0.18"
+          />
+          <defs>
+            <linearGradient id="desktopSatinWaveAbout" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#580819" stopOpacity="0.9" />
+              <stop offset="40%" stopColor="#7A1027" stopOpacity="0.75" />
+              <stop offset="80%" stopColor="#9C1E3A" stopOpacity="0.45" />
+              <stop offset="100%" stopColor="#580819" stopOpacity="0.05" />
+            </linearGradient>
+          </defs>
+        </svg>
       </div>
 
       {/* =========================================================================
