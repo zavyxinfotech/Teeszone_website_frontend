@@ -117,24 +117,24 @@ export const QuoteCTA: React.FC<QuoteCTAProps> = ({ onOpenQuote }) => {
               </p>
             </RevealAnimation>
 
-            {/* Action Buttons */}
+            {/* Action Buttons: 2 Buttons in One Line on Mobile */}
             <RevealAnimation direction="up" delay={0.15}>
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3.5 pt-2">
+              <div className="flex flex-row flex-nowrap items-center justify-center lg:justify-start gap-2.5 sm:gap-3.5 pt-2 w-full max-w-sm sm:max-w-none mx-auto lg:mx-0">
                 <Button
                   variant="white"
-                  size="lg"
+                  size="md"
                   withArrow
                   onClick={onOpenQuote}
                   to={!onOpenQuote ? '/contact?mode=quote' : undefined}
-                  className="text-base sm:text-lg py-3 px-8"
+                  className="text-xs xs:text-sm sm:text-lg py-2.5 sm:py-3 px-4 xs:px-6 sm:px-8 whitespace-nowrap flex-1 sm:flex-initial"
                 >
                   Get a Quote
                 </Button>
                 <Button
                   variant="outline"
-                  size="lg"
+                  size="md"
                   to="/contact"
-                  className="border-white/80 text-white hover:bg-white hover:text-burgundy-700 text-base sm:text-lg py-3 px-8"
+                  className="border-white/80 text-white hover:bg-white hover:text-burgundy-700 text-xs xs:text-sm sm:text-lg py-2.5 sm:py-3 px-4 xs:px-6 sm:px-8 whitespace-nowrap flex-1 sm:flex-initial"
                   withArrow
                 >
                   Contact Us

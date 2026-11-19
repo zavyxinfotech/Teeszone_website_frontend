@@ -4,7 +4,7 @@ import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { ClothFoldingPolo } from './ClothFoldingPolo';
 import { FabricWave3D } from './FabricWave3D';
 import { BNIMemberSlide } from './BNIMemberSlide';
-import { PartnershipSlide } from './PartnershipSlide';
+import { PartnershipSlide, featureHighlights } from './PartnershipSlide';
 
 interface AboutHeroProps {
   onOpenQuote?: () => void;
@@ -36,7 +36,7 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
     setCurrentSlide((prev) => (prev + 1) % totalSlides);
   }, [totalSlides]);
 
- const prevSlide = useCallback(() => {
+  const prevSlide = useCallback(() => {
     setDirection(-1);
     setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
   }, [totalSlides]);
@@ -108,22 +108,17 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
     >
       {/* =========================================================================
           BACKGROUND: LUXURIOUS CREAM SILK DRAPERY & STUDIO LIGHTING
-          - Continuous & persistent across all carousel slides
           ========================================================================= */}
       <div className="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden">
-        {/* Ambient Studio Lighting Glow */}
         <div
           className="absolute -top-32 left-1/3 w-[700px] h-[700px] rounded-full bg-radial from-white via-[#FFF9F6]/80 to-transparent blur-3xl opacity-85"
           aria-hidden="true"
         />
-
-        {/* Soft Radial Glow behind Right Visual Element */}
         <div
           className="absolute top-1/4 right-0 w-[650px] h-[650px] rounded-full bg-radial from-white via-[#FCF2EE]/70 to-transparent blur-3xl opacity-80"
           aria-hidden="true"
         />
 
-        {/* Diagonal Cream Silk Drapery Folds (Entering from Top-Left) */}
         <svg
           viewBox="0 0 1440 600"
           fill="none"
@@ -148,20 +143,20 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
             fill="url(#silkDrapeGrad1)"
           />
           <path
-            d="M0,40 C320,140 540,320 780,380 C1040,440 1280,240 1440,280 L1440,0 L0,0 Z"
+            d="M0,40 C420,160 780,280 1100,260 C1280,250 1380,180 1440,160 L1440,0 L0,0 Z"
             fill="url(#silkDrapeGrad2)"
           />
         </svg>
       </div>
 
       {/* =========================================================================
-          CAROUSEL SLIDES CONTAINER WITH ANIMATE PRESENCE
+          CAROUSEL SLIDES CONTAINER
           ========================================================================= */}
-      <div className="relative z-10 w-full flex-1 flex flex-col justify-center overflow-hidden">
-        <AnimatePresence initial={false} custom={direction} mode="popLayout">
+      <div className="relative w-full flex-1 flex flex-col justify-center min-h-0 z-10">
+        <AnimatePresence initial={false} custom={direction} mode="wait">
           {currentSlide === 0 ? (
             /* ===================================================================
-               SLIDE 1: BRANDED APPAREL SOLUTIONS & 3D POLO SHIRT
+               SLIDE 1: YOUR TRUSTED PARTNER IN BRANDED APPAREL SOLUTIONS
                =================================================================== */
             <motion.div
               key="slide-apparel"
@@ -172,7 +167,7 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
               exit="exit"
               className="w-full h-full flex flex-col justify-center"
             >
-              {/* DESKTOP T-SHIRT VISUAL (Transparent 1024x682 Cutout Attached Behind Wave) */}
+              {/* DESKTOP T-SHIRT VISUAL */}
               <div className="hidden lg:flex absolute right-0 bottom-[-6px] xl:bottom-[-10px] 2xl:bottom-[-12px] z-10 w-[53vw] xl:w-[55vw] max-w-[920px] xl:max-w-[1020px] 2xl:max-w-[1140px] justify-end items-end pointer-events-none">
                 <ClothFoldingPolo
                   className="w-full h-full flex justify-end items-end"
@@ -184,44 +179,58 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
               <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex-1 flex flex-col justify-center pt-0 lg:pt-24 xl:pt-28 pb-0 lg:pb-16 h-full">
                 {/* 1. DESKTOP VIEW */}
                 <div className="hidden lg:grid lg:grid-cols-12 gap-8 items-center">
-                  <div className="lg:col-span-7 xl:col-span-7 space-y-5 xl:space-y-6 text-left">
-                    <div className="space-y-3.5">
-                      <motion.h1
-                        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-                        className="text-3xl sm:text-4xl lg:text-[42px] xl:text-[50px] font-heading font-medium leading-[1.15] tracking-tight"
-                      >
-                        <span className="block text-[#1A1D20]">
-                          Your Trusted Partner in
-                        </span>
-                        <span className="block text-[#80011F] mt-1">
-                          Branded Apparel Solutions
-                        </span>
-                      </motion.h1>
-
-                      <motion.div
-                        initial={{ width: 0, opacity: 0 }}
-                        animate={{ width: 54, opacity: 1 }}
-                        transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
-                        className="h-[2px] bg-[#80011F] rounded-full"
-                      />
-                    </div>
+                  <div className="lg:col-span-7 xl:col-span-7 space-y-4 xl:space-y-5 text-left">
+                    <motion.h1
+                      initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+                      className="text-4xl sm:text-5xl lg:text-[56px] xl:text-[62px] font-heading font-bold text-charcoal-900 leading-[1.08] tracking-tight max-w-2xl"
+                    >
+                      <span className="block text-[#1A1D20]">
+                        Your Trusted Partner in
+                      </span>
+                      <span className="block text-[#80011F] mt-1">
+                        Branded Apparel Solutions
+                      </span>
+                    </motion.h1>
 
                     <motion.p
                       initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.75, delay: 0.3, ease: 'easeOut' }}
-                      className="text-base sm:text-lg xl:text-[19px] text-[#4A4D52] font-normal leading-relaxed max-w-lg"
+                      transition={{ duration: 0.75, delay: 0.25, ease: 'easeOut' }}
+                      className="text-lg sm:text-xl lg:text-[20px] text-charcoal-700 leading-relaxed font-normal max-w-xl"
                     >
                       Customised T-Shirts, Polo T-Shirts and<br />
                       Corporate Uniforms for Businesses.
                     </motion.p>
 
+                    {/* 3 Options with Professional Outline Icons */}
                     <motion.div
                       initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.7, delay: 0.4, ease: 'easeOut' }}
+                      transition={{ duration: 0.75, delay: 0.35, ease: 'easeOut' }}
+                      className="grid grid-cols-3 gap-4 sm:gap-6 pt-2 pb-1 max-w-md"
+                    >
+                      {featureHighlights.map((feat) => {
+                        const IconComp = feat.icon;
+                        return (
+                          <div key={feat.id} className="flex flex-col items-center text-center">
+                            <div className="w-9 h-9 sm:w-10 sm:h-10 text-[#80011F] flex items-center justify-center transition-transform hover:scale-110 duration-200">
+                              <IconComp className="w-7 h-7 sm:w-8 sm:h-8 stroke-[1.8]" />
+                            </div>
+                            <span className="text-xs sm:text-[13px] font-heading font-bold text-[#1A1D20] leading-snug mt-1.5 whitespace-pre-line text-center">
+                              {feat.title}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </motion.div>
+
+                    {/* CTA Button */}
+                    <motion.div
+                      initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.7, delay: 0.45, ease: 'easeOut' }}
                       className="pt-2"
                     >
                       <a
@@ -237,15 +246,20 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
                   <div className="lg:col-span-5 xl:col-span-5" aria-hidden="true" />
                 </div>
 
-                {/* 2. MOBILE VIEW (Viewport Height & Width Optimized, Seamless Connection to Bottom Wave) */}
-                <div className="flex lg:hidden flex-col items-center justify-between text-center h-full w-full pt-[64px] xs:pt-[70px] sm:pt-[78px] pb-0 overflow-hidden relative">
-                  {/* Top Block: Heading, Description, CTA */}
-                  <div className="flex flex-col items-center space-y-2 xs:space-y-2.5 w-full px-4 pt-1 z-10 shrink-0">
+                {/* 2. MOBILE VIEW
+                    - Clear spacing below navbar (pt-[80px])
+                    - Reduced empty gaps between contents
+                    - Increased center image size with 4-side shaded effect
+                    ================================================================= */}
+                <div className="flex lg:hidden flex-col items-center justify-between text-center h-full w-full pt-[80px] xs:pt-[84px] pb-10 xs:pb-12 px-4 overflow-hidden relative">
+                  
+                  {/* Top Block: Heading + Description */}
+                  <div className="flex flex-col items-center space-y-1 w-full shrink-0">
                     <motion.h1
                       initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.7, delay: 0.15 }}
-                      className="text-[21px] xs:text-[24px] sm:text-[28px] font-heading font-medium leading-[1.18] tracking-tight text-center max-w-[330px] xs:max-w-[370px] mx-auto"
+                      className="text-[24px] xs:text-[26px] sm:text-3xl font-heading font-bold text-charcoal-900 leading-[1.12] tracking-tight text-center max-w-[340px] xs:max-w-[370px] mx-auto"
                     >
                       <span className="block text-[#1A1D20]">
                         Your Trusted Partner in
@@ -258,45 +272,75 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
                     <motion.p
                       initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.65, delay: 0.25 }}
-                      className="text-[13px] xs:text-[14px] sm:text-[15px] text-[#4A4D52] font-normal leading-relaxed max-w-[300px] xs:max-w-[330px] text-center mx-auto"
+                      transition={{ duration: 0.65, delay: 0.22 }}
+                      className="text-xs xs:text-sm sm:text-base text-charcoal-700 font-normal leading-relaxed max-w-xs xs:max-w-sm text-center mx-auto"
                     >
                       Customised T-Shirts, Polo T-Shirts and<br />
                       Corporate Uniforms for Businesses.
                     </motion.p>
-
-                    <motion.div
-                      initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.65, delay: 0.35 }}
-                      className="pt-0.5"
-                    >
-                      <a
-                        href="#our-story"
-                        onClick={handleScrollToStory}
-                        className="inline-flex items-center gap-2 px-5 py-2 xs:px-6 xs:py-2.5 rounded-full bg-gradient-to-r from-[#80011F] via-[#6B011A] to-[#570018] text-white font-heading font-medium text-xs xs:text-sm shadow-md transition-all active:scale-95 cursor-pointer"
-                      >
-                        <span>Know More About Us</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </a>
-                    </motion.div>
                   </div>
 
-                  {/* Bottom Visual: T-Shirt Connected Seamlessly Behind Wave */}
+                  {/* Hero Image: Enlarged Polo T-Shirt with 4-side shaded effect (NO box appearance) */}
                   <motion.div
-                    initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
+                    initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 14 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.3 }}
-                    className="w-full flex-1 min-h-0 relative z-10 flex justify-center items-end overflow-visible pb-0"
+                    transition={{ duration: 0.75, delay: 0.28 }}
+                    className="w-full max-w-[390px] h-[26svh] xs:h-[28svh] max-h-[240px] min-h-[170px] overflow-hidden my-1 shrink-0 flex items-center justify-center"
+                    style={{
+                      maskImage: 'radial-gradient(ellipse 92% 88% at 50% 50%, black 52%, rgba(0,0,0,0.7) 75%, transparent 100%)',
+                      WebkitMaskImage: 'radial-gradient(ellipse 92% 88% at 50% 50%, black 52%, rgba(0,0,0,0.7) 75%, transparent 100%)',
+                    }}
                   >
-                    <div className="relative w-full h-full flex justify-center items-end bottom-[-16px] xs:bottom-[-20px]">
-                      <ClothFoldingPolo
-                        isMobile
-                        className="w-full h-full flex justify-center items-end"
-                        imgClassName="h-[48svh] xs:h-[50svh] sm:h-[52svh] max-h-[460px] min-h-[290px] w-auto max-w-none object-contain object-bottom translate-x-[-3%]"
-                      />
-                    </div>
+                    <img
+                      src="/assets/images/about/burgundy-polo-hd.png"
+                      alt="TeesZone Premium Burgundy Polo T-Shirt"
+                      className="w-full h-full object-contain object-center scale-120 drop-shadow-[0_18px_32px_rgba(70,0,20,0.22)]"
+                      loading="eager"
+                    />
                   </motion.div>
+
+                  {/* CTA Button */}
+                  <motion.div
+                    initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.65, delay: 0.34 }}
+                    className="my-0.5 shrink-0"
+                  >
+                    <a
+                      href="#our-story"
+                      onClick={handleScrollToStory}
+                      className="inline-flex items-center gap-2 px-5 py-2 xs:px-6 xs:py-2.5 rounded-full bg-gradient-to-r from-[#80011F] via-[#6B011A] to-[#570018] text-white font-heading font-medium text-xs xs:text-sm shadow-md transition-all active:scale-95 cursor-pointer"
+                    >
+                      <span>Know More About Us</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </a>
+                  </motion.div>
+
+                  {/* 3 Options with Professional Outline Icons */}
+                  <motion.div
+                    initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.65, delay: 0.4 }}
+                    className="flex items-start justify-center gap-4 xs:gap-6 sm:gap-8 w-full max-w-[360px] pt-1 pb-1 shrink-0"
+                  >
+                    {featureHighlights.map((item) => {
+                      const IconComponent = item.icon;
+                      return (
+                        <div
+                          key={item.id}
+                          className="flex flex-col items-center justify-center text-center flex-1 max-w-[105px]"
+                        >
+                          <div className="text-[#80011F]">
+                            <IconComponent className="w-5 h-5 xs:w-[22px] xs:h-[22px] stroke-[1.8]" />
+                          </div>
+                          <span className="text-[10px] xs:text-[11px] font-heading font-bold text-[#1A1D20] leading-tight mt-1 whitespace-pre-line text-center">
+                            {item.title}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </motion.div>
+
                 </div>
               </div>
             </motion.div>
@@ -341,16 +385,16 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
       </div>
 
       {/* =========================================================================
-          CAROUSEL CONTROLS: CLEAN MINIMAL BURGUNDY NAVIGATION ARROWS & BOTTOM PILL INDICATORS
+          CAROUSEL CONTROLS: ELEGANT SLENDER NAVIGATION ARROWS & BOTTOM PILL INDICATORS
           ========================================================================= */}
       {/* Left Navigation Arrow */}
       <button
         type="button"
         onClick={prevSlide}
         aria-label="Previous slide"
-        className="absolute left-1 sm:left-3 lg:left-5 top-[52%] sm:top-1/2 -translate-y-1/2 z-30 p-2 sm:p-2.5 text-[#80011F] hover:text-[#570018] flex items-center justify-center transition-all duration-200 hover:scale-115 active:scale-90 cursor-pointer group"
+        className="absolute left-1 sm:left-3 lg:left-5 top-[52%] sm:top-1/2 -translate-y-1/2 z-30 p-2 sm:p-2.5 text-[#80011F] hover:text-[#570018] flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-90 cursor-pointer group"
       >
-        <ChevronLeft className="w-8 h-8 sm:w-10 sm:h-10 xl:w-11 xl:h-11 stroke-[2.4] transition-transform group-hover:-translate-x-1" />
+        <ChevronLeft className="w-7 h-7 sm:w-9 sm:h-9 xl:w-10 xl:h-10 stroke-[1.2] transition-transform group-hover:-translate-x-1" />
       </button>
 
       {/* Right Navigation Arrow */}
@@ -358,12 +402,12 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
         type="button"
         onClick={nextSlide}
         aria-label="Next slide"
-        className="absolute right-1 sm:right-3 lg:right-5 top-[52%] sm:top-1/2 -translate-y-1/2 z-30 p-2 sm:p-2.5 text-[#80011F] hover:text-[#570018] flex items-center justify-center transition-all duration-200 hover:scale-115 active:scale-90 cursor-pointer group"
+        className="absolute right-1 sm:right-3 lg:right-5 top-[52%] sm:top-1/2 -translate-y-1/2 z-30 p-2 sm:p-2.5 text-[#80011F] hover:text-[#570018] flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-90 cursor-pointer group"
       >
-        <ChevronRight className="w-8 h-8 sm:w-10 sm:h-10 xl:w-11 xl:h-11 stroke-[2.4] transition-transform group-hover:translate-x-1" />
+        <ChevronRight className="w-7 h-7 sm:w-9 sm:h-9 xl:w-10 xl:h-10 stroke-[1.2] transition-transform group-hover:translate-x-1" />
       </button>
 
-      {/* Bottom Center Carousel Indicators (Positioned safely above bottom wave) */}
+      {/* Bottom Center Carousel Indicators */}
       <div className="absolute bottom-3 xs:bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
         {Array.from({ length: totalSlides }).map((_, idx) => (
           <button
@@ -380,10 +424,10 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
         ))}
       </div>
 
-      {/* =========================================================================
-          3. BOTTOM 3D FABRIC WAVE (Pure Smooth Vector SVG Curves - In front z-20)
-          ========================================================================= */}
+      {/* 3. BOTTOM 3D FABRIC WAVE */}
       <FabricWave3D scrollYProgress={scrollYProgress} />
     </section>
   );
 };
+
+export default AboutHero;

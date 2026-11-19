@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { BookOpen, ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion, AnimatePresence, useScroll, useReducedMotion } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export interface Milestone {
   id: string;
@@ -95,260 +95,273 @@ const MILESTONES: Milestone[] = [
 
 export const OurStory: React.FC = () => {
   const [activeIdx, setActiveIdx] = useState(0);
-  const [isAutoPlay, setIsAutoPlay] = useState(true);
+  const [cardStride, setCardStride] = useState(195);
   const shouldReduceMotion = useReducedMotion();
-  const carouselContainerRef = useRef<HTMLDivElement>(null);
-  const touchStartXRef = useRef<number | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const total = MILESTONES.length;
   const activeMilestone = MILESTONES[activeIdx];
 
+  // Dynamically calculate responsive card stride (card width + gap)
+  useEffect(() => {
+    const updateStride = () => {
+      if (typeof window === 'undefined') return;
+      if (window.innerWidth < 640) {
+        setCardStride(125);
+      } else if (window.innerWidth < 1024) {
+        setCardStride(165);
+      } else if (window.innerWidth < 1280) {
+        setCardStride(185);
+      } else {
+        setCardStride(195);
+      }
+    };
+    updateStride();
+    window.addEventListener('resize', updateStride);
+    return () => window.removeEventListener('resize', updateStride);
+  }, []);
+
   const handleNext = useCallback(() => {
-    setActiveIdx((prev) => (prev + 1) % total);
+    setActiveIdx((prev) => Math.min(prev + 1, total - 1));
   }, [total]);
 
   const handlePrev = useCallback(() => {
-    setActiveIdx((prev) => (prev - 1 + total) % total);
+    setActiveIdx((prev) => Math.max(prev - 1, 0));
+  }, []);
+
+  // Framer Motion useScroll
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end end'],
+  });
+
+  // Dual Scroll Tracking (Window scroll + useScroll for 100% responsiveness)
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const scrollableDistance = sectionRef.current.offsetHeight - window.innerHeight;
+      if (scrollableDistance <= 0) return;
+
+      const scrolled = -rect.top;
+      const progress = Math.min(1, Math.max(0, scrolled / scrollableDistance));
+
+      // 7 milestone slices:
+      // 0: 0.00 - 0.14
+      // 1: 0.14 - 0.28
+      // 2: 0.28 - 0.42
+      // 3: 0.42 - 0.57
+      // 4: 0.57 - 0.71
+      // 5: 0.71 - 0.85
+      // 6: 0.85 - 1.00
+      const step = Math.min(total - 1, Math.max(0, Math.floor(progress * total)));
+      setActiveIdx(step);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [total]);
 
-  // Autoplay with pause on hover
   useEffect(() => {
-    if (!isAutoPlay) return;
-    const timer = setInterval(() => {
-      handleNext();
-    }, 6500);
-    return () => clearInterval(timer);
-  }, [isAutoPlay, handleNext]);
-
-  // Touch Swipe Handlers for Mobile & Tablet
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartXRef.current = e.touches[0].clientX;
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartXRef.current === null) return;
-    const touchEndX = e.changedTouches[0].clientX;
-    const diff = touchStartXRef.current - touchEndX;
-    if (Math.abs(diff) > 40) {
-      if (diff > 0) {
-        handleNext();
-      } else {
-        handlePrev();
-      }
-    }
-    touchStartXRef.current = null;
-  };
-
-  // Keyboard navigation when focused
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'ArrowRight') handleNext();
-    if (e.key === 'ArrowLeft') handlePrev();
-  };
+    return scrollYProgress.on('change', (progress) => {
+      const step = Math.min(total - 1, Math.max(0, Math.floor(progress * total)));
+      setActiveIdx(step);
+    });
+  }, [scrollYProgress, total]);
 
   return (
-    <div id="our-story" className="w-full bg-[#FAF5F2] select-none overflow-hidden">
+    <div id="our-story" className="w-full bg-[#FAF5F2] select-none">
       
       {/* =========================================================================
-          MAIN CINEMATIC MILESTONE SLIDER
-          (Intro narrative and quote banner removed as requested)
+          SCROLL-PINNED CINEMATIC MILESTONE SECTION (Mobile & Desktop)
+          - Runway height (280vh-320vh) matching TeamSection: Zero excessive blank space
+          - Sticky top-0 stage: Each scroll advances through cards 1 -> 7
+          - Only moves to next section after card 7 completes
           ========================================================================= */}
       <section
-        ref={carouselContainerRef}
-        onMouseEnter={() => setIsAutoPlay(false)}
-        onMouseLeave={() => setIsAutoPlay(true)}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-        onKeyDown={handleKeyDown}
-        tabIndex={0}
+        ref={sectionRef}
+        className="relative w-full h-[280vh] sm:h-[320vh] bg-[#FAF5F2] select-none z-10"
         aria-label="Interactive TeesZone Milestone Journey"
-        className="relative w-full min-h-[640px] sm:min-h-[680px] lg:min-h-[720px] xl:min-h-[760px] flex flex-col justify-between overflow-hidden outline-none pt-6"
       >
-        {/* 1. Cinematic Background Image Layer with Crossfade */}
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-          <AnimatePresence mode="popLayout">
-            <motion.img
-              key={activeMilestone.id}
-              src={activeMilestone.bgImage}
-              alt={activeMilestone.title}
-              initial={{ opacity: 0, scale: 1.05 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-              className="w-full h-full object-cover object-center filter saturate-[1.08] contrast-[1.03]"
-            />
-          </AnimatePresence>
+        <div className="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden outline-none pt-4 lg:pt-8 pb-3 sm:pb-6">
+          {/* 1. Cinematic Background Image Layer with Crossfade */}
+          <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            <AnimatePresence mode="popLayout">
+              <motion.img
+                key={activeMilestone.id}
+                src={activeMilestone.bgImage}
+                alt={activeMilestone.title}
+                initial={{ opacity: 0, scale: 1.05 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+                className="w-full h-full object-cover object-center filter saturate-[1.08] contrast-[1.03]"
+              />
+            </AnimatePresence>
 
-          {/* Smooth Cream/Light Gradient Overlay on Left for Flawless Text Readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#FAF5F2] via-[#FAF5F2]/95 sm:via-[#FAF5F2]/85 md:via-[#FAF5F2]/65 to-transparent" />
-          
-          {/* Subtle Vertical Edge Vignettes to blend top and bottom */}
-          <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-[#FAF5F2] to-transparent" />
-          <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-[#FAF5F2] to-transparent" />
-        </div>
-
-        {/* 2. Main Content Container */}
-        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 pb-6 flex-1 flex flex-col justify-center">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+            {/* Smooth Cream Gradient Overlay for Text Readability */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#FAF5F2] via-[#FAF5F2]/95 sm:via-[#FAF5F2]/85 md:via-[#FAF5F2]/65 to-transparent" />
             
-            {/* =================================================================
-                LEFT TEXT BLOCK: Static Heading & Dynamic Milestone Narrative
-                ================================================================= */}
-            <div className="lg:col-span-5 text-left space-y-4 sm:space-y-5">
+            <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-[#FAF5F2] to-transparent" />
+            <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-[#FAF5F2] to-transparent" />
+          </div>
+
+          {/* 2. Main Content Container */}
+          <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-8 pb-2 lg:pb-6 flex-1 flex flex-col justify-between lg:justify-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-10 items-center h-full">
               
-              {/* Badge */}
-              <div>
-                <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FCEEF1] border border-[#80011F]/20 text-[#80011F] font-heading font-extrabold text-xs uppercase tracking-widest">
-                  <BookOpen className="w-3.5 h-3.5 text-[#80011F]" />
-                  <span>OUR STORY</span>
-                </span>
-              </div>
-
-              {/* Main Headline */}
-              <h2 className="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-heading font-black text-[#1A1D20] leading-[1.12] tracking-tight">
-                From a Small<br />
-                Beginning to a<br />
-                <span className="text-[#80011F]">Growing Apparel Brand</span>
-              </h2>
-
-              {/* Burgundy Accent Bar */}
-              <div className="w-12 h-[3px] bg-[#80011F] rounded-full" />
-
-              {/* Subtitle */}
-              <p className="text-sm sm:text-base font-heading font-bold text-charcoal-800">
-                Our Journey. Our Growth. Our Commitment.
-              </p>
-
-              {/* Dynamic Active Milestone Description */}
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeMilestone.id}
-                  initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -10 }}
-                  transition={{ duration: 0.45, ease: 'easeOut' }}
-                  className="space-y-2 pt-1"
-                >
-                  <div className="flex items-center gap-2 text-xs uppercase font-heading font-black tracking-widest text-[#80011F]">
-                    <span>{activeMilestone.indexStr}</span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#80011F]" />
-                    <span>{activeMilestone.yearOrDate}</span>
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-heading font-bold text-charcoal-900 leading-snug">
-                    {activeMilestone.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-[#4A4D52] font-normal leading-relaxed max-w-md">
-                    {activeMilestone.description}
-                  </p>
-                </motion.div>
-              </AnimatePresence>
-
-            </div>
-
-            {/* =================================================================
-                RIGHT PREVIEW CARDS ROW:
-                - Active Card: Enlarged with glowing deep burgundy border
-                - Inactive Cards: Following horizontally to the right
-                ================================================================= */}
-            <div className="lg:col-span-7 overflow-visible">
-              <div className="relative w-full flex items-center overflow-x-hidden py-4">
+              {/* =================================================================
+                  LEFT TEXT BLOCK: Increased Font Size Matching Vision & Mission
+                  - "OUR STORY" styled with accent line and ZERO background color
+                  - Headline with comfortable line spacing (no overlapping text)
+                  ================================================================= */}
+              <div className="lg:col-span-5 text-left space-y-3 sm:space-y-4 pt-1 sm:pt-0">
                 
-                {/* Horizontal sliding track */}
-                <motion.div
-                  className="flex items-center gap-4 sm:gap-5 md:gap-6 will-change-transform"
-                  animate={{
-                    x: shouldReduceMotion
-                      ? 0
-                      : -(activeIdx * 210), // smooth scroll translation based on card width
-                  }}
-                  transition={{
-                    duration: 0.75,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                >
-                  {MILESTONES.map((item, idx) => {
-                    const isActive = idx === activeIdx;
+                {/* Clean "OUR STORY" Label without background color (matching Looking Ahead style) */}
+                <div className="flex items-center gap-2.5">
+                  <span className="w-6 sm:w-8 h-[2px] bg-[#80011F] rounded-full inline-block" />
+                  <span className="text-xs sm:text-sm uppercase font-heading font-extrabold tracking-[0.2em] text-[#80011F]">
+                    OUR STORY
+                  </span>
+                </div>
 
-                    return (
-                      <motion.div
-                        key={item.id}
-                        onClick={() => setActiveIdx(idx)}
-                        animate={{
-                          scale: isActive ? (shouldReduceMotion ? 1 : 1.05) : 0.92,
-                          opacity: isActive ? 1 : 0.85,
-                        }}
-                        transition={{ duration: 0.5, ease: 'easeOut' }}
-                        className={`relative shrink-0 rounded-[22px] sm:rounded-[26px] overflow-hidden cursor-pointer transition-all duration-300 select-none ${
-                          isActive
-                            ? 'w-[200px] xs:w-[220px] sm:w-[235px] h-[310px] xs:h-[340px] sm:h-[365px] border-2 border-[#80011F] shadow-[0_20px_45px_rgba(128,1,31,0.38)] ring-4 ring-[#80011F]/20 z-20'
-                            : 'w-[160px] xs:w-[175px] sm:w-[190px] h-[260px] xs:h-[285px] sm:h-[310px] border border-white/60 shadow-lg hover:opacity-100 z-10'
-                        }`}
-                      >
-                        {/* Card Image */}
-                        <img
-                          src={item.cardImage}
-                          alt={item.title}
-                          className="w-full h-full object-cover object-center filter saturate-[1.05]"
-                          loading="lazy"
-                        />
+                {/* Main Headline: Increased size on desktop with proper line spacing */}
+                <h2 className="text-2xl xs:text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-heading font-black text-[#1A1D20] leading-[1.26] sm:leading-[1.24] lg:leading-[1.22] xl:leading-[1.2] tracking-tight">
+                  From a Small<br />
+                  Beginning to a<br />
+                  <span className="text-[#80011F]">Growing Apparel Brand</span>
+                </h2>
 
-                        {/* Bottom Gradient Overlay for typography readability */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
+                {/* Burgundy Accent Bar */}
+                <div className="w-10 sm:w-14 h-[3px] bg-[#80011F] rounded-full" />
 
-                        {/* Card Text Information */}
-                        <div className="absolute bottom-0 inset-x-0 p-4 text-left pointer-events-none">
-                          <p className="text-lg sm:text-xl font-heading font-black text-white leading-tight">
-                            {item.yearOrDate}
-                          </p>
-                          <p className="text-xs text-white/90 font-medium leading-snug mt-0.5 truncate">
-                            {item.location}
-                          </p>
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </motion.div>
+                {/* Subtitle: Increased desktop size */}
+                <p className="text-xs sm:text-base lg:text-lg font-heading font-bold text-charcoal-800">
+                  Our Journey. Our Growth. Our Commitment.
+                </p>
+
+                {/* Dynamic Active Milestone Description: Prominent & Readable */}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeMilestone.id}
+                    initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -8 }}
+                    transition={{ duration: 0.4, ease: 'easeOut' }}
+                    className="space-y-1.5 sm:space-y-2.5 pt-0.5 sm:pt-1"
+                  >
+                    <div className="flex items-center gap-2 text-[11px] xs:text-xs sm:text-sm uppercase font-heading font-black tracking-widest text-[#80011F]">
+                      <span>{activeMilestone.indexStr}</span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#80011F]" />
+                      <span>{activeMilestone.yearOrDate}</span>
+                    </div>
+                    <h3 className="text-base sm:text-xl lg:text-2xl xl:text-3xl font-heading font-bold text-charcoal-900 leading-snug">
+                      {activeMilestone.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm lg:text-base xl:text-lg text-[#3A3D42] font-normal leading-relaxed max-w-xl line-clamp-3 xs:line-clamp-4 lg:line-clamp-none">
+                      {activeMilestone.description}
+                    </p>
+                  </motion.div>
+                </AnimatePresence>
 
               </div>
+
+              {/* =================================================================
+                  RIGHT PREVIEW CARDS ROW:
+                  - Initial 4 cards (01, 02, 03, 04) visible at start
+                  - As user scrolls, previous cards hide and cards 5, 6, 7 enter
+                  - ZERO card border, ZERO card shadow
+                  ================================================================= */}
+              <div className="lg:col-span-7 flex justify-end items-center overflow-visible w-full pb-2 lg:pb-0">
+                <div className="relative w-full max-w-[340px] xs:max-w-[400px] sm:max-w-[550px] lg:max-w-[720px] xl:max-w-[800px] flex items-center justify-start overflow-hidden py-1 sm:py-4 ml-auto">
+                  
+                  {/* Sliding cards track */}
+                  <motion.div
+                    className="flex items-center gap-3 sm:gap-4 lg:gap-5 justify-start will-change-transform"
+                    animate={{
+                      x: shouldReduceMotion
+                        ? 0
+                        : -(activeIdx * cardStride),
+                    }}
+                    transition={{
+                      duration: 0.6,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                  >
+                    {MILESTONES.map((item, idx) => {
+                      const isActive = idx === activeIdx;
+
+                      return (
+                        <motion.div
+                          key={item.id}
+                          onClick={() => setActiveIdx(idx)}
+                          animate={{
+                            scale: isActive ? 1.04 : 0.92,
+                            opacity: idx < activeIdx ? 0 : isActive ? 1 : 0.8,
+                          }}
+                          transition={{ duration: 0.45, ease: 'easeOut' }}
+                          className={`relative shrink-0 rounded-2xl sm:rounded-[22px] overflow-hidden cursor-pointer transition-all duration-300 select-none border-0 shadow-none ring-0 ${
+                            isActive
+                              ? 'w-[120px] xs:w-[130px] sm:w-[170px] lg:w-[185px] xl:w-[195px] h-[175px] xs:h-[190px] sm:h-[265px] lg:h-[295px] xl:h-[315px] z-20'
+                              : 'w-[105px] xs:w-[115px] sm:w-[150px] lg:w-[165px] xl:w-[175px] h-[155px] xs:h-[170px] sm:h-[240px] lg:h-[265px] xl:h-[285px] hover:opacity-100 z-10'
+                          } ${idx < activeIdx ? 'pointer-events-none' : 'pointer-events-auto'}`}
+                        >
+                          {/* Card Image */}
+                          <img
+                            src={item.cardImage}
+                            alt={item.title}
+                            className="w-full h-full object-cover object-center filter saturate-[1.05]"
+                            loading="lazy"
+                          />
+
+                          {/* Bottom Gradient Overlay for typography readability */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent pointer-events-none" />
+
+                          {/* Card Text Information */}
+                          <div className="absolute bottom-0 inset-x-0 p-2.5 xs:p-3 sm:p-4 text-left pointer-events-none">
+                            <p className="text-sm xs:text-base sm:text-lg font-heading font-black text-white leading-tight">
+                              {item.yearOrDate}
+                            </p>
+                            <p className="text-[10px] xs:text-xs text-white/90 font-medium leading-snug mt-0.5 truncate">
+                              {item.location}
+                            </p>
+                          </div>
+                        </motion.div>
+                      );
+                    })}
+                  </motion.div>
+
+                </div>
+              </div>
+
             </div>
-
           </div>
-        </div>
 
-        {/* 3. Bottom Controls Bar: Left/Right Arrow & Counter (Loading bar removed as requested) */}
-        <div className="relative z-20 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-8 pt-4 flex items-center justify-end">
-          
-          {/* Navigation Controls: Left Arrow, Counter 01 / 07, Right Arrow */}
-          <div className="flex items-center gap-4">
-            
-            {/* Left Chevron Button */}
-            <button
-              type="button"
-              onClick={handlePrev}
-              aria-label="Previous milestone"
-              className="w-10 h-10 rounded-full bg-white/95 border border-[#80011F]/25 text-[#80011F] flex items-center justify-center hover:bg-[#FCEEF1] hover:scale-105 active:scale-95 transition-all shadow-xs cursor-pointer"
-            >
-              <ChevronLeft className="w-5 h-5 stroke-[2.2]" />
-            </button>
+          {/* 3. Bottom Controls Bar: Borderless & Background-less Chevrons (Counter Removed) */}
+          <div className="relative z-20 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-2 sm:pb-4 flex items-center justify-end">
+            <div className="flex items-center gap-1 sm:gap-2">
+              {/* Left Chevron Button: Zero border, zero background */}
+              <button
+                type="button"
+                onClick={handlePrev}
+                aria-label="Previous milestone"
+                className="p-1 sm:p-1.5 text-[#80011F] hover:text-[#550015] bg-transparent border-0 shadow-none flex items-center justify-center active:scale-90 transition-all cursor-pointer"
+              >
+                <ChevronLeft className="w-6 h-6 sm:w-8 sm:h-8 stroke-[1.8]" />
+              </button>
 
-            {/* Slide Counter (e.g. 01 / 07) */}
-            <div className="text-xs sm:text-sm font-heading font-extrabold text-charcoal-800 tracking-wider">
-              <span>{activeMilestone.indexStr}</span>
-              <span className="mx-1.5 text-charcoal-400 font-normal">/</span>
-              <span>{total < 10 ? `0${total}` : total}</span>
+              {/* Right Chevron Button: Zero border, zero background */}
+              <button
+                type="button"
+                onClick={handleNext}
+                aria-label="Next milestone"
+                className="p-1 sm:p-1.5 text-[#80011F] hover:text-[#550015] bg-transparent border-0 shadow-none flex items-center justify-center active:scale-90 transition-all cursor-pointer"
+              >
+                <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8 stroke-[1.8]" />
+              </button>
             </div>
-
-            {/* Right Chevron Button */}
-            <button
-              type="button"
-              onClick={handleNext}
-              aria-label="Next milestone"
-              className="w-10 h-10 rounded-full bg-[#80011F] text-white flex items-center justify-center hover:bg-[#660018] hover:scale-105 active:scale-95 transition-all shadow-md cursor-pointer"
-            >
-              <ChevronRight className="w-5 h-5 stroke-[2.2]" />
-            </button>
-
           </div>
-
         </div>
       </section>
 

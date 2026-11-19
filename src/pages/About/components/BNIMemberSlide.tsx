@@ -10,17 +10,17 @@ interface BNIMemberSlideProps {
 const bniFeatures = [
   {
     id: 'networking',
-    title: 'Business Networking',
+    title: 'Business\nNetworking',
     icon: Network,
   },
   {
     id: 'growth',
-    title: 'Collaborative Growth',
+    title: 'Collaborative\nGrowth',
     icon: TrendingUp,
   },
   {
     id: 'partnerships',
-    title: 'Trusted Partnerships',
+    title: 'Trusted\nPartnerships',
     icon: Handshake,
   },
 ];
@@ -34,12 +34,8 @@ export const BNIMemberSlide: React.FC<BNIMemberSlideProps> = ({
     <div className="relative w-full h-full flex flex-col justify-center">
       {/* =========================================================================
           DESKTOP RIGHT SIDE: SMOOTH GRADIENT-BLENDED HANDSHAKE COMPOSITION
-          - Zero artificial curved wave mask or divider
-          - Smooth feathered gradient transition from cream canvas into photo
-          - Crisp, high-contrast handshake image integrated into hero
           ========================================================================= */}
       <div className="hidden lg:flex absolute right-0 top-0 bottom-[-10px] z-10 w-[50vw] xl:w-[52vw] max-w-[920px] 2xl:max-w-[1080px] justify-end items-center pointer-events-none overflow-hidden">
-        {/* Handshake Container with Smooth Fade & Reveal */}
         <motion.div
           initial={{ opacity: 0, scale: 0.985 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -51,38 +47,33 @@ export const BNIMemberSlide: React.FC<BNIMemberSlideProps> = ({
           }}
         >
           <img
-            src="/assets/images/about/bni-handshake.jpg"
-            alt="TeesZone Clothing Private Limited - Business Partnership and Handshake at BNI Tycoon Erode"
+            src="/assets/images/about/bni-team-award.jpg"
+            alt="TeesZone Clothing Private Limited - BNI Tycoon Season 07 Awards Celebration"
             className="w-full h-full object-cover object-center filter saturate-[1.05] contrast-[1.03]"
             loading="eager"
           />
-          {/* Subtle Warm Ambient Lighting Overlay to match silk background */}
           <div className="absolute inset-0 bg-gradient-to-r from-[#FAF5F2]/25 via-transparent to-black/10 pointer-events-none" />
         </motion.div>
       </div>
 
       {/* =========================================================================
           MAIN CONTENT CONTAINER
-          - Matches navbar horizontal alignment (max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8)
           ========================================================================= */}
       <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex-1 flex flex-col justify-center pt-0 lg:pt-24 xl:pt-28 pb-0 lg:pb-16 h-full">
         
         {/* =====================================================================
-            1. DESKTOP VIEW (Two-column layout, left content precisely aligned)
+            1. DESKTOP VIEW
             ===================================================================== */}
         <div className="hidden lg:grid lg:grid-cols-12 gap-8 items-center">
           
-          {/* LEFT CONTENT AREA */}
           <div className="lg:col-span-7 xl:col-span-7 space-y-4 xl:space-y-5 text-left">
             
-            {/* 1. Logos Row: TeesZone Logo + Thin Divider + Official BNI Member Badge + BNI TYCOON ERODE */}
             <motion.div
               initial={{ opacity: 0, y: shouldReduceMotion ? 0 : -14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.1, ease: 'easeOut' }}
               className="flex items-center gap-4 xl:gap-5"
             >
-              {/* TeesZone Official Brand Logo */}
               <img
                 src="/assets/logo/teeszone-logo.png"
                 alt="TeesZone - Elevate your Style with Custom Tees"
@@ -90,93 +81,69 @@ export const BNIMemberSlide: React.FC<BNIMemberSlideProps> = ({
                 loading="eager"
               />
 
-              {/* Thin Vertical Divider */}
-              <div className="w-[1.5px] h-8 bg-charcoal-300/80 shrink-0" aria-hidden="true" />
+              <div className="w-[1.5px] h-10 bg-charcoal-300/80 shrink-0" aria-hidden="true" />
 
-              {/* Official BNI Tycoon Erode Membership Badge */}
-              <div className="flex items-center gap-2.5">
+              <div className="flex flex-col items-center justify-center text-center">
                 <img
                   src="/assets/images/about/bni-proud-member-logo.png"
                   alt="Proud BNI Member Logo"
-                  className="h-9 xl:h-10 w-auto object-contain filter drop-shadow-xs"
+                  className="h-8 xl:h-9 w-auto object-contain filter drop-shadow-xs"
                   loading="eager"
                 />
-                <span className="text-[10px] xl:text-[11px] font-heading font-extrabold uppercase tracking-wider text-[#80011F] whitespace-nowrap">
+                <span className="text-[10px] xl:text-[11px] font-heading font-extrabold uppercase tracking-wider text-[#80011F] whitespace-nowrap mt-1 text-center">
                   BNI TYCOON ERODE
                 </span>
               </div>
             </motion.div>
 
-            {/* 2. Main Heading: Montserrat Bold, two-line composition */}
-            <div className="space-y-3">
-              <motion.h1
-                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.75, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="text-3xl sm:text-4xl lg:text-[40px] xl:text-[48px] font-heading font-bold leading-[1.14] tracking-tight"
-              >
-                {/* First line: Dark charcoal */}
-                <span className="block text-[#1A1D20]">
-                  TeesZone is a Proud Member of
-                </span>
-                {/* Second line: TeesZone Burgundy #80011F */}
-                <span className="block text-[#80011F] mt-1">
-                  BNI Tycoon Erode
-                </span>
-              </motion.h1>
+            <motion.h1
+              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="text-4xl sm:text-5xl lg:text-[56px] xl:text-[62px] font-heading font-bold text-charcoal-900 leading-[1.08] tracking-tight max-w-2xl"
+            >
+              <span className="block text-[#1A1D20]">
+                TeesZone is a Proud Member of
+              </span>
+              <span className="block text-[#80011F] mt-1">
+                BNI Tycoon Erode
+              </span>
+            </motion.h1>
 
-              {/* Subtle Burgundy Accent Line */}
-              <motion.div
-                initial={{ width: 0, opacity: 0 }}
-                animate={{ width: 54, opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.32, ease: 'easeOut' }}
-                className="h-[2px] bg-[#80011F] rounded-full"
-              />
-            </div>
-
-            {/* 3. Supporting Description */}
             <motion.p
               initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
-              className="text-base sm:text-lg xl:text-[19px] text-[#4A4D52] font-normal leading-relaxed max-w-xl"
+              transition={{ duration: 0.75, delay: 0.25, ease: 'easeOut' }}
+              className="text-lg sm:text-xl lg:text-[20px] text-charcoal-700 leading-relaxed font-normal max-w-xl"
             >
               Part of the global BNI network, we build strong business relationships and deliver trusted apparel solutions for growing businesses.
             </motion.p>
 
-            {/* 4. Three Standalone Feature Items (Clean, Minimal, Premium) */}
             <motion.div
               initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.4, ease: 'easeOut' }}
-              className="flex items-start gap-8 xl:gap-11 pt-2 pb-1"
+              transition={{ duration: 0.75, delay: 0.35, ease: 'easeOut' }}
+              className="grid grid-cols-3 gap-4 sm:gap-6 pt-2 pb-1 max-w-md"
             >
-              {bniFeatures.map((item, idx) => {
+              {bniFeatures.map((item) => {
                 const IconComponent = item.icon;
                 return (
-                  <motion.div
-                    key={item.id}
-                    initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.45 + idx * 0.08 }}
-                    className="flex flex-col items-center justify-center text-center group cursor-default"
-                  >
-                    <div className="text-[#80011F] group-hover:scale-110 transition-transform duration-300">
-                      <IconComponent className="w-6 h-6 xl:w-7 xl:h-7 stroke-[1.75]" />
+                  <div key={item.id} className="flex flex-col items-center text-center">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 text-[#80011F] flex items-center justify-center transition-transform hover:scale-110 duration-200">
+                      <IconComponent className="w-7 h-7 sm:w-8 sm:h-8 stroke-[1.8]" />
                     </div>
-                    <span className="text-xs xl:text-sm font-heading font-semibold text-[#1A1D20] leading-snug mt-2.5 text-center max-w-[110px] xl:max-w-[125px]">
+                    <span className="text-xs sm:text-[13px] font-heading font-bold text-[#1A1D20] leading-snug mt-1.5 whitespace-pre-line text-center">
                       {item.title}
                     </span>
-                  </motion.div>
+                  </div>
                 );
               })}
             </motion.div>
 
-            {/* 5. CTA Button: Know More About Our BNI Journey → */}
             <motion.div
               initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.55, ease: 'easeOut' }}
+              transition={{ duration: 0.7, delay: 0.45, ease: 'easeOut' }}
               className="pt-2"
             >
               <a
@@ -191,25 +158,26 @@ export const BNIMemberSlide: React.FC<BNIMemberSlideProps> = ({
 
           </div>
 
-          {/* Spacer for desktop right column */}
           <div className="lg:col-span-5 xl:col-span-5" aria-hidden="true" />
 
         </div>
 
         {/* =====================================================================
-            2. MOBILE VIEW (Full Viewport Fit, Integrated Blended Image, Standalone Icons)
+            2. MOBILE VIEW
+            - Spacing from navbar added (pt-[80px])
+            - 4-side shaded effect on image so it naturally blends (NO box appearance)
             ===================================================================== */}
-        <div className="flex lg:hidden flex-col items-center justify-between text-center h-full w-full pt-[64px] xs:pt-[70px] sm:pt-[78px] pb-0 overflow-hidden relative">
+        <div className="flex lg:hidden flex-col items-center justify-between text-center h-full w-full pt-[80px] xs:pt-[84px] pb-10 xs:pb-12 px-4 overflow-hidden relative">
           
-          {/* Top Block: Logos, Heading, Description, Features, CTA */}
-          <div className="flex flex-col items-center space-y-2 xs:space-y-2.5 w-full px-4 pt-0 z-10 shrink-0">
+          {/* Top Block: Logos + Heading + Description */}
+          <div className="flex flex-col items-center space-y-1 w-full shrink-0">
             
-            {/* 1. Logos: TeesZone + BNI Logo Aligned */}
+            {/* 1. Logos: TeesZone + Divider + (BNI Logo with text below) */}
             <motion.div
               initial={{ opacity: 0, y: shouldReduceMotion ? 0 : -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="flex items-center justify-center gap-2.5 xs:gap-3"
+              className="flex items-center justify-center gap-3"
             >
               <img
                 src="/assets/logo/teeszone-logo.png"
@@ -218,16 +186,16 @@ export const BNIMemberSlide: React.FC<BNIMemberSlideProps> = ({
                 loading="eager"
               />
 
-              <div className="w-[1px] h-5 bg-charcoal-300/80 shrink-0" aria-hidden="true" />
+              <div className="w-[1px] h-7 bg-charcoal-300/80 shrink-0" aria-hidden="true" />
 
-              <div className="flex items-center gap-1.5">
+              <div className="flex flex-col items-center justify-center text-center">
                 <img
                   src="/assets/images/about/bni-proud-member-logo.png"
                   alt="Proud BNI Member"
                   className="h-6 sm:h-7 w-auto object-contain"
                   loading="eager"
                 />
-                <span className="text-[8px] sm:text-[9px] font-heading font-extrabold uppercase tracking-wide text-[#80011F] whitespace-nowrap">
+                <span className="text-[8px] sm:text-[9px] font-heading font-extrabold uppercase tracking-wide text-[#80011F] whitespace-nowrap mt-0.5 text-center">
                   BNI TYCOON ERODE
                 </span>
               </div>
@@ -238,7 +206,7 @@ export const BNIMemberSlide: React.FC<BNIMemberSlideProps> = ({
               initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.15 }}
-              className="text-[20px] xs:text-[23px] sm:text-[27px] font-heading font-bold leading-[1.18] tracking-tight text-center max-w-[330px] xs:max-w-[370px] mx-auto"
+              className="text-[24px] xs:text-[26px] sm:text-3xl font-heading font-bold leading-[1.12] tracking-tight text-center max-w-[340px] xs:max-w-[370px] mx-auto mt-0.5"
             >
               <span className="block text-[#1A1D20]">
                 TeesZone is a Proud Member of
@@ -252,79 +220,72 @@ export const BNIMemberSlide: React.FC<BNIMemberSlideProps> = ({
             <motion.p
               initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.25 }}
-              className="text-[13px] xs:text-[14px] sm:text-[15px] text-[#4A4D52] font-normal leading-relaxed max-w-[320px] xs:max-w-[350px] text-center mx-auto"
+              transition={{ duration: 0.65, delay: 0.22 }}
+              className="text-xs xs:text-sm sm:text-base text-charcoal-700 font-normal leading-relaxed max-w-xs xs:max-w-sm text-center mx-auto"
             >
               Part of the global BNI network, we build strong business relationships and deliver trusted apparel solutions for growing businesses.
             </motion.p>
-
-            {/* 4. Three Standalone Feature Items (Mobile Clean Minimal) */}
-            <motion.div
-              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.3 }}
-              className="flex items-start justify-center gap-5 xs:gap-7 sm:gap-9 w-full max-w-[360px] pt-1.5 pb-0.5"
-            >
-              {bniFeatures.map((item) => {
-                const IconComponent = item.icon;
-                return (
-                  <div
-                    key={item.id}
-                    className="flex flex-col items-center justify-center text-center flex-1 max-w-[100px]"
-                  >
-                    <div className="text-[#80011F]">
-                      <IconComponent className="w-5 h-5 xs:w-[22px] xs:h-[22px] stroke-[1.75]" />
-                    </div>
-                    <span className="text-[10px] xs:text-[11px] font-heading font-semibold text-[#1A1D20] leading-tight mt-1.5 text-center">
-                      {item.title}
-                    </span>
-                  </div>
-                );
-              })}
-            </motion.div>
-
-            {/* 5. CTA Button */}
-            <motion.div
-              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.35 }}
-              className="pt-1"
-            >
-              <a
-                href="#our-story"
-                onClick={onScrollToStory}
-                className="inline-flex items-center gap-2 px-5 py-2 xs:px-6 xs:py-2.5 rounded-full bg-gradient-to-r from-[#80011F] via-[#6B011A] to-[#570018] text-white font-heading font-medium text-xs xs:text-sm shadow-md transition-all active:scale-95 cursor-pointer"
-              >
-                <span>Know More About Our BNI Journey</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </a>
-            </motion.div>
-
           </div>
 
-          {/* 6. Handshake Image (Mobile View: Seamless Integrated Blend, NO square card) */}
+          {/* 4. Hero Image: 4-side shaded effect so it blends into canvas without box appearance */}
           <motion.div
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.35 }}
-            className="w-full flex-1 min-h-0 relative z-10 flex justify-center items-end overflow-hidden pb-4 sm:pb-6"
+            transition={{ duration: 0.75, delay: 0.28 }}
+            className="w-full max-w-[390px] h-[24svh] xs:h-[26svh] max-h-[220px] min-h-[150px] overflow-hidden my-1 shrink-0 flex items-center justify-center"
+            style={{
+              maskImage: 'radial-gradient(ellipse 90% 86% at 50% 50%, black 50%, rgba(0,0,0,0.65) 74%, transparent 100%)',
+              WebkitMaskImage: 'radial-gradient(ellipse 90% 86% at 50% 50%, black 50%, rgba(0,0,0,0.65) 74%, transparent 100%)',
+            }}
           >
-            <div
-              className="relative w-full max-w-[380px] xs:max-w-[420px] h-[32svh] xs:h-[35svh] max-h-[290px] min-h-[170px] overflow-hidden"
-              style={{
-                maskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 14%, black 35%, black 82%, transparent 100%), linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 14%, black 35%, black 82%, transparent 100%), linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
-                maskComposite: 'intersect',
-                WebkitMaskComposite: 'destination-in',
-              }}
+            <img
+              src="/assets/images/about/bni-team-award.jpg"
+              alt="TeesZone Clothing Private Limited - BNI Tycoon Season 07 Partnership"
+              className="w-full h-full object-cover object-center filter saturate-[1.05] contrast-[1.03]"
+              loading="eager"
+            />
+          </motion.div>
+
+          {/* 5. CTA Button */}
+          <motion.div
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.34 }}
+            className="my-0.5 shrink-0"
+          >
+            <a
+              href="#our-story"
+              onClick={onScrollToStory}
+              className="inline-flex items-center gap-2 px-5 py-2 xs:px-6 xs:py-2.5 rounded-full bg-gradient-to-r from-[#80011F] via-[#6B011A] to-[#570018] text-white font-heading font-medium text-xs xs:text-sm shadow-md transition-all active:scale-95 cursor-pointer"
             >
-              <img
-                src="/assets/images/about/bni-handshake.jpg"
-                alt="TeesZone BNI Tycoon Erode Handshake"
-                className="w-full h-full object-cover object-center filter saturate-[1.05] contrast-[1.03]"
-                loading="eager"
-              />
-            </div>
+              <span>Know More About Our BNI Journey</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+          </motion.div>
+
+          {/* 6. Other Contents (Three Standalone Feature Highlights) */}
+          <motion.div
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.4 }}
+            className="flex items-start justify-center gap-4 xs:gap-6 sm:gap-8 w-full max-w-[360px] pt-1 pb-1 shrink-0"
+          >
+            {bniFeatures.map((item) => {
+              const IconComponent = item.icon;
+              return (
+                <div
+                  key={item.id}
+                  className="flex flex-col items-center justify-center text-center flex-1 max-w-[105px]"
+                >
+                  <div className="text-[#80011F]">
+                    <IconComponent className="w-5 h-5 xs:w-[22px] xs:h-[22px] stroke-[1.8]" />
+                  </div>
+                  <span className="text-[10px] xs:text-[11px] font-heading font-bold text-[#1A1D20] leading-tight mt-1 whitespace-pre-line text-center">
+                    {item.title}
+                  </span>
+                </div>
+              );
+            })}
           </motion.div>
 
         </div>
@@ -334,4 +295,4 @@ export const BNIMemberSlide: React.FC<BNIMemberSlideProps> = ({
   );
 };
 
-
+export default BNIMemberSlide;

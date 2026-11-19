@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useReducedMotion } from 'framer-motion';
-import { Users } from 'lucide-react';
 
 interface TeamMember {
   id: string;
@@ -117,11 +116,11 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
           className="absolute inset-0 w-full h-full object-contain pointer-events-none select-none scale-[1.18] sm:scale-[1.22] drop-shadow-[0_18px_35px_rgba(128,1,31,0.32)]"
         />
 
-        {/* Centered Glowing Rotating Orbit Ring - Aligned Directly Around the Image */}
+        {/* Glowing Rotating Orbit Ring - Positioned in the background below the face around torso */}
         {isActive && !shouldReduceMotion && (
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20 overflow-visible">
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-[5] overflow-visible translate-y-7 sm:translate-y-10">
             <div
-              className="w-[112%] sm:w-[116%] h-[40%] sm:h-[44%] rounded-[50%] border-[3.5px] border-[#FFE4EB] shadow-[0_0_16px_rgba(255,185,200,0.95),0_0_35px_rgba(128,1,31,0.7),inset_0_0_10px_rgba(255,220,230,0.6)] animate-spin-orbit"
+              className="w-[114%] sm:w-[118%] h-[38%] sm:h-[42%] rounded-[50%] border-[3px] border-[#FFE4EB] shadow-[0_0_16px_rgba(255,185,200,0.9),0_0_35px_rgba(128,1,31,0.65),inset_0_0_10px_rgba(255,220,230,0.5)] animate-spin-orbit"
               style={{
                 transform: 'rotateX(70deg) rotateY(-18deg)',
               }}
@@ -298,13 +297,13 @@ export const TeamSection: React.FC = () => {
             }}
           />
 
-          {/* Top-Right Corner Burgundy Gradient Wave Swoosh */}
-          <div className="absolute top-0 right-0 w-72 sm:w-96 lg:w-[460px] h-72 sm:h-96 lg:h-[460px] opacity-90">
+          {/* Top-Right Corner Soft Subtle Burgundy Wave Ribbon (Reduced darkness & height) */}
+          <div className="absolute top-0 right-0 w-44 sm:w-60 lg:w-72 h-20 sm:h-28 lg:h-36 opacity-25">
             <svg viewBox="0 0 460 460" className="w-full h-full" fill="none">
               <defs>
                 <linearGradient id="waveTopRightGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#80011F" stopOpacity="0.88" />
-                  <stop offset="100%" stopColor="#550015" stopOpacity="0.98" />
+                  <stop offset="0%" stopColor="#80011F" stopOpacity="0.75" />
+                  <stop offset="100%" stopColor="#A82845" stopOpacity="0.85" />
                 </linearGradient>
               </defs>
               <path
@@ -313,19 +312,19 @@ export const TeamSection: React.FC = () => {
               />
               <path
                 d="M200 0C270 95 360 145 460 110V0H200Z"
-                fill="#9E1438"
-                fillOpacity="0.45"
+                fill="#C44B68"
+                fillOpacity="0.35"
               />
             </svg>
           </div>
 
-          {/* Bottom-Left Corner Burgundy Gradient Wave Swoosh - Decreased Height */}
-          <div className="absolute bottom-0 left-0 w-64 sm:w-80 lg:w-[420px] h-24 sm:h-32 lg:h-40 opacity-85">
+          {/* Bottom-Left Corner Soft Subtle Burgundy Wave Ribbon (Reduced darkness & height) */}
+          <div className="absolute bottom-0 left-0 w-44 sm:w-60 lg:w-72 h-14 sm:h-20 lg:h-24 opacity-25">
             <svg viewBox="0 0 420 160" className="w-full h-full" fill="none" preserveAspectRatio="none">
               <defs>
                 <linearGradient id="waveBottomLeftGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#80011F" stopOpacity="0.9" />
-                  <stop offset="100%" stopColor="#550015" stopOpacity="0.98" />
+                  <stop offset="0%" stopColor="#80011F" stopOpacity="0.75" />
+                  <stop offset="100%" stopColor="#A82845" stopOpacity="0.85" />
                 </linearGradient>
               </defs>
               <path
@@ -334,28 +333,10 @@ export const TeamSection: React.FC = () => {
               />
               <path
                 d="M0 95C100 90 180 125 280 160H0V95Z"
-                fill="#9E1438"
-                fillOpacity="0.45"
+                fill="#C44B68"
+                fillOpacity="0.35"
               />
             </svg>
-          </div>
-
-          {/* Top-Left Corner Subtle Dotted Pattern */}
-          <div className="absolute top-6 left-6 sm:top-10 sm:left-10 opacity-20">
-            <div className="grid grid-cols-6 gap-2 sm:gap-2.5">
-              {Array.from({ length: 36 }).map((_, i) => (
-                <div key={i} className="w-1.5 h-1.5 rounded-full bg-[#80011F]" />
-              ))}
-            </div>
-          </div>
-
-          {/* Bottom-Right Corner Subtle Dotted Pattern */}
-          <div className="absolute bottom-6 right-6 sm:bottom-10 sm:right-10 opacity-20">
-            <div className="grid grid-cols-6 gap-2 sm:gap-2.5">
-              {Array.from({ length: 36 }).map((_, i) => (
-                <div key={i} className="w-1.5 h-1.5 rounded-full bg-[#80011F]" />
-              ))}
-            </div>
           </div>
 
         </div>
@@ -365,10 +346,13 @@ export const TeamSection: React.FC = () => {
         {/* ========================================================================= */}
         <div className="relative z-20 text-center max-w-3xl mx-auto pt-2 sm:pt-4">
           
-          {/* Eyebrow Pill Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#80011F]/10 border border-[#80011F]/20 text-[#80011F] text-xs font-heading font-black tracking-widest uppercase mb-2 shadow-2xs">
-            <Users className="w-3.5 h-3.5 text-[#80011F]" />
-            <span>OUR LEADERSHIP TEAM</span>
+          {/* Eyebrow Label matching OUR LOCATIONS design: Horizontal accent lines with burgundy text */}
+          <div className="flex items-center justify-center gap-2.5 sm:gap-3 mb-2 sm:mb-2.5">
+            <span className="w-8 sm:w-10 h-[2px] bg-[#80011F]/30 rounded-full" />
+            <span className="text-xs sm:text-sm uppercase tracking-[0.24em] font-extrabold text-[#80011F]">
+              OUR LEADERSHIP TEAM
+            </span>
+            <span className="w-8 sm:w-10 h-[2px] bg-[#80011F]/30 rounded-full" />
           </div>
 
           {/* Main Title with Burgundy Emphasis on "TeesZone" and Curved Underline */}

@@ -501,20 +501,14 @@ export const OurClients: React.FC<OurClientsProps> = ({ className }) => {
           </motion.h2>
         </div>
 
-        {/* Centerpiece: 500+ Happy Clients with Official Emblem */}
-        <div className="flex flex-col items-center justify-center py-3 text-center w-full select-none mb-6 sm:mb-8">
-          <span className="font-['Georgia',_serif] italic font-black text-4xl sm:text-5xl text-[#80011F] leading-none mb-1">
+        {/* Centerpiece: 500+ Happy Clients in One Line (Logo Removed, Larger Size) */}
+        <div className="flex items-center justify-center gap-3 sm:gap-4 md:gap-5 py-3 sm:py-5 text-center w-full select-none mb-6 sm:mb-8">
+          <span className="font-['Georgia',_serif] italic font-black text-3xl xs:text-4xl sm:text-5xl md:text-6xl text-[#80011F] leading-none">
             500+
           </span>
-          <div className="w-10 sm:w-12 h-[2.5px] bg-[#80011F] rounded-full my-1.5" />
-          <span className="font-heading font-black text-xs sm:text-sm uppercase tracking-[0.28em] text-[#80011F] mb-2.5">
+          <span className="font-heading font-black text-xl xs:text-2xl sm:text-3xl md:text-4xl uppercase tracking-[0.18em] sm:tracking-[0.24em] text-[#80011F] leading-none">
             Happy Clients
           </span>
-          <img
-            src="/assets/logo/teeszone-emblem.png"
-            alt="TeesZone Logo"
-            className="w-14 sm:w-16 h-12 sm:h-14 object-contain filter drop-shadow-sm"
-          />
         </div>
 
         {/* =====================================================================

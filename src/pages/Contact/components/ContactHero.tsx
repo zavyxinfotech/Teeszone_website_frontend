@@ -5,6 +5,15 @@ import { Clock, HelpCircle, Sparkles } from 'lucide-react';
 export const ContactHero: React.FC = () => {
   return (
     <section className="relative bg-gradient-to-b from-white via-warm-50 to-warm-100/50 pt-28 sm:pt-32 md:pt-36 lg:pt-40 pb-12 md:pb-16 overflow-hidden">
+      {/* Ambient Transparent Consultation Background Image */}
+      <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
+        <img
+          src="/assets/images/contact/contact-hero-consultation.jpg"
+          alt="TeesZone Custom Apparel Consultation"
+          className="w-full h-full object-cover object-center opacity-15 filter blur-[0.5px]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/92 via-warm-50/85 to-warm-100/90" />
+      </div>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-5">
         <RevealAnimation direction="down" immediate>
           <span className="inline-block text-xs font-heading font-extrabold uppercase tracking-wider text-burgundy-700 bg-burgundy-50 border border-burgundy-100 px-3.5 py-1.5 rounded-full">
