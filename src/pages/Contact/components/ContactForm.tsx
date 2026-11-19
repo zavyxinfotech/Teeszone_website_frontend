@@ -102,7 +102,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
   }
 
   return (
-    <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-10 border border-burgundy-100 shadow-soft">
+    <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-10">
       <div className="mb-6">
         <h3 className="text-2xl sm:text-3xl font-heading font-black text-charcoal-900">
           Send Us a <span className="text-burgundy-700">Message</span>

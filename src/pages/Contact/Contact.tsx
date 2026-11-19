@@ -4,8 +4,6 @@ import { ContactHero } from './components/ContactHero';
 import { ContactInfo } from './components/ContactInfo';
 import { ContactForm } from './components/ContactForm';
 import { LocationMap } from './components/LocationMap';
-import { BulkOrderSection } from './components/BulkOrderSection';
-
 export const Contact: React.FC = () => {
   const [searchParams] = useSearchParams();
   const productParam = searchParams.get('product') || '';
@@ -21,7 +19,7 @@ export const Contact: React.FC = () => {
 
       {/* 3. Main Form & Location Map Grid */}
       <section id="quote-form" className="py-14 sm:py-20 bg-warm-50/70 scroll-mt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Left: Contact Form */}
             <div className="lg:col-span-7">
@@ -38,9 +36,6 @@ export const Contact: React.FC = () => {
           </div>
         </div>
       </section>
-
-      {/* 4. Bulk Orders */}
-      <BulkOrderSection />
     </div>
   );
 };

@@ -38,16 +38,16 @@ export const ProductsCTA: React.FC<ProductsCTAProps> = ({ onOpenQuote }) => {
           
           {/* Left Visual: Folded T-Shirts Stack on Soft Surface */}
           <div className="lg:col-span-5 flex justify-center lg:justify-start">
-            <div className="relative max-w-[280px] sm:max-w-[340px] w-full">
+            <div className="relative max-w-[380px] sm:max-w-[440px] lg:max-w-[500px] w-full">
               {/* Ambient Glow */}
-              <div className="absolute inset-0 bg-white/10 rounded-full blur-2xl -z-10" />
+              <div className="absolute inset-0 bg-white/10 rounded-full blur-3xl -z-10" />
 
               <motion.img
-                src="/assets/images/products/folded-tees-cta.png"
-                alt="Folded premium custom T-shirts in ivory, burgundy, and navy"
-                whileHover={shouldReduceMotion ? {} : { scale: 1.05, y: -4 }}
+                src="/assets/images/products/products-cta-tshirts.png"
+                alt="Folded premium custom polo T-shirts stack with Teeszone branding"
+                whileHover={shouldReduceMotion ? {} : { scale: 1.04, y: -4 }}
                 transition={{ duration: 0.4 }}
-                className="w-full h-auto object-contain drop-shadow-[0_16px_28px_rgba(0,0,0,0.35)] rounded-2xl"
+                className="w-full h-auto object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.4)]"
                 loading="lazy"
               />
             </div>

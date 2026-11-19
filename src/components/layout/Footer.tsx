@@ -4,26 +4,38 @@ import { navigationLinks, companyContact } from '@/data/navigation';
 import { productsData } from '@/data/products';
 import { MapPin, Phone, Mail, ArrowUp, Heart, X, ShieldCheck, FileText } from 'lucide-react';
 
-const InstagramIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }) => (
-  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
-    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+const InstagramIcon: React.FC<{ className?: string }> = ({ className = 'w-7 h-7' }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none">
+    <defs>
+      <radialGradient id="instaGrad" cx="30%" cy="107%" r="150%">
+        <stop offset="0%" stopColor="#fdf497" />
+        <stop offset="5%" stopColor="#fdf497" />
+        <stop offset="45%" stopColor="#fd5949" />
+        <stop offset="60%" stopColor="#d6249f" />
+        <stop offset="90%" stopColor="#285AEB" />
+      </radialGradient>
+    </defs>
+    <path
+      fill="url(#instaGrad)"
+      d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+    />
   </svg>
 );
 
-const FacebookIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }) => (
-  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+const FacebookIcon: React.FC<{ className?: string }> = ({ className = 'w-7 h-7' }) => (
+  <svg className={className} fill="#1877F2" viewBox="0 0 24 24">
     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
   </svg>
 );
 
-const YoutubeIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }) => (
-  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+const YoutubeIcon: React.FC<{ className?: string }> = ({ className = 'w-7 h-7' }) => (
+  <svg className={className} fill="#FF0000" viewBox="0 0 24 24">
     <path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z" />
   </svg>
 );
 
-const LinkedinIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }) => (
-  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+const LinkedinIcon: React.FC<{ className?: string }> = ({ className = 'w-7 h-7' }) => (
+  <svg className={className} fill="#0A66C2" viewBox="0 0 24 24">
     <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
   </svg>
 );
@@ -100,43 +112,43 @@ export const Footer: React.FC = () => {
               businesses, organizations, events and brands across India.
             </p>
 
-            {/* Social Icons: Exact logo icons, no border, no background */}
-            <div className="flex items-center justify-center md:justify-start gap-4 pt-2">
+            {/* Social Icons: Exact original logo colors and increased sizes */}
+            <div className="flex items-center justify-center md:justify-start gap-3.5 pt-2">
               <a
                 href={companyContact.socials.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#80011F] hover:text-[#5B0116] transition-colors p-1"
+                className="hover:scale-110 transition-transform p-1 inline-flex items-center justify-center"
                 aria-label="Instagram"
               >
-                <InstagramIcon className="w-5 h-5" />
+                <InstagramIcon className="w-7 h-7 sm:w-8 sm:h-8" />
               </a>
               <a
                 href={companyContact.socials.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#80011F] hover:text-[#5B0116] transition-colors p-1"
+                className="hover:scale-110 transition-transform p-1 inline-flex items-center justify-center"
                 aria-label="Facebook"
               >
-                <FacebookIcon className="w-5 h-5" />
+                <FacebookIcon className="w-7 h-7 sm:w-8 sm:h-8" />
               </a>
               <a
                 href={companyContact.socials.youtube}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#80011F] hover:text-[#5B0116] transition-colors p-1"
+                className="hover:scale-110 transition-transform p-1 inline-flex items-center justify-center"
                 aria-label="YouTube"
               >
-                <YoutubeIcon className="w-5 h-5" />
+                <YoutubeIcon className="w-7 h-7 sm:w-8 sm:h-8" />
               </a>
               <a
                 href={companyContact.socials.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#80011F] hover:text-[#5B0116] transition-colors p-1"
+                className="hover:scale-110 transition-transform p-1 inline-flex items-center justify-center"
                 aria-label="LinkedIn"
               >
-                <LinkedinIcon className="w-5 h-5" />
+                <LinkedinIcon className="w-7 h-7 sm:w-8 sm:h-8" />
               </a>
             </div>
           </div>

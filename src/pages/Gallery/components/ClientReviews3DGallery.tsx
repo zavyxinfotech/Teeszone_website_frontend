@@ -1,11 +1,8 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { motion, AnimatePresence, useScroll, useSpring, useReducedMotion } from 'framer-motion';
+import React, { useState, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   ExternalLink,
-  ChevronDown,
-  ArrowRight,
   CheckCircle2,
-  ShieldCheck,
   ZoomIn,
   X,
 } from 'lucide-react';
@@ -50,375 +47,135 @@ const FiveStarRating = () => (
   </div>
 );
 
-// 4 columns x 3 rows grid - All 12 slots filled with review cards (No watermark logos)
-interface StaggeredSlot {
-  col: number; // 1 to 4
-  row: number; // 1 to 3
-  reviewIndex: number;
-}
-
-const RIGHT_GRID_SLOTS: StaggeredSlot[] = [
-  // Row 1: Col 1, Col 2, Col 3, Col 4
-  { col: 1, row: 1, reviewIndex: 0 }, // Zoho CRM
-  { col: 2, row: 1, reviewIndex: 1 }, // PV Renewable India
-  { col: 3, row: 1, reviewIndex: 10 }, // Top client 11
-  { col: 4, row: 1, reviewIndex: 2 }, // Briar Tea Bungalows
-
-  // Row 2: Col 1, Col 2, Col 3, Col 4
-  { col: 1, row: 2, reviewIndex: 3 }, // RK Academy
-  { col: 2, row: 2, reviewIndex: 11 }, // Top client 12
-  { col: 3, row: 2, reviewIndex: 4 }, // Excel College Institutions
-  { col: 4, row: 2, reviewIndex: 5 }, // Serwell Systems
-
-  // Row 3: Col 1, Col 2, Col 3, Col 4
-  { col: 1, row: 3, reviewIndex: 9 }, // MRF Vapocure Paints
-  { col: 2, row: 3, reviewIndex: 6 }, // Magnus Sports Club
-  { col: 3, row: 3, reviewIndex: 7 }, // Skyline Lite Hotels
-  { col: 4, row: 3, reviewIndex: 8 }, // Holy Cross High School
-];
-
 export const ClientReviews3DGallery: React.FC<ClientReviews3DGalleryProps> = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const shouldReduceMotion = useReducedMotion();
-
-  // Scroll track height: sufficient distance to scroll through all 30 reviews before moving to next section
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end'],
-  });
-
-  const smoothScroll = useSpring(scrollYProgress, {
-    stiffness: 85,
-    damping: 24,
-    restDelta: 0.001,
-  });
-
-  const [scrollVal, setScrollVal] = useState<number>(0);
   const [selectedReview, setSelectedReview] = useState<ClientReviewItem | null>(null);
-  const [hoveredCardId, setHoveredCardId] = useState<number | null>(null);
 
-  useEffect(() => {
-    return smoothScroll.on('change', (latest) => {
-      setScrollVal(latest);
-    });
-  }, [smoothScroll]);
-
-  // Transition threshold:
-  // scrollVal < 0.16 -> Stage A: Left Text & Right Staggered Grid with TeesZone Watermarks
-  // scrollVal >= 0.16 -> Stage B: Top Text + Alternate/Staggered 30-Card Horizontal Sequence + Bottom CTA
-  const isHorizontalActive = scrollVal >= 0.16;
-
-  // ALL 30 Genuine Reviews for the Horizontal Sequence
-  const all30Reviews = CLIENT_REVIEWS_DATA;
-  const cardWidth = 360; // px width per card
-  const totalCardsWidth = all30Reviews.length * (cardWidth + 20); // 30 * 380 = 11,400px
-
-  // Horizontal pan translation across ALL 30 cards as user scrolls through
-  const horizontalTranslateX = useMemo(() => {
-    if (scrollVal < 0.16) return 0;
-    // Map scrollVal from 0.16 to 0.98 -> 0 to 1
-    const progress = Math.min(1, Math.max(0, (scrollVal - 0.16) / 0.82));
-    const viewportWidth = typeof window !== 'undefined' ? window.innerWidth : 1200;
-    const maxScrollDistance = totalCardsWidth - viewportWidth + 300;
-    return -progress * Math.max(2600, maxScrollDistance);
-  }, [scrollVal, totalCardsWidth]);
+  // Duplicated for seamless infinite continuous auto-scroll loop
+  const marqueeReviews = useMemo(() => [...CLIENT_REVIEWS_DATA, ...CLIENT_REVIEWS_DATA], []);
 
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full h-[450vh] sm:h-[500vh] bg-[#F7E7CE] text-[#211D20] select-none z-20"
+    <section
+      className="relative w-full min-h-[640px] py-12 lg:py-16 bg-[#F7E7CE] text-[#211D20] select-none z-20 flex flex-col justify-between overflow-hidden"
       aria-label="TeesZone Genuine Client Reviews Showcase"
     >
-      {/* Sticky Full-Viewport Stage:
-          CRITICAL FIX: pt-24 sm:pt-28 lg:pt-32 provides safe clearance below the fixed navbar
-          so that text is NEVER cropped at the top! */}
-      <div className="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden px-4 sm:px-8 lg:px-12 pt-24 sm:pt-28 lg:pt-30 pb-6">
-        
-        {/* =======================================================================
-            BACKGROUND DESIGN: WEBSITE'S WARM ALMOND / CHAMPAGNE RADIAL GRADIENT
-            ======================================================================= */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                'radial-gradient(circle at 65% 50%, rgba(255,255,255,0.85) 0%, rgba(247,231,206,0.72) 45%, rgba(240,218,185,0.52) 100%)',
-            }}
-          />
-          <div
-            className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none blur-3xl opacity-20"
-            style={{
-              background:
-                'radial-gradient(circle, rgba(128,1,31,0.18) 0%, rgba(128,1,31,0.04) 60%, transparent 80%)',
-            }}
-          />
-          {/* Subtle Editorial Grid Lines */}
-          <div
-            className="absolute inset-0 opacity-[0.05]"
-            style={{
-              backgroundImage:
-                'linear-gradient(to right, #80011F 1px, transparent 1px), linear-gradient(to bottom, #80011F 1px, transparent 1px)',
-              backgroundSize: 'calc(100% / 6) calc(100% / 4)',
-            }}
-          />
-        </div>
-
-        {/* =======================================================================
-            STAGE A: LEFT TEXT CONTENT & RIGHT STAGGERED MOSAIC GRID
-            (No curved borders, enlarged images, increased text size, no CTA size jump,
-             and TeesZone Watermark Logos in the empty grid spaces)
-            ======================================================================= */}
-        {!isHorizontalActive && (
-          <motion.div
-            initial={{ opacity: 1 }}
-            animate={{
-              opacity: Math.max(0, 1 - scrollVal * 6),
-              scale: 1 - scrollVal * 0.08,
-            }}
-            transition={{ duration: 0.2 }}
-            className="relative z-20 w-full max-w-7xl mx-auto my-auto flex-1 flex flex-col justify-center pointer-events-auto"
-          >
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-center w-full">
-              
-              {/* LEFT SIDE: Text Content (Increased Typography Size, CTA Text Kept Neat) */}
-              <div className="lg:col-span-5 flex flex-col justify-center text-left z-30">
-                {/* Clean Eyebrow */}
-                <div className="text-xs sm:text-[13px] font-heading font-extrabold tracking-widest text-[#80011F] uppercase mb-2.5">
-                  GENUINE CLIENT REVIEWS
-                </div>
-
-                {/* Main Heading: Increased Size */}
-                <h2 className="text-4xl sm:text-5xl lg:text-[44px] xl:text-[52px] font-heading font-black text-[#211D20] leading-[1.08] tracking-tight mb-4 sm:mb-5">
-                  Trusted by <span className="text-[#80011F]">500+ Businesses</span> across India.
-                </h2>
-
-                {/* Supporting Description: Increased Size */}
-                <p className="text-base sm:text-lg text-[#554D56] font-normal leading-relaxed max-w-lg mb-6 sm:mb-8">
-                  From custom polo t-shirts and corporate uniforms to college event apparel, explore genuine photographs and experiences from verified businesses.
-                </p>
-
-                {/* CTA Button: Text size NOT increased (remains neat text-xs sm:text-sm) */}
-                <div>
-                  <a
-                    href={GOOGLE_REVIEWS_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-[#80011F] hover:bg-[#680119] text-white font-heading font-bold text-xs sm:text-sm shadow-md shadow-[#80011F]/20 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
-                  >
-                    <GoogleGIcon className="w-4 h-4" />
-                    <span>Explore Our Google Reviews</span>
-                    <ArrowRight className="w-4 h-4 ml-1" />
-                  </a>
-                </div>
-              </div>
-
-              {/* RIGHT SIDE: 4-Col x 3-Row Image Grid with Dynamic Scroll-Driven Parallax Animations */}
-              <div className="lg:col-span-7 w-full">
-                {/* Desktop 4-Col x 3-Row Alternating Staggered Mosaic */}
-                <div
-                  className="hidden sm:grid grid-cols-4 grid-rows-3 gap-2.5 xl:gap-3 w-full h-[480px] max-h-[66vh]"
-                  style={{ perspective: '1000px', transformStyle: 'preserve-3d' }}
-                >
-                  {/* All 12 Review Cards with Scroll-Responsive 3D Parallax */}
-                  {RIGHT_GRID_SLOTS.map((slot, idx) => {
-                    const review = CLIENT_REVIEWS_DATA[slot.reviewIndex];
-                    if (!review) return null;
-
-                    // Scroll animation effect: odd columns shift up, even columns shift down as user scrolls
-                    const colParallax = (slot.col % 2 === 0 ? 1 : -1) * (scrollVal * 90);
-                    const rotateY = (slot.col - 2.5) * -3 * (1 + scrollVal * 2);
-
-                    return (
-                      <motion.div
-                        key={`r-slot-${slot.col}-${slot.row}-${idx}`}
-                        style={{
-                          gridColumnStart: slot.col,
-                          gridRowStart: slot.row,
-                          transform: `translate3d(0, ${colParallax}px, 0) rotateY(${rotateY}deg)`,
-                          transformStyle: 'preserve-3d',
-                        }}
-                        whileHover={{ scale: 1.05, zIndex: 10 }}
-                        onClick={() => setSelectedReview(review)}
-                        className="relative w-full h-full overflow-hidden bg-black shadow-[0_6px_20px_rgba(0,0,0,0.18)] cursor-pointer group rounded-none border-0 p-0 transition-all duration-300"
-                      >
-                        <img
-                          src={review.image}
-                          alt={review.clientName}
-                          className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-500"
-                          loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent opacity-80 group-hover:opacity-95 transition-opacity" />
-                        <div className="absolute bottom-1.5 inset-x-2 text-left truncate">
-                          <p className="text-[11px] font-heading font-extrabold text-white truncate drop-shadow-sm">
-                            {review.clientName}
-                          </p>
-                          <p className="text-[9px] text-[#F7E7CE] font-medium truncate">
-                            {review.category}
-                          </p>
-                        </div>
-                        <div className="absolute top-2 right-2 p-1 rounded-full bg-black/60 text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                          <ZoomIn className="w-3 h-3" />
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </div>
-
-                {/* Mobile View Grid */}
-                <div className="sm:hidden grid grid-cols-3 gap-1.5 w-full">
-                  {CLIENT_REVIEWS_DATA.slice(0, 9).map((review) => (
-                    <div
-                      key={`mob-${review.id}`}
-                      onClick={() => setSelectedReview(review)}
-                      className="relative aspect-[4/3] overflow-hidden bg-black shadow-sm rounded-none border-0 p-0"
-                    >
-                      <img
-                        src={review.image}
-                        alt={review.clientName}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
-                      <p className="absolute bottom-1 inset-x-1 text-[9px] font-bold text-white truncate">
-                        {review.clientName}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Bouncing Scroll Down Indicator (No Words) */}
-            <div className="absolute -bottom-2 inset-x-0 flex flex-col items-center justify-center pointer-events-none">
-              <motion.div
-                animate={{ y: [0, 7, 0] }}
-                transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
-                className="w-8 h-8 rounded-full bg-white/80 border border-[#80011F]/15 flex items-center justify-center shadow-xs text-[#80011F]"
-              >
-                <ChevronDown className="w-4 h-4" />
-              </motion.div>
-            </div>
-          </motion.div>
-        )}
-
-        {/* =======================================================================
-            STAGE B: ALTERNATE ORDER HORIZONTAL SEQUENCE (ALL 30 REVIEW IMAGES)
-            - Top Heading with safe navbar clearance (never cropped!)
-            - Alternate/Staggered Vertical Offsets for cards (not flat continuous line)
-            - CTA Button positioned cleanly BELOW the cards
-            ======================================================================= */}
-        {isHorizontalActive && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.25 }}
-            className="relative z-20 w-full h-full flex flex-col justify-between items-center pointer-events-auto pt-1 pb-2"
-          >
-            {/* 1. TEXT ALIGNED AT THE TOP (Safe clearance, completely visible, NOT cropped) */}
-            <div className="text-center max-w-3xl mx-auto px-4 z-30 pt-1">
-              <div className="text-xs sm:text-[13px] font-heading font-extrabold tracking-widest text-[#80011F] uppercase mb-1">
-                VERIFIED CLIENT EXPERIENCES
-              </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black text-[#211D20] tracking-tight leading-[1.25]">
-                Trusted by Businesses Across India for{' '}
-                <span className="text-[#80011F]">Custom T-Shirts</span> &amp; Corporate Apparel
-              </h2>
-              <p className="text-xs sm:text-sm text-[#554D56] max-w-xl mx-auto mt-1 leading-relaxed hidden sm:block">
-                Explore genuine customer experiences with Teeszone&apos;s custom T-shirt printing, bulk apparel manufacturing and personalized corporate clothing solutions.
-              </p>
-            </div>
-
-            {/* 2. ALTERNATE / STAGGERED HORIZONTAL CAROUSEL (ALL 30 IMAGES, ALTERNATE HEIGHT OFFSETS) */}
-            <div
-              className="w-full flex-1 flex items-center justify-start overflow-visible my-auto"
-              style={{
-                perspective: '1200px',
-                perspectiveOrigin: '50% 50%',
-                transformStyle: 'preserve-3d',
-              }}
-            >
-              <div
-                // Alternate order layout: cards are staggered vertically in an alternating wave
-                className="flex items-center gap-4 sm:gap-5 transition-transform duration-250 ease-out pl-[6vw] sm:pl-[12vw]"
-                style={{
-                  transform: `translate3d(${horizontalTranslateX}px, 0px, 0px)`,
-                  transformStyle: 'preserve-3d',
-                }}
-              >
-                {all30Reviews.map((review, idx) => {
-                  const cardDisplacement = idx * (cardWidth + 20) + horizontalTranslateX;
-                  const rotateY = Math.max(-25, Math.min(25, (cardDisplacement / 1000) * -18));
-                  const translateZ = Math.max(-140, -Math.abs(cardDisplacement / 1000) * 90);
-                  // Alternate vertical offset: even index shifted up (-22px), odd index shifted down (+22px)
-                  const alternateY = idx % 2 === 0 ? -22 : 22;
-                  const isHovered = hoveredCardId === review.id;
-
-                  return (
-                    <motion.div
-                      key={`h-card-${review.id}-${idx}`}
-                      style={{
-                        transform: `perspective(1200px) translate3d(0, ${alternateY}px, ${translateZ + (isHovered ? 40 : 0)}px) rotateY(${rotateY}deg)`,
-                        transformStyle: 'preserve-3d',
-                      }}
-                      onMouseEnter={() => setHoveredCardId(review.id)}
-                      onMouseLeave={() => setHoveredCardId(null)}
-                      onClick={() => setSelectedReview(review)}
-                      // Sharp Edges (rounded-none, border-0)
-                      className="relative shrink-0 w-[290px] sm:w-[350px] md:w-[370px] h-[195px] sm:h-[235px] md:h-[250px] overflow-hidden bg-black shadow-[0_12px_28px_rgba(0,0,0,0.22)] cursor-pointer group transition-all duration-300 rounded-none border-0 p-0"
-                    >
-                      <img
-                        src={review.image}
-                        alt={review.clientName}
-                        className="w-full h-full object-cover object-center group-hover:scale-106 transition-transform duration-500"
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
-                      
-                      {/* Client caption overlay */}
-                      <div className="absolute bottom-2.5 inset-x-3 text-left truncate">
-                        <div className="flex items-center gap-1.5">
-                          <CheckCircle2 className="w-4 h-4 text-[#FBBC04] shrink-0" />
-                          <p className="text-sm sm:text-base font-heading font-extrabold text-white truncate drop-shadow-sm">
-                            {review.clientName}
-                          </p>
-                        </div>
-                        <p className="text-xs text-[#F7E7CE] font-medium truncate mt-0.5">
-                          {review.category}
-                        </p>
-                      </div>
-
-                      <div className="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-black/60 text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                        <ZoomIn className="w-3.5 h-3.5" />
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* 3. CTA BUTTON ALIGNED BELOW THE CARDS ANIMATION */}
-            <div className="text-center z-30 pt-1 pb-1">
-              <div className="flex items-center justify-center">
-                <a
-                  href={GOOGLE_REVIEWS_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-gradient-to-r from-[#80011F] via-[#940024] to-[#6d001a] hover:from-[#6d001a] hover:to-[#550015] text-white font-heading font-bold text-xs sm:text-sm shadow-lg shadow-[#80011F]/25 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 border border-white/25 cursor-pointer"
-                  aria-label="Explore Our Google Reviews for TeesZone Clothing Private Limited"
-                >
-                  <GoogleGIcon className="w-4 h-4" />
-                  <span>Explore Our Google Reviews</span>
-                  <ExternalLink className="w-4 h-4 text-white/80" />
-                </a>
-              </div>
-            </div>
-          </motion.div>
-        )}
+      {/* Background radial gradient & subtle grid */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(circle at 65% 50%, rgba(255,255,255,0.85) 0%, rgba(247,231,206,0.72) 45%, rgba(240,218,185,0.52) 100%)',
+          }}
+        />
+        <div
+          className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none blur-3xl opacity-20"
+          style={{
+            background:
+              'radial-gradient(circle, rgba(128,1,31,0.18) 0%, rgba(128,1,31,0.04) 60%, transparent 80%)',
+          }}
+        />
+        <div
+          className="absolute inset-0 opacity-[0.05]"
+          style={{
+            backgroundImage:
+              'linear-gradient(to right, #80011F 1px, transparent 1px), linear-gradient(to bottom, #80011F 1px, transparent 1px)',
+            backgroundSize: 'calc(100% / 6) calc(100% / 4)',
+          }}
+        />
       </div>
 
-      {/* =========================================================================
-          FULL-SCREEN HIGH-RESOLUTION LIGHTBOX MODAL
-          ========================================================================= */}
+      {/* 1. TOP HEADER */}
+      <div className="relative z-20 text-center max-w-4xl mx-auto px-4 sm:px-6 pt-4 mb-2">
+        <div className="text-xs sm:text-[13px] font-heading font-extrabold tracking-widest text-[#80011F] uppercase mb-1.5">
+          VERIFIED CLIENT EXPERIENCES
+        </div>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-heading font-black text-[#211D20] tracking-tight leading-[1.25]">
+          Trusted by Businesses Across India for{' '}
+          <span className="text-[#80011F]">Custom T-Shirts</span> &amp; Corporate Apparel
+        </h2>
+        <p className="text-xs sm:text-sm text-[#554D56] max-w-2xl mx-auto mt-2 leading-relaxed">
+          Explore genuine customer experiences with Teeszone&apos;s custom T-shirt printing, bulk apparel manufacturing and personalized corporate clothing solutions.
+        </p>
+      </div>
+
+      {/* 2. CONTINUOUS AUTO-SCROLLING HORIZONTAL MARQUEE (LEFT TO RIGHT) */}
+      <div
+        className="relative z-20 w-full overflow-hidden py-10 sm:py-14 my-auto"
+        style={{ perspective: '1200px' }}
+      >
+        <motion.div
+          className="flex items-center gap-4 sm:gap-6 w-max pl-4"
+          animate={{ x: ['-50%', '0%'] }}
+          transition={{
+            x: {
+              repeat: Infinity,
+              repeatType: 'loop',
+              duration: 50,
+              ease: 'linear',
+            },
+          }}
+        >
+          {marqueeReviews.map((review, idx) => {
+            // Alternate wave vertical offset: even index shifted up (-20px), odd index shifted down (+20px)
+            const alternateY = idx % 2 === 0 ? -20 : 20;
+
+            return (
+              <div
+                key={`marquee-card-${review.id}-${idx}`}
+                style={{
+                  transform: `translateY(${alternateY}px)`,
+                }}
+                onClick={() => setSelectedReview(review)}
+                className="relative shrink-0 w-[270px] sm:w-[330px] md:w-[360px] h-[180px] sm:h-[220px] md:h-[240px] overflow-hidden bg-black shadow-[0_12px_28px_rgba(0,0,0,0.22)] cursor-pointer group transition-all duration-300 rounded-none border-0 p-0 hover:scale-105 hover:z-30"
+              >
+                <img
+                  src={review.image}
+                  alt={review.clientName}
+                  className="w-full h-full object-cover object-center group-hover:scale-106 transition-transform duration-500"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+
+                {/* Client caption overlay */}
+                <div className="absolute bottom-2.5 inset-x-3 text-left truncate">
+                  <div className="flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#FBBC04] shrink-0" />
+                    <p className="text-sm sm:text-base font-heading font-extrabold text-white truncate drop-shadow-sm">
+                      {review.clientName}
+                    </p>
+                  </div>
+                  <p className="text-xs text-[#F7E7CE] font-medium truncate mt-0.5">
+                    {review.category}
+                  </p>
+                </div>
+
+                <div className="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-black/60 text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                  <ZoomIn className="w-3.5 h-3.5" />
+                </div>
+              </div>
+            );
+          })}
+        </motion.div>
+      </div>
+
+      {/* 3. CTA BUTTON ALIGNED BELOW THE CARDS */}
+      <div className="relative z-20 text-center pt-2 pb-4">
+        <div className="flex items-center justify-center">
+          <a
+            href={GOOGLE_REVIEWS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-gradient-to-r from-[#80011F] via-[#940024] to-[#6d001a] hover:from-[#6d001a] hover:to-[#550015] text-white font-heading font-bold text-xs sm:text-sm shadow-lg shadow-[#80011F]/25 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 border border-white/25 cursor-pointer"
+            aria-label="Explore Our Google Reviews for TeesZone Clothing Private Limited"
+          >
+            <GoogleGIcon className="w-4 h-4" />
+            <span>Explore Our Google Reviews</span>
+            <ExternalLink className="w-4 h-4 text-white/80" />
+          </a>
+        </div>
+      </div>
+
+      {/* FULL-SCREEN HIGH-RESOLUTION LIGHTBOX MODAL */}
       <AnimatePresence>
         {selectedReview && (
           <div
@@ -485,7 +242,7 @@ export const ClientReviews3DGallery: React.FC<ClientReviews3DGalleryProps> = () 
           </div>
         )}
       </AnimatePresence>
-    </div>
+    </section>
   );
 };
 

@@ -19,7 +19,7 @@ export const companyContact = {
   whatsappDisplay: '+91 99446 87485',
   email: 'info@teeszone.in',
   legalEntity: 'TEESZONE CLOTHING PRIVATE LIMITED',
-  gstin: '33AAMCT4535C1Z1',
+  gstin: '33AAMCT4535C1ZI',
   officeTitle: 'TEESZONE HEAD OFFICE',
   address: '#2155, Fortune City, Global Market – Texvalley, NH 544 Bengaluru–Cochin National Highway, Chithode, Erode – 638 102, Tamil Nadu, India.',
   shortAddress: 'Texvalley, Erode, Tamil Nadu, India',

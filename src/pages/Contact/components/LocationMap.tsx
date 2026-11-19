@@ -6,7 +6,7 @@ export const LocationMap: React.FC = () => {
   const googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=Texvalley+Fortune+City+Erode+Tamil+Nadu';
 
   return (
-    <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-9 border border-burgundy-100 shadow-soft flex flex-col justify-between h-full">
+    <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-9 flex flex-col justify-between h-full">
       <div>
         {/* Header matching Image 2 */}
         <div className="mb-5">
@@ -21,8 +21,8 @@ export const LocationMap: React.FC = () => {
           </p>
         </div>
 
-        {/* Exact Google Map Image matching Reference Image 2 */}
-        <div className="relative rounded-2xl overflow-hidden border border-burgundy-100 shadow-sm mb-5 group">
+        {/* Google Map Image */}
+        <div className="relative rounded-2xl overflow-hidden mb-5 group">
           <img
             src="/assets/images/contact-google-map.webp"
             alt="Google Map location of TeesZone Head Office at Texvalley, Erode"
@@ -41,7 +41,7 @@ export const LocationMap: React.FC = () => {
         </div>
 
         {/* TeesZone Building Photo below the map */}
-        <div className="relative rounded-2xl overflow-hidden border border-burgundy-100 shadow-sm mb-5">
+        <div className="relative rounded-2xl overflow-hidden mb-5">
           <img
             src="/assets/images/teeszone-building-facility.webp"
             alt="TeesZone Building & Corporate Logistics Facility"
@@ -53,25 +53,28 @@ export const LocationMap: React.FC = () => {
           </div>
         </div>
 
-        {/* Corporate Office Address Details matching Image 2 */}
-        <div className="space-y-2 text-sm text-charcoal-700 bg-warm-50/70 p-4 rounded-2xl border border-burgundy-50">
-          <div className="flex items-start gap-2.5">
-            <MapPin className="w-5 h-5 text-burgundy-700 shrink-0 mt-0.5" />
-            <div>
-              <p className="text-[11px] font-heading font-extrabold uppercase tracking-wider text-burgundy-700">
+        {/* Corporate Office Address Details */}
+        <div className="space-y-2.5 text-charcoal-700 bg-warm-50/70 p-5 rounded-2xl">
+          <div className="flex items-start gap-3">
+            <MapPin className="w-5 h-5 text-burgundy-700 shrink-0 mt-1" />
+            <div className="space-y-1">
+              <p className="text-xs sm:text-sm font-heading font-medium uppercase tracking-wider text-burgundy-700">
                 TEESZONE HEAD OFFICE
               </p>
-              <p className="font-heading font-bold text-charcoal-900 text-sm mt-0.5 leading-snug">
+              <p className="font-heading font-medium text-charcoal-900 text-base leading-snug">
                 #2155, Fortune City, Global Market – Texvalley,
               </p>
-              <p className="text-xs text-charcoal-600 mt-0.5 leading-relaxed">
+              <p className="text-sm text-charcoal-600 leading-relaxed font-normal">
                 NH 544 Bengaluru–Cochin National Highway, Chithode, Erode – 638 102, Tamil Nadu, India.
+              </p>
+              <p className="text-xs sm:text-sm text-charcoal-600 font-normal pt-1">
+                Office hours: Monday – Saturday, 9:00 AM – 7:00 PM IST
               </p>
               <a
                 href={googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-xs font-heading font-bold text-burgundy-700 hover:text-burgundy-800 hover:underline mt-2"
+                className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-burgundy-700 hover:text-burgundy-800 hover:underline pt-1"
               >
                 <MapPin className="w-3.5 h-3.5" />
                 <span>Open in Google Maps</span>
