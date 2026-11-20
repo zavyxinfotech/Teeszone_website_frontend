@@ -272,10 +272,10 @@ export const ContactInfo: React.FC = () => {
             {/* Text Information straight below 3D model */}
             <div className="pt-3 space-y-1.5 text-center max-w-sm mx-auto w-full">
               <p className="text-xs sm:text-[13px] font-heading font-extrabold text-[#FFC1D0] uppercase tracking-wider">
-                CORPORATE HEAD OFFICE
+                CORPORATE OFFICE
               </p>
               <p className="text-base sm:text-lg lg:text-xl font-heading font-bold text-white leading-snug">
-                Texvalley, Erode
+                Teeszone Corporate Office
               </p>
               <p className="text-xs sm:text-[13px] text-rose-100/90 font-normal leading-relaxed pt-0.5">
                 #2155, Fortune City, Global Market – Texvalley, NH 544 National Highway, Chithode, Erode – 638 102.
@@ -359,10 +359,10 @@ export const ContactInfo: React.FC = () => {
             />
             <div className="flex-1 space-y-1 text-left">
               <p className="text-[11px] font-heading font-extrabold text-[#FFC1D0] uppercase tracking-wider">
-                CORPORATE HEAD OFFICE
+                CORPORATE OFFICE
               </p>
               <p className="text-sm sm:text-base font-heading font-bold text-white leading-snug">
-                Texvalley, Erode
+                Teeszone Corporate Office
               </p>
               <p className="text-[11px] text-rose-100/90 font-normal leading-relaxed pt-0.5">
                 #2155, Fortune City, Global Market – Texvalley, NH 544 National Highway, Chithode, Erode – 638 102.

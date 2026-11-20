@@ -20,56 +20,83 @@ export const GalleryHeroCinematic: React.FC = () => {
   return (
     <section
       ref={sectionRef}
-      className="sticky top-0 h-screen w-full overflow-hidden bg-[#0D0B0E] text-white flex flex-col justify-between pt-24 xs:pt-28 sm:pt-32 lg:pt-36 pb-8 sm:pb-12 px-4 sm:px-6 lg:px-8 select-none z-10"
+      className="sticky top-0 h-screen w-full overflow-hidden bg-[#FAF6F4] text-charcoal-900 flex flex-col justify-between pt-24 xs:pt-28 sm:pt-32 lg:pt-36 pb-8 sm:pb-12 px-4 sm:px-6 lg:px-8 select-none z-10"
       aria-label="Cinematic Gallery Hero"
     >
-      {/* 1. Cinematic Background Image with Parallax */}
-      <motion.div
-        style={{ scale: bgScale, y: bgY }}
-        className="absolute inset-0 w-full h-full pointer-events-none will-change-transform z-0"
-      >
-        <img
-          src="/assets/images/gallery/gallery-hero-facility.jpg"
-          alt="TeesZone Tiruppur High-Tech Apparel Manufacturing Facility"
-          className="w-full h-full object-cover object-center brightness-90"
-          loading="eager"
-        />
-        {/* Dark Gradient Overlay for Supreme Text Contrast */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/40" />
-        <div className="absolute inset-0 bg-radial-at-c from-transparent via-black/30 to-black/70" />
-      </motion.div>
+      {/* =========================================================================
+          BACKGROUND THEME (Warm Cream Base, Organic Curves & Subtle Ambient Facility)
+          ========================================================================= */}
+      <div className="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden bg-[#FAF6F4]">
+        {/* Soft Cream to Warm Amber Gradient Glow */}
+        <div className="absolute top-0 right-0 w-[65%] h-full bg-gradient-to-l from-[#F5ECE1]/90 via-[#FAF4EB]/60 to-transparent pointer-events-none" />
+        <div className="absolute -top-24 left-1/4 w-[550px] h-[550px] bg-[#FFF2DE]/50 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 right-1/3 w-[600px] h-[450px] bg-[#FCECEF]/45 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-16 -left-16 w-[450px] h-[450px] bg-[#FAF1E6]/70 rounded-full blur-2xl pointer-events-none" />
 
-      {/* 2. Top Header Frosted Scrim (Keeps Navbar Logo and Navigation Links crystal clear) */}
-      <div className="absolute top-0 left-0 right-0 h-24 sm:h-28 bg-gradient-to-b from-[#FFFDFD] via-[#FFFDFD]/85 to-transparent pointer-events-none z-[4]" />
+        {/* Elegant Organic Cream Wave Ribbons in the background */}
+        <svg
+          viewBox="0 0 1440 800"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M560,0 C700,160 840,220 980,120 C1120,20 1280,140 1440,80 L1440,800 L420,800 C480,680 520,520 460,380 C400,240 450,90 560,0 Z"
+            fill="url(#creamOrganicBackdropGallery)"
+            opacity="0.85"
+          />
+          <defs>
+            <linearGradient id="creamOrganicBackdropGallery" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#F5ECE1" stopOpacity="0.9" />
+              <stop offset="50%" stopColor="#FAF4EB" stopOpacity="0.75" />
+              <stop offset="100%" stopColor="#F0E5D6" stopOpacity="0.6" />
+            </linearGradient>
+          </defs>
+        </svg>
 
-      {/* Decorative Royal Burgundy Satin Fabric Wave at Top Right Corner (Desktop ONLY - Hidden on Mobile) */}
-      <svg
-        viewBox="0 0 800 500"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="absolute top-0 right-0 w-[55%] h-[55%] object-cover hidden md:block pointer-events-none select-none z-[5]"
-        preserveAspectRatio="none"
-      >
-        <path
-          d="M320,0 C480,90 600,60 800,190 L800,0 Z"
-          fill="url(#desktopSatinWaveGallery)"
-        />
-        <path
-          d="M440,0 C560,110 680,85 800,240 L800,0 Z"
-          fill="#800020"
-          fillOpacity="0.18"
-        />
-        <defs>
-          <linearGradient id="desktopSatinWaveGallery" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#580819" stopOpacity="0.9" />
-            <stop offset="40%" stopColor="#7A1027" stopOpacity="0.75" />
-            <stop offset="80%" stopColor="#9C1E3A" stopOpacity="0.45" />
-            <stop offset="100%" stopColor="#580819" stopOpacity="0.05" />
-          </linearGradient>
-        </defs>
-      </svg>
+        {/* Subtle Ambient Facility Photograph Layer */}
+        <motion.div
+          style={{ scale: bgScale, y: bgY }}
+          className="absolute inset-0 w-full h-full pointer-events-none will-change-transform z-0 opacity-12 mix-blend-multiply"
+        >
+          <img
+            src="/assets/images/gallery/gallery-hero-facility.jpg"
+            alt="TeesZone Tiruppur Facility"
+            className="w-full h-full object-cover object-center"
+            loading="eager"
+          />
+        </motion.div>
 
-      {/* 3. Central Hero Content matching Home Page Typography */}
+        {/* Decorative Royal Burgundy Satin Fabric Wave at Top Right Corner (Desktop ONLY - Hidden on Mobile) */}
+        <svg
+          viewBox="0 0 800 500"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute top-0 right-0 w-[55%] h-[55%] object-cover hidden md:block pointer-events-none select-none z-[5]"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M320,0 C480,90 600,60 800,190 L800,0 Z"
+            fill="url(#desktopSatinWaveGallery)"
+          />
+          <path
+            d="M440,0 C560,110 680,85 800,240 L800,0 Z"
+            fill="#800020"
+            fillOpacity="0.18"
+          />
+          <defs>
+            <linearGradient id="desktopSatinWaveGallery" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#580819" stopOpacity="0.9" />
+              <stop offset="40%" stopColor="#7A1027" stopOpacity="0.75" />
+              <stop offset="80%" stopColor="#9C1E3A" stopOpacity="0.45" />
+              <stop offset="100%" stopColor="#580819" stopOpacity="0.05" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
+      {/* Central Hero Content matching Home Page Typography */}
       <motion.div
         style={{ y: contentY, opacity: contentOpacity }}
         initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 25 }}
@@ -79,65 +106,65 @@ export const GalleryHeroCinematic: React.FC = () => {
       >
         {/* Eyebrow Label matching Home Page */}
         <div>
-          <span className="text-xs sm:text-sm font-heading font-extrabold uppercase tracking-widest text-[#FFC1D0] block mb-2 sm:mb-3">
+          <span className="text-sm sm:text-base font-heading font-semibold uppercase tracking-wider text-burgundy-700 block mb-2 sm:mb-3">
             OUR PRODUCTION FACILITY
           </span>
         </div>
 
         {/* Main Headline matching Home Page */}
-        <h1 className="text-3xl xs:text-4xl sm:text-5xl lg:text-[56px] xl:text-[62px] font-heading font-black text-white leading-[1.08] tracking-tight drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)]">
+        <h1 className="text-4xl sm:text-5xl lg:text-[56px] xl:text-[62px] font-heading font-bold text-charcoal-900 leading-[1.08] tracking-tight">
           Our Production Facility &amp;{' '}
-          <span className="text-[#FFC1D0] sm:text-[#FF99B0] italic font-heading font-black">Apparel Gallery</span>
+          <span className="text-burgundy-700">Apparel Gallery</span>
         </h1>
 
         {/* Description matching Home Page */}
-        <p className="mt-4 sm:mt-6 text-base sm:text-lg lg:text-[19px] text-white/90 max-w-2xl mx-auto leading-relaxed font-normal drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">
+        <p className="mt-4 sm:mt-5 text-lg sm:text-xl lg:text-[20px] text-charcoal-700 max-w-2xl mx-auto leading-relaxed font-normal">
           Take an inside look at our state-of-the-art Tiruppur manufacturing plant, high-precision
           branding techniques, and bespoke apparel delivered for 500+ businesses across India.
         </p>
 
-        {/* Quick Metrics Bar - Borderless Clean Badges with Home Page Color Accent */}
+        {/* Quick Metrics Bar - Clean Cards with Home Page Styling */}
         <div className="mt-6 sm:mt-8 grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 max-w-3xl mx-auto">
-          <div className="bg-black/40 backdrop-blur-md rounded-2xl p-3 sm:p-4 text-center shadow-lg">
-            <span className="block text-xl sm:text-3xl font-heading font-black text-[#FFC1D0]">
+          <div className="bg-white/90 backdrop-blur-md rounded-2xl p-3 sm:p-4 text-center border border-charcoal-200/50 shadow-soft">
+            <span className="block text-2xl sm:text-3xl font-heading font-bold text-burgundy-700">
               100K+
             </span>
-            <span className="text-[11px] sm:text-xs text-white/90 font-medium">Monthly Output</span>
+            <span className="text-[11px] sm:text-xs text-charcoal-700 font-medium">Monthly Output</span>
           </div>
-          <div className="bg-black/40 backdrop-blur-md rounded-2xl p-3 sm:p-4 text-center shadow-lg">
-            <span className="block text-xl sm:text-3xl font-heading font-black text-[#FFC1D0]">
+          <div className="bg-white/90 backdrop-blur-md rounded-2xl p-3 sm:p-4 text-center border border-charcoal-200/50 shadow-soft">
+            <span className="block text-2xl sm:text-3xl font-heading font-bold text-burgundy-700">
               500+
             </span>
-            <span className="text-[11px] sm:text-xs text-white/90 font-medium">Trusted Clients</span>
+            <span className="text-[11px] sm:text-xs text-charcoal-700 font-medium">Trusted Clients</span>
           </div>
-          <div className="bg-black/40 backdrop-blur-md rounded-2xl p-3 sm:p-4 text-center shadow-lg">
-            <span className="block text-xl sm:text-3xl font-heading font-black text-[#FFC1D0]">
+          <div className="bg-white/90 backdrop-blur-md rounded-2xl p-3 sm:p-4 text-center border border-charcoal-200/50 shadow-soft">
+            <span className="block text-2xl sm:text-3xl font-heading font-bold text-burgundy-700">
               100%
             </span>
-            <span className="text-[11px] sm:text-xs text-white/90 font-medium">Tiruppur Hub</span>
+            <span className="text-[11px] sm:text-xs text-charcoal-700 font-medium">Tiruppur Hub</span>
           </div>
-          <div className="bg-black/40 backdrop-blur-md rounded-2xl p-3 sm:p-4 text-center shadow-lg">
-            <span className="block text-xl sm:text-3xl font-heading font-black text-[#FFC1D0]">
+          <div className="bg-white/90 backdrop-blur-md rounded-2xl p-3 sm:p-4 text-center border border-charcoal-200/50 shadow-soft">
+            <span className="block text-2xl sm:text-3xl font-heading font-bold text-burgundy-700">
               48h
             </span>
-            <span className="text-[11px] sm:text-xs text-white/90 font-medium">Fast Sampling</span>
+            <span className="text-[11px] sm:text-xs text-charcoal-700 font-medium">Fast Sampling</span>
           </div>
         </div>
       </motion.div>
 
-      {/* 4. Bottom Scroll Indicator */}
+      {/* Bottom Scroll Indicator */}
       <motion.div
         animate={{ y: [0, 6, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-        className="relative z-10 flex flex-col items-center justify-center text-white/80 hover:text-white transition-colors cursor-pointer pt-2"
+        className="relative z-10 flex flex-col items-center justify-center text-charcoal-600 hover:text-burgundy-700 transition-colors cursor-pointer pt-2"
         onClick={() => {
           window.scrollBy({ top: window.innerHeight * 0.9, behavior: 'smooth' });
         }}
       >
-        <span className="text-[11px] sm:text-xs tracking-widest uppercase font-semibold text-white/90 font-heading">
+        <span className="text-[11px] sm:text-xs tracking-widest uppercase font-semibold text-charcoal-700 font-heading">
           Scroll to Explore
         </span>
-        <ChevronDown className="w-4 h-4 text-[#FFC1D0] mt-0.5" />
+        <ChevronDown className="w-4 h-4 text-burgundy-700 mt-0.5" />
       </motion.div>
     </section>
   );

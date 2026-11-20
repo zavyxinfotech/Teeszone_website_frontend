@@ -103,7 +103,7 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
       id="about-hero"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      className="relative w-full h-[100svh] min-h-[100svh] max-h-[100svh] flex flex-col justify-between overflow-hidden bg-[#FAF5F2] select-none"
+      className="relative w-full h-[100svh] min-h-[100svh] max-h-[100svh] flex flex-col justify-between overflow-hidden bg-[#FAF6F4] select-none"
       aria-label="TeesZone About Us - Branded Apparel Solutions & BNI Tycoon Erode"
     >
       {/* =========================================================================
@@ -207,16 +207,26 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
                 {/* 1. DESKTOP VIEW */}
                 <div className="hidden lg:grid lg:grid-cols-12 gap-8 items-center">
                   <div className="lg:col-span-7 xl:col-span-7 space-y-4 xl:space-y-5 text-left">
+                    <motion.div
+                      initial={{ opacity: 0, y: shouldReduceMotion ? 0 : -15 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, ease: 'easeOut' }}
+                    >
+                      <span className="text-sm sm:text-base font-heading font-semibold uppercase tracking-wider text-burgundy-700 block">
+                        ABOUT TEESZONE
+                      </span>
+                    </motion.div>
+
                     <motion.h1
                       initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
                       className="text-4xl sm:text-5xl lg:text-[56px] xl:text-[62px] font-heading font-bold text-charcoal-900 leading-[1.08] tracking-tight max-w-2xl"
                     >
-                      <span className="block text-[#1A1D20]">
+                      <span className="block text-charcoal-900">
                         Your Trusted Partner in
                       </span>
-                      <span className="block text-[#80011F] mt-1">
+                      <span className="block text-burgundy-700 mt-1">
                         Branded Apparel Solutions
                       </span>
                     </motion.h1>
@@ -242,10 +252,10 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
                         const IconComp = feat.icon;
                         return (
                           <div key={feat.id} className="flex flex-col items-center text-center">
-                            <div className="w-9 h-9 sm:w-10 sm:h-10 text-[#80011F] flex items-center justify-center transition-transform hover:scale-110 duration-200">
+                            <div className="w-9 h-9 sm:w-10 sm:h-10 text-burgundy-700 flex items-center justify-center transition-transform hover:scale-110 duration-200">
                               <IconComp className="w-7 h-7 sm:w-8 sm:h-8 stroke-[1.8]" />
                             </div>
-                            <span className="text-xs sm:text-[13px] font-heading font-bold text-[#1A1D20] leading-snug mt-1.5 whitespace-pre-line text-center">
+                            <span className="text-xs sm:text-[13px] lg:text-[14px] font-heading font-medium text-charcoal-900 leading-snug mt-1.5 whitespace-pre-line text-center">
                               {feat.title}
                             </span>
                           </div>
@@ -263,7 +273,7 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
                       <a
                         href="#our-story"
                         onClick={handleScrollToStory}
-                        className="inline-flex items-center gap-3 px-8 py-3.5 xl:px-9 xl:py-4 rounded-full bg-gradient-to-r from-[#80011F] via-[#6B011A] to-[#570018] hover:from-[#6B011A] hover:to-[#450013] text-white font-heading font-medium text-sm xl:text-base shadow-[0_6px_20px_rgba(128,1,31,0.25)] hover:shadow-[0_10px_25px_rgba(128,1,31,0.35)] transition-all duration-300 group cursor-pointer"
+                        className="inline-flex items-center gap-3 px-8 py-3.5 xl:px-9 xl:py-4 rounded-full bg-burgundy-700 hover:bg-burgundy-800 text-white font-heading font-medium text-base sm:text-lg shadow-soft hover:shadow-soft-lg transition-all duration-300 group cursor-pointer"
                       >
                         <span>Know More About Us</span>
                         <ArrowRight className="w-4 h-4 xl:w-5 xl:h-5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -282,16 +292,19 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
                   
                   {/* Top Block: Heading + Description */}
                   <div className="flex flex-col items-center space-y-1 w-full shrink-0">
+                    <span className="text-xs sm:text-sm font-heading font-semibold uppercase tracking-wider text-burgundy-700 block mb-0.5">
+                      ABOUT TEESZONE
+                    </span>
                     <motion.h1
                       initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.7, delay: 0.15 }}
                       className="text-[24px] xs:text-[26px] sm:text-3xl font-heading font-bold text-charcoal-900 leading-[1.12] tracking-tight text-center max-w-[340px] xs:max-w-[370px] mx-auto"
                     >
-                      <span className="block text-[#1A1D20]">
+                      <span className="block text-charcoal-900">
                         Your Trusted Partner in
                       </span>
-                      <span className="block text-[#80011F] mt-0.5">
+                      <span className="block text-burgundy-700 mt-0.5">
                         Branded Apparel Solutions
                       </span>
                     </motion.h1>
@@ -336,7 +349,7 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
                     <a
                       href="#our-story"
                       onClick={handleScrollToStory}
-                      className="inline-flex items-center gap-2 px-5 py-2 xs:px-6 xs:py-2.5 rounded-full bg-gradient-to-r from-[#80011F] via-[#6B011A] to-[#570018] text-white font-heading font-medium text-xs xs:text-sm shadow-md transition-all active:scale-95 cursor-pointer"
+                      className="inline-flex items-center gap-2 px-5 py-2 xs:px-6 xs:py-2.5 rounded-full bg-burgundy-700 hover:bg-burgundy-800 text-white font-heading font-medium text-xs xs:text-sm shadow-soft transition-all active:scale-95 cursor-pointer"
                     >
                       <span>Know More About Us</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -357,10 +370,10 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
                           key={item.id}
                           className="flex flex-col items-center justify-center text-center flex-1 max-w-[105px]"
                         >
-                          <div className="text-[#80011F]">
+                          <div className="text-burgundy-700">
                             <IconComponent className="w-5 h-5 xs:w-[22px] xs:h-[22px] stroke-[1.8]" />
                           </div>
-                          <span className="text-[10px] xs:text-[11px] font-heading font-bold text-[#1A1D20] leading-tight mt-1 whitespace-pre-line text-center">
+                          <span className="text-[10px] xs:text-[11px] font-heading font-medium text-charcoal-900 leading-tight mt-1 whitespace-pre-line text-center">
                             {item.title}
                           </span>
                         </div>

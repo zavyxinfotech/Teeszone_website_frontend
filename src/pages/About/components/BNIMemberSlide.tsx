@@ -90,7 +90,7 @@ export const BNIMemberSlide: React.FC<BNIMemberSlideProps> = ({
                   className="h-8 xl:h-9 w-auto object-contain filter drop-shadow-xs"
                   loading="eager"
                 />
-                <span className="text-[10px] xl:text-[11px] font-heading font-extrabold uppercase tracking-wider text-[#80011F] whitespace-nowrap mt-1 text-center">
+                <span className="text-[10px] xl:text-[11px] font-heading font-extrabold uppercase tracking-wider text-burgundy-700 whitespace-nowrap mt-1 text-center">
                   BNI TYCOON ERODE
                 </span>
               </div>
@@ -102,10 +102,10 @@ export const BNIMemberSlide: React.FC<BNIMemberSlideProps> = ({
               transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
               className="text-4xl sm:text-5xl lg:text-[56px] xl:text-[62px] font-heading font-bold text-charcoal-900 leading-[1.08] tracking-tight max-w-2xl"
             >
-              <span className="block text-[#1A1D20]">
+              <span className="block text-charcoal-900">
                 TeesZone is a Proud Member of
               </span>
-              <span className="block text-[#80011F] mt-1">
+              <span className="block text-burgundy-700 mt-1">
                 BNI Tycoon Erode
               </span>
             </motion.h1>
@@ -129,10 +129,10 @@ export const BNIMemberSlide: React.FC<BNIMemberSlideProps> = ({
                 const IconComponent = item.icon;
                 return (
                   <div key={item.id} className="flex flex-col items-center text-center">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 text-[#80011F] flex items-center justify-center transition-transform hover:scale-110 duration-200">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 text-burgundy-700 flex items-center justify-center transition-transform hover:scale-110 duration-200">
                       <IconComponent className="w-7 h-7 sm:w-8 sm:h-8 stroke-[1.8]" />
                     </div>
-                    <span className="text-xs sm:text-[13px] font-heading font-bold text-[#1A1D20] leading-snug mt-1.5 whitespace-pre-line text-center">
+                    <span className="text-xs sm:text-[13px] lg:text-[14px] font-heading font-medium text-charcoal-900 leading-snug mt-1.5 whitespace-pre-line text-center">
                       {item.title}
                     </span>
                   </div>
@@ -149,7 +149,7 @@ export const BNIMemberSlide: React.FC<BNIMemberSlideProps> = ({
               <a
                 href="#our-story"
                 onClick={onScrollToStory}
-                className="inline-flex items-center gap-3 px-8 py-3.5 xl:px-9 xl:py-4 rounded-full bg-gradient-to-r from-[#80011F] via-[#6B011A] to-[#570018] hover:from-[#6B011A] hover:to-[#450013] text-white font-heading font-medium text-sm xl:text-base shadow-[0_6px_20px_rgba(128,1,31,0.25)] hover:shadow-[0_10px_25px_rgba(128,1,31,0.35)] transition-all duration-300 group cursor-pointer"
+                className="inline-flex items-center gap-3 px-8 py-3.5 xl:px-9 xl:py-4 rounded-full bg-burgundy-700 hover:bg-burgundy-800 text-white font-heading font-medium text-base sm:text-lg shadow-soft hover:shadow-soft-lg transition-all duration-300 group cursor-pointer"
               >
                 <span>Know More About Our BNI Journey</span>
                 <ArrowRight className="w-4 h-4 xl:w-5 xl:h-5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -195,7 +195,7 @@ export const BNIMemberSlide: React.FC<BNIMemberSlideProps> = ({
                   className="h-6 sm:h-7 w-auto object-contain"
                   loading="eager"
                 />
-                <span className="text-[8px] sm:text-[9px] font-heading font-extrabold uppercase tracking-wide text-[#80011F] whitespace-nowrap mt-0.5 text-center">
+                <span className="text-[8px] sm:text-[9px] font-heading font-extrabold uppercase tracking-wide text-burgundy-700 whitespace-nowrap mt-0.5 text-center">
                   BNI TYCOON ERODE
                 </span>
               </div>
@@ -208,10 +208,10 @@ export const BNIMemberSlide: React.FC<BNIMemberSlideProps> = ({
               transition={{ duration: 0.7, delay: 0.15 }}
               className="text-[24px] xs:text-[26px] sm:text-3xl font-heading font-bold leading-[1.12] tracking-tight text-center max-w-[340px] xs:max-w-[370px] mx-auto mt-0.5"
             >
-              <span className="block text-[#1A1D20]">
+              <span className="block text-charcoal-900">
                 TeesZone is a Proud Member of
               </span>
-              <span className="block text-[#80011F] mt-0.5">
+              <span className="block text-burgundy-700 mt-0.5">
                 BNI Tycoon Erode
               </span>
             </motion.h1>
@@ -256,7 +256,7 @@ export const BNIMemberSlide: React.FC<BNIMemberSlideProps> = ({
             <a
               href="#our-story"
               onClick={onScrollToStory}
-              className="inline-flex items-center gap-2 px-5 py-2 xs:px-6 xs:py-2.5 rounded-full bg-gradient-to-r from-[#80011F] via-[#6B011A] to-[#570018] text-white font-heading font-medium text-xs xs:text-sm shadow-md transition-all active:scale-95 cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-2 xs:px-6 xs:py-2.5 rounded-full bg-burgundy-700 hover:bg-burgundy-800 text-white font-heading font-medium text-xs xs:text-sm shadow-soft transition-all active:scale-95 cursor-pointer"
             >
               <span>Know More About Our BNI Journey</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -277,10 +277,10 @@ export const BNIMemberSlide: React.FC<BNIMemberSlideProps> = ({
                   key={item.id}
                   className="flex flex-col items-center justify-center text-center flex-1 max-w-[105px]"
                 >
-                  <div className="text-[#80011F]">
+                  <div className="text-burgundy-700">
                     <IconComponent className="w-5 h-5 xs:w-[22px] xs:h-[22px] stroke-[1.8]" />
                   </div>
-                  <span className="text-[10px] xs:text-[11px] font-heading font-bold text-[#1A1D20] leading-tight mt-1 whitespace-pre-line text-center">
+                  <span className="text-[10px] xs:text-[11px] font-heading font-medium text-charcoal-900 leading-tight mt-1 whitespace-pre-line text-center">
                     {item.title}
                   </span>
                 </div>

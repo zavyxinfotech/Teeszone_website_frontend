@@ -91,86 +91,96 @@ export const ProductsHero: React.FC<ProductsHeroProps> = ({ onExploreClick }) =>
   return (
     <section
       ref={containerRef}
-      className="relative w-full overflow-hidden bg-[#0D0B0D] pt-24 xs:pt-28 sm:pt-32 lg:pt-36 xl:pt-40 pb-16 sm:pb-20 lg:pb-24 select-none min-h-[580px] xs:min-h-[640px] sm:min-h-[700px] lg:min-h-[720px] flex items-center"
+      className="relative w-full overflow-hidden bg-[#FAF6F4] pt-24 xs:pt-28 sm:pt-32 lg:pt-36 xl:pt-40 pb-16 sm:pb-20 lg:pb-24 select-none min-h-[580px] xs:min-h-[640px] sm:min-h-[700px] lg:min-h-[720px] flex items-center"
       aria-label="TeesZone Collection Showcase"
     >
-      {/* 1. Full-Hero Background Video (Plays once then pauses on final frame) */}
-      <video
-        ref={videoRef}
-        src="/assets/videos/products-hero-bg.mp4"
-        muted
-        playsInline
-        preload="auto"
-        onEnded={handleVideoEnded}
-        className="absolute inset-0 w-full h-full object-cover object-[70%_center] sm:object-center pointer-events-none z-0"
-      />
+      {/* =========================================================================
+          BACKGROUND THEME (Warm Cream Base, Organic Curves & Satin Wave matching Home Page)
+          ========================================================================= */}
+      <div className="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden bg-[#FAF6F4]">
+        {/* Soft Cream to Warm Amber Gradient Glow */}
+        <div className="absolute top-0 right-0 w-[65%] h-full bg-gradient-to-l from-[#F5ECE1]/90 via-[#FAF4EB]/60 to-transparent pointer-events-none" />
+        <div className="absolute -top-24 left-1/4 w-[550px] h-[550px] bg-[#FFF2DE]/50 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 right-1/3 w-[600px] h-[450px] bg-[#FCECEF]/45 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-16 -left-16 w-[450px] h-[450px] bg-[#FAF1E6]/70 rounded-full blur-2xl pointer-events-none" />
 
-      {/* 2. Top Header Backdrop Scrim (Keeps Navbar Logo and Navigation Links crystal clear) */}
-      <div className="absolute top-0 left-0 right-0 h-24 sm:h-28 bg-gradient-to-b from-[#FFFDFD] via-[#FFFDFD]/85 to-transparent pointer-events-none z-[4]" />
+        {/* Elegant Organic Cream Wave Ribbons in the background */}
+        <svg
+          viewBox="0 0 1440 800"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M560,0 C700,160 840,220 980,120 C1120,20 1280,140 1440,80 L1440,800 L420,800 C480,680 520,520 460,380 C400,240 450,90 560,0 Z"
+            fill="url(#creamOrganicBackdropProducts)"
+            opacity="0.85"
+          />
+          <defs>
+            <linearGradient id="creamOrganicBackdropProducts" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#F5ECE1" stopOpacity="0.9" />
+              <stop offset="50%" stopColor="#FAF4EB" stopOpacity="0.75" />
+              <stop offset="100%" stopColor="#F0E5D6" stopOpacity="0.6" />
+            </linearGradient>
+          </defs>
+        </svg>
 
-      {/* Decorative Royal Burgundy Satin Fabric Wave at Top Right Corner (Desktop ONLY - Hidden on Mobile) */}
-      <svg
-        viewBox="0 0 800 500"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="absolute top-0 right-0 w-[55%] h-[55%] object-cover hidden md:block pointer-events-none select-none z-[5]"
-        preserveAspectRatio="none"
-      >
-        <path
-          d="M320,0 C480,90 600,60 800,190 L800,0 Z"
-          fill="url(#desktopSatinWaveProducts)"
-        />
-        <path
-          d="M440,0 C560,110 680,85 800,240 L800,0 Z"
-          fill="#800020"
-          fillOpacity="0.18"
-        />
-        <defs>
-          <linearGradient id="desktopSatinWaveProducts" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#580819" stopOpacity="0.9" />
-            <stop offset="40%" stopColor="#7A1027" stopOpacity="0.75" />
-            <stop offset="80%" stopColor="#9C1E3A" stopOpacity="0.45" />
-            <stop offset="100%" stopColor="#580819" stopOpacity="0.05" />
-          </linearGradient>
-        </defs>
-      </svg>
+        {/* Decorative Royal Burgundy Satin Fabric Wave at Top Right Corner (Desktop ONLY - Hidden on Mobile) */}
+        <svg
+          viewBox="0 0 800 500"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute top-0 right-0 w-[55%] h-[55%] object-cover hidden md:block"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M320,0 C480,90 600,60 800,190 L800,0 Z"
+            fill="url(#desktopSatinWaveProducts)"
+          />
+          <path
+            d="M440,0 C560,110 680,85 800,240 L800,0 Z"
+            fill="#800020"
+            fillOpacity="0.18"
+          />
+          <defs>
+            <linearGradient id="desktopSatinWaveProducts" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#580819" stopOpacity="0.9" />
+              <stop offset="40%" stopColor="#7A1027" stopOpacity="0.75" />
+              <stop offset="80%" stopColor="#9C1E3A" stopOpacity="0.45" />
+              <stop offset="100%" stopColor="#580819" stopOpacity="0.05" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
 
-      {/* 3. Dark Backdrop Tint for 100% Mobile & Desktop Legibility */}
-      <div className="absolute inset-0 bg-black/45 sm:bg-black/20 lg:bg-transparent pointer-events-none z-[1]" />
-
-      {/* 4. Left-Side Dark Gradient Scrim (Guarantees 100% WCAG AAA Text Contrast across all screen widths) */}
-      <div className="absolute inset-y-0 left-0 w-full lg:w-3/5 bg-gradient-to-r from-black/90 via-black/75 lg:via-black/60 to-transparent pointer-events-none z-[2]" />
-
-      {/* 5. Bottom Soft Transition into Page Background */}
-      <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#FAF2F4] via-[#FAF2F4]/40 to-transparent pointer-events-none z-[2]" />
-
-      {/* 6. Main Content Container */}
-      <div className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
+      {/* Main Content Container matching Home Page Dimensions & Spacing */}
+      <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* Left Hero Content: Headline, Description, and CTA */}
+          {/* Left Hero Content: Headline, Description, and CTA (Exact Home Page Typography) */}
           <motion.div
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="lg:col-span-5 text-left space-y-5 sm:space-y-6 flex flex-col justify-center"
+            className="lg:col-span-5 text-left space-y-4 sm:space-y-5 flex flex-col justify-center"
           >
             {/* Eyebrow Tag matching Home Page */}
             <div>
-              <span className="text-xs sm:text-sm font-heading font-extrabold uppercase tracking-widest text-[#FFC1D0] block">
+              <span className="text-sm sm:text-base font-heading font-semibold uppercase tracking-wider text-burgundy-700 block">
                 OUR APPAREL COLLECTION
               </span>
             </div>
 
             {/* Main Headline matching Home Page */}
-            <h1 className="text-3xl xs:text-4xl sm:text-5xl lg:text-[56px] xl:text-[62px] font-heading font-black text-white tracking-tight leading-[1.08] drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
+            <h1 className="text-4xl sm:text-5xl lg:text-[56px] xl:text-[62px] font-heading font-bold text-charcoal-900 leading-[1.08] tracking-tight">
               Apparel Crafted <br />
-              for <span className="text-[#FFC1D0] sm:text-[#FF99B0] italic font-heading font-black">Every Purpose</span>
+              <span className="text-burgundy-700">for Every Purpose</span>
             </h1>
 
             {/* Subtitle Description matching Home Page */}
-            <p className="text-base sm:text-lg lg:text-[20px] text-white/90 leading-relaxed max-w-lg font-normal drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">
+            <p className="text-lg sm:text-xl lg:text-[20px] text-charcoal-700 leading-relaxed max-w-xl font-normal">
               Custom-made apparel for businesses, institutions, events, and teams. Premium
               quality, scalable production, and complete customization.
             </p>
@@ -187,27 +197,37 @@ export const ProductsHero: React.FC<ProductsHeroProps> = ({ onExploreClick }) =>
             </div>
           </motion.div>
 
-          {/* Right Column: Transparent spacer reserving room for the Video's 3D Apparel Showcase */}
-          <div className="lg:col-span-7 min-h-[240px] xs:min-h-[300px] sm:min-h-[380px] lg:min-h-[500px] pointer-events-none" />
+          {/* Right Column: Showcase Video Frame seamlessly embedded */}
+          <div className="lg:col-span-7 w-full h-[320px] sm:h-[400px] lg:h-[480px] xl:h-[520px] relative rounded-3xl overflow-hidden shadow-soft-xl border border-charcoal-200/50 bg-black/5">
+            <video
+              ref={videoRef}
+              src="/assets/videos/products-hero-bg.mp4"
+              muted
+              playsInline
+              preload="auto"
+              onEnded={handleVideoEnded}
+              className="w-full h-full object-cover object-center"
+            />
+            
+            {/* Play/Pause Button on Bottom-Right Corner of Video */}
+            <div className="absolute bottom-4 right-4 z-20">
+              <button
+                type="button"
+                onClick={togglePlayPause}
+                aria-label={isPlaying ? 'Pause background video' : 'Play background video'}
+                title={isPlaying ? 'Pause video' : 'Play video'}
+                className="w-8 h-8 rounded-full bg-black/70 hover:bg-black/90 backdrop-blur-md border border-white/30 text-white flex items-center justify-center shadow-md transition-all active:scale-95 cursor-pointer"
+              >
+                {isPlaying ? (
+                  <Pause className="w-3.5 h-3.5 fill-current" />
+                ) : (
+                  <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+                )}
+              </button>
+            </div>
+          </div>
 
         </div>
-      </div>
-
-      {/* 7. Very Small Play/Pause Button at Bottom-Left Corner */}
-      <div className="absolute bottom-4 left-4 sm:bottom-5 sm:left-6 z-30">
-        <button
-          type="button"
-          onClick={togglePlayPause}
-          aria-label={isPlaying ? 'Pause background animation' : 'Play background animation'}
-          title={isPlaying ? 'Pause animation' : 'Play animation'}
-          className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black/70 hover:bg-black/90 backdrop-blur-md border border-white/30 text-white/90 hover:text-white flex items-center justify-center shadow-lg transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer"
-        >
-          {isPlaying ? (
-            <Pause className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-current" />
-          ) : (
-            <Play className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-current ml-0.5" />
-          )}
-        </button>
       </div>
     </section>
   );
