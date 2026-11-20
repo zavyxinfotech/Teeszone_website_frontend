@@ -206,28 +206,26 @@ export const ContactHero: React.FC = () => {
 
       {/* =========================================================================
           MOBILE HERO VIEW (md:hidden)
-          - Aligned strictly within mobile screen height (100dvh) without height overflow
-          - High z-index (relative z-30) guaranteed 100% visible on top of all backgrounds
-          - Mobile text content: CONTACT US, Heading, Description, Call Now button, 3 Benefit Badges
-          - Centered 2-row "We're Here to Help You!" directly above consultation image
-          - Consultation image table attached directly to the bottom (zero sandal color gap)
+          - Exactly formatted like Home page mobile hero view
+          - Increased font size without increasing boldness (font-bold, not font-black)
+          - Correct, balanced spacing throughout (no desert empty gaps, no cramped squishing)
+          - All contents & images fit comfortably within mobile view height
           ========================================================================= */}
-      <div className="md:hidden relative z-30 flex flex-col justify-between w-full h-[100dvh] max-h-[100dvh] pt-14 sm:pt-16 pb-0 overflow-hidden">
+      <div className="md:hidden relative z-30 flex flex-col items-center justify-between w-full min-h-[calc(100svh-10px)] max-h-[850px] pt-16 sm:pt-20 pb-0 overflow-hidden bg-[#FAF6F4]">
         
-        {/* Top Text Content Area: Compact, guaranteed 100% visible and fits mobile viewport */}
-        <div className="relative z-30 px-4 sm:px-6 pt-1 space-y-2 text-center">
+        {/* Top Text Content Area: Balanced spacing matching Home page mobile hero */}
+        <div className="relative z-30 px-4 sm:px-6 pt-1 space-y-2.5 text-center w-full max-w-md mx-auto">
           
-          <span className="text-[10px] font-heading font-extrabold uppercase tracking-widest text-[#80011F] block">
+          <span className="text-xs sm:text-sm font-heading font-semibold uppercase tracking-wider text-burgundy-700 block">
             CONTACT US
           </span>
 
-          <h1 className="text-xl xs:text-2xl font-heading font-black tracking-tight leading-[1.12] text-center">
-            <span className="block text-[#0F172A]">Let's Create</span>
-            <span className="block text-[#80011F]">Your Custom T-Shirts</span>
-            <span className="block text-[#80011F]">Together</span>
+          <h1 className="text-2xl xs:text-[27px] sm:text-3xl font-heading font-bold text-charcoal-900 leading-[1.15] tracking-tight text-center">
+            Let's Create <br />
+            <span className="text-burgundy-700">Your Custom T-Shirts Together</span>
           </h1>
 
-          <p className="text-[11px] sm:text-xs text-[#475569] leading-snug font-normal max-w-xs mx-auto line-clamp-2">
+          <p className="text-xs xs:text-[13px] sm:text-sm text-charcoal-700 leading-relaxed font-normal max-w-xs mx-auto">
             Have a requirement, idea or bulk order? Our team is here to help you with the best solutions for your business, organization or event.
           </p>
 
@@ -235,7 +233,7 @@ export const ContactHero: React.FC = () => {
           <div className="pt-0.5 flex justify-center">
             <a
               href={`tel:${companyContact.phone.replace(/\s+/g, '')}`}
-              className="inline-flex items-center gap-1.5 rounded-full px-5 py-2 text-xs font-heading font-medium bg-[#80011F] hover:bg-[#6b021c] text-white shadow-soft transition-all active:scale-95 cursor-pointer"
+              className="inline-flex items-center gap-2 rounded-full px-6 py-2 text-xs xs:text-sm font-heading font-medium bg-burgundy-700 hover:bg-burgundy-800 text-white shadow-soft transition-all active:scale-95 cursor-pointer"
             >
               <Phone className="w-3.5 h-3.5 text-white" />
               <span>Call Now</span>
@@ -243,40 +241,40 @@ export const ContactHero: React.FC = () => {
           </div>
 
           {/* 3 Benefit Items in a row */}
-          <div className="pt-2 border-t border-burgundy-100/60 max-w-xs mx-auto">
-            <div className="grid grid-cols-3 gap-1.5">
+          <div className="pt-2.5 border-t border-burgundy-100/60 max-w-xs mx-auto">
+            <div className="grid grid-cols-3 gap-2">
               <div className="flex flex-col items-center text-center">
-                <div className="text-[#80011F] mb-0.5">
-                  <Clock className="w-4 h-4 stroke-[1.8]" />
+                <div className="text-burgundy-700 mb-0.5">
+                  <Clock className="w-5 h-5 stroke-[1.8]" />
                 </div>
-                <span className="text-[10px] font-heading font-medium text-[#0F172A] block leading-tight">
+                <span className="text-[11px] xs:text-xs font-heading font-medium text-charcoal-900 block leading-tight">
                   Quick Response
                 </span>
-                <span className="text-[8.5px] font-heading font-medium text-[#80011F] block mt-0.5">
+                <span className="text-[9.5px] xs:text-[10px] font-heading font-medium text-burgundy-700 block mt-0.5">
                   (Within 24 Hours)
                 </span>
               </div>
 
               <div className="flex flex-col items-center text-center">
-                <div className="text-[#80011F] mb-0.5">
-                  <HelpCircle className="w-4 h-4 stroke-[1.8]" />
+                <div className="text-burgundy-700 mb-0.5">
+                  <HelpCircle className="w-5 h-5 stroke-[1.8]" />
                 </div>
-                <span className="text-[10px] font-heading font-medium text-[#0F172A] block leading-tight">
+                <span className="text-[11px] xs:text-xs font-heading font-medium text-charcoal-900 block leading-tight">
                   Expert Guidance
                 </span>
-                <span className="text-[8.5px] font-heading font-medium text-[#80011F] block mt-0.5">
+                <span className="text-[9.5px] xs:text-[10px] font-heading font-medium text-burgundy-700 block mt-0.5">
                   For Requirements
                 </span>
               </div>
 
               <div className="flex flex-col items-center text-center">
-                <div className="text-[#80011F] mb-0.5">
-                  <Sparkles className="w-4 h-4 stroke-[1.8]" />
+                <div className="text-burgundy-700 mb-0.5">
+                  <Sparkles className="w-5 h-5 stroke-[1.8]" />
                 </div>
-                <span className="text-[10px] font-heading font-medium text-[#0F172A] block leading-tight">
+                <span className="text-[11px] xs:text-xs font-heading font-medium text-charcoal-900 block leading-tight">
                   Customized
                 </span>
-                <span className="text-[8.5px] font-heading font-medium text-[#80011F] block mt-0.5">
+                <span className="text-[9.5px] xs:text-[10px] font-heading font-medium text-burgundy-700 block mt-0.5">
                   Solutions
                 </span>
               </div>
@@ -285,27 +283,27 @@ export const ContactHero: React.FC = () => {
 
         </div>
 
-        {/* Mobile Consultation Visual Area: Anchored directly at bottom with ZERO gap */}
-        <div className="relative z-30 w-full overflow-hidden bg-transparent px-0 mt-auto flex flex-col items-center justify-end pb-0 mb-0 leading-none">
+        {/* Mobile Consultation Visual Area: Balanced spacing, script text directly above image */}
+        <div className="relative z-30 w-full overflow-hidden bg-transparent px-2 mt-auto pt-2 flex flex-col items-center justify-end pb-0 mb-0 leading-none">
           
           {/* Handwritten Script positioned above the image in 2 rows, center aligned */}
-          <div className="w-full flex justify-center text-center z-30 pointer-events-none select-none mb-1">
+          <div className="w-full flex justify-center text-center z-30 pointer-events-none select-none mb-1.5">
             <div className="text-center">
-              <span className="block font-['Brush_Script_MT',_'Dancing_Script',_cursive] italic text-base sm:text-lg text-[#80011F] font-semibold drop-shadow-xs leading-tight">
+              <span className="block font-['Brush_Script_MT',_'Dancing_Script',_cursive] italic text-lg sm:text-xl text-[#80011F] font-semibold drop-shadow-xs leading-tight">
                 We're Here
               </span>
-              <span className="block font-['Brush_Script_MT',_'Dancing_Script',_cursive] italic text-base sm:text-lg text-[#80011F] font-semibold drop-shadow-xs leading-tight">
+              <span className="block font-['Brush_Script_MT',_'Dancing_Script',_cursive] italic text-lg sm:text-xl text-[#80011F] font-semibold drop-shadow-xs leading-tight">
                 to Help You!
               </span>
             </div>
           </div>
 
-          {/* Full-width image: table anchored flush at the bottom edge */}
-          <div className="relative z-30 w-full flex justify-center p-0 m-0 leading-none">
+          {/* Consultation Image: comfortably proportioned, attached directly at bottom edge */}
+          <div className="relative z-30 w-full max-w-[420px] flex justify-center p-0 m-0 leading-none">
             <img
               src="/assets/images/contact/contact-hero-consultation-transparent.png"
               alt="TeesZone Custom Apparel Consultation"
-              className="w-full h-auto max-h-[42dvh] xs:max-h-[45dvh] object-cover object-bottom drop-shadow-md block m-0 p-0 align-bottom"
+              className="w-full h-auto max-h-[220px] xs:max-h-[250px] sm:max-h-[280px] object-contain object-bottom drop-shadow-md block m-0 p-0 align-bottom"
               loading="eager"
             />
           </div>

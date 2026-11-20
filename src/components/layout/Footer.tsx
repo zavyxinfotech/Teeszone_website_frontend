@@ -112,6 +112,11 @@ export const Footer: React.FC = () => {
               businesses, organizations, events and brands across India.
             </p>
 
+            {/* GSTIN Number */}
+            <p className="text-xs sm:text-sm font-mono font-semibold text-charcoal-700 pt-0.5">
+              GSTIN: 33AAMCT4535C1ZI
+            </p>
+
             {/* Social Icons: Exact original logo colors and adjusted compact sizes */}
             <div className="flex items-center justify-center md:justify-start gap-3 pt-2">
               <a
