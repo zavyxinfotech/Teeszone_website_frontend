@@ -95,7 +95,6 @@ const MILESTONES: Milestone[] = [
 
 export const OurStory: React.FC = () => {
   const [activeIdx, setActiveIdx] = useState(0);
-  const [cardStride, setCardStride] = useState(156);
   const shouldReduceMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const isAutoScrollingRef = useRef(false);
@@ -103,25 +102,6 @@ export const OurStory: React.FC = () => {
 
   const total = MILESTONES.length;
   const activeMilestone = MILESTONES[activeIdx];
-
-  // Dynamically calculate responsive card stride (card width + gap)
-  useEffect(() => {
-    const updateStride = () => {
-      if (typeof window === 'undefined') return;
-      if (window.innerWidth < 640) {
-        setCardStride(110);
-      } else if (window.innerWidth < 1024) {
-        setCardStride(136);
-      } else if (window.innerWidth < 1280) {
-        setCardStride(146);
-      } else {
-        setCardStride(156);
-      }
-    };
-    updateStride();
-    window.addEventListener('resize', updateStride);
-    return () => window.removeEventListener('resize', updateStride);
-  }, []);
 
   const scrollToMilestone = useCallback(
     (idx: number) => {
@@ -218,27 +198,26 @@ export const OurStory: React.FC = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.98 }}
                 transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-                className="w-full h-full object-cover object-center filter saturate-[1.08] contrast-[1.03]"
+                className="w-full h-full object-cover object-right lg:object-center filter saturate-[1.08] contrast-[1.03]"
               />
             </AnimatePresence>
 
-            {/* Smooth Cream Gradient Overlay for Text Readability */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#FAF5F2] via-[#FAF5F2]/95 sm:via-[#FAF5F2]/85 md:via-[#FAF5F2]/65 to-transparent" />
-            
-            <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-[#FAF5F2] to-transparent" />
-            <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-[#FAF5F2] to-transparent" />
+            {/* Left-side Shaded Effect for Supreme Text Readability; Right side remains 100% crisp, clear and unblocked */}
+            <div className="absolute inset-y-0 left-0 w-full sm:w-[75%] lg:w-[58%] xl:w-[52%] bg-gradient-to-r from-[#FAF5F2] via-[#FAF5F2]/95 sm:via-[#FAF5F2]/85 to-transparent pointer-events-none z-[1]" />
+            <div className="absolute top-0 left-0 w-full sm:w-[60%] lg:w-[50%] h-20 bg-gradient-to-b from-[#FAF5F2] to-transparent pointer-events-none z-[1]" />
+            <div className="absolute bottom-0 left-0 w-full sm:w-[60%] lg:w-[50%] h-24 bg-gradient-to-t from-[#FAF5F2] to-transparent pointer-events-none z-[1]" />
           </div>
 
           {/* 2. Main Content Container */}
-          <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-8 pb-2 lg:pb-6 flex-1 flex flex-col justify-between lg:justify-center">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-10 items-center h-full">
+          <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-8 pb-2 lg:pb-6 flex-1 flex flex-col justify-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-10 items-center">
               
               {/* =================================================================
                   LEFT TEXT BLOCK: Increased Font Size Matching Vision & Mission
                   - "OUR STORY" styled with accent line and ZERO background color
                   - Headline with comfortable line spacing (no overlapping text)
                   ================================================================= */}
-              <div className="lg:col-span-5 text-left space-y-3 sm:space-y-4 pt-1 sm:pt-0">
+              <div className="lg:col-span-7 xl:col-span-6 text-left space-y-3 sm:space-y-4 pt-1 sm:pt-0 max-w-2xl">
                 
                 {/* Clean "OUR STORY" Label without background color (matching Looking Ahead style) */}
                 <div className="flex items-center gap-2.5">
@@ -289,83 +268,8 @@ export const OurStory: React.FC = () => {
 
               </div>
 
-              {/* =================================================================
-                  RIGHT PREVIEW CARDS ROW:
-                  - Cards aligned lower with decreased size
-                  - Custom gemstone / faceted octagonal polygon shape (strictly NOT square/rectangle/circle)
-                  - Smooth horizontal scrolling with all cards accessible
-                  ================================================================= */}
-              <div className="lg:col-span-7 flex justify-end items-end lg:items-center overflow-visible w-full pt-4 sm:pt-8 lg:pt-12 pb-2 lg:pb-0">
-                <div className="relative w-full max-w-[340px] xs:max-w-[420px] sm:max-w-[580px] lg:max-w-[760px] xl:max-w-[860px] flex items-center justify-start overflow-hidden py-2 sm:py-6 ml-auto mt-4 sm:mt-8 lg:mt-12">
-                  
-                  {/* Sliding cards track */}
-                  <motion.div
-                    className="flex items-center gap-3 sm:gap-4 lg:gap-5 justify-start will-change-transform"
-                    animate={{
-                      x: shouldReduceMotion
-                        ? 0
-                        : -(activeIdx * cardStride),
-                    }}
-                    transition={{
-                      duration: 0.6,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                  >
-                    {MILESTONES.map((item, idx) => {
-                      const isActive = idx === activeIdx;
-
-                      return (
-                        <motion.div
-                          key={item.id}
-                          onClick={() => scrollToMilestone(idx)}
-                          animate={{
-                            scale: isActive ? 1.05 : 0.92,
-                            opacity: isActive ? 1 : 0.72,
-                          }}
-                          transition={{ duration: 0.45, ease: 'easeOut' }}
-                          className={`relative shrink-0 cursor-pointer transition-all duration-300 select-none p-[2px] ${
-                            isActive
-                              ? 'w-[105px] xs:w-[115px] sm:w-[135px] lg:w-[145px] xl:w-[155px] h-[150px] xs:h-[165px] sm:h-[195px] lg:h-[215px] xl:h-[230px] z-20 bg-gradient-to-br from-[#80011F] via-[#A81335] to-[#80011F]'
-                              : 'w-[90px] xs:w-[100px] sm:w-[118px] lg:w-[126px] xl:w-[136px] h-[130px] xs:h-[145px] sm:h-[172px] lg:h-[188px] xl:h-[200px] hover:opacity-100 z-10 bg-white/40 hover:bg-white/70'
-                          }`}
-                          style={{
-                            clipPath: 'polygon(15% 0%, 85% 0%, 100% 12%, 100% 88%, 85% 100%, 15% 100%, 0% 88%, 0% 12%)',
-                          }}
-                        >
-                          <div
-                            className="w-full h-full relative overflow-hidden"
-                            style={{
-                              clipPath: 'polygon(15% 0%, 85% 0%, 100% 12%, 100% 88%, 85% 100%, 15% 100%, 0% 88%, 0% 12%)',
-                            }}
-                          >
-                            {/* Card Image */}
-                            <img
-                              src={item.cardImage}
-                              alt={item.title}
-                              className="w-full h-full object-cover object-center filter saturate-[1.05] transition-transform duration-500 hover:scale-105"
-                              loading="lazy"
-                            />
-
-                            {/* Bottom Gradient Overlay for typography readability */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
-
-                            {/* Card Text Information */}
-                            <div className="absolute bottom-0 inset-x-0 p-2 xs:p-2.5 sm:p-3 text-left pointer-events-none">
-                              <p className="text-xs xs:text-sm sm:text-base font-heading font-black text-white leading-tight">
-                                {item.yearOrDate}
-                              </p>
-                              <p className="text-[9px] xs:text-[10px] sm:text-xs text-white/90 font-medium leading-snug mt-0.5 truncate">
-                                {item.location}
-                              </p>
-                            </div>
-                          </div>
-                        </motion.div>
-                      );
-                    })}
-                  </motion.div>
-
-                </div>
-              </div>
+              {/* Right area intentionally open to display the crystal-clear milestone imagery */}
+              <div className="hidden lg:block lg:col-span-5 xl:col-span-6 pointer-events-none" />
 
             </div>
           </div>
