@@ -289,7 +289,7 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
                     - Increased center image size with 4-side shaded effect
                     ================================================================= */}
                 <div className="flex lg:hidden flex-col items-center justify-between text-center h-full w-full pt-[80px] xs:pt-[84px] pb-10 xs:pb-12 px-4 overflow-hidden relative">
-                  
+
                   {/* Top Block: Heading + Description */}
                   <div className="flex flex-col items-center space-y-1 w-full shrink-0">
                     <span className="text-xs sm:text-sm font-heading font-semibold uppercase tracking-wider text-burgundy-700 block mb-0.5">
@@ -455,11 +455,10 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
             type="button"
             onClick={() => goToSlide(idx)}
             aria-label={`Go to slide ${idx + 1}`}
-            className={`transition-all duration-300 rounded-full cursor-pointer ${
-              currentSlide === idx
+            className={`transition-all duration-300 rounded-full cursor-pointer ${currentSlide === idx
                 ? 'w-6 xs:w-7 sm:w-8 h-1.5 xs:h-2 sm:h-2.5 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.35)]'
                 : 'w-1.5 xs:w-2 sm:w-2.5 h-1.5 xs:h-2 sm:h-2.5 bg-white/50 hover:bg-white/80'
-            }`}
+              }`}
           />
         ))}
       </div>

@@ -70,7 +70,7 @@ export const ProductsHero: React.FC<ProductsHeroProps> = ({ onExploreClick }) =>
       video
         .play()
         .then(() => setIsPlaying(true))
-        .catch(() => {});
+        .catch(() => { });
     } else {
       video.pause();
       setIsPlaying(false);
@@ -157,7 +157,7 @@ export const ProductsHero: React.FC<ProductsHeroProps> = ({ onExploreClick }) =>
       {/* Main Content Container matching Home Page Dimensions & Spacing */}
       <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          
+
           {/* Left Hero Content: Headline, Description, and CTA (Exact Home Page Typography) */}
           <motion.div
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
@@ -208,7 +208,7 @@ export const ProductsHero: React.FC<ProductsHeroProps> = ({ onExploreClick }) =>
               onEnded={handleVideoEnded}
               className="w-full h-full object-cover object-center"
             />
-            
+
             {/* Play/Pause Button on Bottom-Right Corner of Video */}
             <div className="absolute bottom-4 right-4 z-20">
               <button

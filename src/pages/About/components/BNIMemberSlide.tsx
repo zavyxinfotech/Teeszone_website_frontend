@@ -60,14 +60,14 @@ export const BNIMemberSlide: React.FC<BNIMemberSlideProps> = ({
           MAIN CONTENT CONTAINER
           ========================================================================= */}
       <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex-1 flex flex-col justify-center pt-0 lg:pt-24 xl:pt-28 pb-0 lg:pb-16 h-full">
-        
+
         {/* =====================================================================
             1. DESKTOP VIEW
             ===================================================================== */}
         <div className="hidden lg:grid lg:grid-cols-12 gap-8 items-center">
-          
+
           <div className="lg:col-span-7 xl:col-span-7 space-y-4 xl:space-y-5 text-left">
-            
+
             <motion.div
               initial={{ opacity: 0, y: shouldReduceMotion ? 0 : -14 }}
               animate={{ opacity: 1, y: 0 }}
@@ -168,10 +168,10 @@ export const BNIMemberSlide: React.FC<BNIMemberSlideProps> = ({
             - 4-side shaded effect on image so it naturally blends (NO box appearance)
             ===================================================================== */}
         <div className="flex lg:hidden flex-col items-center justify-between text-center h-full w-full pt-[80px] xs:pt-[84px] pb-10 xs:pb-12 px-4 overflow-hidden relative">
-          
+
           {/* Top Block: Logos + Heading + Description */}
           <div className="flex flex-col items-center space-y-1 w-full shrink-0">
-            
+
             {/* 1. Logos: TeesZone + Divider + (BNI Logo with text below) */}
             <motion.div
               initial={{ opacity: 0, y: shouldReduceMotion ? 0 : -10 }}
