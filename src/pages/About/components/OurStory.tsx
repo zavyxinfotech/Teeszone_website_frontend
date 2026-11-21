@@ -189,35 +189,42 @@ export const OurStory: React.FC = () => {
         <div className="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden outline-none pt-4 lg:pt-8 pb-3 sm:pb-6">
           {/* 1. Cinematic Background Image Layer with Crossfade */}
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-            <AnimatePresence mode="popLayout">
-              <motion.img
-                key={activeMilestone.id}
-                src={activeMilestone.bgImage}
-                alt={activeMilestone.title}
-                initial={{ opacity: 0, scale: 1.05 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-                className="w-full h-full object-cover object-right lg:object-center filter saturate-[1.08] contrast-[1.03]"
-              />
-            </AnimatePresence>
+            {/* Responsive Image Container: Full-height on desktop; Prominent lower-half showcase on mobile for 100% clarity */}
+            <div className="absolute bottom-0 right-0 w-full h-[52vh] sm:h-[55vh] lg:h-full lg:inset-0">
+              <AnimatePresence mode="popLayout">
+                <motion.img
+                  key={activeMilestone.id}
+                  src={activeMilestone.bgImage}
+                  alt={activeMilestone.title}
+                  initial={{ opacity: 0, scale: 1.04 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.98 }}
+                  transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+                  className="w-full h-full object-cover object-[78%_center] lg:object-center filter saturate-[1.08] contrast-[1.03]"
+                />
+              </AnimatePresence>
 
-            {/* Left-side Shaded Effect for Supreme Text Readability; Right side remains 100% crisp, clear and unblocked */}
-            <div className="absolute inset-y-0 left-0 w-full sm:w-[75%] lg:w-[58%] xl:w-[52%] bg-gradient-to-r from-[#FAF5F2] via-[#FAF5F2]/95 sm:via-[#FAF5F2]/85 to-transparent pointer-events-none z-[1]" />
-            <div className="absolute top-0 left-0 w-full sm:w-[60%] lg:w-[50%] h-20 bg-gradient-to-b from-[#FAF5F2] to-transparent pointer-events-none z-[1]" />
-            <div className="absolute bottom-0 left-0 w-full sm:w-[60%] lg:w-[50%] h-24 bg-gradient-to-t from-[#FAF5F2] to-transparent pointer-events-none z-[1]" />
+              {/* Mobile gentle feathering: ensures seamless transition without obscuring artwork */}
+              <div className="lg:hidden absolute top-0 inset-x-0 h-14 bg-gradient-to-b from-[#FAF5F2] to-transparent pointer-events-none z-[1]" />
+              <div className="lg:hidden absolute bottom-0 inset-x-0 h-14 bg-gradient-to-t from-[#FAF5F2]/70 to-transparent pointer-events-none z-[1]" />
+            </div>
+
+            {/* Desktop Left-side Shaded Effect for Supreme Text Readability; Right side remains 100% crisp, clear and unblocked */}
+            <div className="hidden lg:block absolute inset-y-0 left-0 w-[58%] xl:w-[52%] bg-gradient-to-r from-[#FAF5F2] via-[#FAF5F2]/95 sm:via-[#FAF5F2]/85 to-transparent pointer-events-none z-[1]" />
+            <div className="hidden lg:block absolute top-0 left-0 w-[50%] h-20 bg-gradient-to-b from-[#FAF5F2] to-transparent pointer-events-none z-[1]" />
+            <div className="hidden lg:block absolute bottom-0 left-0 w-[50%] h-24 bg-gradient-to-t from-[#FAF5F2] to-transparent pointer-events-none z-[1]" />
           </div>
 
           {/* 2. Main Content Container */}
-          <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-8 pb-2 lg:pb-6 flex-1 flex flex-col justify-center">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-10 items-center">
+          <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-3 sm:pt-8 pb-2 lg:pb-6 flex-1 flex flex-col justify-start lg:justify-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 sm:gap-4 lg:gap-10 items-center">
               
               {/* =================================================================
                   LEFT TEXT BLOCK: Increased Font Size Matching Vision & Mission
                   - "OUR STORY" styled with accent line and ZERO background color
                   - Headline with comfortable line spacing (no overlapping text)
                   ================================================================= */}
-              <div className="lg:col-span-7 xl:col-span-6 text-left space-y-3 sm:space-y-4 pt-1 sm:pt-0 max-w-2xl">
+              <div className="lg:col-span-7 xl:col-span-6 text-left space-y-2 sm:space-y-4 pt-1 sm:pt-0 max-w-2xl">
                 
                 {/* Clean "OUR STORY" Label without background color (matching Looking Ahead style) */}
                 <div className="flex items-center gap-2.5">
@@ -227,17 +234,17 @@ export const OurStory: React.FC = () => {
                   </span>
                 </div>
 
-                {/* Main Headline: Increased size on desktop with proper line spacing */}
-                <h2 className="text-2xl xs:text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-heading font-black text-[#1A1D20] leading-[1.26] sm:leading-[1.24] lg:leading-[1.22] xl:leading-[1.2] tracking-tight">
-                  From a Small<br />
-                  Beginning to a<br />
+                {/* Main Headline: Responsive mobile/desktop size with proper line spacing */}
+                <h2 className="text-xl xs:text-2xl sm:text-3xl lg:text-[42px] xl:text-[48px] font-heading font-black text-[#1A1D20] leading-[1.24] lg:leading-[1.22] xl:leading-[1.2] tracking-tight">
+                  From a Small<br className="hidden xs:inline" />{' '}
+                  Beginning to a<br className="hidden xs:inline" />{' '}
                   <span className="text-[#80011F]">Growing Apparel Brand</span>
                 </h2>
 
                 {/* Burgundy Accent Bar */}
-                <div className="w-10 sm:w-14 h-[3px] bg-[#80011F] rounded-full" />
+                <div className="w-10 sm:w-14 h-[2.5px] sm:h-[3px] bg-[#80011F] rounded-full" />
 
-                {/* Subtitle: Increased desktop size */}
+                {/* Subtitle: Responsive desktop/mobile size */}
                 <p className="text-xs sm:text-base lg:text-lg font-heading font-bold text-charcoal-800">
                   Our Journey. Our Growth. Our Commitment.
                 </p>
@@ -250,17 +257,17 @@ export const OurStory: React.FC = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -8 }}
                     transition={{ duration: 0.4, ease: 'easeOut' }}
-                    className="space-y-1.5 sm:space-y-2.5 pt-0.5 sm:pt-1"
+                    className="space-y-1 sm:space-y-2.5 pt-0.5 sm:pt-1"
                   >
-                    <div className="flex items-center gap-2 text-[11px] xs:text-xs sm:text-sm uppercase font-heading font-black tracking-widest text-[#80011F]">
+                    <div className="flex items-center gap-2 text-[10px] xs:text-xs sm:text-sm uppercase font-heading font-black tracking-widest text-[#80011F]">
                       <span>{activeMilestone.indexStr}</span>
                       <span className="w-1.5 h-1.5 rounded-full bg-[#80011F]" />
                       <span>{activeMilestone.yearOrDate}</span>
                     </div>
-                    <h3 className="text-base sm:text-xl lg:text-2xl xl:text-3xl font-heading font-bold text-charcoal-900 leading-snug">
+                    <h3 className="text-sm xs:text-base sm:text-xl lg:text-2xl xl:text-3xl font-heading font-bold text-charcoal-900 leading-snug">
                       {activeMilestone.title}
                     </h3>
-                    <p className="text-xs sm:text-sm lg:text-base xl:text-lg text-[#3A3D42] font-normal leading-relaxed max-w-xl line-clamp-3 xs:line-clamp-4 lg:line-clamp-none">
+                    <p className="text-xs sm:text-sm lg:text-base xl:text-lg text-[#3A3D42] font-normal leading-relaxed max-w-xl line-clamp-2 xs:line-clamp-3 sm:line-clamp-4 lg:line-clamp-none">
                       {activeMilestone.description}
                     </p>
                   </motion.div>
