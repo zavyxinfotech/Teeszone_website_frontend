@@ -95,9 +95,11 @@ const MILESTONES: Milestone[] = [
 
 export const OurStory: React.FC = () => {
   const [activeIdx, setActiveIdx] = useState(0);
-  const [cardStride, setCardStride] = useState(195);
+  const [cardStride, setCardStride] = useState(156);
   const shouldReduceMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
+  const isAutoScrollingRef = useRef(false);
+  const autoScrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const total = MILESTONES.length;
   const activeMilestone = MILESTONES[activeIdx];
@@ -107,13 +109,13 @@ export const OurStory: React.FC = () => {
     const updateStride = () => {
       if (typeof window === 'undefined') return;
       if (window.innerWidth < 640) {
-        setCardStride(125);
+        setCardStride(110);
       } else if (window.innerWidth < 1024) {
-        setCardStride(165);
+        setCardStride(136);
       } else if (window.innerWidth < 1280) {
-        setCardStride(185);
+        setCardStride(146);
       } else {
-        setCardStride(195);
+        setCardStride(156);
       }
     };
     updateStride();
@@ -121,13 +123,41 @@ export const OurStory: React.FC = () => {
     return () => window.removeEventListener('resize', updateStride);
   }, []);
 
+  const scrollToMilestone = useCallback(
+    (idx: number) => {
+      const targetIdx = Math.max(0, Math.min(idx, total - 1));
+      setActiveIdx(targetIdx);
+      if (sectionRef.current) {
+        isAutoScrollingRef.current = true;
+        if (autoScrollTimeoutRef.current) {
+          clearTimeout(autoScrollTimeoutRef.current);
+        }
+
+        const rect = sectionRef.current.getBoundingClientRect();
+        const currentScrollY = window.scrollY || window.pageYOffset;
+        const sectionTop = currentScrollY + rect.top;
+        const scrollableDistance = sectionRef.current.offsetHeight - window.innerHeight;
+
+        if (scrollableDistance > 0) {
+          const targetScroll = sectionTop + (targetIdx / (total - 1)) * scrollableDistance;
+          window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+        }
+
+        autoScrollTimeoutRef.current = setTimeout(() => {
+          isAutoScrollingRef.current = false;
+        }, 700);
+      }
+    },
+    [total]
+  );
+
   const handleNext = useCallback(() => {
-    setActiveIdx((prev) => Math.min(prev + 1, total - 1));
-  }, [total]);
+    scrollToMilestone(activeIdx + 1);
+  }, [activeIdx, scrollToMilestone]);
 
   const handlePrev = useCallback(() => {
-    setActiveIdx((prev) => Math.max(prev - 1, 0));
-  }, []);
+    scrollToMilestone(activeIdx - 1);
+  }, [activeIdx, scrollToMilestone]);
 
   // Framer Motion useScroll
   const { scrollYProgress } = useScroll({
@@ -138,23 +168,14 @@ export const OurStory: React.FC = () => {
   // Dual Scroll Tracking (Window scroll + useScroll for 100% responsiveness)
   useEffect(() => {
     const handleScroll = () => {
-      if (!sectionRef.current) return;
+      if (isAutoScrollingRef.current || !sectionRef.current) return;
       const rect = sectionRef.current.getBoundingClientRect();
       const scrollableDistance = sectionRef.current.offsetHeight - window.innerHeight;
       if (scrollableDistance <= 0) return;
 
       const scrolled = -rect.top;
       const progress = Math.min(1, Math.max(0, scrolled / scrollableDistance));
-
-      // 7 milestone slices:
-      // 0: 0.00 - 0.14
-      // 1: 0.14 - 0.28
-      // 2: 0.28 - 0.42
-      // 3: 0.42 - 0.57
-      // 4: 0.57 - 0.71
-      // 5: 0.71 - 0.85
-      // 6: 0.85 - 1.00
-      const step = Math.min(total - 1, Math.max(0, Math.floor(progress * total)));
+      const step = Math.min(total - 1, Math.max(0, Math.round(progress * (total - 1))));
       setActiveIdx(step);
     };
 
@@ -165,7 +186,8 @@ export const OurStory: React.FC = () => {
 
   useEffect(() => {
     return scrollYProgress.on('change', (progress) => {
-      const step = Math.min(total - 1, Math.max(0, Math.floor(progress * total)));
+      if (isAutoScrollingRef.current) return;
+      const step = Math.min(total - 1, Math.max(0, Math.round(progress * (total - 1))));
       setActiveIdx(step);
     });
   }, [scrollYProgress, total]);
@@ -269,12 +291,12 @@ export const OurStory: React.FC = () => {
 
               {/* =================================================================
                   RIGHT PREVIEW CARDS ROW:
-                  - Initial 4 cards (01, 02, 03, 04) visible at start
-                  - As user scrolls, previous cards hide and cards 5, 6, 7 enter
-                  - ZERO card border, ZERO card shadow
+                  - Cards aligned lower with decreased size
+                  - Custom gemstone / faceted octagonal polygon shape (strictly NOT square/rectangle/circle)
+                  - Smooth horizontal scrolling with all cards accessible
                   ================================================================= */}
-              <div className="lg:col-span-7 flex justify-end items-center overflow-visible w-full pb-2 lg:pb-0">
-                <div className="relative w-full max-w-[340px] xs:max-w-[400px] sm:max-w-[550px] lg:max-w-[720px] xl:max-w-[800px] flex items-center justify-start overflow-hidden py-1 sm:py-4 ml-auto">
+              <div className="lg:col-span-7 flex justify-end items-end lg:items-center overflow-visible w-full pt-4 sm:pt-8 lg:pt-12 pb-2 lg:pb-0">
+                <div className="relative w-full max-w-[340px] xs:max-w-[420px] sm:max-w-[580px] lg:max-w-[760px] xl:max-w-[860px] flex items-center justify-start overflow-hidden py-2 sm:py-6 ml-auto mt-4 sm:mt-8 lg:mt-12">
                   
                   {/* Sliding cards track */}
                   <motion.div
@@ -295,37 +317,47 @@ export const OurStory: React.FC = () => {
                       return (
                         <motion.div
                           key={item.id}
-                          onClick={() => setActiveIdx(idx)}
+                          onClick={() => scrollToMilestone(idx)}
                           animate={{
-                            scale: isActive ? 1.04 : 0.92,
-                            opacity: idx < activeIdx ? 0 : isActive ? 1 : 0.8,
+                            scale: isActive ? 1.05 : 0.92,
+                            opacity: isActive ? 1 : 0.72,
                           }}
                           transition={{ duration: 0.45, ease: 'easeOut' }}
-                          className={`relative shrink-0 rounded-2xl sm:rounded-[22px] overflow-hidden cursor-pointer transition-all duration-300 select-none border-0 shadow-none ring-0 ${
+                          className={`relative shrink-0 cursor-pointer transition-all duration-300 select-none p-[2px] ${
                             isActive
-                              ? 'w-[120px] xs:w-[130px] sm:w-[170px] lg:w-[185px] xl:w-[195px] h-[175px] xs:h-[190px] sm:h-[265px] lg:h-[295px] xl:h-[315px] z-20'
-                              : 'w-[105px] xs:w-[115px] sm:w-[150px] lg:w-[165px] xl:w-[175px] h-[155px] xs:h-[170px] sm:h-[240px] lg:h-[265px] xl:h-[285px] hover:opacity-100 z-10'
-                          } ${idx < activeIdx ? 'pointer-events-none' : 'pointer-events-auto'}`}
+                              ? 'w-[105px] xs:w-[115px] sm:w-[135px] lg:w-[145px] xl:w-[155px] h-[150px] xs:h-[165px] sm:h-[195px] lg:h-[215px] xl:h-[230px] z-20 bg-gradient-to-br from-[#80011F] via-[#A81335] to-[#80011F]'
+                              : 'w-[90px] xs:w-[100px] sm:w-[118px] lg:w-[126px] xl:w-[136px] h-[130px] xs:h-[145px] sm:h-[172px] lg:h-[188px] xl:h-[200px] hover:opacity-100 z-10 bg-white/40 hover:bg-white/70'
+                          }`}
+                          style={{
+                            clipPath: 'polygon(15% 0%, 85% 0%, 100% 12%, 100% 88%, 85% 100%, 15% 100%, 0% 88%, 0% 12%)',
+                          }}
                         >
-                          {/* Card Image */}
-                          <img
-                            src={item.cardImage}
-                            alt={item.title}
-                            className="w-full h-full object-cover object-center filter saturate-[1.05]"
-                            loading="lazy"
-                          />
+                          <div
+                            className="w-full h-full relative overflow-hidden"
+                            style={{
+                              clipPath: 'polygon(15% 0%, 85% 0%, 100% 12%, 100% 88%, 85% 100%, 15% 100%, 0% 88%, 0% 12%)',
+                            }}
+                          >
+                            {/* Card Image */}
+                            <img
+                              src={item.cardImage}
+                              alt={item.title}
+                              className="w-full h-full object-cover object-center filter saturate-[1.05] transition-transform duration-500 hover:scale-105"
+                              loading="lazy"
+                            />
 
-                          {/* Bottom Gradient Overlay for typography readability */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent pointer-events-none" />
+                            {/* Bottom Gradient Overlay for typography readability */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
 
-                          {/* Card Text Information */}
-                          <div className="absolute bottom-0 inset-x-0 p-2.5 xs:p-3 sm:p-4 text-left pointer-events-none">
-                            <p className="text-sm xs:text-base sm:text-lg font-heading font-black text-white leading-tight">
-                              {item.yearOrDate}
-                            </p>
-                            <p className="text-[10px] xs:text-xs text-white/90 font-medium leading-snug mt-0.5 truncate">
-                              {item.location}
-                            </p>
+                            {/* Card Text Information */}
+                            <div className="absolute bottom-0 inset-x-0 p-2 xs:p-2.5 sm:p-3 text-left pointer-events-none">
+                              <p className="text-xs xs:text-sm sm:text-base font-heading font-black text-white leading-tight">
+                                {item.yearOrDate}
+                              </p>
+                              <p className="text-[9px] xs:text-[10px] sm:text-xs text-white/90 font-medium leading-snug mt-0.5 truncate">
+                                {item.location}
+                              </p>
+                            </div>
                           </div>
                         </motion.div>
                       );
@@ -345,8 +377,11 @@ export const OurStory: React.FC = () => {
               <button
                 type="button"
                 onClick={handlePrev}
+                disabled={activeIdx === 0}
                 aria-label="Previous milestone"
-                className="p-1 sm:p-1.5 text-[#80011F] hover:text-[#550015] bg-transparent border-0 shadow-none flex items-center justify-center active:scale-90 transition-all cursor-pointer"
+                className={`p-1 sm:p-1.5 text-[#80011F] hover:text-[#550015] bg-transparent border-0 shadow-none flex items-center justify-center active:scale-90 transition-all ${
+                  activeIdx === 0 ? 'opacity-30 cursor-not-allowed' : 'cursor-pointer'
+                }`}
               >
                 <ChevronLeft className="w-6 h-6 sm:w-8 sm:h-8 stroke-[1.8]" />
               </button>
@@ -355,8 +390,11 @@ export const OurStory: React.FC = () => {
               <button
                 type="button"
                 onClick={handleNext}
+                disabled={activeIdx === total - 1}
                 aria-label="Next milestone"
-                className="p-1 sm:p-1.5 text-[#80011F] hover:text-[#550015] bg-transparent border-0 shadow-none flex items-center justify-center active:scale-90 transition-all cursor-pointer"
+                className={`p-1 sm:p-1.5 text-[#80011F] hover:text-[#550015] bg-transparent border-0 shadow-none flex items-center justify-center active:scale-90 transition-all ${
+                  activeIdx === total - 1 ? 'opacity-30 cursor-not-allowed' : 'cursor-pointer'
+                }`}
               >
                 <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8 stroke-[1.8]" />
               </button>
