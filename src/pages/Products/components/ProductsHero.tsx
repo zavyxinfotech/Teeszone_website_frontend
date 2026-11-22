@@ -126,12 +126,25 @@ export const ProductsHero: React.FC<ProductsHeroProps> = ({ onExploreClick }) =>
           </defs>
         </svg>
 
+        {/* Hero Section Background Video in Clear Quality (Responsive in Desktop & Mobile) */}
+        <video
+          ref={videoRef}
+          src="/assets/videos/products-hero-bg.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          onEnded={handleVideoEnded}
+          className="absolute inset-0 w-full h-full object-cover object-[78%_center] lg:object-right pointer-events-none z-[1] [mask-image:linear-gradient(to_bottom,transparent_0%,transparent_32%,black_58%,black_100%)] lg:[mask-image:linear-gradient(to_right,transparent_0%,transparent_32%,black_58%,black_100%)]"
+        />
+
         {/* Decorative Royal Burgundy Satin Fabric Wave at Top Right Corner (Desktop ONLY - Hidden on Mobile) */}
         <svg
           viewBox="0 0 800 500"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="absolute top-0 right-0 w-[55%] h-[55%] object-cover hidden md:block"
+          className="absolute top-0 right-0 w-[55%] h-[55%] object-cover hidden md:block z-[2]"
           preserveAspectRatio="none"
         >
           <path
@@ -164,7 +177,7 @@ export const ProductsHero: React.FC<ProductsHeroProps> = ({ onExploreClick }) =>
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="lg:col-span-5 text-left space-y-4 sm:space-y-5 flex flex-col justify-center"
+            className="lg:col-span-6 text-left space-y-4 sm:space-y-5 flex flex-col justify-center"
           >
             {/* Eyebrow Tag matching Home Page */}
             <div>
@@ -197,37 +210,27 @@ export const ProductsHero: React.FC<ProductsHeroProps> = ({ onExploreClick }) =>
             </div>
           </motion.div>
 
-          {/* Right Column: Showcase Video Frame seamlessly embedded */}
-          <div className="lg:col-span-7 w-full h-[320px] sm:h-[400px] lg:h-[480px] xl:h-[520px] relative rounded-3xl overflow-hidden shadow-soft-xl border border-charcoal-200/50 bg-black/5">
-            <video
-              ref={videoRef}
-              src="/assets/videos/products-hero-bg.mp4"
-              muted
-              playsInline
-              preload="auto"
-              onEnded={handleVideoEnded}
-              className="w-full h-full object-cover object-center"
-            />
-
-            {/* Play/Pause Button on Bottom-Right Corner of Video */}
-            <div className="absolute bottom-4 right-4 z-20">
-              <button
-                type="button"
-                onClick={togglePlayPause}
-                aria-label={isPlaying ? 'Pause background video' : 'Play background video'}
-                title={isPlaying ? 'Pause video' : 'Play video'}
-                className="w-8 h-8 rounded-full bg-black/70 hover:bg-black/90 backdrop-blur-md border border-white/30 text-white flex items-center justify-center shadow-md transition-all active:scale-95 cursor-pointer"
-              >
-                {isPlaying ? (
-                  <Pause className="w-3.5 h-3.5 fill-current" />
-                ) : (
-                  <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
-                )}
-              </button>
-            </div>
-          </div>
+          {/* Right Column / Mobile Spacer: Reserves space so the background video is prominently showcased on mobile and desktop */}
+          <div className="lg:col-span-6 h-[220px] xs:h-[260px] sm:h-[320px] lg:h-[480px] xl:h-[520px] pointer-events-none" />
 
         </div>
+      </div>
+
+      {/* Play/Pause Button on Bottom-Right Corner of Hero Section */}
+      <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-8 z-20">
+        <button
+          type="button"
+          onClick={togglePlayPause}
+          aria-label={isPlaying ? 'Pause background video' : 'Play background video'}
+          title={isPlaying ? 'Pause video' : 'Play video'}
+          className="w-8 h-8 rounded-full bg-black/70 hover:bg-black/90 backdrop-blur-md border border-white/30 text-white flex items-center justify-center shadow-md transition-all active:scale-95 cursor-pointer"
+        >
+          {isPlaying ? (
+            <Pause className="w-3.5 h-3.5 fill-current" />
+          ) : (
+            <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+          )}
+        </button>
       </div>
     </section>
   );
