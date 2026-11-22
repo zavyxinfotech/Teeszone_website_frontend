@@ -329,16 +329,6 @@ export const clientLogos = [
     src: "/images/clients/splash-events.png"
   },
   {
-    id: "c_65",
-    name: "SportLine",
-    src: "/images/clients/sportline.png"
-  },
-  {
-    id: "c_66",
-    name: "Sri Siva Construction",
-    src: "/images/clients/sri-siva-construction.png"
-  },
-  {
     id: "c_67",
     name: "Style Mantra",
     src: "/images/clients/style-mantra.png"
@@ -427,14 +417,16 @@ export const OurClients: React.FC<OurClientsProps> = ({ className }) => {
   const row2Nudge = useTransform(smoothVelocity, [-1, 1], [25, -25]);
   const row3Nudge = useTransform(smoothVelocity, [-1, 1], [-25, 25]);
 
-  // Split all 80 verified logos into 2 balanced rows of 40 logos each for mobile
-  const row1Logos = clientLogos.slice(0, 40);
-  const row2Logos = clientLogos.slice(40, 80);
+  // Split verified logos into 2 balanced rows for mobile
+  const half = Math.ceil(clientLogos.length / 2);
+  const row1Logos = clientLogos.slice(0, half);
+  const row2Logos = clientLogos.slice(half);
 
   // 3-row split for wide desktop view
-  const dRow1 = clientLogos.slice(0, 27);
-  const dRow2 = clientLogos.slice(27, 54);
-  const dRow3 = clientLogos.slice(54, 80);
+  const third = Math.ceil(clientLogos.length / 3);
+  const dRow1 = clientLogos.slice(0, third);
+  const dRow2 = clientLogos.slice(third, third * 2);
+  const dRow3 = clientLogos.slice(third * 2);
 
   return (
     <section

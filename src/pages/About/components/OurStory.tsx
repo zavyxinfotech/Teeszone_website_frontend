@@ -11,6 +11,7 @@ export interface Milestone {
   description: string;
   bgImage: string;
   cardImage: string;
+  mobilePosition?: string;
 }
 
 const MILESTONES: Milestone[] = [
@@ -24,6 +25,7 @@ const MILESTONES: Milestone[] = [
       'TeesZone started its journey as a proprietorship in Kolathur, Chennai, with a vision to provide customized T-shirts, corporate uniforms, and quality apparel solutions.',
     bgImage: '/assets/images/about/milestones/m1_chennai-bg.jpg',
     cardImage: '/assets/images/about/milestones/m1_chennai-card.jpg',
+    mobilePosition: '74% center',
   },
   {
     id: 'incorporation',
@@ -35,6 +37,7 @@ const MILESTONES: Milestone[] = [
       'A significant milestone in our growth journey. TeesZone was officially incorporated, marking a new chapter in our commitment to structured business operations and long-term expansion.',
     bgImage: '/assets/images/about/milestones/m2_incorporation-bg.jpg',
     cardImage: '/assets/images/about/milestones/m2_incorporation-card.jpg',
+    mobilePosition: '82% center',
   },
   {
     id: 'bengaluru',
@@ -46,6 +49,7 @@ const MILESTONES: Milestone[] = [
       'We expanded beyond Chennai by establishing our first branch in Banashankari, Bengaluru, strengthening our reach and customer accessibility.',
     bgImage: '/assets/images/about/milestones/m3_bengaluru-bg.jpg',
     cardImage: '/assets/images/about/milestones/m3_bengaluru-card.jpg',
+    mobilePosition: '76% center',
   },
   {
     id: 'erode',
@@ -57,6 +61,7 @@ const MILESTONES: Milestone[] = [
       "We established our corporate office at Texvalley Global Market, Erode, strengthening our operational presence in one of Tamil Nadu's prominent textile business hubs.",
     bgImage: '/assets/images/about/milestones/m4_texvalley-bg.jpg',
     cardImage: '/assets/images/about/milestones/m4_texvalley-card.jpg',
+    mobilePosition: '72% center',
   },
   {
     id: 'puducherry',
@@ -68,6 +73,7 @@ const MILESTONES: Milestone[] = [
       'Taking our customized apparel and corporate uniform solutions further, we expanded our branch network to Puducherry.',
     bgImage: '/assets/images/about/milestones/m5_puducherry-bg.jpg',
     cardImage: '/assets/images/about/milestones/m5_puducherry-card.jpg',
+    mobilePosition: '84% 18%',
   },
   {
     id: 'kanchipuram',
@@ -79,6 +85,7 @@ const MILESTONES: Milestone[] = [
       'Continuing our regional growth, we expanded our presence to Kanchipuram, bringing TeesZone closer to more businesses and customers.',
     bgImage: '/assets/images/about/milestones/m6_kanchipuram-bg.jpg',
     cardImage: '/assets/images/about/milestones/m6_kanchipuram-card.jpg',
+    mobilePosition: '84% 12%',
   },
   {
     id: 'kochi',
@@ -90,6 +97,7 @@ const MILESTONES: Milestone[] = [
       'Our expansion journey continues. We are preparing to establish our presence in Kochi, extending our reach into Kerala and creating new opportunities to serve businesses across the region.',
     bgImage: '/assets/images/about/milestones/m7_kochi-bg.jpg',
     cardImage: '/assets/images/about/milestones/m7_kochi-card.jpg',
+    mobilePosition: '82% 22%',
   },
 ];
 
@@ -200,13 +208,16 @@ export const OurStory: React.FC = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.98 }}
                   transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-                  className="w-full h-full object-cover object-[78%_center] lg:object-center filter saturate-[1.08] contrast-[1.03]"
+                  className="w-full h-full object-cover lg:!object-center filter saturate-[1.08] contrast-[1.03]"
+                  style={{
+                    objectPosition: activeMilestone.mobilePosition || '80% center',
+                  }}
                 />
               </AnimatePresence>
 
-              {/* Mobile gentle feathering: ensures seamless transition without obscuring artwork */}
-              <div className="lg:hidden absolute top-0 inset-x-0 h-16 bg-gradient-to-b from-[#FAF5F2] to-transparent pointer-events-none z-[1]" />
-              <div className="lg:hidden absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-[#FAF5F2]/60 to-transparent pointer-events-none z-[1]" />
+              {/* Mobile gentle feathering: subtle edge blend that never covers location pins */}
+              <div className="lg:hidden absolute top-0 inset-x-0 h-6 bg-gradient-to-b from-[#FAF5F2] to-transparent pointer-events-none z-[1]" />
+              <div className="lg:hidden absolute bottom-0 inset-x-0 h-10 bg-gradient-to-t from-[#FAF5F2]/60 to-transparent pointer-events-none z-[1]" />
             </div>
 
             {/* Desktop Left-side Shaded Effect for Supreme Text Readability; Right side remains 100% crisp, clear and unblocked */}
