@@ -1,21 +1,13 @@
 import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { categoryDetails, CategoryDetail } from '@/data/categoryDetails';
-import { productCategories, ProductCategory } from '@/data/products';
+import { ProductCategory } from '@/data/products';
 import { QuoteCTA } from '@/components/sections/QuoteCTA';
 import { Button } from '@/components/common/Button';
 import {
   Sparkles,
   ChevronRight,
-  ShieldCheck,
-  Clock,
-  Layers,
-  Award,
-  CheckCircle2,
   ChevronDown,
-  ArrowRight,
-  Shirt,
-  HelpCircle,
 } from 'lucide-react';
 
 interface CategoryPageProps {
@@ -159,75 +151,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
         </div>
       </section>
 
-      {/* 2. CATEGORY SWITCHER PILLS (Browse all 5 categories without leaving page) */}
-      <section className="sticky top-[68px] sm:top-[74px] z-30 bg-white/95 backdrop-blur-md border-b border-burgundy-100/70 shadow-xs py-3">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth">
-            <span className="text-xs font-heading font-bold uppercase tracking-wider text-charcoal-400 shrink-0 mr-1">
-              Explore Categories:
-            </span>
-            {productCategories
-              .filter((c) => c.id !== 'all')
-              .map((cat) => {
-                const isActive = cat.id === category.slug;
-                return (
-                  <Link
-                    key={cat.id}
-                    to={`/category/${cat.id}`}
-                    className={`px-4 py-2 rounded-full text-xs sm:text-sm font-heading font-semibold whitespace-nowrap transition-all duration-200 ${
-                      isActive
-                        ? 'bg-burgundy-700 text-white shadow-soft'
-                        : 'bg-warm-100/70 text-charcoal-700 hover:bg-burgundy-50 hover:text-burgundy-700'
-                    }`}
-                  >
-                    {cat.label}
-                  </Link>
-                );
-              })}
-          </div>
-        </div>
-      </section>
 
-      {/* 3. FABRIC BLENDS & MATERIALS */}
-      <section className="py-14 sm:py-18 lg:py-20 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="text-center max-w-3xl mx-auto space-y-3 mb-10 sm:mb-12">
-          <span className="text-xs font-heading font-bold uppercase tracking-wider text-burgundy-700 bg-burgundy-50 px-3.5 py-1 rounded-full inline-block">
-            Textile Engineering
-          </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-charcoal-900">
-            Engineered Fabrics for {category.title}
-          </h2>
-          <p className="text-sm sm:text-base text-charcoal-600">
-            Knitted from premium long-staple combed cotton and performance fibers in Tiruppur, our
-            materials are pre-tested for color retention, dimensional stability, and breathability.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {category.fabrics.map((fabric, idx) => (
-            <div
-              key={idx}
-              className="bg-white rounded-2xl p-6 border border-burgundy-100 shadow-soft hover:shadow-soft-lg transition-all duration-300 flex flex-col justify-between"
-            >
-              <div>
-                <div className="w-10 h-10 rounded-xl bg-burgundy-50 flex items-center justify-center text-burgundy-700 mb-4">
-                  <Layers className="w-5 h-5" />
-                </div>
-                <h3 className="text-lg font-heading font-bold text-charcoal-900 mb-2">
-                  {fabric.name}
-                </h3>
-                <p className="text-xs sm:text-sm text-charcoal-600 leading-relaxed">
-                  {fabric.description}
-                </p>
-              </div>
-              <div className="mt-5 pt-4 border-t border-burgundy-50 flex items-center justify-between text-xs text-burgundy-700 font-semibold">
-                <span>Lab-Tested Fastness</span>
-                <CheckCircle2 className="w-4 h-4" />
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* 4. BRANDING TECHNIQUES & SPECIFICATIONS */}
       <section className="py-14 sm:py-18 bg-[#FAF7F2] border-y border-burgundy-100/60">
@@ -303,46 +227,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
         </div>
       </section>
 
-      {/* 5. BEST APPLICATIONS & FACTORY ADVANTAGES */}
-      <section className="py-14 sm:py-18 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-          {/* Applications */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-burgundy-100 shadow-soft">
-            <div className="w-10 h-10 rounded-xl bg-burgundy-50 flex items-center justify-center text-burgundy-700 mb-4">
-              <Shirt className="w-5 h-5" />
-            </div>
-            <h3 className="text-xl font-heading font-bold text-charcoal-900 mb-3">
-              Ideal Applications &amp; Use Cases
-            </h3>
-            <ul className="space-y-3">
-              {category.applications.map((app, idx) => (
-                <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-charcoal-700">
-                  <CheckCircle2 className="w-4 h-4 text-burgundy-700 shrink-0 mt-0.5" />
-                  <span>{app}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
 
-          {/* Quality Highlights */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-burgundy-100 shadow-soft">
-            <div className="w-10 h-10 rounded-xl bg-burgundy-50 flex items-center justify-center text-burgundy-700 mb-4">
-              <ShieldCheck className="w-5 h-5" />
-            </div>
-            <h3 className="text-xl font-heading font-bold text-charcoal-900 mb-3">
-              TeesZone Quality Guarantees
-            </h3>
-            <ul className="space-y-3">
-              {category.keyHighlights.map((hl, idx) => (
-                <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-charcoal-700">
-                  <CheckCircle2 className="w-4 h-4 text-burgundy-700 shrink-0 mt-0.5" />
-                  <span>{hl}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
 
       {/* 6. FREQUENTLY ASKED QUESTIONS */}
       <section className="py-14 sm:py-18 bg-[#FAF7F2] border-t border-burgundy-100/60">

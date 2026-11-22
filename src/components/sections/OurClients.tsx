@@ -70,7 +70,7 @@ export const clientLogos = [
   },
   {
     id: "c_13",
-    name: "Axle Addition",
+    name: "Agam Homes",
     src: "/images/clients/axle-addition.png"
   },
   {
