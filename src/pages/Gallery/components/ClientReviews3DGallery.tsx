@@ -1,10 +1,11 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ExternalLink,
   CheckCircle2,
-  ZoomIn,
+  Plus,
   X,
+  ChevronDown,
 } from 'lucide-react';
 import { CLIENT_REVIEWS_DATA, ClientReviewItem } from '@/data/clientReviewsData';
 
@@ -49,13 +50,11 @@ const FiveStarRating = () => (
 
 export const ClientReviews3DGallery: React.FC<ClientReviews3DGalleryProps> = () => {
   const [selectedReview, setSelectedReview] = useState<ClientReviewItem | null>(null);
-
-  // Duplicated for seamless infinite continuous auto-scroll loop
-  const marqueeReviews = useMemo(() => [...CLIENT_REVIEWS_DATA, ...CLIENT_REVIEWS_DATA], []);
+  const [showAllReviews, setShowAllReviews] = useState<boolean>(false);
 
   return (
     <section
-      className="relative w-full min-h-[640px] py-12 lg:py-16 bg-[#F7E7CE] text-[#211D20] select-none z-20 flex flex-col justify-between overflow-hidden"
+      className="relative w-full min-h-[640px] py-14 lg:py-20 bg-[#F7E7CE] text-[#211D20] select-none z-20 flex flex-col justify-between overflow-hidden"
       aria-label="TeesZone Genuine Client Reviews Showcase"
     >
       {/* Background radial gradient & subtle grid */}
@@ -84,8 +83,8 @@ export const ClientReviews3DGallery: React.FC<ClientReviews3DGalleryProps> = () 
         />
       </div>
 
-      {/* 1. TOP HEADER matching Home Page Typography */}
-      <div className="relative z-20 text-center max-w-4xl mx-auto px-4 sm:px-6 pt-4 mb-2">
+      {/* 1. TOP HEADER matching Reference Hierarchy */}
+      <div className="relative z-20 text-center max-w-4xl mx-auto px-4 sm:px-6 pt-2 mb-10 sm:mb-12">
         <span className="text-xs sm:text-sm font-heading font-extrabold uppercase tracking-widest text-burgundy-700 mb-1.5 block">
           VERIFIED CLIENT EXPERIENCES
         </span>
@@ -98,67 +97,351 @@ export const ClientReviews3DGallery: React.FC<ClientReviews3DGalleryProps> = () 
         </p>
       </div>
 
-      {/* 2. CONTINUOUS AUTO-SCROLLING HORIZONTAL MARQUEE (LEFT TO RIGHT) */}
-      <div
-        className="relative z-20 w-full overflow-hidden py-10 sm:py-14 my-auto"
-        style={{ perspective: '1200px' }}
-      >
-        <motion.div
-          className="flex items-center gap-4 sm:gap-6 w-max pl-4"
-          animate={{ x: ['-50%', '0%'] }}
-          transition={{
-            x: {
-              repeat: Infinity,
-              repeatType: 'loop',
-              duration: 50,
-              ease: 'linear',
-            },
-          }}
-        >
-          {marqueeReviews.map((review, idx) => {
-            // Alternate wave vertical offset: even index shifted up (-20px), odd index shifted down (+20px)
-            const alternateY = idx % 2 === 0 ? -20 : 20;
+      {/* 2. ASYMMETRIC EDITORIAL BENTO GRID (Exact Alignment from Reference Image 1) */}
+      <div className="relative z-20 max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 w-full mb-12">
+        {/* Core Bento Section: Strict Mathematical Alignment matching Reference */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5 sm:gap-4 lg:gap-5 auto-rows-[200px] sm:auto-rows-[220px] md:auto-rows-[230px] lg:auto-rows-[250px]">
+          {/* Cell 1: Text Card 1 (Top Left) */}
+          <div className="flex flex-col justify-center p-5 sm:p-6 lg:p-7 bg-white/80 backdrop-blur-xs border border-[#80011F]/15 shadow-2xs text-left">
+            <span className="text-[10px] sm:text-xs font-heading font-extrabold uppercase tracking-widest text-burgundy-700 mb-2 block">
+              OUR CLIENT STORIES
+            </span>
+            <h3 className="text-base sm:text-lg lg:text-xl font-heading font-black text-charcoal-900 leading-snug mb-2">
+              Apparel Crafted for Real Businesses
+            </h3>
+            <p className="text-xs sm:text-sm text-charcoal-600 leading-relaxed font-normal">
+              From corporate executives to collegiate sports champions, every garment undergoes rigorous colorfastness, GSM density verification, and custom branding in Tiruppur.
+            </p>
+          </div>
 
-            return (
-              <div
-                key={`marquee-card-${review.id}-${idx}`}
-                style={{
-                  transform: `translateY(${alternateY}px)`,
-                }}
-                onClick={() => setSelectedReview(review)}
-                className="relative shrink-0 w-[270px] sm:w-[330px] md:w-[360px] h-[180px] sm:h-[220px] md:h-[240px] overflow-hidden bg-black shadow-[0_12px_28px_rgba(0,0,0,0.22)] cursor-pointer group transition-all duration-300 rounded-none border-0 p-0 hover:scale-105 hover:z-30"
-              >
-                <img
-                  src={review.image}
-                  alt={review.clientName}
-                  className="w-full h-full object-cover object-center group-hover:scale-106 transition-transform duration-500"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+          {/* Cell 2: Image 1 (Top Middle Landscape) */}
+          {CLIENT_REVIEWS_DATA[0] && (
+            <div
+              onClick={() => setSelectedReview(CLIENT_REVIEWS_DATA[0])}
+              className="relative group overflow-hidden bg-black shadow-soft cursor-pointer transition-all duration-300 rounded-none border border-black/10"
+            >
+              <img
+                src={CLIENT_REVIEWS_DATA[0].image}
+                alt={CLIENT_REVIEWS_DATA[0].clientName}
+                className="w-full h-full object-cover object-center group-hover:scale-106 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/20 group-hover:via-black/20 transition-colors" />
+              <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-white/70 bg-black/40 backdrop-blur-xs flex items-center justify-center text-white mb-2 group-hover:scale-110 group-hover:bg-white group-hover:text-burgundy-700 transition-all shadow-md">
+                  <Plus className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+                </div>
+                <p className="text-xs sm:text-sm font-heading font-black text-white uppercase tracking-widest drop-shadow-md max-w-[90%] truncate">
+                  {CLIENT_REVIEWS_DATA[0].clientName}
+                </p>
+                <p className="text-[10px] sm:text-[11px] text-[#F7E7CE] font-semibold tracking-wider uppercase mt-0.5 max-w-[90%] truncate">
+                  {CLIENT_REVIEWS_DATA[0].category}
+                </p>
+              </div>
+            </div>
+          )}
 
-                {/* Client caption overlay */}
-                <div className="absolute bottom-2.5 inset-x-3 text-left truncate">
-                  <div className="flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#FBBC04] shrink-0" />
-                    <p className="text-sm sm:text-base font-heading font-extrabold text-white truncate drop-shadow-sm">
+          {/* Cell 3: Image 2 (Top Right Tall Portrait - Spans 2 Rows on Desktop) */}
+          {CLIENT_REVIEWS_DATA[1] && (
+            <div
+              onClick={() => setSelectedReview(CLIENT_REVIEWS_DATA[1])}
+              className="relative group overflow-hidden bg-black shadow-soft cursor-pointer transition-all duration-300 rounded-none border border-black/10 md:row-span-2 row-span-1"
+            >
+              <img
+                src={CLIENT_REVIEWS_DATA[1].image}
+                alt={CLIENT_REVIEWS_DATA[1].clientName}
+                className="w-full h-full object-cover object-center group-hover:scale-106 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/20 group-hover:via-black/20 transition-colors" />
+              <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-white/70 bg-black/40 backdrop-blur-xs flex items-center justify-center text-white mb-2 group-hover:scale-110 group-hover:bg-white group-hover:text-burgundy-700 transition-all shadow-md">
+                  <Plus className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+                </div>
+                <p className="text-xs sm:text-sm font-heading font-black text-white uppercase tracking-widest drop-shadow-md max-w-[90%] truncate">
+                  {CLIENT_REVIEWS_DATA[1].clientName}
+                </p>
+                <p className="text-[10px] sm:text-[11px] text-[#F7E7CE] font-semibold tracking-wider uppercase mt-0.5 max-w-[90%] truncate">
+                  {CLIENT_REVIEWS_DATA[1].category}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Cell 4: Image 3 (Row 2 Left Landscape) */}
+          {CLIENT_REVIEWS_DATA[2] && (
+            <div
+              onClick={() => setSelectedReview(CLIENT_REVIEWS_DATA[2])}
+              className="relative group overflow-hidden bg-black shadow-soft cursor-pointer transition-all duration-300 rounded-none border border-black/10"
+            >
+              <img
+                src={CLIENT_REVIEWS_DATA[2].image}
+                alt={CLIENT_REVIEWS_DATA[2].clientName}
+                className="w-full h-full object-cover object-center group-hover:scale-106 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/20 group-hover:via-black/20 transition-colors" />
+              <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-white/70 bg-black/40 backdrop-blur-xs flex items-center justify-center text-white mb-2 group-hover:scale-110 group-hover:bg-white group-hover:text-burgundy-700 transition-all shadow-md">
+                  <Plus className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+                </div>
+                <p className="text-xs sm:text-sm font-heading font-black text-white uppercase tracking-widest drop-shadow-md max-w-[90%] truncate">
+                  {CLIENT_REVIEWS_DATA[2].clientName}
+                </p>
+                <p className="text-[10px] sm:text-[11px] text-[#F7E7CE] font-semibold tracking-wider uppercase mt-0.5 max-w-[90%] truncate">
+                  {CLIENT_REVIEWS_DATA[2].category}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Cell 5: Image 4 (Row 2 Middle Portrait - Spans Rows 2 & 3 on Desktop) */}
+          {CLIENT_REVIEWS_DATA[3] && (
+            <div
+              onClick={() => setSelectedReview(CLIENT_REVIEWS_DATA[3])}
+              className="relative group overflow-hidden bg-black shadow-soft cursor-pointer transition-all duration-300 rounded-none border border-black/10 md:row-span-2 row-span-1"
+            >
+              <img
+                src={CLIENT_REVIEWS_DATA[3].image}
+                alt={CLIENT_REVIEWS_DATA[3].clientName}
+                className="w-full h-full object-cover object-center group-hover:scale-106 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/20 group-hover:via-black/20 transition-colors" />
+              <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-white/70 bg-black/40 backdrop-blur-xs flex items-center justify-center text-white mb-2 group-hover:scale-110 group-hover:bg-white group-hover:text-burgundy-700 transition-all shadow-md">
+                  <Plus className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+                </div>
+                <p className="text-xs sm:text-sm font-heading font-black text-white uppercase tracking-widest drop-shadow-md max-w-[90%] truncate">
+                  {CLIENT_REVIEWS_DATA[3].clientName}
+                </p>
+                <p className="text-[10px] sm:text-[11px] text-[#F7E7CE] font-semibold tracking-wider uppercase mt-0.5 max-w-[90%] truncate">
+                  {CLIENT_REVIEWS_DATA[3].category}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Cell 6: Image 5 (Row 3 Left Landscape) */}
+          {CLIENT_REVIEWS_DATA[4] && (
+            <div
+              onClick={() => setSelectedReview(CLIENT_REVIEWS_DATA[4])}
+              className="relative group overflow-hidden bg-black shadow-soft cursor-pointer transition-all duration-300 rounded-none border border-black/10"
+            >
+              <img
+                src={CLIENT_REVIEWS_DATA[4].image}
+                alt={CLIENT_REVIEWS_DATA[4].clientName}
+                className="w-full h-full object-cover object-center group-hover:scale-106 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/20 group-hover:via-black/20 transition-colors" />
+              <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-white/70 bg-black/40 backdrop-blur-xs flex items-center justify-center text-white mb-2 group-hover:scale-110 group-hover:bg-white group-hover:text-burgundy-700 transition-all shadow-md">
+                  <Plus className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+                </div>
+                <p className="text-xs sm:text-sm font-heading font-black text-white uppercase tracking-widest drop-shadow-md max-w-[90%] truncate">
+                  {CLIENT_REVIEWS_DATA[4].clientName}
+                </p>
+                <p className="text-[10px] sm:text-[11px] text-[#F7E7CE] font-semibold tracking-wider uppercase mt-0.5 max-w-[90%] truncate">
+                  {CLIENT_REVIEWS_DATA[4].category}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Cell 7: Text Card 2 (Row 3 Right) */}
+          <div className="flex flex-col justify-center p-5 sm:p-6 lg:p-7 bg-white/80 backdrop-blur-xs border border-[#80011F]/15 shadow-2xs text-left">
+            <span className="text-[10px] sm:text-xs font-heading font-extrabold uppercase tracking-widest text-burgundy-700 mb-2 block">
+              PAN-INDIA TRUST
+            </span>
+            <h3 className="text-base sm:text-lg lg:text-xl font-heading font-black text-charcoal-900 leading-snug mb-2">
+              500+ Organizations Nationwide
+            </h3>
+            <p className="text-xs sm:text-sm text-charcoal-600 leading-relaxed font-normal">
+              Reliable delivery schedules, zero MOQ compromises for custom batches, and direct factory pricing trusted across India.
+            </p>
+          </div>
+
+          {/* Cell 8: Image 6 (Row 4 Wide Panoramic - Spans 2 Columns on Desktop) */}
+          {CLIENT_REVIEWS_DATA[5] && (
+            <div
+              onClick={() => setSelectedReview(CLIENT_REVIEWS_DATA[5])}
+              className="relative group overflow-hidden bg-black shadow-soft cursor-pointer transition-all duration-300 rounded-none border border-black/10 md:col-span-2 col-span-1"
+            >
+              <img
+                src={CLIENT_REVIEWS_DATA[5].image}
+                alt={CLIENT_REVIEWS_DATA[5].clientName}
+                className="w-full h-full object-cover object-center group-hover:scale-106 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/20 group-hover:via-black/20 transition-colors" />
+              <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-white/70 bg-black/40 backdrop-blur-xs flex items-center justify-center text-white mb-2 group-hover:scale-110 group-hover:bg-white group-hover:text-burgundy-700 transition-all shadow-md">
+                  <Plus className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+                </div>
+                <p className="text-xs sm:text-sm font-heading font-black text-white uppercase tracking-widest drop-shadow-md max-w-[90%] truncate">
+                  {CLIENT_REVIEWS_DATA[5].clientName}
+                </p>
+                <p className="text-[10px] sm:text-[11px] text-[#F7E7CE] font-semibold tracking-wider uppercase mt-0.5 max-w-[90%] truncate">
+                  {CLIENT_REVIEWS_DATA[5].category}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Cell 9: Image 7 (Row 4 Right Landscape) */}
+          {CLIENT_REVIEWS_DATA[6] && (
+            <div
+              onClick={() => setSelectedReview(CLIENT_REVIEWS_DATA[6])}
+              className="relative group overflow-hidden bg-black shadow-soft cursor-pointer transition-all duration-300 rounded-none border border-black/10"
+            >
+              <img
+                src={CLIENT_REVIEWS_DATA[6].image}
+                alt={CLIENT_REVIEWS_DATA[6].clientName}
+                className="w-full h-full object-cover object-center group-hover:scale-106 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/20 group-hover:via-black/20 transition-colors" />
+              <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-white/70 bg-black/40 backdrop-blur-xs flex items-center justify-center text-white mb-2 group-hover:scale-110 group-hover:bg-white group-hover:text-burgundy-700 transition-all shadow-md">
+                  <Plus className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+                </div>
+                <p className="text-xs sm:text-sm font-heading font-black text-white uppercase tracking-widest drop-shadow-md max-w-[90%] truncate">
+                  {CLIENT_REVIEWS_DATA[6].clientName}
+                </p>
+                <p className="text-[10px] sm:text-[11px] text-[#F7E7CE] font-semibold tracking-wider uppercase mt-0.5 max-w-[90%] truncate">
+                  {CLIENT_REVIEWS_DATA[6].category}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Cell 10: Text Card 3 (Row 5 Left) */}
+          <div className="flex flex-col justify-center p-5 sm:p-6 lg:p-7 bg-white/80 backdrop-blur-xs border border-[#80011F]/15 shadow-2xs text-left">
+            <span className="text-[10px] sm:text-xs font-heading font-extrabold uppercase tracking-widest text-burgundy-700 mb-2 block">
+              TIRUPPUR DIRECT
+            </span>
+            <h3 className="text-base sm:text-lg lg:text-xl font-heading font-black text-charcoal-900 leading-snug mb-2">
+              Factory Direct Quality
+            </h3>
+            <p className="text-xs sm:text-sm text-charcoal-600 leading-relaxed font-normal">
+              State-of-the-art Japanese embroidery, automated screen printing, and certified reactive dyeing from our own production hubs.
+            </p>
+          </div>
+
+          {/* Cell 11: Image 8 (Row 5 Middle Landscape) */}
+          {CLIENT_REVIEWS_DATA[7] && (
+            <div
+              onClick={() => setSelectedReview(CLIENT_REVIEWS_DATA[7])}
+              className="relative group overflow-hidden bg-black shadow-soft cursor-pointer transition-all duration-300 rounded-none border border-black/10"
+            >
+              <img
+                src={CLIENT_REVIEWS_DATA[7].image}
+                alt={CLIENT_REVIEWS_DATA[7].clientName}
+                className="w-full h-full object-cover object-center group-hover:scale-106 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/20 group-hover:via-black/20 transition-colors" />
+              <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-white/70 bg-black/40 backdrop-blur-xs flex items-center justify-center text-white mb-2 group-hover:scale-110 group-hover:bg-white group-hover:text-burgundy-700 transition-all shadow-md">
+                  <Plus className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+                </div>
+                <p className="text-xs sm:text-sm font-heading font-black text-white uppercase tracking-widest drop-shadow-md max-w-[90%] truncate">
+                  {CLIENT_REVIEWS_DATA[7].clientName}
+                </p>
+                <p className="text-[10px] sm:text-[11px] text-[#F7E7CE] font-semibold tracking-wider uppercase mt-0.5 max-w-[90%] truncate">
+                  {CLIENT_REVIEWS_DATA[7].category}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Cell 12: Image 9 (Row 5 Right Landscape) */}
+          {CLIENT_REVIEWS_DATA[8] && (
+            <div
+              onClick={() => setSelectedReview(CLIENT_REVIEWS_DATA[8])}
+              className="relative group overflow-hidden bg-black shadow-soft cursor-pointer transition-all duration-300 rounded-none border border-black/10"
+            >
+              <img
+                src={CLIENT_REVIEWS_DATA[8].image}
+                alt={CLIENT_REVIEWS_DATA[8].clientName}
+                className="w-full h-full object-cover object-center group-hover:scale-106 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/20 group-hover:via-black/20 transition-colors" />
+              <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-white/70 bg-black/40 backdrop-blur-xs flex items-center justify-center text-white mb-2 group-hover:scale-110 group-hover:bg-white group-hover:text-burgundy-700 transition-all shadow-md">
+                  <Plus className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+                </div>
+                <p className="text-xs sm:text-sm font-heading font-black text-white uppercase tracking-widest drop-shadow-md max-w-[90%] truncate">
+                  {CLIENT_REVIEWS_DATA[8].clientName}
+                </p>
+                <p className="text-[10px] sm:text-[11px] text-[#F7E7CE] font-semibold tracking-wider uppercase mt-0.5 max-w-[90%] truncate">
+                  {CLIENT_REVIEWS_DATA[8].category}
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Second Bento Section / Extended Reviews when expanded */}
+        {showAllReviews && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5 sm:gap-4 lg:gap-5 auto-rows-[200px] sm:auto-rows-[220px] md:auto-rows-[230px] lg:auto-rows-[250px] mt-3.5 sm:mt-4 lg:mt-5">
+            {CLIENT_REVIEWS_DATA.slice(9).map((review, idx) => {
+              // Asymmetric layout logic for seamless repeating pattern
+              const isPanoramic = idx % 8 === 2;
+              const isTall = idx % 8 === 4;
+
+              return (
+                <div
+                  key={`more-review-${review.id}-${idx}`}
+                  onClick={() => setSelectedReview(review)}
+                  className={`relative group overflow-hidden bg-black shadow-soft cursor-pointer transition-all duration-300 rounded-none border border-black/10 ${
+                    isPanoramic
+                      ? 'md:col-span-2 col-span-1'
+                      : isTall
+                      ? 'md:row-span-2 row-span-1'
+                      : ''
+                  }`}
+                >
+                  <img
+                    src={review.image}
+                    alt={review.clientName}
+                    className="w-full h-full object-cover object-center group-hover:scale-106 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/20 group-hover:via-black/20 transition-colors" />
+                  <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-white/70 bg-black/40 backdrop-blur-xs flex items-center justify-center text-white mb-2 group-hover:scale-110 group-hover:bg-white group-hover:text-burgundy-700 transition-all shadow-md">
+                      <Plus className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+                    </div>
+                    <p className="text-xs sm:text-sm font-heading font-black text-white uppercase tracking-widest drop-shadow-md max-w-[90%] truncate">
                       {review.clientName}
                     </p>
+                    <p className="text-[10px] sm:text-[11px] text-[#F7E7CE] font-semibold tracking-wider uppercase mt-0.5 max-w-[90%] truncate">
+                      {review.category}
+                    </p>
                   </div>
-                  <p className="text-xs text-[#F7E7CE] font-medium truncate mt-0.5">
-                    {review.category}
-                  </p>
                 </div>
+              );
+            })}
+          </div>
+        )}
 
-                <div className="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-black/60 text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                  <ZoomIn className="w-3.5 h-3.5" />
-                </div>
-              </div>
-            );
-          })}
-        </motion.div>
+        {/* Toggle to view all 29 client experiences */}
+        <div className="text-center mt-8">
+          <button
+            type="button"
+            onClick={() => setShowAllReviews(!showAllReviews)}
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white/80 hover:bg-white text-burgundy-700 hover:text-burgundy-800 font-heading font-bold text-xs sm:text-sm border border-burgundy-200/80 shadow-xs hover:shadow-soft transition-all cursor-pointer"
+          >
+            <span>{showAllReviews ? 'Show Less Reviews' : `View All ${CLIENT_REVIEWS_DATA.length} Client Experiences`}</span>
+            <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${showAllReviews ? 'rotate-180' : ''}`} />
+          </button>
+        </div>
       </div>
 
-      {/* 3. CTA BUTTON ALIGNED BELOW THE CARDS */}
+      {/* 3. CTA BUTTON ALIGNED BELOW THE GRID */}
       <div className="relative z-20 text-center pt-2 pb-4">
         <div className="flex items-center justify-center">
           <a
