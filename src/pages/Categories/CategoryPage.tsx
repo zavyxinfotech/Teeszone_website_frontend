@@ -8,12 +8,41 @@ import {
   Sparkles,
   ChevronRight,
   ChevronDown,
+  Layers,
+  Package,
+  Clock,
+  Calendar,
+  Factory,
+  ArrowRight,
 } from 'lucide-react';
 
 interface CategoryPageProps {
   forcedSlug?: ProductCategory;
   onOpenQuote?: () => void;
 }
+
+const renderH1 = (text: string) => {
+  if (text.includes('&')) {
+    const parts = text.split('&');
+    return (
+      <>
+        {parts[0].trim()} &amp; <br className="hidden sm:inline" />
+        <span className="text-burgundy-700">{parts.slice(1).join('&').trim()}</span>
+      </>
+    );
+  }
+  const words = text.split(' ');
+  if (words.length > 3) {
+    const mid = Math.ceil(words.length / 2);
+    return (
+      <>
+        {words.slice(0, mid).join(' ')} <br className="hidden sm:inline" />
+        <span className="text-burgundy-700">{words.slice(mid).join(' ')}</span>
+      </>
+    );
+  }
+  return text;
+};
 
 export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQuote }) => {
   const params = useParams<{ slug?: string; category?: string }>();
@@ -40,17 +69,25 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
 
   return (
     <div className="flex flex-col min-h-screen bg-[#FFFDF9]">
-      {/* 1. HERO & BREADCRUMBS */}
-      <section className="relative w-full pt-32 pb-14 sm:pt-36 sm:pb-18 lg:pt-40 lg:pb-20 bg-[#FAF7F2] border-b border-burgundy-100/60 overflow-hidden">
-        {/* Ambient Silk Light Glow */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-burgundy-100/30 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-warm-200/40 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20" />
+      {/* 1. HERO & BREADCRUMBS WITH LUXURY SATIN BACKDROP (Exact Layout from Reference Image 2) */}
+      <section className="relative w-full pt-28 pb-14 sm:pt-32 sm:pb-16 lg:pt-36 lg:pb-20 overflow-hidden bg-[#FAF6F4] border-b border-burgundy-100/60 select-none">
+        {/* Full-width Luxury Flowing Satin Background (Image 1) */}
+        <div className="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden">
+          <img
+            src="/assets/images/products/product-details-hero-bg.webp"
+            alt="Products Details Hero Background"
+            className="w-full h-full object-cover object-[72%_center] lg:object-center pointer-events-none select-none"
+          />
+          {/* Subtle ambient light gradient for optimal text contrast on left */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#FAF6F4]/90 via-[#FAF6F4]/60 sm:via-[#FAF6F4]/40 to-transparent lg:w-[62%] pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#FAF6F4]/80 via-transparent to-[#FAF6F4]/40 sm:hidden pointer-events-none" />
+        </div>
 
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Breadcrumb */}
+          {/* Breadcrumb Navigation matching Reference Image 2 */}
           <nav
             aria-label="Breadcrumb"
-            className="flex items-center gap-2 text-xs sm:text-sm font-medium text-charcoal-500 mb-6"
+            className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium text-charcoal-500 mb-5 sm:mb-6"
           >
             <Link to="/" className="hover:text-burgundy-700 transition-colors">
               Home
@@ -63,88 +100,156 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
             <span className="text-burgundy-700 font-semibold">{category.title}</span>
           </nav>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-            {/* Left Content Column */}
-            <div className="lg:col-span-7 space-y-4 sm:space-y-5">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-burgundy-50 border border-burgundy-200/70 text-burgundy-700 text-xs sm:text-sm font-heading font-semibold tracking-wide uppercase">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            {/* Left Content Column matching Reference Image 2 */}
+            <div className="lg:col-span-7 space-y-4 sm:space-y-5 text-left">
+              {/* Badge Pill with Sparkle */}
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FCECEF]/90 border border-[#80011F]/20 text-burgundy-700 text-xs sm:text-sm font-heading font-bold tracking-wider uppercase shadow-2xs">
                 <Sparkles className="w-3.5 h-3.5 text-burgundy-700" />
                 <span>{category.badge}</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-heading font-bold text-charcoal-900 leading-[1.14] tracking-tight">
-                {category.h1}
+              {/* H1 Headline with Two-Tone Burgundy Accent */}
+              <h1 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[52px] font-heading font-extrabold text-charcoal-900 leading-[1.12] tracking-tight">
+                {renderH1(category.h1)}
               </h1>
 
-              <p className="text-base sm:text-lg text-charcoal-700 leading-relaxed max-w-2xl font-normal">
+              {/* Subtitle / Overview */}
+              <p className="text-sm sm:text-base lg:text-[17px] text-charcoal-700 leading-relaxed max-w-2xl font-normal">
                 {category.overview}
               </p>
 
-              {/* Quick Metrics Bar */}
-              <div className="pt-2 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-xl">
-                <div className="bg-white/90 backdrop-blur-xs p-3 rounded-xl border border-burgundy-100 shadow-2xs">
-                  <span className="text-[11px] text-charcoal-500 font-medium block">GSM Density</span>
-                  <span className="text-sm sm:text-base font-heading font-bold text-burgundy-700">
+              {/* Metrics on Desktop: Minimal Clean 4-Column Layout matching Reference Image 2 */}
+              <div className="hidden sm:grid grid-cols-4 gap-4 lg:gap-6 pt-3 pb-2 max-w-2xl border-t border-burgundy-100/60">
+                {/* 1. GSM */}
+                <div className="space-y-1">
+                  <Layers className="w-6 h-6 text-burgundy-700 stroke-[1.8] mb-1.5" />
+                  <span className="text-sm lg:text-base font-heading font-black text-charcoal-900 block">
                     {category.gsmRange}
                   </span>
                 </div>
 
-                <div className="bg-white/90 backdrop-blur-xs p-3 rounded-xl border border-burgundy-100 shadow-2xs">
-                  <span className="text-[11px] text-charcoal-500 font-medium block">Minimum Order</span>
-                  <span className="text-sm sm:text-base font-heading font-bold text-burgundy-700">
+                {/* 2. Minimum Order */}
+                <div className="space-y-1">
+                  <Package className="w-6 h-6 text-burgundy-700 stroke-[1.8] mb-1.5" />
+                  <span className="text-[11px] lg:text-xs text-charcoal-500 font-medium block">
+                    Minimum Order
+                  </span>
+                  <span className="text-sm lg:text-base font-heading font-bold text-charcoal-900 block">
                     {category.moq}
                   </span>
                 </div>
 
-                <div className="bg-white/90 backdrop-blur-xs p-3 rounded-xl border border-burgundy-100 shadow-2xs">
-                  <span className="text-[11px] text-charcoal-500 font-medium block">Sampling Time</span>
-                  <span className="text-sm sm:text-base font-heading font-bold text-burgundy-700">
+                {/* 3. Sampling Time */}
+                <div className="space-y-1">
+                  <Clock className="w-6 h-6 text-burgundy-700 stroke-[1.8] mb-1.5" />
+                  <span className="text-[11px] lg:text-xs text-charcoal-500 font-medium block">
+                    Sampling Time
+                  </span>
+                  <span className="text-sm lg:text-base font-heading font-bold text-charcoal-900 block">
                     {category.samplingTime}
                   </span>
                 </div>
 
-                <div className="bg-white/90 backdrop-blur-xs p-3 rounded-xl border border-burgundy-100 shadow-2xs">
-                  <span className="text-[11px] text-charcoal-500 font-medium block">Production Slot</span>
-                  <span className="text-sm sm:text-base font-heading font-bold text-burgundy-700">
+                {/* 4. Production Slot */}
+                <div className="space-y-1">
+                  <Calendar className="w-6 h-6 text-burgundy-700 stroke-[1.8] mb-1.5" />
+                  <span className="text-[11px] lg:text-xs text-charcoal-500 font-medium block">
+                    Production Slot
+                  </span>
+                  <span className="text-sm lg:text-base font-heading font-bold text-charcoal-900 block">
                     {category.productionTime}
                   </span>
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="pt-3 flex flex-wrap items-center gap-3.5">
-                <Button
-                  variant="primary"
-                  size="md"
-                  withArrow
+              {/* Action Buttons (Desktop view) */}
+              <div className="hidden sm:flex flex-wrap items-center gap-4 pt-2">
+                <button
                   onClick={handleQuoteClick}
-                  className="rounded-full shadow-soft bg-burgundy-700 hover:bg-burgundy-800 text-white font-medium px-7 py-3 text-sm sm:text-base"
+                  className="group inline-flex items-center justify-center gap-2.5 px-8 py-3.5 sm:py-4 rounded-full bg-burgundy-700 hover:bg-burgundy-800 text-white font-heading font-semibold text-sm sm:text-base shadow-soft hover:shadow-soft-lg transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
                 >
-                  Request Bulk Quote
-                </Button>
+                  <span>Request Bulk Quote</span>
+                  <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </button>
 
-                <Button
-                  variant="outline"
-                  size="md"
+                <Link
                   to="/contact?mode=inquiry"
-                  className="rounded-full bg-white hover:bg-burgundy-50 border border-burgundy-200 text-burgundy-700 font-medium px-6 py-3 text-sm sm:text-base"
+                  className="inline-flex items-center justify-center px-7 py-3.5 sm:py-4 rounded-full bg-white/90 hover:bg-white text-burgundy-700 border border-burgundy-700/50 hover:border-burgundy-700 font-heading font-semibold text-sm sm:text-base shadow-2xs hover:shadow-soft transition-all duration-300 cursor-pointer"
                 >
                   Schedule Fabric Swatch
-                </Button>
+                </Link>
               </div>
             </div>
 
-            {/* Right Hero Image Card */}
-            <div className="lg:col-span-5 flex justify-center">
-              <div className="relative w-full max-w-md lg:max-w-none aspect-square rounded-3xl bg-white p-6 sm:p-8 border border-burgundy-100/90 shadow-soft-lg flex items-center justify-center group overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-tr from-burgundy-50/50 via-warm-50/30 to-transparent pointer-events-none" />
+            {/* Right Hero Image Column: Garment Cutout floating gracefully over Podium */}
+            <div className="lg:col-span-5 flex flex-col items-center justify-center relative">
+              <div className="relative w-full max-w-[340px] xs:max-w-[400px] sm:max-w-[460px] lg:max-w-[500px] xl:max-w-[540px] flex items-center justify-center">
                 <img
                   src={category.heroImage}
                   alt={category.title}
-                  className="w-full h-full object-contain relative z-10 transition-transform duration-700 group-hover:scale-106"
+                  className="w-full h-auto max-h-[380px] xs:max-h-[440px] sm:max-h-[500px] lg:max-h-[540px] object-contain relative z-10 transition-transform duration-700 hover:scale-105 drop-shadow-[0_22px_36px_rgba(88,8,25,0.24)]"
                 />
-                <span className="absolute bottom-4 right-4 z-20 text-[11px] font-heading font-semibold text-burgundy-700 bg-white/95 px-3 py-1 rounded-full shadow-2xs border border-burgundy-100">
-                  Tiruppur Direct Manufacturing
-                </span>
+              </div>
+
+              {/* Factory Verification Badge at Base of Pedestal */}
+              <div className="mt-3 sm:mt-4 z-20">
+                <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/95 backdrop-blur-md text-burgundy-700 font-heading font-bold text-xs sm:text-sm shadow-soft border border-burgundy-100/90">
+                  <Factory className="w-4 h-4 text-burgundy-700 shrink-0" />
+                  <span>Tiruppur Direct Manufacturing</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Mobile View: Vertical Metrics & Full-Width Action Buttons (Matching Reference Phone Mockup) */}
+            <div className="sm:hidden col-span-1 space-y-4 pt-2">
+              {/* Vertical Metrics List */}
+              <div className="space-y-2.5 py-3 border-y border-burgundy-100/60">
+                <div className="flex items-center gap-3">
+                  <Layers className="w-5 h-5 text-burgundy-700 shrink-0 stroke-[1.8]" />
+                  <span className="text-sm font-heading font-extrabold text-charcoal-900">
+                    {category.gsmRange}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <Package className="w-5 h-5 text-burgundy-700 shrink-0 stroke-[1.8]" />
+                  <span className="text-xs text-charcoal-600 font-medium">
+                    Minimum Order: <strong className="text-charcoal-900 font-bold">{category.moq}</strong>
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <Clock className="w-5 h-5 text-burgundy-700 shrink-0 stroke-[1.8]" />
+                  <span className="text-xs text-charcoal-600 font-medium">
+                    Sampling Time: <strong className="text-charcoal-900 font-bold">{category.samplingTime}</strong>
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <Calendar className="w-5 h-5 text-burgundy-700 shrink-0 stroke-[1.8]" />
+                  <span className="text-xs text-charcoal-600 font-medium">
+                    Production Slot: <strong className="text-charcoal-900 font-bold">{category.productionTime}</strong>
+                  </span>
+                </div>
+              </div>
+
+              {/* Action Buttons (Full-Width on Mobile) */}
+              <div className="flex flex-col gap-3 pt-1">
+                <button
+                  onClick={handleQuoteClick}
+                  className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-burgundy-700 hover:bg-burgundy-800 text-white font-heading font-semibold text-sm shadow-soft transition-all cursor-pointer"
+                >
+                  <span>Request Bulk Quote</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+
+                <Link
+                  to="/contact?mode=inquiry"
+                  className="w-full inline-flex items-center justify-center px-6 py-3.5 rounded-full bg-white text-burgundy-700 border border-burgundy-700/50 font-heading font-semibold text-sm shadow-2xs transition-all cursor-pointer text-center"
+                >
+                  Schedule Fabric Swatch
+                </Link>
               </div>
             </div>
           </div>
