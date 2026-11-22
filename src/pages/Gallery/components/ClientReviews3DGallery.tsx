@@ -396,13 +396,12 @@ export const ClientReviews3DGallery: React.FC<ClientReviews3DGalleryProps> = () 
                 <div
                   key={`more-review-${review.id}-${idx}`}
                   onClick={() => setSelectedReview(review)}
-                  className={`relative group overflow-hidden bg-black shadow-soft cursor-pointer transition-all duration-300 rounded-none border border-black/10 ${
-                    isPanoramic
+                  className={`relative group overflow-hidden bg-black shadow-soft cursor-pointer transition-all duration-300 rounded-none border border-black/10 ${isPanoramic
                       ? 'md:col-span-2 col-span-1'
                       : isTall
-                      ? 'md:row-span-2 row-span-1'
-                      : ''
-                  }`}
+                        ? 'md:row-span-2 row-span-1'
+                        : ''
+                    }`}
                 >
                   <img
                     src={review.image}
