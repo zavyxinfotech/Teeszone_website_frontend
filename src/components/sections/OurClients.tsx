@@ -108,11 +108,7 @@ export const clientLogos = [
     name: "Client 22",
     src: "/images/clients/client-22.png"
   },
-  {
-    id: "c_21",
-    name: "Club Twenty",
-    src: "/images/clients/club-twenty.png"
-  },
+
   {
     id: "c_22",
     name: "Dipp'd Idly",
@@ -223,11 +219,7 @@ export const clientLogos = [
     name: "Lawrence School",
     src: "/images/clients/lawrence-school.png"
   },
-  {
-    id: "c_44",
-    name: "Lazdana Hotels",
-    src: "/images/clients/lazdana-hotels.png"
-  },
+
   {
     id: "c_45",
     name: "Linkra Wires",

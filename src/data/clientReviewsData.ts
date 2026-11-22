@@ -271,13 +271,5 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     rating: 5,
     featured: false
   },
-  {
-    id: 30,
-    clientName: 'Lazana Luxury Hotels & Suites',
-    category: 'Hospitality & Hotel Uniforms',
-    image: '/assets/images/client-reviews/review-30.webp',
-    imagePng: '/assets/images/client-reviews/review-30.png',
-    rating: 5,
-    featured: true
-  },
+
 ];
