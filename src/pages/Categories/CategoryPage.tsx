@@ -4,6 +4,7 @@ import { categoryDetails, CategoryDetail } from '@/data/categoryDetails';
 import { ProductCategory } from '@/data/products';
 import { QuoteCTA } from '@/components/sections/QuoteCTA';
 import { Button } from '@/components/common/Button';
+import { ClientUniformShowcase } from './components/ClientUniformShowcase';
 import {
   Sparkles,
   ChevronDown,
@@ -67,8 +68,8 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
 
   return (
     <div className="flex flex-col min-h-screen bg-[#FFFDF9]">
-      {/* 1. HERO & BREADCRUMBS WITH LUXURY SATIN BACKDROP (Exact Layout from Reference Image 2) */}
-      <section className="relative w-full pt-28 pb-14 sm:pt-32 sm:pb-16 lg:pt-36 lg:pb-20 overflow-hidden bg-[#FAF6F4] border-b border-burgundy-100/60 select-none">
+      {/* 1. HERO WITH LUXURY SATIN BACKDROP & WAVY BORDER DESIGN */}
+      <section className="relative w-full pt-28 pb-18 sm:pt-32 sm:pb-22 lg:pt-36 lg:pb-28 overflow-hidden bg-[#FAF6F4] select-none">
         {/* Full-width Luxury Flowing Satin Background (Image 1) */}
         <div className="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden">
           <img
@@ -222,7 +223,33 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
             </div>
           </div>
         </div>
+
+        {/* Wavy Border Design for Hero Bottom Section */}
+        <div className="absolute bottom-0 inset-x-0 w-full overflow-hidden leading-none z-20 pointer-events-none">
+          <svg
+            viewBox="0 0 1440 70"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="relative block w-full h-8 sm:h-12 md:h-16 preserve-3d"
+            preserveAspectRatio="none"
+          >
+            {/* Soft Rose / Burgundy Accent Ribbon */}
+            <path
+              d="M0,22 C320,55 680,60 1020,26 C1200,10 1360,30 1440,40 L1440,70 L0,70 Z"
+              fill="#F8D0D6"
+              opacity="0.65"
+            />
+            {/* Main Showcase Section Warm Cream Wave (#FFFDF9) */}
+            <path
+              d="M0,32 C280,64 620,68 960,35 C1160,18 1340,36 1440,46 L1440,70 L0,70 Z"
+              fill="#FFFDF9"
+            />
+          </svg>
+        </div>
       </section>
+
+      {/* 2. CLIENT UNIFORM SHOWCASE (Matching Desktop & Mobile References) */}
+      <ClientUniformShowcase />
 
 
 

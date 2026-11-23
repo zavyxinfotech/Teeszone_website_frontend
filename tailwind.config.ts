@@ -46,6 +46,7 @@ export default {
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
         heading: ['Montserrat', 'Inter', 'sans-serif'],
+        serif: ['"Playfair Display"', 'Georgia', 'serif'],
         script: ['"Dancing Script"', '"Caveat"', 'cursive'],
       },
       boxShadow: {
