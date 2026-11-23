@@ -20,7 +20,7 @@ const DEFAULT_SLIDES: ShowcaseSlide[] = [
     id: 'golden-golisoda',
     brand: 'Golden Golisoda',
     subtitle: 'Signature Maroon Corporate Pique Polo',
-    modelImage: '/assets/images/products/showcase/golden-golisoda-model-clean.webp',
+    modelImage: '/assets/images/products/showcase/golden-golisoda-full.webp',
     details: [
       {
         id: 'chest',
@@ -43,7 +43,7 @@ const DEFAULT_SLIDES: ShowcaseSlide[] = [
     id: 'mani',
     brand: 'MANI Group',
     subtitle: 'Executive Grey Combed Cotton Polo',
-    modelImage: '/assets/images/products/showcase/mani-model-clean.webp',
+    modelImage: '/assets/images/products/showcase/mani-full.webp',
     details: [
       {
         id: 'chest',
@@ -74,34 +74,57 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isInView, setIsInView] = useState(true);
+  const sectionRef = useRef<HTMLElement>(null);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
 
   const totalSlides = slides.length;
   const currentSlide = slides[currentIndex];
-  const slideDuration = 5000; // 5 seconds per slide
+  const prevIdx = (currentIndex - 1 + totalSlides) % totalSlides;
+  const nextIdx = (currentIndex + 1) % totalSlides;
+  const prevSlide = slides[prevIdx];
+  const nextSlideData = slides[nextIdx];
 
-  const nextSlide = () => {
+  const slideDuration = 4500; // 4.5 seconds per circular rotation
+
+  const handleNext = () => {
     setProgress(0);
     setCurrentIndex((prev) => (prev + 1) % totalSlides);
   };
 
-  const prevSlide = () => {
+  const handlePrev = () => {
     setProgress(0);
     setCurrentIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
   };
 
-  // Smooth thin-line loader animation and auto-advance
+  // IntersectionObserver to auto-scroll when user scrolls into this section
   useEffect(() => {
-    if (isPaused || totalSlides <= 1) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.25 }
+    );
 
-    const intervalTime = 50; // update every 50ms
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Smooth circular auto-scroll animation when in view and not paused
+  useEffect(() => {
+    if (!isInView || isPaused || totalSlides <= 1) return;
+
+    const intervalTime = 40;
     const step = (intervalTime / slideDuration) * 100;
 
     const timer = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
-          nextSlide();
+          handleNext();
           return 0;
         }
         return prev + step;
@@ -109,7 +132,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
     }, intervalTime);
 
     return () => clearInterval(timer);
-  }, [currentIndex, isPaused, totalSlides]);
+  }, [currentIndex, isInView, isPaused, totalSlides]);
 
   // Touch swipe handling for mobile
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -123,10 +146,10 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
   const handleTouchEnd = () => {
     if (!touchStartX.current || !touchEndX.current) return;
     const distance = touchStartX.current - touchEndX.current;
-    if (distance > 45) {
-      nextSlide();
-    } else if (distance < -45) {
-      prevSlide();
+    if (distance > 40) {
+      handleNext();
+    } else if (distance < -40) {
+      handlePrev();
     }
     touchStartX.current = null;
     touchEndX.current = null;
@@ -134,7 +157,8 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
 
   return (
     <section
-      className="relative w-full py-6 sm:py-8 lg:py-10 bg-[#FFFDF9] select-none overflow-hidden"
+      ref={sectionRef}
+      className="relative w-full min-h-screen lg:h-screen lg:min-h-[720px] flex flex-col justify-center py-8 lg:py-12 bg-[#FFFDF9] select-none overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
@@ -142,79 +166,103 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
       onTouchEnd={handleTouchEnd}
       aria-label="Client Uniform Showcase"
     >
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* DESKTOP VIEW (Exact Layout Matching Reference Image 2) */}
-        <div className="hidden lg:flex items-center justify-between gap-6 xl:gap-10">
-          {/* Left Column: Heading, Subtitle, Model with Animated Background & Thin Line Loader */}
-          <div className="flex-1 flex flex-col justify-between max-w-[820px] xl:max-w-[880px]">
-            {/* Header Content with Home Page Typography */}
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 flex flex-col justify-center h-full">
+        {/* DESKTOP VIEW (Full Height 3D Circular Showcase) */}
+        <div className="hidden lg:flex items-center justify-between gap-6 xl:gap-10 h-full">
+          {/* Left Column: Heading, 3D Circular Carousel Stage, Thin-line Loader */}
+          <div className="flex-1 flex flex-col justify-between max-w-[840px] xl:max-w-[900px] h-full py-4">
+            {/* Header Content */}
             <div className="text-left space-y-2">
               <span className="text-xs sm:text-[13px] font-heading font-extrabold uppercase tracking-widest text-[#82132C] block">
                 Client Uniform Showcase
               </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-[40px] xl:text-[44px] font-heading font-black tracking-tight text-charcoal-900 leading-[1.08]">
+              <h2 className="text-3xl sm:text-4xl lg:text-[42px] xl:text-[46px] font-heading font-black tracking-tight text-charcoal-900 leading-[1.08]">
                 Uniforms, Made for{' '}
                 <span className="font-heading font-black italic text-[#82132C]">Your Brand</span>
               </h2>
-              <p className="text-sm sm:text-[15px] text-charcoal-600 font-normal leading-relaxed max-w-xl">
+              <p className="text-sm sm:text-base text-charcoal-600 font-normal leading-relaxed max-w-xl">
                 From branded polos to team uniforms, see how custom embroidery, print placement and
                 garment finishes bring each brand to life.
               </p>
             </div>
 
-            {/* Model Presentation Stage with Background Animation & Silhouettes */}
-            <div className="relative mt-3 flex items-center justify-center min-h-[360px] xl:min-h-[390px] overflow-visible">
-              {/* Animated Warm Ambient Glow Spotlight behind model */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] rounded-full bg-gradient-to-r from-burgundy-100/35 via-warm-100/50 to-burgundy-50/25 blur-3xl pointer-events-none animate-pulse" />
+            {/* 3D Circular Motion Showcase Stage: Full Model with Shaded 3D Previous/Next in Background */}
+            <div
+              className="relative my-auto flex items-center justify-center min-h-[460px] xl:min-h-[520px] w-full"
+              style={{ perspective: '1100px' }}
+            >
+              {/* Warm Soft Ambient Halo */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] h-[420px] rounded-full bg-gradient-to-r from-burgundy-100/35 via-warm-100/50 to-burgundy-50/25 blur-3xl pointer-events-none animate-pulse" />
 
-              {/* Background Silhouette: Left Staff Silhouettes */}
-              <div className="absolute left-6 xl:left-12 bottom-2 w-[130px] xl:w-[150px] opacity-30 pointer-events-none transition-opacity duration-500">
-                <img
-                  src="/assets/images/products/showcase/silhouettes-left.webp"
-                  alt="Staff Uniform Silhouette"
-                  className="w-full h-auto object-contain filter grayscale contrast-125"
-                />
-              </div>
-
-              {/* Background Silhouette: Right Staff Silhouettes */}
-              <div className="absolute right-12 xl:right-20 bottom-2 w-[85px] xl:w-[95px] opacity-30 pointer-events-none transition-opacity duration-500">
-                <img
-                  src="/assets/images/products/showcase/silhouettes-right.webp"
-                  alt="Staff Uniform Silhouette"
-                  className="w-full h-auto object-contain filter grayscale contrast-125"
-                />
-              </div>
-
-              {/* Prev Navigation Button */}
+              {/* Backward Option Button (No border, No shadow, Smaller Size) */}
               <button
-                onClick={prevSlide}
+                onClick={handlePrev}
                 aria-label="Previous uniform showcase"
-                className="absolute left-2 z-20 w-10 h-10 rounded-full bg-white/95 hover:bg-white text-charcoal-800 hover:text-burgundy-700 shadow-[0_4px_14px_rgba(0,0,0,0.12)] border border-charcoal-200/80 flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+                className="absolute left-0 z-30 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-transparent hover:bg-black/5 text-charcoal-700 hover:text-burgundy-700 border-none shadow-none flex items-center justify-center transition-all duration-200 cursor-pointer"
               >
                 <ChevronLeft className="w-5 h-5 stroke-[2.2]" />
               </button>
 
-              {/* Main Model Front & Back Cutout (Waist-Up, exact to Reference Image 2) */}
-              <div className="relative z-10 w-full max-w-[480px] xl:max-w-[530px] flex items-center justify-center">
+              {/* 3D Circular Motion: Previous Slide Model (Shaded, Smaller 3D View at Left Background) */}
+              <div
+                onClick={handlePrev}
+                className="absolute left-2 xl:left-6 top-1/2 z-10 w-[240px] xl:w-[270px] opacity-35 hover:opacity-60 transition-all duration-700 cursor-pointer filter grayscale-[25%] blur-[0.3px]"
+                style={{
+                  transform: 'translateY(-50%) rotateY(24deg) scale(0.72) translateZ(-50px)',
+                  transformStyle: 'preserve-3d',
+                }}
+                title={`Switch to ${prevSlide.brand}`}
+              >
+                <img
+                  src={prevSlide.modelImage}
+                  alt={prevSlide.brand}
+                  className="w-full h-auto max-h-[400px] xl:max-h-[450px] object-contain select-none"
+                />
+              </div>
+
+              {/* 3D Circular Motion: Current Active Model (Full Uncropped Image: Head to Shoes!) */}
+              <div
+                className="relative z-20 w-full max-w-[420px] xl:max-w-[460px] flex items-center justify-center transition-all duration-700 ease-out"
+                style={{
+                  transformStyle: 'preserve-3d',
+                }}
+              >
                 <img
                   key={currentSlide.id}
                   src={currentSlide.modelImage}
                   alt={`${currentSlide.brand} showcase`}
-                  className="w-full h-auto max-h-[350px] xl:max-h-[380px] object-contain drop-shadow-[0_14px_24px_rgba(0,0,0,0.10)] transition-all duration-500"
+                  className="w-full h-auto max-h-[460px] xl:max-h-[520px] object-contain drop-shadow-[0_16px_30px_rgba(0,0,0,0.12)] transition-all duration-700 select-none"
                 />
               </div>
 
-              {/* Next Navigation Button */}
+              {/* 3D Circular Motion: Next Slide Model (Shaded, Smaller 3D View at Right Background) */}
+              <div
+                onClick={handleNext}
+                className="absolute right-2 xl:right-6 top-1/2 z-10 w-[240px] xl:w-[270px] opacity-35 hover:opacity-60 transition-all duration-700 cursor-pointer filter grayscale-[25%] blur-[0.3px]"
+                style={{
+                  transform: 'translateY(-50%) rotateY(-24deg) scale(0.72) translateZ(-50px)',
+                  transformStyle: 'preserve-3d',
+                }}
+                title={`Switch to ${nextSlideData.brand}`}
+              >
+                <img
+                  src={nextSlideData.modelImage}
+                  alt={nextSlideData.brand}
+                  className="w-full h-auto max-h-[400px] xl:max-h-[450px] object-contain select-none"
+                />
+              </div>
+
+              {/* Forward Option Button (No border, No shadow, Smaller Size) */}
               <button
-                onClick={nextSlide}
+                onClick={handleNext}
                 aria-label="Next uniform showcase"
-                className="absolute right-4 z-20 w-10 h-10 rounded-full bg-white/95 hover:bg-white text-charcoal-800 hover:text-burgundy-700 shadow-[0_4px_14px_rgba(0,0,0,0.12)] border border-charcoal-200/80 flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+                className="absolute right-0 z-30 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-transparent hover:bg-black/5 text-charcoal-700 hover:text-burgundy-700 border-none shadow-none flex items-center justify-center transition-all duration-200 cursor-pointer"
               >
                 <ChevronRight className="w-5 h-5 stroke-[2.2]" />
               </button>
             </div>
 
-            {/* Bottom Loader Option: Sleek Thin Line Indicator (No Count Text) */}
+            {/* Bottom Loader Option: Sleek Thin Line Indicator */}
             <div className="flex items-center gap-2.5 pt-2">
               {slides.map((_, idx) => (
                 <button
@@ -227,9 +275,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
                   className="relative h-[3px] rounded-full overflow-hidden transition-all duration-300 cursor-pointer"
                   style={{ width: currentIndex === idx ? '56px' : '26px' }}
                 >
-                  {/* Track line */}
                   <div className="absolute inset-0 bg-charcoal-200/90 rounded-full" />
-                  {/* Active animated thin filling line */}
                   {currentIndex === idx && (
                     <div
                       className="absolute inset-y-0 left-0 bg-[#82132C] rounded-full transition-all duration-75 ease-linear"
@@ -241,26 +287,28 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
             </div>
           </div>
 
-          {/* Right Column: 3 Compact Stacked Detail Cards (Exact to Reference Image 2) */}
-          {/* No white background, no white border around image, strictly decreased size */}
-          <div className="w-[210px] xl:w-[235px] shrink-0 flex flex-col gap-3.5 xl:gap-4">
+          {/* Right Column: 3 Circular Colloidal Shaped Detail Cards */}
+          <div className="w-[210px] xl:w-[240px] shrink-0 flex flex-col justify-center gap-4 xl:gap-5 my-auto">
             {currentSlide.details.map((detail, idx) => (
               <div
                 key={`${currentSlide.id}-${detail.id}-${idx}`}
-                className="relative w-full rounded-2xl overflow-hidden shadow-[0_6px_16px_rgba(0,0,0,0.12)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.18)] transition-all duration-300 hover:scale-[1.02] aspect-[16/11] bg-transparent"
+                className="relative w-full rounded-[38px] xl:rounded-[44px] overflow-hidden shadow-[0_6px_16px_rgba(0,0,0,0.12)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.18)] transition-all duration-500 hover:scale-[1.03] aspect-[16/11] bg-transparent"
+                style={{
+                  borderRadius: '38px',
+                }}
               >
                 <img
                   src={detail.image}
                   alt={detail.title}
-                  className="w-full h-full object-cover rounded-2xl"
+                  className="w-full h-full object-cover rounded-[38px] xl:rounded-[44px]"
                 />
               </div>
             ))}
           </div>
         </div>
 
-        {/* MOBILE & TABLET VIEW (Compact, perfectly fitting viewport) */}
-        <div className="lg:hidden flex flex-col space-y-4 text-left">
+        {/* MOBILE & TABLET VIEW (Compact, Full-View Uncropped Layout) */}
+        <div className="lg:hidden flex flex-col space-y-4 text-left py-4 my-auto">
           {/* Header Content */}
           <div className="space-y-1.5">
             <span className="text-[11px] font-heading font-extrabold uppercase tracking-widest text-[#82132C] block">
@@ -276,21 +324,69 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
             </p>
           </div>
 
-          {/* Main Centered Model Presentation with ambient spotlight */}
-          <div className="relative py-1 flex items-center justify-center min-h-[220px]">
+          {/* 3D Circular Mobile Stage: Full Model with Shaded 3D Background Views */}
+          <div
+            className="relative py-2 flex items-center justify-center min-h-[300px]"
+            style={{ perspective: '800px' }}
+          >
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[220px] h-[220px] rounded-full bg-burgundy-100/35 blur-2xl pointer-events-none" />
 
-            <div className="relative z-10 w-full max-w-[320px] flex items-center justify-center">
+            {/* Mobile Backward Button */}
+            <button
+              onClick={handlePrev}
+              aria-label="Previous uniform showcase"
+              className="absolute left-1 z-30 w-7 h-7 rounded-full bg-transparent hover:bg-black/5 text-charcoal-700 border-none shadow-none flex items-center justify-center"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+
+            {/* Previous Shaded 3D Model on Mobile */}
+            <div
+              onClick={handlePrev}
+              className="absolute left-1 top-1/2 -translate-y-1/2 z-10 w-[140px] opacity-35 filter grayscale-[25%]"
+              style={{ transform: 'translateY(-50%) rotateY(20deg) scale(0.7)' }}
+            >
+              <img
+                src={prevSlide.modelImage}
+                alt={prevSlide.brand}
+                className="w-full h-auto max-h-[220px] object-contain"
+              />
+            </div>
+
+            {/* Active Full Model: Head to Shoes on Mobile */}
+            <div className="relative z-20 w-full max-w-[260px] flex items-center justify-center">
               <img
                 key={currentSlide.id}
                 src={currentSlide.modelImage}
                 alt={`${currentSlide.brand} showcase`}
-                className="w-full h-auto max-h-[220px] sm:max-h-[260px] object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.10)] transition-all duration-500"
+                className="w-full h-auto max-h-[300px] object-contain drop-shadow-[0_12px_22px_rgba(0,0,0,0.12)] transition-all duration-500"
               />
             </div>
+
+            {/* Next Shaded 3D Model on Mobile */}
+            <div
+              onClick={handleNext}
+              className="absolute right-1 top-1/2 -translate-y-1/2 z-10 w-[140px] opacity-35 filter grayscale-[25%]"
+              style={{ transform: 'translateY(-50%) rotateY(-20deg) scale(0.7)' }}
+            >
+              <img
+                src={nextSlideData.modelImage}
+                alt={nextSlideData.brand}
+                className="w-full h-auto max-h-[220px] object-contain"
+              />
+            </div>
+
+            {/* Mobile Forward Button */}
+            <button
+              onClick={handleNext}
+              aria-label="Next uniform showcase"
+              className="absolute right-1 z-30 w-7 h-7 rounded-full bg-transparent hover:bg-black/5 text-charcoal-700 border-none shadow-none flex items-center justify-center"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
           </div>
 
-          {/* Thin Line Loader for Mobile (No count text) */}
+          {/* Thin Line Loader for Mobile */}
           <div className="flex items-center justify-center gap-2 py-1">
             {slides.map((_, idx) => (
               <button
@@ -314,17 +410,18 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
             ))}
           </div>
 
-          {/* 3 Horizontal Compact Detail Cards: No white borders, pure image */}
-          <div className="grid grid-cols-3 gap-2 sm:gap-3 max-w-md mx-auto w-full pt-1">
+          {/* 3 Circular Colloidal Shaped Detail Cards on Mobile */}
+          <div className="grid grid-cols-3 gap-2.5 max-w-md mx-auto w-full pt-1">
             {currentSlide.details.map((detail, idx) => (
               <div
                 key={`${currentSlide.id}-mobile-${detail.id}-${idx}`}
-                className="relative rounded-xl overflow-hidden shadow-[0_4px_12px_rgba(0,0,0,0.10)] aspect-square bg-transparent"
+                className="relative rounded-[24px] overflow-hidden shadow-[0_4px_12px_rgba(0,0,0,0.10)] aspect-square bg-transparent"
+                style={{ borderRadius: '24px' }}
               >
                 <img
                   src={detail.image}
                   alt={detail.title}
-                  className="w-full h-full object-cover rounded-xl"
+                  className="w-full h-full object-cover rounded-[24px]"
                 />
               </div>
             ))}
