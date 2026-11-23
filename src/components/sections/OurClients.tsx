@@ -444,6 +444,10 @@ export const OurClients: React.FC<OurClientsProps> = ({ className }) => {
   const dRow2 = clientLogos.slice(third, third * 2);
   const dRow3 = clientLogos.slice(third * 2);
 
+  // Optical zoom helper for circular & vertical crest emblems
+  const isZoomedEmblem = (id: string) =>
+    ['c_iit_madras', 'c_srm', 'c_lawrence_school'].includes(id);
+
   return (
     <section
       ref={containerRef}
@@ -532,7 +536,7 @@ export const OurClients: React.FC<OurClientsProps> = ({ className }) => {
             <motion.div style={{ x: row1Nudge }} className="flex items-center shrink-0">
               <motion.div
                 className="flex items-center gap-10 lg:gap-14 shrink-0"
-                animate={{ x: ['-50%', '0%'] }}
+                animate={{ x: ['0%', '-50%'] }}
                 transition={{
                   repeat: Infinity,
                   ease: 'linear',
@@ -547,7 +551,12 @@ export const OurClients: React.FC<OurClientsProps> = ({ className }) => {
                     <img
                       src={client.src}
                       alt={client.name}
-                      className="max-w-[155px] lg:max-w-[185px] max-h-[64px] lg:max-h-[76px] w-auto h-auto object-contain select-none transition-transform duration-200 group-hover:scale-108"
+                      className={cn(
+                        "w-auto h-auto object-contain select-none transition-transform duration-200 group-hover:scale-108",
+                        isZoomedEmblem(client.id)
+                          ? "max-w-[200px] lg:max-w-[230px] max-h-[86px] lg:max-h-[102px] scale-[1.48] lg:scale-[1.58] drop-shadow-xs"
+                          : "max-w-[155px] lg:max-w-[185px] max-h-[64px] lg:max-h-[76px]"
+                      )}
                       loading="lazy"
                     />
                   </div>
@@ -629,7 +638,7 @@ export const OurClients: React.FC<OurClientsProps> = ({ className }) => {
             <motion.div style={{ x: row1Nudge }} className="flex items-center shrink-0">
               <motion.div
                 className="flex items-center gap-7 shrink-0"
-                animate={{ x: ['-50%', '0%'] }}
+                animate={{ x: ['0%', '-50%'] }}
                 transition={{
                   repeat: Infinity,
                   ease: 'linear',
@@ -644,7 +653,12 @@ export const OurClients: React.FC<OurClientsProps> = ({ className }) => {
                     <img
                       src={client.src}
                       alt={client.name}
-                      className="max-w-[125px] xs:max-w-[140px] max-h-[52px] xs:max-h-[58px] w-auto h-auto object-contain select-none"
+                      className={cn(
+                        "w-auto h-auto object-contain select-none",
+                        isZoomedEmblem(client.id)
+                          ? "max-w-[145px] xs:max-w-[160px] max-h-[66px] xs:max-h-[74px] scale-[1.38] drop-shadow-xs"
+                          : "max-w-[125px] xs:max-w-[140px] max-h-[52px] xs:max-h-[58px]"
+                      )}
                       loading="lazy"
                     />
                   </div>
