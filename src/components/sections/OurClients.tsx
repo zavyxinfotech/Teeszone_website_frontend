@@ -416,6 +416,10 @@ export const clientLogos = [
   }
 ];
 
+const isEnlargedLogo = (id: string) => {
+  return id === 'c_srm' || id === 'c_iit_madras' || id === 'c_lawrence_school';
+};
+
 export const OurClients: React.FC<OurClientsProps> = ({ className }) => {
   const containerRef = useRef<HTMLElement>(null);
 
@@ -443,10 +447,6 @@ export const OurClients: React.FC<OurClientsProps> = ({ className }) => {
   const dRow1 = clientLogos.slice(0, third);
   const dRow2 = clientLogos.slice(third, third * 2);
   const dRow3 = clientLogos.slice(third * 2);
-
-  // Optical zoom helper for circular & vertical crest emblems
-  const isZoomedEmblem = (id: string) =>
-    ['c_iit_madras', 'c_srm', 'c_lawrence_school'].includes(id);
 
   return (
     <section
@@ -546,15 +546,15 @@ export const OurClients: React.FC<OurClientsProps> = ({ className }) => {
                 {[...dRow1, ...dRow1].map((client, index) => (
                   <div
                     key={`drow1-${client.id}-${index}`}
-                    className="w-44 lg:w-52 h-22 lg:h-26 flex items-center justify-center p-2 shrink-0 select-none bg-transparent border-0 shadow-none group"
+                    className="w-44 lg:w-52 h-24 lg:h-28 flex items-center justify-center p-2 shrink-0 select-none bg-transparent border-0 shadow-none group"
                   >
                     <img
                       src={client.src}
                       alt={client.name}
                       className={cn(
                         "w-auto h-auto object-contain select-none transition-transform duration-200 group-hover:scale-108",
-                        isZoomedEmblem(client.id)
-                          ? "max-w-[200px] lg:max-w-[230px] max-h-[86px] lg:max-h-[102px] scale-[1.48] lg:scale-[1.58] drop-shadow-xs"
+                        isEnlargedLogo(client.id)
+                          ? "max-w-[140px] lg:max-w-[160px] max-h-[82px] lg:max-h-[96px] scale-[1.38] lg:scale-[1.44]"
                           : "max-w-[155px] lg:max-w-[185px] max-h-[64px] lg:max-h-[76px]"
                       )}
                       loading="lazy"
@@ -570,7 +570,7 @@ export const OurClients: React.FC<OurClientsProps> = ({ className }) => {
             <motion.div style={{ x: row2Nudge }} className="flex items-center shrink-0">
               <motion.div
                 className="flex items-center gap-10 lg:gap-14 shrink-0"
-                animate={{ x: ['0%', '-50%'] }}
+                animate={{ x: ['-50%', '0%'] }}
                 transition={{
                   repeat: Infinity,
                   ease: 'linear',
@@ -580,12 +580,17 @@ export const OurClients: React.FC<OurClientsProps> = ({ className }) => {
                 {[...dRow2, ...dRow2].map((client, index) => (
                   <div
                     key={`drow2-${client.id}-${index}`}
-                    className="w-44 lg:w-52 h-22 lg:h-26 flex items-center justify-center p-2 shrink-0 select-none bg-transparent border-0 shadow-none group"
+                    className="w-44 lg:w-52 h-24 lg:h-28 flex items-center justify-center p-2 shrink-0 select-none bg-transparent border-0 shadow-none group"
                   >
                     <img
                       src={client.src}
                       alt={client.name}
-                      className="max-w-[155px] lg:max-w-[185px] max-h-[64px] lg:max-h-[76px] w-auto h-auto object-contain select-none transition-transform duration-200 group-hover:scale-108"
+                      className={cn(
+                        "w-auto h-auto object-contain select-none transition-transform duration-200 group-hover:scale-108",
+                        isEnlargedLogo(client.id)
+                          ? "max-w-[140px] lg:max-w-[160px] max-h-[82px] lg:max-h-[96px] scale-[1.38] lg:scale-[1.44]"
+                          : "max-w-[155px] lg:max-w-[185px] max-h-[64px] lg:max-h-[76px]"
+                      )}
                       loading="lazy"
                     />
                   </div>
@@ -599,7 +604,7 @@ export const OurClients: React.FC<OurClientsProps> = ({ className }) => {
             <motion.div style={{ x: row3Nudge }} className="flex items-center shrink-0">
               <motion.div
                 className="flex items-center gap-10 lg:gap-14 shrink-0"
-                animate={{ x: ['-50%', '0%'] }}
+                animate={{ x: ['0%', '-50%'] }}
                 transition={{
                   repeat: Infinity,
                   ease: 'linear',
@@ -609,12 +614,17 @@ export const OurClients: React.FC<OurClientsProps> = ({ className }) => {
                 {[...dRow3, ...dRow3].map((client, index) => (
                   <div
                     key={`drow3-${client.id}-${index}`}
-                    className="w-44 lg:w-52 h-22 lg:h-26 flex items-center justify-center p-2 shrink-0 select-none bg-transparent border-0 shadow-none group"
+                    className="w-44 lg:w-52 h-24 lg:h-28 flex items-center justify-center p-2 shrink-0 select-none bg-transparent border-0 shadow-none group"
                   >
                     <img
                       src={client.src}
                       alt={client.name}
-                      className="max-w-[155px] lg:max-w-[185px] max-h-[64px] lg:max-h-[76px] w-auto h-auto object-contain select-none transition-transform duration-200 group-hover:scale-108"
+                      className={cn(
+                        "w-auto h-auto object-contain select-none transition-transform duration-200 group-hover:scale-108",
+                        isEnlargedLogo(client.id)
+                          ? "max-w-[140px] lg:max-w-[160px] max-h-[82px] lg:max-h-[96px] scale-[1.38] lg:scale-[1.44]"
+                          : "max-w-[155px] lg:max-w-[185px] max-h-[64px] lg:max-h-[76px]"
+                      )}
                       loading="lazy"
                     />
                   </div>
@@ -648,15 +658,15 @@ export const OurClients: React.FC<OurClientsProps> = ({ className }) => {
                 {[...row1Logos, ...row1Logos].map((client, index) => (
                   <div
                     key={`mob1-${client.id}-${index}`}
-                    className="w-34 xs:w-38 sm:w-42 h-18 xs:h-20 flex items-center justify-center p-1.5 shrink-0 select-none bg-transparent border-0 shadow-none"
+                    className="w-34 xs:w-38 sm:w-42 h-20 xs:h-22 flex items-center justify-center p-1.5 shrink-0 select-none bg-transparent border-0 shadow-none"
                   >
                     <img
                       src={client.src}
                       alt={client.name}
                       className={cn(
                         "w-auto h-auto object-contain select-none",
-                        isZoomedEmblem(client.id)
-                          ? "max-w-[145px] xs:max-w-[160px] max-h-[66px] xs:max-h-[74px] scale-[1.38] drop-shadow-xs"
+                        isEnlargedLogo(client.id)
+                          ? "max-w-[105px] xs:max-w-[115px] max-h-[64px] xs:max-h-[70px] scale-[1.28]"
                           : "max-w-[125px] xs:max-w-[140px] max-h-[52px] xs:max-h-[58px]"
                       )}
                       loading="lazy"
@@ -672,7 +682,7 @@ export const OurClients: React.FC<OurClientsProps> = ({ className }) => {
             <motion.div style={{ x: row2Nudge }} className="flex items-center shrink-0">
               <motion.div
                 className="flex items-center gap-7 shrink-0"
-                animate={{ x: ['0%', '-50%'] }}
+                animate={{ x: ['-50%', '0%'] }}
                 transition={{
                   repeat: Infinity,
                   ease: 'linear',
@@ -682,12 +692,17 @@ export const OurClients: React.FC<OurClientsProps> = ({ className }) => {
                 {[...row2Logos, ...row2Logos].map((client, index) => (
                   <div
                     key={`mob2-${client.id}-${index}`}
-                    className="w-34 xs:w-38 sm:w-42 h-18 xs:h-20 flex items-center justify-center p-1.5 shrink-0 select-none bg-transparent border-0 shadow-none"
+                    className="w-34 xs:w-38 sm:w-42 h-20 xs:h-22 flex items-center justify-center p-1.5 shrink-0 select-none bg-transparent border-0 shadow-none"
                   >
                     <img
                       src={client.src}
                       alt={client.name}
-                      className="max-w-[125px] xs:max-w-[140px] max-h-[52px] xs:max-h-[58px] w-auto h-auto object-contain select-none"
+                      className={cn(
+                        "w-auto h-auto object-contain select-none",
+                        isEnlargedLogo(client.id)
+                          ? "max-w-[105px] xs:max-w-[115px] max-h-[64px] xs:max-h-[70px] scale-[1.28]"
+                          : "max-w-[125px] xs:max-w-[140px] max-h-[52px] xs:max-h-[58px]"
+                      )}
                       loading="lazy"
                     />
                   </div>
