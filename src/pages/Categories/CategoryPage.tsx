@@ -6,13 +6,11 @@ import { QuoteCTA } from '@/components/sections/QuoteCTA';
 import { Button } from '@/components/common/Button';
 import {
   Sparkles,
-  ChevronRight,
   ChevronDown,
   Layers,
   Package,
   Clock,
   Calendar,
-  Factory,
   ArrowRight,
 } from 'lucide-react';
 
@@ -84,31 +82,9 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
         </div>
 
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Breadcrumb Navigation matching Reference Image 2 */}
-          <nav
-            aria-label="Breadcrumb"
-            className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium text-charcoal-500 mb-5 sm:mb-6"
-          >
-            <Link to="/" className="hover:text-burgundy-700 transition-colors">
-              Home
-            </Link>
-            <ChevronRight className="w-3.5 h-3.5 text-charcoal-400" />
-            <Link to="/products" className="hover:text-burgundy-700 transition-colors">
-              Products
-            </Link>
-            <ChevronRight className="w-3.5 h-3.5 text-charcoal-400" />
-            <span className="text-burgundy-700 font-semibold">{category.title}</span>
-          </nav>
-
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Left Content Column matching Reference Image 2 */}
+            {/* Left Content Column */}
             <div className="lg:col-span-7 space-y-4 sm:space-y-5 text-left">
-              {/* Badge Pill with Sparkle */}
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FCECEF]/90 border border-[#80011F]/20 text-burgundy-700 text-xs sm:text-sm font-heading font-bold tracking-wider uppercase shadow-2xs">
-                <Sparkles className="w-3.5 h-3.5 text-burgundy-700" />
-                <span>{category.badge}</span>
-              </div>
-
               {/* H1 Headline with Two-Tone Burgundy Accent */}
               <h1 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[52px] font-heading font-extrabold text-charcoal-900 leading-[1.12] tracking-tight">
                 {renderH1(category.h1)}
@@ -190,14 +166,6 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
                   alt={category.title}
                   className="w-full h-auto max-h-[380px] xs:max-h-[440px] sm:max-h-[500px] lg:max-h-[540px] object-contain relative z-10 transition-transform duration-700 hover:scale-105 drop-shadow-[0_22px_36px_rgba(88,8,25,0.24)]"
                 />
-              </div>
-
-              {/* Factory Verification Badge at Base of Pedestal */}
-              <div className="mt-3 sm:mt-4 z-20">
-                <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/95 backdrop-blur-md text-burgundy-700 font-heading font-bold text-xs sm:text-sm shadow-soft border border-burgundy-100/90">
-                  <Factory className="w-4 h-4 text-burgundy-700 shrink-0" />
-                  <span>Tiruppur Direct Manufacturing</span>
-                </div>
               </div>
             </div>
 
