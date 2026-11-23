@@ -6,8 +6,38 @@ interface OurClientsProps {
   className?: string;
 }
 
-// All 80 Verified Client Logos with genuine image assets
+// All Verified Client Logos with genuine transparent image assets
 export const clientLogos = [
+  {
+    id: "c_cognizant",
+    name: "Cognizant",
+    src: "/images/clients/cognizant.png"
+  },
+  {
+    id: "c_zoho",
+    name: "Zoho",
+    src: "/images/clients/zoho.png"
+  },
+  {
+    id: "c_tech_mahindra",
+    name: "Tech Mahindra",
+    src: "/images/clients/tech-mahindra.png"
+  },
+  {
+    id: "c_iit_madras",
+    name: "IIT Madras",
+    src: "/images/clients/iit-madras.png"
+  },
+  {
+    id: "c_srm",
+    name: "SRM University",
+    src: "/images/clients/srm-university.png"
+  },
+  {
+    id: "c_lawrence_school",
+    name: "The Lawrence School Lovedale",
+    src: "/images/clients/the-lawrence-school.png"
+  },
   {
     id: "c_1",
     name: "Accenture",
@@ -214,12 +244,6 @@ export const clientLogos = [
     name: "Kurinji Engineering",
     src: "/images/clients/kurinji-engineering.png"
   },
-  {
-    id: "c_43",
-    name: "Lawrence School",
-    src: "/images/clients/lawrence-school.png"
-  },
-
   {
     id: "c_45",
     name: "Linkra Wires",
