@@ -20,22 +20,22 @@ const DEFAULT_SLIDES: ShowcaseSlide[] = [
     id: 'golden-golisoda',
     brand: 'Golden Golisoda',
     subtitle: 'Signature Maroon Corporate Pique Polo',
-    modelImage: '/assets/images/products/showcase/ref-model-stage.webp',
+    modelImage: '/assets/images/products/showcase/golden-golisoda-model-clean.webp',
     details: [
       {
         id: 'chest',
-        title: 'Precision Chest Crest',
-        image: '/assets/images/products/showcase/ref-card-1.webp',
+        title: 'Chest Embroidery',
+        image: '/assets/images/products/showcase/golden-golisoda-card-1.webp',
       },
       {
         id: 'sleeve',
-        title: 'Sleeve Brand Monogram',
-        image: '/assets/images/products/showcase/ref-card-2.webp',
+        title: 'Sleeve Badge',
+        image: '/assets/images/products/showcase/golden-golisoda-card-2.webp',
       },
       {
         id: 'collar',
-        title: 'Crisp Collar & Placket Finish',
-        image: '/assets/images/products/showcase/ref-card-3.webp',
+        title: 'Collar & Placket',
+        image: '/assets/images/products/showcase/golden-golisoda-card-3.webp',
       },
     ],
   },
@@ -43,21 +43,21 @@ const DEFAULT_SLIDES: ShowcaseSlide[] = [
     id: 'mani',
     brand: 'MANI Group',
     subtitle: 'Executive Grey Combed Cotton Polo',
-    modelImage: '/assets/images/products/showcase/mani-model.webp',
+    modelImage: '/assets/images/products/showcase/mani-model-clean.webp',
     details: [
       {
         id: 'chest',
-        title: 'Vibrant Multi-Color Monogram',
+        title: 'Chest Monogram',
         image: '/assets/images/products/showcase/mani-card-1.webp',
       },
       {
         id: 'sleeve',
-        title: 'Color-Fast Sleeve Placement',
+        title: 'Sleeve Placement',
         image: '/assets/images/products/showcase/mani-card-2.webp',
       },
       {
         id: 'collar',
-        title: 'Seamless Collar & Placket Finish',
+        title: 'Collar & Back Crest',
         image: '/assets/images/products/showcase/mani-card-3.webp',
       },
     ],
@@ -72,30 +72,46 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
   slides = DEFAULT_SLIDES,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
 
   const totalSlides = slides.length;
   const currentSlide = slides[currentIndex];
+  const slideDuration = 5000; // 5 seconds per slide
 
   const nextSlide = () => {
+    setProgress(0);
     setCurrentIndex((prev) => (prev + 1) % totalSlides);
   };
 
   const prevSlide = () => {
+    setProgress(0);
     setCurrentIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
   };
 
-  // Auto-advance carousel every 6 seconds when not hovered
+  // Smooth thin-line loader animation and auto-advance
   useEffect(() => {
     if (isPaused || totalSlides <= 1) return;
+
+    const intervalTime = 50; // update every 50ms
+    const step = (intervalTime / slideDuration) * 100;
+
     const timer = setInterval(() => {
-      nextSlide();
-    }, 6000);
+      setProgress((prev) => {
+        if (prev >= 100) {
+          nextSlide();
+          return 0;
+        }
+        return prev + step;
+      });
+    }, intervalTime);
+
     return () => clearInterval(timer);
   }, [currentIndex, isPaused, totalSlides]);
 
+  // Touch swipe handling for mobile
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
   };
@@ -107,9 +123,9 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
   const handleTouchEnd = () => {
     if (!touchStartX.current || !touchEndX.current) return;
     const distance = touchStartX.current - touchEndX.current;
-    if (distance > 40) {
+    if (distance > 45) {
       nextSlide();
-    } else if (distance < -40) {
+    } else if (distance < -45) {
       prevSlide();
     }
     touchStartX.current = null;
@@ -118,7 +134,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
 
   return (
     <section
-      className="relative w-full py-6 sm:py-8 lg:py-10 bg-[#FAF7F4] select-none overflow-hidden"
+      className="relative w-full py-6 sm:py-8 lg:py-10 bg-[#FFFDF9] select-none overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
@@ -126,89 +142,112 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
       onTouchEnd={handleTouchEnd}
       aria-label="Client Uniform Showcase"
     >
-      <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* DESKTOP VIEW (Exact Reference Image 2 Alignment & Proportions) */}
-        <div className="hidden lg:grid lg:grid-cols-12 gap-6 xl:gap-8 items-center">
-          {/* Left Column: Heading + Model with background silhouettes */}
-          <div className="lg:col-span-8 xl:col-span-9 flex flex-col justify-between">
-            {/* Header Content matching Home Page Font Styles */}
-            <div className="text-left space-y-1.5 max-w-2xl">
-              <span className="text-xs font-heading font-extrabold uppercase tracking-[0.2em] text-[#80011F] block">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* DESKTOP VIEW (Exact Layout Matching Reference Image 2) */}
+        <div className="hidden lg:flex items-center justify-between gap-6 xl:gap-10">
+          {/* Left Column: Heading, Subtitle, Model with Animated Background & Thin Line Loader */}
+          <div className="flex-1 flex flex-col justify-between max-w-[820px] xl:max-w-[880px]">
+            {/* Header Content with Home Page Typography */}
+            <div className="text-left space-y-2">
+              <span className="text-xs sm:text-[13px] font-heading font-extrabold uppercase tracking-widest text-[#82132C] block">
                 Client Uniform Showcase
               </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-heading font-black text-charcoal-900 leading-[1.1] tracking-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-[40px] xl:text-[44px] font-heading font-black tracking-tight text-charcoal-900 leading-[1.08]">
                 Uniforms, Made for{' '}
-                <span className="font-heading font-black italic text-[#80011F]">Your Brand</span>
+                <span className="font-heading font-black italic text-[#82132C]">Your Brand</span>
               </h2>
-              <p className="text-xs sm:text-sm lg:text-[15px] text-charcoal-600 font-sans leading-relaxed max-w-xl font-normal pt-0.5">
+              <p className="text-sm sm:text-[15px] text-charcoal-600 font-normal leading-relaxed max-w-xl">
                 From branded polos to team uniforms, see how custom embroidery, print placement and
                 garment finishes bring each brand to life.
               </p>
             </div>
 
             {/* Model Presentation Stage with Background Animation & Silhouettes */}
-            <div className="relative mt-2 xl:mt-4 flex items-center justify-center min-h-[340px] xl:min-h-[380px]">
-              {/* Subtle ambient light pulse behind models */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="w-[80%] h-[75%] rounded-full bg-burgundy-100/30 blur-3xl animate-pulse" />
+            <div className="relative mt-3 flex items-center justify-center min-h-[360px] xl:min-h-[390px] overflow-visible">
+              {/* Animated Warm Ambient Glow Spotlight behind model */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] rounded-full bg-gradient-to-r from-burgundy-100/35 via-warm-100/50 to-burgundy-50/25 blur-3xl pointer-events-none animate-pulse" />
+
+              {/* Background Silhouette: Left Staff Silhouettes */}
+              <div className="absolute left-6 xl:left-12 bottom-2 w-[130px] xl:w-[150px] opacity-30 pointer-events-none transition-opacity duration-500">
+                <img
+                  src="/assets/images/products/showcase/silhouettes-left.webp"
+                  alt="Staff Uniform Silhouette"
+                  className="w-full h-auto object-contain filter grayscale contrast-125"
+                />
               </div>
 
-              {/* Main Model View (with background silhouettes) */}
-              <div className="relative w-full max-w-[620px] xl:max-w-[660px] flex items-center justify-center">
+              {/* Background Silhouette: Right Staff Silhouettes */}
+              <div className="absolute right-12 xl:right-20 bottom-2 w-[85px] xl:w-[95px] opacity-30 pointer-events-none transition-opacity duration-500">
+                <img
+                  src="/assets/images/products/showcase/silhouettes-right.webp"
+                  alt="Staff Uniform Silhouette"
+                  className="w-full h-auto object-contain filter grayscale contrast-125"
+                />
+              </div>
+
+              {/* Prev Navigation Button */}
+              <button
+                onClick={prevSlide}
+                aria-label="Previous uniform showcase"
+                className="absolute left-2 z-20 w-10 h-10 rounded-full bg-white/95 hover:bg-white text-charcoal-800 hover:text-burgundy-700 shadow-[0_4px_14px_rgba(0,0,0,0.12)] border border-charcoal-200/80 flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+              >
+                <ChevronLeft className="w-5 h-5 stroke-[2.2]" />
+              </button>
+
+              {/* Main Model Front & Back Cutout (Waist-Up, exact to Reference Image 2) */}
+              <div className="relative z-10 w-full max-w-[480px] xl:max-w-[530px] flex items-center justify-center">
                 <img
                   key={currentSlide.id}
                   src={currentSlide.modelImage}
                   alt={`${currentSlide.brand} showcase`}
-                  className="w-full h-auto max-h-[350px] xl:max-h-[390px] object-contain transition-all duration-500 animate-fadeIn"
+                  className="w-full h-auto max-h-[350px] xl:max-h-[380px] object-contain drop-shadow-[0_14px_24px_rgba(0,0,0,0.10)] transition-all duration-500"
                 />
               </div>
+
+              {/* Next Navigation Button */}
+              <button
+                onClick={nextSlide}
+                aria-label="Next uniform showcase"
+                className="absolute right-4 z-20 w-10 h-10 rounded-full bg-white/95 hover:bg-white text-charcoal-800 hover:text-burgundy-700 shadow-[0_4px_14px_rgba(0,0,0,0.12)] border border-charcoal-200/80 flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+              >
+                <ChevronRight className="w-5 h-5 stroke-[2.2]" />
+              </button>
             </div>
 
-            {/* Minimalist Thin Line Loader (No count text, ultra-clean) */}
-            <div className="flex items-center gap-3 pt-2">
-              <div className="flex items-center gap-2">
-                {slides.map((_, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setCurrentIndex(idx)}
-                    aria-label={`Showcase slide ${idx + 1}`}
-                    className="group relative h-[3px] w-14 sm:w-16 rounded-full bg-charcoal-300/40 overflow-hidden cursor-pointer transition-all duration-300"
-                  >
+            {/* Bottom Loader Option: Sleek Thin Line Indicator (No Count Text) */}
+            <div className="flex items-center gap-2.5 pt-2">
+              {slides.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    setProgress(0);
+                    setCurrentIndex(idx);
+                  }}
+                  aria-label={`Go to slide ${idx + 1}`}
+                  className="relative h-[3px] rounded-full overflow-hidden transition-all duration-300 cursor-pointer"
+                  style={{ width: currentIndex === idx ? '56px' : '26px' }}
+                >
+                  {/* Track line */}
+                  <div className="absolute inset-0 bg-charcoal-200/90 rounded-full" />
+                  {/* Active animated thin filling line */}
+                  {currentIndex === idx && (
                     <div
-                      className={`h-full bg-[#80011F] transition-all duration-500 rounded-full ${
-                        currentIndex === idx ? 'w-full' : 'w-0'
-                      }`}
+                      className="absolute inset-y-0 left-0 bg-[#82132C] rounded-full transition-all duration-75 ease-linear"
+                      style={{ width: `${progress}%` }}
                     />
-                  </button>
-                ))}
-              </div>
-
-              {/* Discrete compact prev/next controls */}
-              <div className="flex items-center gap-1.5 ml-2">
-                <button
-                  onClick={prevSlide}
-                  aria-label="Previous showcase"
-                  className="w-7 h-7 rounded-full bg-white/80 hover:bg-[#80011F] hover:text-white text-charcoal-600 border border-burgundy-100/60 flex items-center justify-center transition-all duration-200 cursor-pointer shadow-2xs"
-                >
-                  <ChevronLeft className="w-3.5 h-3.5" />
+                  )}
                 </button>
-                <button
-                  onClick={nextSlide}
-                  aria-label="Next showcase"
-                  className="w-7 h-7 rounded-full bg-white/80 hover:bg-[#80011F] hover:text-white text-charcoal-600 border border-burgundy-100/60 flex items-center justify-center transition-all duration-200 cursor-pointer shadow-2xs"
-                >
-                  <ChevronRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
+              ))}
             </div>
           </div>
 
-          {/* Right Column: 3 Compact Stacked Images directly with rounded corners, NO white card borders */}
-          <div className="lg:col-span-4 xl:col-span-3 flex flex-col items-end gap-3 xl:gap-3.5">
+          {/* Right Column: 3 Compact Stacked Detail Cards (Exact to Reference Image 2) */}
+          {/* No white background, no white border around image, strictly decreased size */}
+          <div className="w-[210px] xl:w-[235px] shrink-0 flex flex-col gap-3.5 xl:gap-4">
             {currentSlide.details.map((detail, idx) => (
               <div
                 key={`${currentSlide.id}-${detail.id}-${idx}`}
-                className="w-[190px] xl:w-[215px] aspect-[4/3] rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-transform duration-300 hover:scale-[1.02]"
+                className="relative w-full rounded-2xl overflow-hidden shadow-[0_6px_16px_rgba(0,0,0,0.12)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.18)] transition-all duration-300 hover:scale-[1.02] aspect-[16/11] bg-transparent"
               >
                 <img
                   src={detail.image}
@@ -220,59 +259,67 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
           </div>
         </div>
 
-        {/* MOBILE VIEW (Fitted cleanly within viewport) */}
-        <div className="lg:hidden flex flex-col space-y-3 text-left">
+        {/* MOBILE & TABLET VIEW (Compact, perfectly fitting viewport) */}
+        <div className="lg:hidden flex flex-col space-y-4 text-left">
           {/* Header Content */}
-          <div className="space-y-1">
-            <span className="text-[11px] font-heading font-extrabold uppercase tracking-[0.2em] text-[#80011F] block">
+          <div className="space-y-1.5">
+            <span className="text-[11px] font-heading font-extrabold uppercase tracking-widest text-[#82132C] block">
               Client Uniform Showcase
             </span>
-            <h2 className="text-2xl sm:text-3xl font-heading font-black text-charcoal-900 leading-[1.12] tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-heading font-black tracking-tight text-charcoal-900 leading-[1.12]">
               Uniforms, Made for <br />
-              <span className="font-heading font-black italic text-[#80011F]">Your Brand</span>
+              <span className="font-heading font-black italic text-[#82132C]">Your Brand</span>
             </h2>
-            <p className="text-xs sm:text-sm text-charcoal-600 font-sans leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm text-charcoal-600 font-normal leading-relaxed max-w-lg">
               From branded polos to team uniforms, see how custom embroidery, print placement and
               garment finishes bring each brand to life.
             </p>
           </div>
 
-          {/* Main Centered Model Presentation */}
-          <div className="relative py-1 flex items-center justify-center">
-            <div className="w-full max-w-[340px] sm:max-w-[400px] flex items-center justify-center">
+          {/* Main Centered Model Presentation with ambient spotlight */}
+          <div className="relative py-1 flex items-center justify-center min-h-[220px]">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[220px] h-[220px] rounded-full bg-burgundy-100/35 blur-2xl pointer-events-none" />
+
+            <div className="relative z-10 w-full max-w-[320px] flex items-center justify-center">
               <img
                 key={currentSlide.id}
                 src={currentSlide.modelImage}
                 alt={`${currentSlide.brand} showcase`}
-                className="w-full h-auto max-h-[260px] sm:max-h-[300px] object-contain transition-all duration-500"
+                className="w-full h-auto max-h-[220px] sm:max-h-[260px] object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.10)] transition-all duration-500"
               />
             </div>
           </div>
 
-          {/* Thin Line Loader on Mobile */}
+          {/* Thin Line Loader for Mobile (No count text) */}
           <div className="flex items-center justify-center gap-2 py-1">
             {slides.map((_, idx) => (
               <button
                 key={idx}
-                onClick={() => setCurrentIndex(idx)}
-                aria-label={`Showcase slide ${idx + 1}`}
-                className="h-[3px] w-10 sm:w-12 rounded-full bg-charcoal-300/40 overflow-hidden cursor-pointer"
+                onClick={() => {
+                  setProgress(0);
+                  setCurrentIndex(idx);
+                }}
+                aria-label={`Go to slide ${idx + 1}`}
+                className="relative h-[3px] rounded-full overflow-hidden transition-all duration-300 cursor-pointer"
+                style={{ width: currentIndex === idx ? '44px' : '20px' }}
               >
-                <div
-                  className={`h-full bg-[#80011F] transition-all duration-500 rounded-full ${
-                    currentIndex === idx ? 'w-full' : 'w-0'
-                  }`}
-                />
+                <div className="absolute inset-0 bg-charcoal-200/90 rounded-full" />
+                {currentIndex === idx && (
+                  <div
+                    className="absolute inset-y-0 left-0 bg-[#82132C] rounded-full transition-all duration-75 ease-linear"
+                    style={{ width: `${progress}%` }}
+                  />
+                )}
               </button>
             ))}
           </div>
 
-          {/* 3 Horizontal Detail Thumbnails (Direct Images, NO white background) */}
-          <div className="grid grid-cols-3 gap-2 sm:gap-3 pt-1">
+          {/* 3 Horizontal Compact Detail Cards: No white borders, pure image */}
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 max-w-md mx-auto w-full pt-1">
             {currentSlide.details.map((detail, idx) => (
               <div
                 key={`${currentSlide.id}-mobile-${detail.id}-${idx}`}
-                className="rounded-xl overflow-hidden aspect-square shadow-2xs"
+                className="relative rounded-xl overflow-hidden shadow-[0_4px_12px_rgba(0,0,0,0.10)] aspect-square bg-transparent"
               >
                 <img
                   src={detail.image}
