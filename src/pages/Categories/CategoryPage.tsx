@@ -239,10 +239,10 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
               fill="#F8D0D6"
               opacity="0.65"
             />
-            {/* Main Showcase Section Warm Cream Wave (#FFFDF9) */}
+            {/* Main Showcase Section Warm Cream Wave (#FAF7F4) */}
             <path
               d="M0,32 C280,64 620,68 960,35 C1160,18 1340,36 1440,46 L1440,70 L0,70 Z"
-              fill="#FFFDF9"
+              fill="#FAF7F4"
             />
           </svg>
         </div>
