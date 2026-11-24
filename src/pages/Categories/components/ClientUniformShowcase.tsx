@@ -369,11 +369,18 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
   slides: propSlides,
   category = 'corporate',
 }) => {
+  const isSchool = category === 'school';
+  const isPromotional =
+    category === 'promotional-events' ||
+    category === 'promotional' ||
+    category === 'promo' ||
+    category === 'events';
+
   const slides =
     propSlides ||
-    (category === 'promotional-events'
+    (isPromotional
       ? PROMOTIONAL_SLIDES
-      : category === 'school'
+      : isSchool
       ? SCHOOL_SLIDES
       : CORPORATE_SLIDES);
 

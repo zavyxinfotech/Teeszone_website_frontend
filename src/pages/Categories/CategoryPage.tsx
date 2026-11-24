@@ -48,8 +48,14 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
   const navigate = useNavigate();
 
   // Determine active slug from prop, route params, or default to 'corporate'
-  const rawSlug = forcedSlug || params.slug || params.category || 'corporate';
-  const slug = (rawSlug in categoryDetails ? rawSlug : 'corporate') as ProductCategory;
+  const rawParam = forcedSlug || params.slug || params.category || 'corporate';
+  const normalizedSlug =
+    rawParam === 'promotional' || rawParam === 'promo' || rawParam === 'events'
+      ? 'promotional-events'
+      : rawParam === 'sports'
+      ? 'sports-academics'
+      : rawParam;
+  const slug = (normalizedSlug in categoryDetails ? normalizedSlug : 'corporate') as ProductCategory;
   const category: CategoryDetail = categoryDetails[slug];
 
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
