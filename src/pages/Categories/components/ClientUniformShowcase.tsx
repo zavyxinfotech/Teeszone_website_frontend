@@ -560,12 +560,12 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
     (isBlank
       ? BLANK_SLIDES
       : isSports
-      ? SPORTS_SLIDES
-      : isPromotional
-      ? PROMOTIONAL_SLIDES
-      : isSchool
-      ? SCHOOL_SLIDES
-      : CORPORATE_SLIDES);
+        ? SPORTS_SLIDES
+        : isPromotional
+          ? PROMOTIONAL_SLIDES
+          : isSchool
+            ? SCHOOL_SLIDES
+            : CORPORATE_SLIDES);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -661,12 +661,12 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
   const badgeText = isBlank
     ? 'Blank Apparel & Private Label Showcase'
     : isSports
-    ? 'Athletic & Teamwear Showcase'
-    : isPromotional
-    ? 'Event & Merchandise Showcase'
-    : isSchool
-    ? 'Campus Uniform Showcase'
-    : 'Client Uniform Showcase';
+      ? 'Athletic & Teamwear Showcase'
+      : isPromotional
+        ? 'Event & Merchandise Showcase'
+        : isSchool
+          ? 'Campus Uniform Showcase'
+          : 'Client Uniform Showcase';
 
   const headingText = isBlank ? (
     <>
@@ -698,12 +698,12 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
   const subtitleText = isBlank
     ? 'From heavyweight fleece hoodies and pique polos to streetwear oversized tees and bio-washed crewnecks, explore our ready-stock wholesale blanks engineered for private labels and custom printers.'
     : isSports
-    ? 'From moisture-wicking team jerseys to athletic training tracksuits, see how vibrant sublimation graphics, team numbers and performance mesh knits elevate every game.'
-    : isPromotional
-    ? 'From music concerts to sports leagues and marathon merchandise, see how vibrant all-over prints, custom sponsor branding and performance fabrics bring every event to life.'
-    : isSchool
-    ? 'From institutional polos to school house uniforms, see how custom school crests, emblem printing and durable fabric finishes bring each campus to life.'
-    : 'From branded polos to team uniforms, see how custom embroidery, print placement and garment finishes bring each brand to life.';
+      ? 'From moisture-wicking team jerseys to athletic training tracksuits, see how vibrant sublimation graphics, team numbers and performance mesh knits elevate every game.'
+      : isPromotional
+        ? 'From music concerts to sports leagues and marathon merchandise, see how vibrant all-over prints, custom sponsor branding and performance fabrics bring every event to life.'
+        : isSchool
+          ? 'From institutional polos to school house uniforms, see how custom school crests, emblem printing and durable fabric finishes bring each campus to life.'
+          : 'From branded polos to team uniforms, see how custom embroidery, print placement and garment finishes bring each brand to life.';
 
   return (
     <section
