@@ -15,7 +15,7 @@ export interface ShowcaseSlide {
   details: ShowcaseDetail[];
 }
 
-const DEFAULT_SLIDES: ShowcaseSlide[] = [
+export const CORPORATE_SLIDES: ShowcaseSlide[] = [
   {
     id: 'ais',
     brand: 'AIS Advanced Industrial Solutions',
@@ -130,13 +130,131 @@ const DEFAULT_SLIDES: ShowcaseSlide[] = [
   },
 ];
 
+export const SCHOOL_SLIDES: ShowcaseSlide[] = [
+  {
+    id: 'dpen',
+    brand: 'DPEN Sports Science',
+    subtitle: 'Collegiate Sports & Departmental Pique Polo',
+    modelImage: '/assets/images/products/showcase/school/dpen-model.webp',
+    details: [
+      {
+        id: 'chest',
+        title: 'School Crest Embroidery',
+        image: '/assets/images/products/showcase/school/dpen-c1.webp',
+      },
+      {
+        id: 'back',
+        title: 'Back Department Print',
+        image: '/assets/images/products/showcase/school/dpen-c2.webp',
+      },
+      {
+        id: 'fabric',
+        title: 'High-Durability Pique Fabric',
+        image: '/assets/images/products/showcase/school/dpen-c3.webp',
+      },
+      {
+        id: 'collar',
+        title: 'Reinforced Collar Placket',
+        image: '/assets/images/products/showcase/school/dpen-c4.webp',
+      },
+    ],
+  },
+  {
+    id: 'lawrence',
+    brand: 'The Lawrence School Lovedale',
+    subtitle: 'Custom Campus Event Hoodies & School Uniforms',
+    modelImage: '/assets/images/products/showcase/school/lawrence-model.webp',
+    details: [
+      {
+        id: 'chest',
+        title: 'TEDx Chest Embroidery',
+        image: '/assets/images/products/showcase/school/lawrence-c1.webp',
+      },
+      {
+        id: 'back',
+        title: 'Committee Head Back Print',
+        image: '/assets/images/products/showcase/school/lawrence-c2.webp',
+      },
+      {
+        id: 'collar',
+        title: 'Double-Lined Hood & Drawstrings',
+        image: '/assets/images/products/showcase/school/lawrence-c3.webp',
+      },
+      {
+        id: 'pocket',
+        title: 'Kangaroo Pocket Reinforcement',
+        image: '/assets/images/products/showcase/school/lawrence-c4.webp',
+      },
+    ],
+  },
+  {
+    id: 'vinayaka',
+    brand: 'Vinayaka Vidhya Bhavan',
+    subtitle: 'Junior Campus House Polo & School Uniform Set',
+    modelImage: '/assets/images/products/showcase/school/vinayaka-model.webp',
+    details: [
+      {
+        id: 'chest',
+        title: 'School Emblem Chest Print',
+        image: '/assets/images/products/showcase/school/vinayaka-c1.webp',
+      },
+      {
+        id: 'back',
+        title: 'Back Institution Branding',
+        image: '/assets/images/products/showcase/school/vinayaka-c2.webp',
+      },
+      {
+        id: 'collar',
+        title: 'Contrast Tipped Collar',
+        image: '/assets/images/products/showcase/school/vinayaka-c3.webp',
+      },
+      {
+        id: 'sleeve',
+        title: 'Navy Ribbed Sleeve Cuff',
+        image: '/assets/images/products/showcase/school/vinayaka-c4.webp',
+      },
+    ],
+  },
+  {
+    id: 'rk',
+    brand: 'RK Academy',
+    subtitle: 'Academic JEE/NEET Foundation Campus Uniform Polo',
+    modelImage: '/assets/images/products/showcase/school/rk-model.webp',
+    details: [
+      {
+        id: 'collar',
+        title: 'Dual Striped Collar & Placket',
+        image: '/assets/images/products/showcase/school/rk-c1.webp',
+      },
+      {
+        id: 'chest',
+        title: 'Academy Crest Chest Monogram',
+        image: '/assets/images/products/showcase/school/rk-c2.webp',
+      },
+      {
+        id: 'back',
+        title: 'Back Academic Division Print',
+        image: '/assets/images/products/showcase/school/rk-c3.webp',
+      },
+      {
+        id: 'sleeve',
+        title: 'Striped Rib Sleeve Cuff',
+        image: '/assets/images/products/showcase/school/rk-c4.webp',
+      },
+    ],
+  },
+];
+
 interface ClientUniformShowcaseProps {
   slides?: ShowcaseSlide[];
+  category?: 'corporate' | 'school' | string;
 }
 
 export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
-  slides = DEFAULT_SLIDES,
+  slides: propSlides,
+  category = 'corporate',
 }) => {
+  const slides = propSlides || (category === 'school' ? SCHOOL_SLIDES : CORPORATE_SLIDES);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -144,6 +262,12 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
   const sectionRef = useRef<HTMLElement>(null);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
+
+  // Reset index when category or slides change
+  useEffect(() => {
+    setCurrentIndex(0);
+    setProgress(0);
+  }, [category, propSlides]);
 
   const totalSlides = slides.length;
   const currentSlide = slides[currentIndex];
@@ -222,6 +346,12 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
     touchEndX.current = null;
   };
 
+  const isSchool = category === 'school';
+  const badgeText = isSchool ? 'Campus Uniform Showcase' : 'Client Uniform Showcase';
+  const subtitleText = isSchool
+    ? 'From institutional polos to school house uniforms, see how custom school crests, emblem printing and durable fabric finishes bring each campus to life.'
+    : 'From branded polos to team uniforms, see how custom embroidery, print placement and garment finishes bring each brand to life.';
+
   return (
     <section
       ref={sectionRef}
@@ -231,7 +361,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
-      aria-label="Client Uniform Showcase"
+      aria-label={badgeText}
     >
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 flex flex-col justify-center h-full">
         {/* DESKTOP VIEW (Main Model aligned on Right near 4 detail cards, shaded models on Left in decreasing size) */}
@@ -241,15 +371,16 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
             {/* Header Content */}
             <div className="text-left space-y-2">
               <span className="text-xs sm:text-[13px] font-heading font-extrabold uppercase tracking-widest text-[#82132C] block">
-                Client Uniform Showcase
+                {badgeText}
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-[42px] xl:text-[46px] font-heading font-black tracking-tight text-charcoal-900 leading-[1.08]">
                 Uniforms, Made for{' '}
-                <span className="font-heading font-black italic text-[#82132C]">Your Brand</span>
+                <span className="font-heading font-black italic text-[#82132C]">
+                  {isSchool ? 'Your Campus' : 'Your Brand'}
+                </span>
               </h2>
               <p className="text-sm sm:text-base text-charcoal-600 font-normal leading-relaxed max-w-xl">
-                From branded polos to team uniforms, see how custom embroidery, print placement and
-                garment finishes bring each brand to life.
+                {subtitleText}
               </p>
             </div>
 
@@ -405,15 +536,16 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
           {/* Header Content */}
           <div className="space-y-1.5">
             <span className="text-[11px] font-heading font-extrabold uppercase tracking-widest text-[#82132C] block">
-              Client Uniform Showcase
+              {badgeText}
             </span>
             <h2 className="text-2xl sm:text-3xl font-heading font-black tracking-tight text-charcoal-900 leading-[1.12]">
               Uniforms, Made for <br />
-              <span className="font-heading font-black italic text-[#82132C]">Your Brand</span>
+              <span className="font-heading font-black italic text-[#82132C]">
+                {isSchool ? 'Your Campus' : 'Your Brand'}
+              </span>
             </h2>
             <p className="text-xs sm:text-sm text-charcoal-600 font-normal leading-relaxed max-w-lg">
-              From branded polos to team uniforms, see how custom embroidery, print placement and
-              garment finishes bring each brand to life.
+              {subtitleText}
             </p>
           </div>
 
