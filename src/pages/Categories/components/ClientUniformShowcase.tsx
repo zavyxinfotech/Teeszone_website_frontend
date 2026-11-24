@@ -475,9 +475,6 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
     touchEndX.current = null;
   };
 
-  const isSchool = category === 'school';
-  const isPromotional = category === 'promotional-events';
-
   const badgeText = isPromotional
     ? 'Event & Merchandise Showcase'
     : isSchool
