@@ -131,6 +131,22 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: 'category/sports',
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <SportsAcademicsCategoryPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'category/academics',
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <SportsAcademicsCategoryPage />
+          </Suspense>
+        ),
+      },
+      {
         path: 'products/:category',
         element: (
           <Suspense fallback={<LoadingFallback />}>

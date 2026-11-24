@@ -52,7 +52,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
   const normalizedSlug =
     rawParam === 'promotional' || rawParam === 'promo' || rawParam === 'events'
       ? 'promotional-events'
-      : rawParam === 'sports'
+      : rawParam === 'sports' || rawParam === 'academics'
       ? 'sports-academics'
       : rawParam;
   const slug = (normalizedSlug in categoryDetails ? normalizedSlug : 'corporate') as ProductCategory;
@@ -254,8 +254,8 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
         </div>
       </section>
 
-      {/* 2. CLIENT UNIFORM SHOWCASE (Corporate, School, and Promotional & Events pages only) */}
-      {(slug === 'corporate' || slug === 'school' || slug === 'promotional-events') && (
+      {/* 2. CLIENT UNIFORM SHOWCASE (Corporate, School, Promotional & Events, and Sports pages only) */}
+      {(slug === 'corporate' || slug === 'school' || slug === 'promotional-events' || slug === 'sports-academics') && (
         <ClientUniformShowcase category={slug} />
       )}
 

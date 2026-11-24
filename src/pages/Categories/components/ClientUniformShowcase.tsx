@@ -360,9 +360,68 @@ export const PROMOTIONAL_SLIDES: ShowcaseSlide[] = [
   },
 ];
 
+export const SPORTS_SLIDES: ShowcaseSlide[] = [
+  {
+    id: 'adult-sports',
+    brand: 'Apex Pro Athletic Teamwear',
+    subtitle: 'Custom Gradient Speed Graphic Performance Jersey & Track Pants',
+    modelImage: '/assets/images/products/showcase/sports/adult-model.webp',
+    details: [
+      {
+        id: 'collar',
+        title: 'Crewneck Ribbed Collar',
+        image: '/assets/images/products/showcase/sports/adult-c1.webp',
+      },
+      {
+        id: 'sleeve',
+        title: 'Navy Tipped Sleeve Rib',
+        image: '/assets/images/products/showcase/sports/adult-c2.webp',
+      },
+      {
+        id: 'graphic',
+        title: 'Speed Streaks Gradient Print',
+        image: '/assets/images/products/showcase/sports/adult-c3.webp',
+      },
+      {
+        id: 'fabric',
+        title: 'Breathable Interlock Mesh',
+        image: '/assets/images/products/showcase/sports/adult-c4.webp',
+      },
+    ],
+  },
+  {
+    id: 'junior-sports',
+    brand: 'Junior Academy Activewear',
+    subtitle: 'Full-Sublimation Multi-Color Soundwave Jersey & Shorts Set',
+    modelImage: '/assets/images/products/showcase/sports/junior-model.webp',
+    details: [
+      {
+        id: 'collar',
+        title: 'Contrast Tipped Crewneck',
+        image: '/assets/images/products/showcase/sports/junior-c1.webp',
+      },
+      {
+        id: 'sleeve',
+        title: 'Raglan Colorblock Sleeves',
+        image: '/assets/images/products/showcase/sports/junior-c2.webp',
+      },
+      {
+        id: 'graphic',
+        title: 'Dynamic Soundwave Dot Graphic',
+        image: '/assets/images/products/showcase/sports/junior-c3.webp',
+      },
+      {
+        id: 'fabric',
+        title: 'Performance Waffle Knit Fabric',
+        image: '/assets/images/products/showcase/sports/junior-c4.webp',
+      },
+    ],
+  },
+];
+
 interface ClientUniformShowcaseProps {
   slides?: ShowcaseSlide[];
-  category?: 'corporate' | 'school' | 'promotional-events' | string;
+  category?: 'corporate' | 'school' | 'promotional-events' | 'sports-academics' | string;
 }
 
 export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
@@ -375,10 +434,16 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
     category === 'promotional' ||
     category === 'promo' ||
     category === 'events';
+  const isSports =
+    category === 'sports-academics' ||
+    category === 'sports' ||
+    category === 'academics';
 
   const slides =
     propSlides ||
-    (isPromotional
+    (isSports
+      ? SPORTS_SLIDES
+      : isPromotional
       ? PROMOTIONAL_SLIDES
       : isSchool
       ? SCHOOL_SLIDES
@@ -475,13 +540,20 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
     touchEndX.current = null;
   };
 
-  const badgeText = isPromotional
+  const badgeText = isSports
+    ? 'Athletic & Teamwear Showcase'
+    : isPromotional
     ? 'Event & Merchandise Showcase'
     : isSchool
     ? 'Campus Uniform Showcase'
     : 'Client Uniform Showcase';
 
-  const headingText = isPromotional ? (
+  const headingText = isSports ? (
+    <>
+      Performance Gear, Made for{' '}
+      <span className="font-heading font-black italic text-[#82132C]">Your Team</span>
+    </>
+  ) : isPromotional ? (
     <>
       Merchandise, Made for{' '}
       <span className="font-heading font-black italic text-[#82132C]">Your Event</span>
@@ -498,7 +570,9 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
     </>
   );
 
-  const subtitleText = isPromotional
+  const subtitleText = isSports
+    ? 'From moisture-wicking team jerseys to athletic training tracksuits, see how vibrant sublimation graphics, team numbers and performance mesh knits elevate every game.'
+    : isPromotional
     ? 'From music concerts to sports leagues and marathon merchandise, see how vibrant all-over prints, custom sponsor branding and performance fabrics bring every event to life.'
     : isSchool
     ? 'From institutional polos to school house uniforms, see how custom school crests, emblem printing and durable fabric finishes bring each campus to life.'
@@ -550,65 +624,71 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
                 <ChevronLeft className="w-5 h-5 stroke-[2.2]" />
               </button>
 
-              {/* Shaded Left Model 3 (Smallest, furthest left) */}
-              <div
-                onClick={() => {
-                  setProgress(0);
-                  setCurrentIndex(leftIdx3);
-                }}
-                className="absolute left-8 xl:left-12 top-1/2 z-10 w-[200px] xl:w-[220px] opacity-15 hover:opacity-40 transition-all duration-700 cursor-pointer filter grayscale-[40%] blur-[0.6px]"
-                style={{
-                  transform: 'translateY(-50%) rotateY(28deg) scale(0.48) translateZ(-80px)',
-                  transformStyle: 'preserve-3d',
-                }}
-                title={`Switch to ${slides[leftIdx3].brand}`}
-              >
-                <img
-                  src={slides[leftIdx3].modelImage}
-                  alt={slides[leftIdx3].brand}
-                  className="w-full h-auto max-h-[380px] object-contain select-none"
-                />
-              </div>
+              {/* Shaded Left Model 3 (Smallest, furthest left, only when > 3 slides) */}
+              {totalSlides > 3 && (
+                <div
+                  onClick={() => {
+                    setProgress(0);
+                    setCurrentIndex(leftIdx3);
+                  }}
+                  className="absolute left-8 xl:left-12 top-1/2 z-10 w-[200px] xl:w-[220px] opacity-15 hover:opacity-40 transition-all duration-700 cursor-pointer filter grayscale-[40%] blur-[0.6px]"
+                  style={{
+                    transform: 'translateY(-50%) rotateY(28deg) scale(0.48) translateZ(-80px)',
+                    transformStyle: 'preserve-3d',
+                  }}
+                  title={`Switch to ${slides[leftIdx3].brand}`}
+                >
+                  <img
+                    src={slides[leftIdx3].modelImage}
+                    alt={slides[leftIdx3].brand}
+                    className="w-full h-auto max-h-[380px] object-contain select-none"
+                  />
+                </div>
+              )}
 
-              {/* Shaded Left Model 2 (Medium small, mid-left) */}
-              <div
-                onClick={() => {
-                  setProgress(0);
-                  setCurrentIndex(leftIdx2);
-                }}
-                className="absolute left-[150px] xl:left-[200px] top-1/2 z-15 w-[230px] xl:w-[260px] opacity-28 hover:opacity-55 transition-all duration-700 cursor-pointer filter grayscale-[30%] blur-[0.4px]"
-                style={{
-                  transform: 'translateY(-50%) rotateY(24deg) scale(0.62) translateZ(-50px)',
-                  transformStyle: 'preserve-3d',
-                }}
-                title={`Switch to ${slides[leftIdx2].brand}`}
-              >
-                <img
-                  src={slides[leftIdx2].modelImage}
-                  alt={slides[leftIdx2].brand}
-                  className="w-full h-auto max-h-[420px] object-contain select-none"
-                />
-              </div>
+              {/* Shaded Left Model 2 (Medium small, mid-left, only when > 2 slides) */}
+              {totalSlides > 2 && (
+                <div
+                  onClick={() => {
+                    setProgress(0);
+                    setCurrentIndex(leftIdx2);
+                  }}
+                  className="absolute left-[150px] xl:left-[200px] top-1/2 z-15 w-[230px] xl:w-[260px] opacity-28 hover:opacity-55 transition-all duration-700 cursor-pointer filter grayscale-[30%] blur-[0.4px]"
+                  style={{
+                    transform: 'translateY(-50%) rotateY(24deg) scale(0.62) translateZ(-50px)',
+                    transformStyle: 'preserve-3d',
+                  }}
+                  title={`Switch to ${slides[leftIdx2].brand}`}
+                >
+                  <img
+                    src={slides[leftIdx2].modelImage}
+                    alt={slides[leftIdx2].brand}
+                    className="w-full h-auto max-h-[420px] object-contain select-none"
+                  />
+                </div>
+              )}
 
-              {/* Shaded Left Model 1 (Immediately left of main model, decreasing size step) */}
-              <div
-                onClick={() => {
-                  setProgress(0);
-                  setCurrentIndex(leftIdx1);
-                }}
-                className="absolute right-[280px] xl:right-[330px] top-1/2 z-20 w-[270px] xl:w-[310px] opacity-45 hover:opacity-75 transition-all duration-700 cursor-pointer filter grayscale-[18%] blur-[0.2px]"
-                style={{
-                  transform: 'translateY(-50%) rotateY(18deg) scale(0.76) translateZ(-25px)',
-                  transformStyle: 'preserve-3d',
-                }}
-                title={`Switch to ${slides[leftIdx1].brand}`}
-              >
-                <img
-                  src={slides[leftIdx1].modelImage}
-                  alt={slides[leftIdx1].brand}
-                  className="w-full h-auto max-h-[450px] xl:max-h-[490px] object-contain select-none"
-                />
-              </div>
+              {/* Shaded Left Model 1 (Immediately left of main model, decreasing size step, shown when > 1 slide) */}
+              {totalSlides > 1 && (
+                <div
+                  onClick={() => {
+                    setProgress(0);
+                    setCurrentIndex(leftIdx1);
+                  }}
+                  className="absolute right-[280px] xl:right-[330px] top-1/2 z-20 w-[270px] xl:w-[310px] opacity-45 hover:opacity-75 transition-all duration-700 cursor-pointer filter grayscale-[18%] blur-[0.2px]"
+                  style={{
+                    transform: 'translateY(-50%) rotateY(18deg) scale(0.76) translateZ(-25px)',
+                    transformStyle: 'preserve-3d',
+                  }}
+                  title={`Switch to ${slides[leftIdx1].brand}`}
+                >
+                  <img
+                    src={slides[leftIdx1].modelImage}
+                    alt={slides[leftIdx1].brand}
+                    className="w-full h-auto max-h-[450px] xl:max-h-[490px] object-contain select-none"
+                  />
+                </div>
+              )}
 
               {/* MAIN ACTIVE MODEL (Aligned on right side, directly adjacent to the 4 small detail cards) */}
               <div
@@ -712,37 +792,41 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
               <ChevronLeft className="w-5 h-5" />
             </button>
 
-            {/* Left Shaded Model 2 (Smallest on mobile) */}
-            <div
-              onClick={() => {
-                setProgress(0);
-                setCurrentIndex(leftIdx2);
-              }}
-              className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-[110px] opacity-20 filter grayscale-[35%]"
-              style={{ transform: 'translateY(-50%) rotateY(20deg) scale(0.55)' }}
-            >
-              <img
-                src={slides[leftIdx2].modelImage}
-                alt={slides[leftIdx2].brand}
-                className="w-full h-auto max-h-[190px] object-contain select-none"
-              />
-            </div>
+            {/* Left Shaded Model 2 (only when > 2 slides) */}
+            {totalSlides > 2 && (
+              <div
+                onClick={() => {
+                  setProgress(0);
+                  setCurrentIndex(leftIdx2);
+                }}
+                className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-[110px] opacity-20 filter grayscale-[35%]"
+                style={{ transform: 'translateY(-50%) rotateY(20deg) scale(0.55)' }}
+              >
+                <img
+                  src={slides[leftIdx2].modelImage}
+                  alt={slides[leftIdx2].brand}
+                  className="w-full h-auto max-h-[190px] object-contain select-none"
+                />
+              </div>
+            )}
 
-            {/* Left Shaded Model 1 (Mid-size on mobile, left of main model) */}
-            <div
-              onClick={() => {
-                setProgress(0);
-                setCurrentIndex(leftIdx1);
-              }}
-              className="absolute left-[65px] xs:left-[80px] sm:left-[110px] top-1/2 -translate-y-1/2 z-15 w-[130px] opacity-40 filter grayscale-[20%]"
-              style={{ transform: 'translateY(-50%) rotateY(16deg) scale(0.72)' }}
-            >
-              <img
-                src={slides[leftIdx1].modelImage}
-                alt={slides[leftIdx1].brand}
-                className="w-full h-auto max-h-[225px] object-contain select-none"
-              />
-            </div>
+            {/* Left Shaded Model 1 (shown when > 1 slide) */}
+            {totalSlides > 1 && (
+              <div
+                onClick={() => {
+                  setProgress(0);
+                  setCurrentIndex(leftIdx1);
+                }}
+                className="absolute left-[65px] xs:left-[80px] sm:left-[110px] top-1/2 -translate-y-1/2 z-15 w-[130px] opacity-40 filter grayscale-[20%]"
+                style={{ transform: 'translateY(-50%) rotateY(16deg) scale(0.72)' }}
+              >
+                <img
+                  src={slides[leftIdx1].modelImage}
+                  alt={slides[leftIdx1].brand}
+                  className="w-full h-auto max-h-[225px] object-contain select-none"
+                />
+              </div>
+            )}
 
             {/* Active Main Model: Aligned near right side on mobile */}
             <div className="relative z-20 w-full max-w-[210px] xs:max-w-[230px] sm:max-w-[260px] mr-4 xs:mr-6 flex items-center justify-center">
