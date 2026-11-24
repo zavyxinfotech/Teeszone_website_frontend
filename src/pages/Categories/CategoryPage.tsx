@@ -7,11 +7,13 @@ import { Button } from '@/components/common/Button';
 import { ClientUniformShowcase } from './components/ClientUniformShowcase';
 import {
   Sparkles,
+  ChevronRight,
   ChevronDown,
   Layers,
   Package,
   Clock,
   Calendar,
+  Factory,
   ArrowRight,
 } from 'lucide-react';
 
@@ -43,54 +45,22 @@ const renderH1 = (text: string) => {
   return text;
 };
 
-const blankApparelVariants = [
-  {
-    id: 'navy-polo',
-    name: 'Blank Pique Polo',
-    image: '/assets/products/blank_navy_polo_clean.webp',
-    colorHex: '#1B2B4A',
-    tag: 'Classic Collared',
-  },
-  {
-    id: 'red-oversized',
-    name: 'Oversized Streetwear Tee',
-    image: '/assets/products/blank_red_oversized_clean.webp',
-    colorHex: '#BA1B2B',
-    tag: 'Drop Shoulder Boxy',
-  },
-  {
-    id: 'green-hoodie',
-    name: 'Heavyweight Fleece Hoodie',
-    image: '/assets/products/blank_green_hoodie_clean.webp',
-    colorHex: '#1C4D32',
-    tag: 'Thermal Pullover',
-  },
-  {
-    id: 'grey-crewneck',
-    name: 'Super Combed Crewneck',
-    image: '/assets/products/blank_grey_crewneck.webp',
-    colorHex: '#A0A4A8',
-    tag: 'Regular Fit Blank',
-  },
-];
-
 export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQuote }) => {
   const params = useParams<{ slug?: string; category?: string }>();
   const navigate = useNavigate();
 
   // Determine active slug from prop, route params, or default to 'corporate'
-  const rawParam = forcedSlug || params.slug || params.category || 'corporate';
+  const rawSlug = forcedSlug || params.slug || params.category || 'corporate';
   const normalizedSlug =
-    rawParam === 'promotional' || rawParam === 'promo' || rawParam === 'events'
+    rawSlug === 'promotional' || rawSlug === 'promo' || rawSlug === 'events'
       ? 'promotional-events'
-      : rawParam === 'sports' || rawParam === 'academics'
+      : rawSlug === 'sports' || rawSlug === 'academics'
       ? 'sports-academics'
-      : rawParam;
+      : rawSlug;
   const slug = (normalizedSlug in categoryDetails ? normalizedSlug : 'corporate') as ProductCategory;
   const category: CategoryDetail = categoryDetails[slug];
 
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
-  const [selectedBlankIndex, setSelectedBlankIndex] = useState<number>(0);
 
   const toggleFaq = (idx: number) => {
     setOpenFaqIndex(openFaqIndex === idx ? null : idx);
@@ -106,8 +76,8 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
 
   return (
     <div className="flex flex-col min-h-screen bg-[#FFFDF9]">
-      {/* 1. HERO WITH LUXURY SATIN BACKDROP & WAVY BORDER DESIGN */}
-      <section className="relative w-full pt-28 pb-18 sm:pt-32 sm:pb-22 lg:pt-36 lg:pb-28 overflow-hidden bg-[#FAF6F4] select-none">
+      {/* 1. HERO & BREADCRUMBS WITH LUXURY SATIN BACKDROP (Exact Layout from Reference Image 2) */}
+      <section className="relative w-full pt-28 pb-14 sm:pt-32 sm:pb-16 lg:pt-36 lg:pb-20 overflow-hidden bg-[#FAF6F4] border-b border-burgundy-100/60 select-none">
         {/* Full-width Luxury Flowing Satin Background (Image 1) */}
         <div className="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden">
           <img
@@ -121,9 +91,31 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
         </div>
 
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Breadcrumb Navigation matching Reference Image 2 */}
+          <nav
+            aria-label="Breadcrumb"
+            className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium text-charcoal-500 mb-5 sm:mb-6"
+          >
+            <Link to="/" className="hover:text-burgundy-700 transition-colors">
+              Home
+            </Link>
+            <ChevronRight className="w-3.5 h-3.5 text-charcoal-400" />
+            <Link to="/products" className="hover:text-burgundy-700 transition-colors">
+              Products
+            </Link>
+            <ChevronRight className="w-3.5 h-3.5 text-charcoal-400" />
+            <span className="text-burgundy-700 font-semibold">{category.title}</span>
+          </nav>
+
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Left Content Column */}
+            {/* Left Content Column matching Reference Image 2 */}
             <div className="lg:col-span-7 space-y-4 sm:space-y-5 text-left">
+              {/* Badge Pill with Sparkle */}
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FCECEF]/90 border border-[#80011F]/20 text-burgundy-700 text-xs sm:text-sm font-heading font-bold tracking-wider uppercase shadow-2xs">
+                <Sparkles className="w-3.5 h-3.5 text-burgundy-700" />
+                <span>{category.badge}</span>
+              </div>
+
               {/* H1 Headline with Two-Tone Burgundy Accent */}
               <h1 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[52px] font-heading font-extrabold text-charcoal-900 leading-[1.12] tracking-tight">
                 {renderH1(category.h1)}
@@ -197,134 +189,23 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
               </div>
             </div>
 
-            {/* Right Hero Image Column */}
+            {/* Right Hero Image Column: Garment Cutout floating gracefully over Podium */}
             <div className="lg:col-span-5 flex flex-col items-center justify-center relative">
-              {slug === 'blank' ? (
-                /* Blank Apparel Custom Showcase: Decreasing-Size Thumbnails on Left + Main Image on Right */
-                <div className="w-full flex flex-col items-center">
-                  <div className="w-full flex items-center justify-center lg:justify-end gap-3 sm:gap-4 relative">
-                    {/* Left-side thumbnails in decreasing size order (Desktop) */}
-                    <div className="hidden sm:flex flex-col items-end gap-3 z-20">
-                      {blankApparelVariants
-                        .map((variant, originalIdx) => ({ variant, originalIdx }))
-                        .filter(({ originalIdx }) => originalIdx !== selectedBlankIndex)
-                        .map(({ variant, originalIdx }, thumbIdx) => {
-                          // Decreasing size classes based on thumbIdx: 0: largest, 1: medium, 2: smallest
-                          const sizeClass =
-                            thumbIdx === 0
-                              ? 'w-24 h-28 sm:w-28 sm:h-32'
-                              : thumbIdx === 1
-                              ? 'w-20 h-24 sm:w-24 sm:h-28'
-                              : 'w-16 h-20 sm:w-20 sm:h-24';
+              <div className="relative w-full max-w-[340px] xs:max-w-[400px] sm:max-w-[460px] lg:max-w-[500px] xl:max-w-[540px] flex items-center justify-center">
+                <img
+                  src={category.heroImage}
+                  alt={category.title}
+                  className="w-full h-auto max-h-[380px] xs:max-h-[440px] sm:max-h-[500px] lg:max-h-[540px] object-contain relative z-10 transition-transform duration-700 hover:scale-105 drop-shadow-[0_22px_36px_rgba(88,8,25,0.24)]"
+                />
+              </div>
 
-                          return (
-                            <button
-                              key={variant.id}
-                              onClick={() => setSelectedBlankIndex(originalIdx)}
-                              className={`group relative ${sizeClass} rounded-2xl bg-white/95 backdrop-blur-md p-1.5 border border-burgundy-200/70 shadow-soft hover:shadow-soft-lg hover:border-burgundy-700 transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer overflow-hidden flex flex-col items-center justify-center`}
-                              title={`Switch to ${variant.name}`}
-                              aria-label={`Select ${variant.name}`}
-                            >
-                              <img
-                                src={variant.image}
-                                alt={variant.name}
-                                className="w-full h-full object-contain select-none transition-transform duration-300 group-hover:scale-108"
-                              />
-                              <span
-                                className="absolute bottom-1 right-1 w-2.5 h-2.5 rounded-full border border-white shadow-2xs"
-                                style={{ backgroundColor: variant.colorHex }}
-                              />
-                            </button>
-                          );
-                        })}
-                    </div>
-
-                    {/* Main Featured Image Card (Aligned at the Right Side with Shaded Depth Effect) */}
-                    <div className="relative w-full max-w-[320px] xs:max-w-[360px] sm:max-w-[400px] lg:max-w-[440px] xl:max-w-[460px] rounded-3xl bg-white/95 backdrop-blur-md p-3 sm:p-4 border border-burgundy-100/90 shadow-[0_20px_45px_rgba(88,8,25,0.16)] flex flex-col items-center justify-center overflow-hidden">
-                      <div className="relative w-full flex items-center justify-center">
-                        <img
-                          src={blankApparelVariants[selectedBlankIndex].image}
-                          alt={blankApparelVariants[selectedBlankIndex].name}
-                          className="w-full h-auto max-h-[350px] xs:max-h-[390px] sm:max-h-[440px] lg:max-h-[480px] object-contain relative z-10 transition-all duration-500 hover:scale-104 select-none"
-                        />
-                      </div>
-
-                      {/* Active Variant Info Bar */}
-                      <div className="w-full pt-2.5 mt-2 border-t border-burgundy-100/60 flex items-center justify-between text-left">
-                        <div className="flex items-center gap-2">
-                          <span
-                            className="w-3 h-3 rounded-full border border-white shadow-2xs"
-                            style={{ backgroundColor: blankApparelVariants[selectedBlankIndex].colorHex }}
-                          />
-                          <span className="text-xs sm:text-sm font-heading font-bold text-charcoal-900">
-                            {blankApparelVariants[selectedBlankIndex].name}
-                          </span>
-                        </div>
-                        <span className="text-[11px] font-heading font-semibold text-burgundy-700 bg-burgundy-50 px-2.5 py-0.5 rounded-full border border-burgundy-200/60">
-                          {blankApparelVariants[selectedBlankIndex].tag}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Mobile Variant Thumbnails in Decreasing Size Order */}
-                  <div className="sm:hidden flex items-center justify-center gap-2.5 mt-3.5 z-20">
-                    {blankApparelVariants
-                      .map((variant, originalIdx) => ({ variant, originalIdx }))
-                      .filter(({ originalIdx }) => originalIdx !== selectedBlankIndex)
-                      .map(({ variant, originalIdx }, thumbIdx) => {
-                        const mobileSizeClass =
-                          thumbIdx === 0 ? 'w-20 h-22' : thumbIdx === 1 ? 'w-16 h-18' : 'w-13 h-15';
-
-                        return (
-                          <button
-                            key={variant.id}
-                            onClick={() => setSelectedBlankIndex(originalIdx)}
-                            className={`group relative ${mobileSizeClass} rounded-xl bg-white p-1 border border-burgundy-200/70 shadow-soft active:scale-95 cursor-pointer overflow-hidden flex items-center justify-center`}
-                            title={`Select ${variant.name}`}
-                          >
-                            <img
-                              src={variant.image}
-                              alt={variant.name}
-                              className="w-full h-full object-contain select-none"
-                            />
-                            <span
-                              className="absolute bottom-1 right-1 w-2 h-2 rounded-full border border-white shadow-2xs"
-                              style={{ backgroundColor: variant.colorHex }}
-                            />
-                          </button>
-                        );
-                      })}
-                  </div>
-
-                  {/* Factory Verification Badge */}
-                  <div className="mt-3 sm:mt-4 z-20">
-                    <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/95 backdrop-blur-md text-burgundy-700 font-heading font-bold text-xs sm:text-sm shadow-soft border border-burgundy-100/90">
-                      <Factory className="w-4 h-4 text-burgundy-700 shrink-0" />
-                      <span>Tiruppur Direct Manufacturing</span>
-                    </div>
-                  </div>
+              {/* Factory Verification Badge at Base of Pedestal */}
+              <div className="mt-3 sm:mt-4 z-20">
+                <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/95 backdrop-blur-md text-burgundy-700 font-heading font-bold text-xs sm:text-sm shadow-soft border border-burgundy-100/90">
+                  <Factory className="w-4 h-4 text-burgundy-700 shrink-0" />
+                  <span>Tiruppur Direct Manufacturing</span>
                 </div>
-              ) : (
-                /* Default Single Garment Display on Pedestal for Other Categories */
-                <>
-                  <div className="relative w-full max-w-[340px] xs:max-w-[400px] sm:max-w-[460px] lg:max-w-[500px] xl:max-w-[540px] flex items-center justify-center">
-                    <img
-                      src={category.heroImage}
-                      alt={category.title}
-                      className="w-full h-auto max-h-[380px] xs:max-h-[440px] sm:max-h-[500px] lg:max-h-[540px] object-contain relative z-10 transition-transform duration-700 hover:scale-105 drop-shadow-[0_22px_36px_rgba(88,8,25,0.24)]"
-                    />
-                  </div>
-
-                  {/* Factory Verification Badge at Base of Pedestal */}
-                  <div className="mt-3 sm:mt-4 z-20">
-                    <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/95 backdrop-blur-md text-burgundy-700 font-heading font-bold text-xs sm:text-sm shadow-soft border border-burgundy-100/90">
-                      <Factory className="w-4 h-4 text-burgundy-700 shrink-0" />
-                      <span>Tiruppur Direct Manufacturing</span>
-                    </div>
-                  </div>
-                </>
-              )}
+              </div>
             </div>
 
             {/* Mobile View: Vertical Metrics & Full-Width Action Buttons (Matching Reference Phone Mockup) */}
@@ -380,37 +261,14 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
             </div>
           </div>
         </div>
-
-        {/* Wavy Border Design for Hero Bottom Section */}
-        <div className="absolute bottom-0 inset-x-0 w-full overflow-hidden leading-none z-20 pointer-events-none">
-          <svg
-            viewBox="0 0 1440 70"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="relative block w-full h-8 sm:h-12 md:h-16 preserve-3d"
-            preserveAspectRatio="none"
-          >
-            {/* Soft Rose / Burgundy Accent Ribbon */}
-            <path
-              d="M0,22 C320,55 680,60 1020,26 C1200,10 1360,30 1440,40 L1440,70 L0,70 Z"
-              fill="#F8D0D6"
-              opacity="0.65"
-            />
-            {/* Main Showcase Section Warm Cream Wave (#FFFDF9) */}
-            <path
-              d="M0,32 C280,64 620,68 960,35 C1160,18 1340,36 1440,46 L1440,70 L0,70 Z"
-              fill="#FFFDF9"
-            />
-          </svg>
-        </div>
       </section>
 
-      {/* 2. CLIENT UNIFORM SHOWCASE (Corporate, School, Promotional & Events, and Sports pages only) */}
-      {(slug === 'corporate' || slug === 'school' || slug === 'promotional-events' || slug === 'sports-academics') && (
-        <ClientUniformShowcase category={slug} />
-      )}
-
-
+      {/* 2. CLIENT UNIFORM SHOWCASE (Corporate, School, Promotional & Events, Sports, and Blank Apparel) */}
+      {(slug === 'corporate' ||
+        slug === 'school' ||
+        slug === 'promotional-events' ||
+        slug === 'sports-academics' ||
+        slug === 'blank') && <ClientUniformShowcase category={slug} />}
 
       {/* 4. BRANDING TECHNIQUES & SPECIFICATIONS */}
       <section className="py-14 sm:py-18 bg-[#FAF7F2] border-y border-burgundy-100/60">

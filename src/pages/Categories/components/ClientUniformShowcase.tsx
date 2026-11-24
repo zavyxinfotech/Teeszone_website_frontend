@@ -419,9 +419,124 @@ export const SPORTS_SLIDES: ShowcaseSlide[] = [
   },
 ];
 
+export const BLANK_SLIDES: ShowcaseSlide[] = [
+  {
+    id: 'blank-hoodie',
+    brand: 'Heavyweight Fleece Blank Hoodie',
+    subtitle: 'Premium 340-400 GSM Unbranded Cotton Fleece Pullover for Private Labels',
+    modelImage: '/assets/images/products/showcase/blank/hoodie-model.webp',
+    details: [
+      {
+        id: 'hood',
+        title: 'Double-Layered Hood with Drawstrings',
+        image: '/assets/images/products/showcase/blank/hoodie-c1.webp',
+      },
+      {
+        id: 'cuff',
+        title: 'Heavyweight 2x2 Ribbed Cuffs',
+        image: '/assets/images/products/showcase/blank/hoodie-c2.webp',
+      },
+      {
+        id: 'pocket',
+        title: 'Reinforced Kangaroo Pocket',
+        image: '/assets/images/products/showcase/blank/hoodie-c3.webp',
+      },
+      {
+        id: 'fleece',
+        title: 'Brushed Inner Fleece Softness',
+        image: '/assets/images/products/showcase/blank/hoodie-c4.webp',
+      },
+    ],
+  },
+  {
+    id: 'blank-polo',
+    brand: 'Classic Combed Pique Blank Polo',
+    subtitle: 'High-Density 220-260 GSM Honeycomb Cotton Knit Ready for Embroidery',
+    modelImage: '/assets/images/products/showcase/blank/polo-model.webp',
+    details: [
+      {
+        id: 'collar',
+        title: 'Structured Ribbed Knit Collar',
+        image: '/assets/images/products/showcase/blank/polo-c1.webp',
+      },
+      {
+        id: 'sleeve',
+        title: 'Snug Tubular Sleeve Ribbing',
+        image: '/assets/images/products/showcase/blank/polo-c2.webp',
+      },
+      {
+        id: 'fabric',
+        title: 'Mercerized Pique Honeycomb Texture',
+        image: '/assets/images/products/showcase/blank/polo-c3.webp',
+      },
+      {
+        id: 'waist',
+        title: 'Double-Stitched Hem Finish',
+        image: '/assets/images/products/showcase/blank/polo-c4.webp',
+      },
+    ],
+  },
+  {
+    id: 'blank-oversized',
+    brand: 'Streetwear Oversized Blank Tee',
+    subtitle: '240 GSM Heavy Cotton Drop-Shoulder Boxy Silhouette for D2C Brands',
+    modelImage: '/assets/images/products/showcase/blank/oversized-model.webp',
+    details: [
+      {
+        id: 'neck',
+        title: 'High-Neck Lycra Ribbed Collar',
+        image: '/assets/images/products/showcase/blank/oversized-c1.webp',
+      },
+      {
+        id: 'shoulder',
+        title: 'Relaxed Drop-Shoulder Seam',
+        image: '/assets/images/products/showcase/blank/oversized-c2.webp',
+      },
+      {
+        id: 'sleeve',
+        title: 'Elbow-Length Boxy Sleeve',
+        image: '/assets/images/products/showcase/blank/oversized-c3.webp',
+      },
+      {
+        id: 'cotton',
+        title: '100% Combed Compact Cotton',
+        image: '/assets/images/products/showcase/blank/oversized-c4.webp',
+      },
+    ],
+  },
+  {
+    id: 'blank-crewneck',
+    brand: 'Super Combed Blank Crewneck Tee',
+    subtitle: '180-200 GSM Bio-Washed Everyday Essential Blank for Screen & DTF Printing',
+    modelImage: '/assets/images/products/showcase/blank/crewneck-model.webp',
+    details: [
+      {
+        id: 'rib',
+        title: 'Reinforced 1x1 Spandex Neck Rib',
+        image: '/assets/images/products/showcase/blank/crewneck-c1.webp',
+      },
+      {
+        id: 'cuff',
+        title: 'Twin-Needle Sleeve Stitching',
+        image: '/assets/images/products/showcase/blank/crewneck-c2.webp',
+      },
+      {
+        id: 'knit',
+        title: 'Ultra-Smooth Bio-Wash Finish',
+        image: '/assets/images/products/showcase/blank/crewneck-c3.webp',
+      },
+      {
+        id: 'back',
+        title: 'Tear-Away Satin Neck Label Area',
+        image: '/assets/images/products/showcase/blank/crewneck-c4.webp',
+      },
+    ],
+  },
+];
+
 interface ClientUniformShowcaseProps {
   slides?: ShowcaseSlide[];
-  category?: 'corporate' | 'school' | 'promotional-events' | 'sports-academics' | string;
+  category?: 'corporate' | 'school' | 'promotional-events' | 'sports-academics' | 'blank' | string;
 }
 
 export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
@@ -438,10 +553,13 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
     category === 'sports-academics' ||
     category === 'sports' ||
     category === 'academics';
+  const isBlank = category === 'blank';
 
   const slides =
     propSlides ||
-    (isSports
+    (isBlank
+      ? BLANK_SLIDES
+      : isSports
       ? SPORTS_SLIDES
       : isPromotional
       ? PROMOTIONAL_SLIDES
@@ -540,7 +658,9 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
     touchEndX.current = null;
   };
 
-  const badgeText = isSports
+  const badgeText = isBlank
+    ? 'Blank Apparel & Private Label Showcase'
+    : isSports
     ? 'Athletic & Teamwear Showcase'
     : isPromotional
     ? 'Event & Merchandise Showcase'
@@ -548,7 +668,12 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
     ? 'Campus Uniform Showcase'
     : 'Client Uniform Showcase';
 
-  const headingText = isSports ? (
+  const headingText = isBlank ? (
+    <>
+      Premium Blanks, Ready for{' '}
+      <span className="font-heading font-black italic text-[#82132C]">Your Brand</span>
+    </>
+  ) : isSports ? (
     <>
       Performance Gear, Made for{' '}
       <span className="font-heading font-black italic text-[#82132C]">Your Team</span>
@@ -570,7 +695,9 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
     </>
   );
 
-  const subtitleText = isSports
+  const subtitleText = isBlank
+    ? 'From heavyweight fleece hoodies and pique polos to streetwear oversized tees and bio-washed crewnecks, explore our ready-stock wholesale blanks engineered for private labels and custom printers.'
+    : isSports
     ? 'From moisture-wicking team jerseys to athletic training tracksuits, see how vibrant sublimation graphics, team numbers and performance mesh knits elevate every game.'
     : isPromotional
     ? 'From music concerts to sports leagues and marathon merchandise, see how vibrant all-over prints, custom sponsor branding and performance fabrics bring every event to life.'
