@@ -245,16 +245,138 @@ export const SCHOOL_SLIDES: ShowcaseSlide[] = [
   },
 ];
 
+export const PROMOTIONAL_SLIDES: ShowcaseSlide[] = [
+  {
+    id: 'ilaiyaraaja',
+    brand: 'Ilaiyaraaja 50 Live Concert',
+    subtitle: 'Official Concert Merchandise & Multi-Sponsor Event Tee',
+    modelImage: '/assets/images/products/showcase/promotional/ilaiyaraaja-model.webp',
+    details: [
+      {
+        id: 'chest',
+        title: 'Concert Graphic Typography',
+        image: '/assets/images/products/showcase/promotional/ilaiyaraaja-c1.webp',
+      },
+      {
+        id: 'back',
+        title: 'Multi-Sponsor Official Grid',
+        image: '/assets/images/products/showcase/promotional/ilaiyaraaja-c2.webp',
+      },
+      {
+        id: 'collar',
+        title: 'Crewneck Collar & Satin Label',
+        image: '/assets/images/products/showcase/promotional/ilaiyaraaja-c3.webp',
+      },
+      {
+        id: 'fabric',
+        title: 'Breathable Dry-Fit Knit',
+        image: '/assets/images/products/showcase/promotional/ilaiyaraaja-c4.webp',
+      },
+    ],
+  },
+  {
+    id: 'prk',
+    brand: 'PRK Constructions Sports League',
+    subtitle: 'Full-Sublimation Speed Graphic Team Jersey',
+    modelImage: '/assets/images/products/showcase/promotional/prk-model.webp',
+    details: [
+      {
+        id: 'chest',
+        title: 'Chest Sponsor Graphics',
+        image: '/assets/images/products/showcase/promotional/prk-c1.webp',
+      },
+      {
+        id: 'back',
+        title: 'Player Name & Custom Number',
+        image: '/assets/images/products/showcase/promotional/prk-c2.webp',
+      },
+      {
+        id: 'sleeve',
+        title: 'Navy Sleeve Ribbing',
+        image: '/assets/images/products/showcase/promotional/prk-c3.webp',
+      },
+      {
+        id: 'fabric',
+        title: 'Moisture-Wicking Sublimation Knit',
+        image: '/assets/images/products/showcase/promotional/prk-c4.webp',
+      },
+    ],
+  },
+  {
+    id: 'shsports',
+    brand: 'SH Sports Nets & Academy',
+    subtitle: 'Custom Academy Training Polo & Track Apparel',
+    modelImage: '/assets/images/products/showcase/promotional/shsports-model.webp',
+    details: [
+      {
+        id: 'collar',
+        title: 'Button Placket & Structured Collar',
+        image: '/assets/images/products/showcase/promotional/shsports-c1.webp',
+      },
+      {
+        id: 'chest',
+        title: 'Academy Crest Monogram',
+        image: '/assets/images/products/showcase/promotional/shsports-c2.webp',
+      },
+      {
+        id: 'sleeve',
+        title: 'Raglan Sleeve Cuff Detail',
+        image: '/assets/images/products/showcase/promotional/shsports-c3.webp',
+      },
+      {
+        id: 'fabric',
+        title: 'Ventilated Interlock Mesh',
+        image: '/assets/images/products/showcase/promotional/shsports-c4.webp',
+      },
+    ],
+  },
+  {
+    id: 'saiyoga',
+    brand: 'Shree Sai Yoga Shala',
+    subtitle: 'Custom Wellness Event Tee & Track Set',
+    modelImage: '/assets/images/products/showcase/promotional/saiyoga-model.webp',
+    details: [
+      {
+        id: 'collar',
+        title: 'Stretch Ribbed Crewneck',
+        image: '/assets/images/products/showcase/promotional/saiyoga-c1.webp',
+      },
+      {
+        id: 'chest',
+        title: 'Wellness Emblem Monogram',
+        image: '/assets/images/products/showcase/promotional/saiyoga-c2.webp',
+      },
+      {
+        id: 'sleeve',
+        title: 'Hemmed Sleeve Finish',
+        image: '/assets/images/products/showcase/promotional/saiyoga-c3.webp',
+      },
+      {
+        id: 'fabric',
+        title: 'Bio-Wash Combed Cotton',
+        image: '/assets/images/products/showcase/promotional/saiyoga-c4.webp',
+      },
+    ],
+  },
+];
+
 interface ClientUniformShowcaseProps {
   slides?: ShowcaseSlide[];
-  category?: 'corporate' | 'school' | string;
+  category?: 'corporate' | 'school' | 'promotional-events' | string;
 }
 
 export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
   slides: propSlides,
   category = 'corporate',
 }) => {
-  const slides = propSlides || (category === 'school' ? SCHOOL_SLIDES : CORPORATE_SLIDES);
+  const slides =
+    propSlides ||
+    (category === 'promotional-events'
+      ? PROMOTIONAL_SLIDES
+      : category === 'school'
+      ? SCHOOL_SLIDES
+      : CORPORATE_SLIDES);
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -347,8 +469,34 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
   };
 
   const isSchool = category === 'school';
-  const badgeText = isSchool ? 'Campus Uniform Showcase' : 'Client Uniform Showcase';
-  const subtitleText = isSchool
+  const isPromotional = category === 'promotional-events';
+
+  const badgeText = isPromotional
+    ? 'Event & Merchandise Showcase'
+    : isSchool
+    ? 'Campus Uniform Showcase'
+    : 'Client Uniform Showcase';
+
+  const headingText = isPromotional ? (
+    <>
+      Merchandise, Made for{' '}
+      <span className="font-heading font-black italic text-[#82132C]">Your Event</span>
+    </>
+  ) : isSchool ? (
+    <>
+      Uniforms, Made for{' '}
+      <span className="font-heading font-black italic text-[#82132C]">Your Campus</span>
+    </>
+  ) : (
+    <>
+      Uniforms, Made for{' '}
+      <span className="font-heading font-black italic text-[#82132C]">Your Brand</span>
+    </>
+  );
+
+  const subtitleText = isPromotional
+    ? 'From music concerts to sports leagues and marathon merchandise, see how vibrant all-over prints, custom sponsor branding and performance fabrics bring every event to life.'
+    : isSchool
     ? 'From institutional polos to school house uniforms, see how custom school crests, emblem printing and durable fabric finishes bring each campus to life.'
     : 'From branded polos to team uniforms, see how custom embroidery, print placement and garment finishes bring each brand to life.';
 
@@ -374,10 +522,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
                 {badgeText}
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-[42px] xl:text-[46px] font-heading font-black tracking-tight text-charcoal-900 leading-[1.08]">
-                Uniforms, Made for{' '}
-                <span className="font-heading font-black italic text-[#82132C]">
-                  {isSchool ? 'Your Campus' : 'Your Brand'}
-                </span>
+                {headingText}
               </h2>
               <p className="text-sm sm:text-base text-charcoal-600 font-normal leading-relaxed max-w-xl">
                 {subtitleText}
@@ -395,7 +540,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
               {/* Backward Option Button (No border, No shadow, Smaller Size) */}
               <button
                 onClick={handlePrev}
-                aria-label="Previous uniform showcase"
+                aria-label="Previous showcase slide"
                 className="absolute left-0 z-40 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-transparent hover:bg-black/5 text-charcoal-700 hover:text-burgundy-700 border-none shadow-none flex items-center justify-center transition-all duration-200 cursor-pointer"
               >
                 <ChevronLeft className="w-5 h-5 stroke-[2.2]" />
@@ -479,7 +624,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
               {/* Forward Option Button (No border, No shadow, Smaller Size) */}
               <button
                 onClick={handleNext}
-                aria-label="Next uniform showcase"
+                aria-label="Next showcase slide"
                 className="absolute right-[-14px] xl:right-[-20px] z-40 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-transparent hover:bg-black/5 text-charcoal-700 hover:text-burgundy-700 border-none shadow-none flex items-center justify-center transition-all duration-200 cursor-pointer"
               >
                 <ChevronRight className="w-5 h-5 stroke-[2.2]" />
@@ -539,10 +684,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
               {badgeText}
             </span>
             <h2 className="text-2xl sm:text-3xl font-heading font-black tracking-tight text-charcoal-900 leading-[1.12]">
-              Uniforms, Made for <br />
-              <span className="font-heading font-black italic text-[#82132C]">
-                {isSchool ? 'Your Campus' : 'Your Brand'}
-              </span>
+              {headingText}
             </h2>
             <p className="text-xs sm:text-sm text-charcoal-600 font-normal leading-relaxed max-w-lg">
               {subtitleText}
@@ -560,7 +702,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
             {/* Mobile Backward Button */}
             <button
               onClick={handlePrev}
-              aria-label="Previous uniform showcase"
+              aria-label="Previous showcase slide"
               className="absolute left-1 z-30 w-7 h-7 rounded-full bg-transparent hover:bg-black/5 text-charcoal-700 border-none shadow-none flex items-center justify-center cursor-pointer"
             >
               <ChevronLeft className="w-5 h-5" />
@@ -611,7 +753,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
             {/* Mobile Forward Button */}
             <button
               onClick={handleNext}
-              aria-label="Next uniform showcase"
+              aria-label="Next showcase slide"
               className="absolute right-1 z-30 w-7 h-7 rounded-full bg-transparent hover:bg-black/5 text-charcoal-700 border-none shadow-none flex items-center justify-center cursor-pointer"
             >
               <ChevronRight className="w-5 h-5" />

@@ -248,8 +248,8 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
         </div>
       </section>
 
-      {/* 2. CLIENT UNIFORM SHOWCASE (Corporate & School details pages only) */}
-      {(slug === 'corporate' || slug === 'school') && (
+      {/* 2. CLIENT UNIFORM SHOWCASE (Corporate, School, and Promotional & Events pages only) */}
+      {(slug === 'corporate' || slug === 'school' || slug === 'promotional-events') && (
         <ClientUniformShowcase category={slug} />
       )}
 
