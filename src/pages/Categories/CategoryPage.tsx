@@ -43,6 +43,37 @@ const renderH1 = (text: string) => {
   return text;
 };
 
+const blankApparelVariants = [
+  {
+    id: 'navy-polo',
+    name: 'Blank Pique Polo',
+    image: '/assets/products/blank_navy_polo_clean.webp',
+    colorHex: '#1B2B4A',
+    tag: 'Classic Collared',
+  },
+  {
+    id: 'red-oversized',
+    name: 'Oversized Streetwear Tee',
+    image: '/assets/products/blank_red_oversized_clean.webp',
+    colorHex: '#BA1B2B',
+    tag: 'Drop Shoulder Boxy',
+  },
+  {
+    id: 'green-hoodie',
+    name: 'Heavyweight Fleece Hoodie',
+    image: '/assets/products/blank_green_hoodie_clean.webp',
+    colorHex: '#1C4D32',
+    tag: 'Thermal Pullover',
+  },
+  {
+    id: 'grey-crewneck',
+    name: 'Super Combed Crewneck',
+    image: '/assets/products/blank_grey_crewneck.webp',
+    colorHex: '#A0A4A8',
+    tag: 'Regular Fit Blank',
+  },
+];
+
 export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQuote }) => {
   const params = useParams<{ slug?: string; category?: string }>();
   const navigate = useNavigate();
@@ -59,6 +90,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
   const category: CategoryDetail = categoryDetails[slug];
 
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+  const [selectedBlankIndex, setSelectedBlankIndex] = useState<number>(0);
 
   const toggleFaq = (idx: number) => {
     setOpenFaqIndex(openFaqIndex === idx ? null : idx);
@@ -165,15 +197,134 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
               </div>
             </div>
 
-            {/* Right Hero Image Column: Garment Cutout floating gracefully over Podium */}
+            {/* Right Hero Image Column */}
             <div className="lg:col-span-5 flex flex-col items-center justify-center relative">
-              <div className="relative w-full max-w-[340px] xs:max-w-[400px] sm:max-w-[460px] lg:max-w-[500px] xl:max-w-[540px] flex items-center justify-center">
-                <img
-                  src={category.heroImage}
-                  alt={category.title}
-                  className="w-full h-auto max-h-[380px] xs:max-h-[440px] sm:max-h-[500px] lg:max-h-[540px] object-contain relative z-10 transition-transform duration-700 hover:scale-105 drop-shadow-[0_22px_36px_rgba(88,8,25,0.24)]"
-                />
-              </div>
+              {slug === 'blank' ? (
+                /* Blank Apparel Custom Showcase: Decreasing-Size Thumbnails on Left + Main Image on Right */
+                <div className="w-full flex flex-col items-center">
+                  <div className="w-full flex items-center justify-center lg:justify-end gap-3 sm:gap-4 relative">
+                    {/* Left-side thumbnails in decreasing size order (Desktop) */}
+                    <div className="hidden sm:flex flex-col items-end gap-3 z-20">
+                      {blankApparelVariants
+                        .map((variant, originalIdx) => ({ variant, originalIdx }))
+                        .filter(({ originalIdx }) => originalIdx !== selectedBlankIndex)
+                        .map(({ variant, originalIdx }, thumbIdx) => {
+                          // Decreasing size classes based on thumbIdx: 0: largest, 1: medium, 2: smallest
+                          const sizeClass =
+                            thumbIdx === 0
+                              ? 'w-24 h-28 sm:w-28 sm:h-32'
+                              : thumbIdx === 1
+                              ? 'w-20 h-24 sm:w-24 sm:h-28'
+                              : 'w-16 h-20 sm:w-20 sm:h-24';
+
+                          return (
+                            <button
+                              key={variant.id}
+                              onClick={() => setSelectedBlankIndex(originalIdx)}
+                              className={`group relative ${sizeClass} rounded-2xl bg-white/95 backdrop-blur-md p-1.5 border border-burgundy-200/70 shadow-soft hover:shadow-soft-lg hover:border-burgundy-700 transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer overflow-hidden flex flex-col items-center justify-center`}
+                              title={`Switch to ${variant.name}`}
+                              aria-label={`Select ${variant.name}`}
+                            >
+                              <img
+                                src={variant.image}
+                                alt={variant.name}
+                                className="w-full h-full object-contain select-none transition-transform duration-300 group-hover:scale-108"
+                              />
+                              <span
+                                className="absolute bottom-1 right-1 w-2.5 h-2.5 rounded-full border border-white shadow-2xs"
+                                style={{ backgroundColor: variant.colorHex }}
+                              />
+                            </button>
+                          );
+                        })}
+                    </div>
+
+                    {/* Main Featured Image Card (Aligned at the Right Side with Shaded Depth Effect) */}
+                    <div className="relative w-full max-w-[320px] xs:max-w-[360px] sm:max-w-[400px] lg:max-w-[440px] xl:max-w-[460px] rounded-3xl bg-white/95 backdrop-blur-md p-3 sm:p-4 border border-burgundy-100/90 shadow-[0_20px_45px_rgba(88,8,25,0.16)] flex flex-col items-center justify-center overflow-hidden">
+                      <div className="relative w-full flex items-center justify-center">
+                        <img
+                          src={blankApparelVariants[selectedBlankIndex].image}
+                          alt={blankApparelVariants[selectedBlankIndex].name}
+                          className="w-full h-auto max-h-[350px] xs:max-h-[390px] sm:max-h-[440px] lg:max-h-[480px] object-contain relative z-10 transition-all duration-500 hover:scale-104 select-none"
+                        />
+                      </div>
+
+                      {/* Active Variant Info Bar */}
+                      <div className="w-full pt-2.5 mt-2 border-t border-burgundy-100/60 flex items-center justify-between text-left">
+                        <div className="flex items-center gap-2">
+                          <span
+                            className="w-3 h-3 rounded-full border border-white shadow-2xs"
+                            style={{ backgroundColor: blankApparelVariants[selectedBlankIndex].colorHex }}
+                          />
+                          <span className="text-xs sm:text-sm font-heading font-bold text-charcoal-900">
+                            {blankApparelVariants[selectedBlankIndex].name}
+                          </span>
+                        </div>
+                        <span className="text-[11px] font-heading font-semibold text-burgundy-700 bg-burgundy-50 px-2.5 py-0.5 rounded-full border border-burgundy-200/60">
+                          {blankApparelVariants[selectedBlankIndex].tag}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Mobile Variant Thumbnails in Decreasing Size Order */}
+                  <div className="sm:hidden flex items-center justify-center gap-2.5 mt-3.5 z-20">
+                    {blankApparelVariants
+                      .map((variant, originalIdx) => ({ variant, originalIdx }))
+                      .filter(({ originalIdx }) => originalIdx !== selectedBlankIndex)
+                      .map(({ variant, originalIdx }, thumbIdx) => {
+                        const mobileSizeClass =
+                          thumbIdx === 0 ? 'w-20 h-22' : thumbIdx === 1 ? 'w-16 h-18' : 'w-13 h-15';
+
+                        return (
+                          <button
+                            key={variant.id}
+                            onClick={() => setSelectedBlankIndex(originalIdx)}
+                            className={`group relative ${mobileSizeClass} rounded-xl bg-white p-1 border border-burgundy-200/70 shadow-soft active:scale-95 cursor-pointer overflow-hidden flex items-center justify-center`}
+                            title={`Select ${variant.name}`}
+                          >
+                            <img
+                              src={variant.image}
+                              alt={variant.name}
+                              className="w-full h-full object-contain select-none"
+                            />
+                            <span
+                              className="absolute bottom-1 right-1 w-2 h-2 rounded-full border border-white shadow-2xs"
+                              style={{ backgroundColor: variant.colorHex }}
+                            />
+                          </button>
+                        );
+                      })}
+                  </div>
+
+                  {/* Factory Verification Badge */}
+                  <div className="mt-3 sm:mt-4 z-20">
+                    <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/95 backdrop-blur-md text-burgundy-700 font-heading font-bold text-xs sm:text-sm shadow-soft border border-burgundy-100/90">
+                      <Factory className="w-4 h-4 text-burgundy-700 shrink-0" />
+                      <span>Tiruppur Direct Manufacturing</span>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                /* Default Single Garment Display on Pedestal for Other Categories */
+                <>
+                  <div className="relative w-full max-w-[340px] xs:max-w-[400px] sm:max-w-[460px] lg:max-w-[500px] xl:max-w-[540px] flex items-center justify-center">
+                    <img
+                      src={category.heroImage}
+                      alt={category.title}
+                      className="w-full h-auto max-h-[380px] xs:max-h-[440px] sm:max-h-[500px] lg:max-h-[540px] object-contain relative z-10 transition-transform duration-700 hover:scale-105 drop-shadow-[0_22px_36px_rgba(88,8,25,0.24)]"
+                    />
+                  </div>
+
+                  {/* Factory Verification Badge at Base of Pedestal */}
+                  <div className="mt-3 sm:mt-4 z-20">
+                    <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/95 backdrop-blur-md text-burgundy-700 font-heading font-bold text-xs sm:text-sm shadow-soft border border-burgundy-100/90">
+                      <Factory className="w-4 h-4 text-burgundy-700 shrink-0" />
+                      <span>Tiruppur Direct Manufacturing</span>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
 
             {/* Mobile View: Vertical Metrics & Full-Width Action Buttons (Matching Reference Phone Mockup) */}

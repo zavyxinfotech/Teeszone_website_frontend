@@ -110,7 +110,7 @@ export const categoryDetails: Record<ProductCategory, CategoryDetail> = {
     tagline: 'Unbranded high-density cotton blanks ready for screen printers, private labels & D2C brands',
     metaDescription:
       'Buy wholesale blank t-shirts in Tiruppur. 180-240 GSM 100% combed cotton, drop shoulder oversized cuts, tear-away tags, ready for screen printing & DTF.',
-    heroImage: '/assets/products/oversized-maroon.png',
+    heroImage: '/assets/products/blank_navy_polo_clean.webp',
     gsmRange: '180 - 240 GSM',
     moq: '50 Pieces per colorway',
     samplingTime: 'Immediate Dispatch',
