@@ -753,112 +753,109 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
               </p>
             </div>
 
-            {/* Showcase Stage: Full Width, Clear Images Spaced Generously Across Floor */}
+            {/* Showcase Stage: Evenly Distributed Runway Spacing Following Reference Image 2 */}
             <div
-              className="relative my-auto flex items-end justify-end h-[370px] xl:h-[420px] w-full pb-1"
-              style={{ perspective: '1200px' }}
+              className="relative my-auto flex items-end justify-center h-[380px] xl:h-[430px] w-full pb-1 select-none"
             >
-              {/* Backward Navigation Button (No background, No border) */}
+              {/* Backward Navigation Button */}
               <button
                 onClick={handlePrev}
                 aria-label="Previous showcase slide"
-                className="absolute -left-2 xl:-left-4 top-1/2 -translate-y-1/2 z-40 p-2 text-charcoal-500 hover:text-burgundy-700 bg-transparent border-none shadow-none flex items-center justify-center transition-all duration-200 hover:scale-125 cursor-pointer"
+                className="absolute -left-3 xl:-left-5 top-1/2 -translate-y-1/2 z-40 p-2 text-charcoal-500 hover:text-burgundy-700 bg-transparent border-none shadow-none flex items-center justify-center transition-all duration-200 hover:scale-125 cursor-pointer"
               >
                 <ChevronLeft className="w-8 h-8 stroke-[2.2]" />
               </button>
 
-              {/* Shaded Left Model 3 (Smallest, furthest left, clear standing on floor) */}
-              {totalSlides > 3 && (
-                <div
-                  onClick={() => {
-                    setProgress(0);
-                    setCurrentIndex(leftIdx3);
-                  }}
-                  className="absolute left-[20px] xl:left-[40px] bottom-0 z-10 w-[190px] xl:w-[220px] cursor-pointer transition-all duration-700 hover:scale-[1.04]"
-                  style={{
-                    transform: 'rotateY(14deg) scale(0.55)',
-                    transformOrigin: 'bottom center',
-                    opacity: 0.35,
-                    filter: 'drop-shadow(0 6px 14px rgba(0,0,0,0.08))',
-                  }}
-                  title={`Switch to ${slides[leftIdx3].brand}`}
-                >
-                  <img
-                    src={slides[leftIdx3].modelImage}
-                    alt={slides[leftIdx3].brand}
-                    className="w-full h-auto max-h-[380px] xl:max-h-[430px] object-contain select-none"
-                  />
-                </div>
-              )}
-
-              {/* Shaded Left Model 2 (Mid-left, well spaced, clear standing on floor) */}
-              {totalSlides > 2 && (
-                <div
-                  onClick={() => {
-                    setProgress(0);
-                    setCurrentIndex(leftIdx2);
-                  }}
-                  className="absolute left-[240px] xl:left-[320px] bottom-0 z-15 w-[230px] xl:w-[270px] cursor-pointer transition-all duration-700 hover:scale-[1.04]"
-                  style={{
-                    transform: 'rotateY(10deg) scale(0.70)',
-                    transformOrigin: 'bottom center',
-                    opacity: 0.50,
-                    filter: 'drop-shadow(0 8px 18px rgba(0,0,0,0.10))',
-                  }}
-                  title={`Switch to ${slides[leftIdx2].brand}`}
-                >
-                  <img
-                    src={slides[leftIdx2].modelImage}
-                    alt={slides[leftIdx2].brand}
-                    className="w-full h-auto max-h-[400px] xl:max-h-[450px] object-contain select-none"
-                  />
-                </div>
-              )}
-
-              {/* Shaded Left Model 1 (Immediately left of main model, well spaced, clear standing on floor) */}
-              {totalSlides > 1 && (
-                <div
-                  onClick={() => {
-                    setProgress(0);
-                    setCurrentIndex(leftIdx1);
-                  }}
-                  className="absolute right-[330px] xl:right-[400px] bottom-0 z-20 w-[270px] xl:w-[320px] cursor-pointer transition-all duration-700 hover:scale-[1.04]"
-                  style={{
-                    transform: 'rotateY(6deg) scale(0.85)',
-                    transformOrigin: 'bottom center',
-                    opacity: 0.70,
-                    filter: 'drop-shadow(0 10px 22px rgba(0,0,0,0.12))',
-                  }}
-                  title={`Switch to ${slides[leftIdx1].brand}`}
-                >
-                  <img
-                    src={slides[leftIdx1].modelImage}
-                    alt={slides[leftIdx1].brand}
-                    className="w-full h-auto max-h-[420px] xl:max-h-[470px] object-contain select-none"
-                  />
-                </div>
-              )}
-
-              {/* MAIN ACTIVE MODEL (Large size, standing on floor, positioned adjacent to 4 colloidal cards) */}
+              {/* Models Runway Row: Evenly Distributed with Consistent Gaps along Visual Perspective Axis */}
               <div
-                className="relative z-30 w-full max-w-[340px] xl:max-w-[400px] flex items-end justify-center ml-auto transition-all duration-700 ease-out"
-                style={{
-                  transformStyle: 'preserve-3d',
-                }}
+                className={`w-full h-full flex items-end ${
+                  totalSlides > 2 ? 'justify-between' : 'justify-end gap-12 xl:gap-20'
+                } px-3 xl:px-6`}
               >
-                <img
-                  key={currentSlide.id}
-                  src={currentSlide.modelImage}
-                  alt={`${currentSlide.brand} showcase`}
-                  className="w-full h-auto max-h-[430px] xl:max-h-[480px] object-contain drop-shadow-[0_18px_32px_rgba(0,0,0,0.18)] transition-all duration-700 select-none"
-                />
+                {/* Shaded Model 3 (Smallest, furthest left, along perspective axis) */}
+                {totalSlides > 3 && (
+                  <div
+                    onClick={() => {
+                      setProgress(0);
+                      setCurrentIndex(leftIdx3);
+                    }}
+                    className="flex flex-col items-center justify-end w-[17%] xl:w-[18%] max-w-[200px] xl:max-w-[220px] mb-7 xl:mb-9 cursor-pointer transition-all duration-500 hover:scale-[1.04] group"
+                    style={{
+                      opacity: 0.32,
+                      filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.06)) blur(0.5px) grayscale(15%)',
+                    }}
+                    title={`Switch to ${slides[leftIdx3].brand}`}
+                  >
+                    <img
+                      src={slides[leftIdx3].modelImage}
+                      alt={slides[leftIdx3].brand}
+                      className="w-full h-auto max-h-[240px] xl:max-h-[270px] object-contain select-none transition-opacity duration-300 group-hover:opacity-100"
+                    />
+                  </div>
+                )}
+
+                {/* Shaded Model 2 (Mid-left, along perspective axis) */}
+                {totalSlides > 2 && (
+                  <div
+                    onClick={() => {
+                      setProgress(0);
+                      setCurrentIndex(leftIdx2);
+                    }}
+                    className="flex flex-col items-center justify-end w-[21%] xl:w-[22%] max-w-[240px] xl:max-w-[265px] mb-5 xl:mb-6 cursor-pointer transition-all duration-500 hover:scale-[1.04] group"
+                    style={{
+                      opacity: 0.52,
+                      filter: 'drop-shadow(0 6px 14px rgba(0,0,0,0.09)) blur(0.25px) grayscale(8%)',
+                    }}
+                    title={`Switch to ${slides[leftIdx2].brand}`}
+                  >
+                    <img
+                      src={slides[leftIdx2].modelImage}
+                      alt={slides[leftIdx2].brand}
+                      className="w-full h-auto max-h-[295px] xl:max-h-[335px] object-contain select-none transition-opacity duration-300 group-hover:opacity-100"
+                    />
+                  </div>
+                )}
+
+                {/* Shaded Model 1 (Immediately left of main model, along perspective axis) */}
+                {totalSlides > 1 && (
+                  <div
+                    onClick={() => {
+                      setProgress(0);
+                      setCurrentIndex(leftIdx1);
+                    }}
+                    className="flex flex-col items-center justify-end w-[25%] xl:w-[26%] max-w-[280px] xl:max-w-[315px] mb-2 xl:mb-3 cursor-pointer transition-all duration-500 hover:scale-[1.04] group"
+                    style={{
+                      opacity: 0.74,
+                      filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.12))',
+                    }}
+                    title={`Switch to ${slides[leftIdx1].brand}`}
+                  >
+                    <img
+                      src={slides[leftIdx1].modelImage}
+                      alt={slides[leftIdx1].brand}
+                      className="w-full h-auto max-h-[350px] xl:max-h-[395px] object-contain select-none transition-opacity duration-300 group-hover:opacity-100"
+                    />
+                  </div>
+                )}
+
+                {/* MAIN ACTIVE MODEL (Foreground right, largest, crisp, ground baseline mb-0) */}
+                <div
+                  className="flex flex-col items-center justify-end w-[29%] xl:w-[30%] max-w-[330px] xl:max-w-[375px] mb-0 transition-all duration-700 ease-out z-30"
+                >
+                  <img
+                    key={currentSlide.id}
+                    src={currentSlide.modelImage}
+                    alt={`${currentSlide.brand} showcase`}
+                    className="w-full h-auto max-h-[415px] xl:max-h-[465px] object-contain drop-shadow-[0_16px_30px_rgba(0,0,0,0.18)] select-none"
+                  />
+                </div>
               </div>
 
-              {/* Forward Navigation Button (No background, No border) */}
+              {/* Forward Navigation Button */}
               <button
                 onClick={handleNext}
                 aria-label="Next showcase slide"
-                className="absolute -right-2 xl:-right-4 top-1/2 -translate-y-1/2 z-40 p-2 text-charcoal-500 hover:text-burgundy-700 bg-transparent border-none shadow-none flex items-center justify-center transition-all duration-200 hover:scale-125 cursor-pointer"
+                className="absolute -right-3 xl:-right-5 top-1/2 -translate-y-1/2 z-40 p-2 text-charcoal-500 hover:text-burgundy-700 bg-transparent border-none shadow-none flex items-center justify-center transition-all duration-200 hover:scale-125 cursor-pointer"
               >
                 <ChevronRight className="w-8 h-8 stroke-[2.2]" />
               </button>
@@ -928,84 +925,83 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
             </p>
           </div>
 
-          {/* Mobile Stage: Main Model positioned right-center, shaded models on left anchored to bottom */}
+          {/* Mobile Stage: Evenly Spaced Runway Models Following Image 2 */}
           <div
-            className="relative py-2 flex items-end justify-end min-h-[300px] xs:min-h-[330px] w-full overflow-hidden"
-            style={{ perspective: '900px' }}
+            className="relative py-2 flex items-end justify-center min-h-[300px] xs:min-h-[330px] w-full px-1"
           >
-            {/* Ambient Glow */}
-            <div className="absolute top-1/2 right-8 -translate-y-1/2 w-[240px] h-[240px] rounded-full bg-burgundy-100/35 blur-2xl pointer-events-none" />
-
             {/* Mobile Backward Button */}
             <button
               onClick={handlePrev}
               aria-label="Previous showcase slide"
-              className="absolute left-1 top-1/2 -translate-y-1/2 z-30 p-1.5 text-charcoal-500 hover:text-burgundy-700 bg-transparent border-none shadow-none flex items-center justify-center cursor-pointer transition-transform hover:scale-110"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-30 p-1.5 text-charcoal-500 hover:text-burgundy-700 bg-transparent border-none shadow-none flex items-center justify-center cursor-pointer transition-transform hover:scale-110"
             >
               <ChevronLeft className="w-6 h-6 stroke-[2.2]" />
             </button>
 
-            {/* Left Shaded Model 2 (only when > 2 slides) */}
-            {totalSlides > 2 && (
+            {/* Mobile Runway Models Container with Even Spacing and Perspective Axis */}
+            <div className="w-full max-w-sm sm:max-w-md mx-auto flex items-end justify-center gap-3 xs:gap-4 sm:gap-6 px-6">
+              {/* Left Shaded Model 2 (tablet / wider screens sm:) */}
+              {totalSlides > 2 && (
+                <div
+                  onClick={() => {
+                    setProgress(0);
+                    setCurrentIndex(leftIdx2);
+                  }}
+                  className="hidden sm:flex flex-col items-center justify-end w-[24%] max-w-[120px] mb-4 cursor-pointer transition-all duration-500 hover:scale-[1.04]"
+                  style={{
+                    opacity: 0.35,
+                    filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.08)) blur(0.4px)',
+                  }}
+                  title={`Switch to ${slides[leftIdx2].brand}`}
+                >
+                  <img
+                    src={slides[leftIdx2].modelImage}
+                    alt={slides[leftIdx2].brand}
+                    className="w-full h-auto max-h-[220px] object-contain select-none"
+                  />
+                </div>
+              )}
+
+              {/* Left Shaded Model 1 */}
+              {totalSlides > 1 && (
+                <div
+                  onClick={() => {
+                    setProgress(0);
+                    setCurrentIndex(leftIdx1);
+                  }}
+                  className="flex flex-col items-center justify-end w-[40%] sm:w-[32%] max-w-[155px] mb-2 cursor-pointer transition-all duration-500 hover:scale-[1.04]"
+                  style={{
+                    opacity: 0.60,
+                    filter: 'drop-shadow(0 6px 14px rgba(0,0,0,0.10))',
+                  }}
+                  title={`Switch to ${slides[leftIdx1].brand}`}
+                >
+                  <img
+                    src={slides[leftIdx1].modelImage}
+                    alt={slides[leftIdx1].brand}
+                    className="w-full h-auto max-h-[250px] xs:max-h-[275px] object-contain select-none"
+                  />
+                </div>
+              )}
+
+              {/* Active Main Model */}
               <div
-                onClick={() => {
-                  setProgress(0);
-                  setCurrentIndex(leftIdx2);
-                }}
-                className="absolute left-2 bottom-0 z-10 w-[120px] transition-all duration-700"
-                style={{
-                  transform: 'rotateY(16deg) scale(0.55)',
-                  transformOrigin: 'bottom center',
-                  filter: 'blur(0.8px) grayscale(30%)',
-                  opacity: 0.28,
-                }}
+                className="flex flex-col items-center justify-end w-[56%] sm:w-[44%] max-w-[215px] xs:max-w-[235px] mb-0 transition-all duration-500"
               >
                 <img
-                  src={slides[leftIdx2].modelImage}
-                  alt={slides[leftIdx2].brand}
-                  className="w-full h-auto max-h-[240px] object-contain select-none"
+                  key={currentSlide.id}
+                  src={currentSlide.modelImage}
+                  alt={`${currentSlide.brand} showcase`}
+                  className="w-full h-auto max-h-[295px] xs:max-h-[330px] object-contain drop-shadow-[0_12px_22px_rgba(0,0,0,0.16)] transition-all duration-500 select-none"
                 />
               </div>
-            )}
-
-            {/* Left Shaded Model 1 (shown when > 1 slide) */}
-            {totalSlides > 1 && (
-              <div
-                onClick={() => {
-                  setProgress(0);
-                  setCurrentIndex(leftIdx1);
-                }}
-                className="absolute left-[70px] xs:left-[90px] sm:left-[120px] bottom-0 z-15 w-[145px] transition-all duration-700"
-                style={{
-                  transform: 'rotateY(12deg) scale(0.74)',
-                  transformOrigin: 'bottom center',
-                  filter: 'blur(0.4px) grayscale(18%)',
-                  opacity: 0.50,
-                }}
-              >
-                <img
-                  src={slides[leftIdx1].modelImage}
-                  alt={slides[leftIdx1].brand}
-                  className="w-full h-auto max-h-[270px] object-contain select-none"
-                />
-              </div>
-            )}
-
-            {/* Active Main Model: Aligned near right side on mobile in increased size */}
-            <div className="relative z-20 w-full max-w-[240px] xs:max-w-[270px] sm:max-w-[300px] mr-2 xs:mr-4 flex items-end justify-center">
-              <img
-                key={currentSlide.id}
-                src={currentSlide.modelImage}
-                alt={`${currentSlide.brand} showcase`}
-                className="w-full h-auto max-h-[310px] xs:max-h-[340px] object-contain drop-shadow-[0_14px_25px_rgba(0,0,0,0.15)] transition-all duration-500 select-none"
-              />
             </div>
 
             {/* Mobile Forward Button */}
             <button
               onClick={handleNext}
               aria-label="Next showcase slide"
-              className="absolute right-1 top-1/2 -translate-y-1/2 z-30 p-1.5 text-charcoal-500 hover:text-burgundy-700 bg-transparent border-none shadow-none flex items-center justify-center cursor-pointer transition-transform hover:scale-110"
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-30 p-1.5 text-charcoal-500 hover:text-burgundy-700 bg-transparent border-none shadow-none flex items-center justify-center cursor-pointer transition-transform hover:scale-110"
             >
               <ChevronRight className="w-6 h-6 stroke-[2.2]" />
             </button>
