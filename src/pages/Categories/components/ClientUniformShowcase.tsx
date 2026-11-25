@@ -718,9 +718,9 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
     >
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 flex flex-col justify-center h-full">
         {/* DESKTOP VIEW (Main Model aligned on Right near 4 detail cards, shaded models on Left in decreasing size) */}
-        <div className="hidden lg:flex items-center justify-between gap-6 xl:gap-8 h-full">
+        <div className="hidden lg:flex items-center justify-between gap-4 xl:gap-6 h-full">
           {/* Left Column: Heading, Carousel Stage with Left-Staggered Models, Thin-line Loader */}
-          <div className="flex-1 flex flex-col justify-between max-w-[900px] xl:max-w-[980px] h-full py-4">
+          <div className="flex-1 flex flex-col justify-between h-full py-2">
             {/* Header Content */}
             <div className="text-left space-y-2">
               <span className="text-xs sm:text-[13px] font-heading font-extrabold uppercase tracking-widest text-[#82132C] block">
@@ -736,61 +736,53 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
 
             {/* Showcase Stage: Main model at right near small images, shaded models to the left in decreasing size */}
             <div
-              className="relative my-auto flex items-center justify-end min-h-[460px] xl:min-h-[520px] w-full pr-2 xl:pr-6"
-              style={{ perspective: '1100px' }}
+              className="relative my-auto flex items-end justify-end h-[500px] xl:h-[550px] w-full pr-1 overflow-visible"
+              style={{ perspective: '1200px' }}
             >
               {/* Warm Soft Ambient Halo behind main model */}
-              <div className="absolute top-1/2 right-20 xl:right-28 -translate-y-1/2 w-[380px] h-[380px] rounded-full bg-gradient-to-r from-burgundy-100/35 via-warm-100/50 to-burgundy-50/25 blur-3xl pointer-events-none" />
+              <div className="absolute top-1/2 right-12 xl:right-16 -translate-y-1/2 w-[420px] h-[420px] rounded-full bg-gradient-to-r from-burgundy-100/35 via-warm-100/40 to-burgundy-50/20 blur-3xl pointer-events-none" />
 
-              {/* Backward Option Button (No border, No shadow, Smaller Size) */}
+              {/* Backward Option Button - Sleek Glassmorphic Circular Button */}
               <button
                 onClick={handlePrev}
                 aria-label="Previous showcase slide"
-                className="absolute left-0 z-40 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-transparent hover:bg-black/5 text-charcoal-700 hover:text-burgundy-700 border-none shadow-none flex items-center justify-center transition-all duration-200 cursor-pointer"
+                className="absolute left-2 top-1/2 -translate-y-1/2 z-40 w-10 h-10 rounded-full bg-white/85 hover:bg-white backdrop-blur-md text-charcoal-700 hover:text-burgundy-700 border border-white/90 shadow-soft hover:shadow-soft-lg flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer"
               >
                 <ChevronLeft className="w-5 h-5 stroke-[2.2]" />
               </button>
 
-              {/* Shaded Left Model 3 (Smallest, furthest left, only when > 3 slides) */}
+              {/* Shaded Left Model 3 (Smallest, furthest left, decreasing size step, only when > 3 slides) */}
               {totalSlides > 3 && (
                 <div
                   onClick={() => {
                     setProgress(0);
                     setCurrentIndex(leftIdx3);
                   }}
-                  className="absolute left-8 xl:left-12 top-1/2 z-10 w-[200px] xl:w-[220px] opacity-15 hover:opacity-40 transition-all duration-700 cursor-pointer filter grayscale-[40%] blur-[0.6px]"
-                  style={{
-                    transform: 'translateY(-50%) rotateY(28deg) scale(0.48) translateZ(-80px)',
-                    transformStyle: 'preserve-3d',
-                  }}
+                  className="absolute left-10 xl:left-14 bottom-0 z-10 w-[170px] xl:w-[190px] h-[270px] xl:h-[295px] backdrop-blur-md bg-white/20 border border-white/40 shadow-[0_4px_20px_rgba(0,0,0,0.03)] rounded-3xl p-1.5 flex items-end justify-center transition-all duration-700 hover:scale-[1.05] cursor-pointer"
                   title={`Switch to ${slides[leftIdx3].brand}`}
                 >
                   <img
                     src={slides[leftIdx3].modelImage}
                     alt={slides[leftIdx3].brand}
-                    className="w-full h-auto max-h-[380px] object-contain select-none"
+                    className="w-full h-full object-contain object-bottom select-none filter grayscale-[35%] opacity-30 hover:opacity-60 transition-all duration-500"
                   />
                 </div>
               )}
 
-              {/* Shaded Left Model 2 (Medium small, mid-left, only when > 2 slides) */}
+              {/* Shaded Left Model 2 (Medium small, mid-left, decreasing size step, only when > 2 slides) */}
               {totalSlides > 2 && (
                 <div
                   onClick={() => {
                     setProgress(0);
                     setCurrentIndex(leftIdx2);
                   }}
-                  className="absolute left-[150px] xl:left-[200px] top-1/2 z-15 w-[230px] xl:w-[260px] opacity-28 hover:opacity-55 transition-all duration-700 cursor-pointer filter grayscale-[30%] blur-[0.4px]"
-                  style={{
-                    transform: 'translateY(-50%) rotateY(24deg) scale(0.62) translateZ(-50px)',
-                    transformStyle: 'preserve-3d',
-                  }}
+                  className="absolute left-[160px] xl:left-[195px] bottom-0 z-15 w-[210px] xl:w-[235px] h-[340px] xl:h-[370px] backdrop-blur-md bg-white/25 border border-white/50 shadow-[0_6px_24px_rgba(0,0,0,0.04)] rounded-3xl p-2 flex items-end justify-center transition-all duration-700 hover:scale-[1.04] cursor-pointer"
                   title={`Switch to ${slides[leftIdx2].brand}`}
                 >
                   <img
                     src={slides[leftIdx2].modelImage}
                     alt={slides[leftIdx2].brand}
-                    className="w-full h-auto max-h-[420px] object-contain select-none"
+                    className="w-full h-full object-contain object-bottom select-none filter grayscale-[22%] opacity-45 hover:opacity-75 transition-all duration-500"
                   />
                 </div>
               )}
@@ -802,41 +794,34 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
                     setProgress(0);
                     setCurrentIndex(leftIdx1);
                   }}
-                  className="absolute right-[280px] xl:right-[330px] top-1/2 z-20 w-[270px] xl:w-[310px] opacity-45 hover:opacity-75 transition-all duration-700 cursor-pointer filter grayscale-[18%] blur-[0.2px]"
-                  style={{
-                    transform: 'translateY(-50%) rotateY(18deg) scale(0.76) translateZ(-25px)',
-                    transformStyle: 'preserve-3d',
-                  }}
+                  className="absolute right-[330px] xl:right-[390px] bottom-0 z-20 w-[260px] xl:w-[295px] h-[415px] xl:h-[455px] backdrop-blur-md bg-white/35 border border-white/60 shadow-[0_8px_30px_rgba(0,0,0,0.06)] rounded-3xl p-2 flex items-end justify-center transition-all duration-700 hover:scale-[1.03] cursor-pointer"
                   title={`Switch to ${slides[leftIdx1].brand}`}
                 >
                   <img
                     src={slides[leftIdx1].modelImage}
                     alt={slides[leftIdx1].brand}
-                    className="w-full h-auto max-h-[450px] xl:max-h-[490px] object-contain select-none"
+                    className="w-full h-full object-contain object-bottom select-none filter grayscale-[12%] opacity-60 hover:opacity-90 transition-all duration-500"
                   />
                 </div>
               )}
 
-              {/* MAIN ACTIVE MODEL (Aligned on right side, directly adjacent to the 4 small detail cards) */}
+              {/* MAIN ACTIVE MODEL (Aligned on right side directly adjacent to 4 detail cards, in increased size, no glassmorphism container) */}
               <div
-                className="relative z-30 w-full max-w-[390px] xl:max-w-[440px] flex items-center justify-center transition-all duration-700 ease-out"
-                style={{
-                  transformStyle: 'preserve-3d',
-                }}
+                className="relative z-30 w-[350px] lg:w-[390px] xl:w-[440px] h-[480px] xl:h-[530px] flex items-end justify-center transition-all duration-700 ease-out mr-3 xl:mr-4"
               >
                 <img
                   key={currentSlide.id}
                   src={currentSlide.modelImage}
                   alt={`${currentSlide.brand} showcase`}
-                  className="w-full h-auto max-h-[460px] xl:max-h-[520px] object-contain drop-shadow-[0_16px_30px_rgba(0,0,0,0.14)] transition-all duration-700 select-none"
+                  className="w-full h-full object-contain object-bottom drop-shadow-[0_20px_35px_rgba(0,0,0,0.16)] transition-all duration-700 select-none"
                 />
               </div>
 
-              {/* Forward Option Button (No border, No shadow, Smaller Size) */}
+              {/* Forward Option Button - Sleek Glassmorphic Circular Button */}
               <button
                 onClick={handleNext}
                 aria-label="Next showcase slide"
-                className="absolute right-[-14px] xl:right-[-20px] z-40 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-transparent hover:bg-black/5 text-charcoal-700 hover:text-burgundy-700 border-none shadow-none flex items-center justify-center transition-all duration-200 cursor-pointer"
+                className="absolute right-0 xl:right-1 top-1/2 -translate-y-1/2 z-40 w-10 h-10 rounded-full bg-white/85 hover:bg-white backdrop-blur-md text-charcoal-700 hover:text-burgundy-700 border border-white/90 shadow-soft hover:shadow-soft-lg flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer"
               >
                 <ChevronRight className="w-5 h-5 stroke-[2.2]" />
               </button>
@@ -867,23 +852,32 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
             </div>
           </div>
 
-          {/* Right Column: 4 Circular Colloidal Shaped Detail Cards */}
-          <div className="w-[180px] xl:w-[210px] shrink-0 flex flex-col justify-center gap-2.5 xl:gap-3.5 my-auto">
-            {currentSlide.details.map((detail, idx) => (
-              <div
-                key={`${currentSlide.id}-${detail.id}-${idx}`}
-                className="relative w-full rounded-[26px] xl:rounded-[32px] overflow-hidden shadow-[0_5px_14px_rgba(0,0,0,0.10)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.16)] transition-all duration-500 hover:scale-[1.03] aspect-[16/10] bg-transparent"
-                style={{
-                  borderRadius: '26px',
-                }}
-              >
-                <img
-                  src={detail.image}
-                  alt={detail.title}
-                  className="w-full h-full object-cover rounded-[26px] xl:rounded-[32px]"
-                />
-              </div>
-            ))}
+          {/* Right Column: 4 Circular Colloidal Shaped Detail Cards with Glassmorphism and Animated on Slide Change */}
+          <div className="w-[180px] xl:w-[210px] shrink-0 flex flex-col justify-center gap-2.5 xl:gap-3 my-auto z-30">
+            {currentSlide.details.map((detail, idx) => {
+              // Smooth Colloidal Circular Shapes
+              const colloidalRadii = [
+                'rounded-[38px_24px_38px_24px]',
+                'rounded-[24px_38px_24px_38px]',
+                'rounded-[36px_26px_36px_26px]',
+                'rounded-[26px_36px_26px_36px]',
+              ];
+              return (
+                <div
+                  key={`${currentSlide.id}-${detail.id}-${idx}`}
+                  className={`relative w-full aspect-[16/10] backdrop-blur-md bg-white/45 border-2 border-white/80 shadow-[0_8px_22px_rgba(88,8,25,0.08)] hover:shadow-[0_12px_28px_rgba(88,8,25,0.16)] transition-all duration-500 hover:scale-[1.04] p-1 overflow-hidden animate-colloidal-pop ${colloidalRadii[idx % 4]}`}
+                  style={{
+                    animationDelay: `${idx * 75}ms`,
+                  }}
+                >
+                  <img
+                    src={detail.image}
+                    alt={detail.title}
+                    className={`w-full h-full object-cover select-none ${colloidalRadii[idx % 4]}`}
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -902,9 +896,9 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
             </p>
           </div>
 
-          {/* Mobile Stage: Main Model positioned right-center, shaded models on left */}
+          {/* Mobile Stage: Main Model positioned right-center, shaded models on left with glassmorphism */}
           <div
-            className="relative py-2 flex items-center justify-end min-h-[290px] xs:min-h-[310px] w-full overflow-hidden"
+            className="relative py-2 flex items-end justify-end h-[300px] xs:h-[330px] sm:h-[360px] w-full overflow-hidden"
             style={{ perspective: '800px' }}
           >
             {/* Ambient Glow */}
@@ -914,9 +908,9 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
             <button
               onClick={handlePrev}
               aria-label="Previous showcase slide"
-              className="absolute left-1 z-30 w-7 h-7 rounded-full bg-transparent hover:bg-black/5 text-charcoal-700 border-none shadow-none flex items-center justify-center cursor-pointer"
+              className="absolute left-1 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-white/85 hover:bg-white backdrop-blur-md text-charcoal-700 hover:text-burgundy-700 border border-white/90 shadow-soft flex items-center justify-center cursor-pointer transition-all active:scale-95"
             >
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronLeft className="w-5 h-5 stroke-[2.2]" />
             </button>
 
             {/* Left Shaded Model 2 (only when > 2 slides) */}
@@ -926,13 +920,12 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
                   setProgress(0);
                   setCurrentIndex(leftIdx2);
                 }}
-                className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-[110px] opacity-20 filter grayscale-[35%]"
-                style={{ transform: 'translateY(-50%) rotateY(20deg) scale(0.55)' }}
+                className="absolute left-2 bottom-0 z-10 w-[95px] xs:w-[110px] h-[180px] xs:h-[200px] backdrop-blur-md bg-white/25 border border-white/45 shadow-2xs rounded-2xl p-1 flex items-end justify-center transition-all duration-500 cursor-pointer"
               >
                 <img
                   src={slides[leftIdx2].modelImage}
                   alt={slides[leftIdx2].brand}
-                  className="w-full h-auto max-h-[190px] object-contain select-none"
+                  className="w-full h-full object-contain object-bottom select-none filter grayscale-[30%] opacity-35"
                 />
               </div>
             )}
@@ -944,24 +937,23 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
                   setProgress(0);
                   setCurrentIndex(leftIdx1);
                 }}
-                className="absolute left-[65px] xs:left-[80px] sm:left-[110px] top-1/2 -translate-y-1/2 z-15 w-[130px] opacity-40 filter grayscale-[20%]"
-                style={{ transform: 'translateY(-50%) rotateY(16deg) scale(0.72)' }}
+                className="absolute left-[70px] xs:left-[85px] sm:left-[115px] bottom-0 z-15 w-[125px] xs:w-[140px] sm:w-[160px] h-[220px] xs:h-[250px] sm:h-[280px] backdrop-blur-md bg-white/35 border border-white/55 shadow-soft rounded-2xl p-1.5 flex items-end justify-center transition-all duration-500 cursor-pointer"
               >
                 <img
                   src={slides[leftIdx1].modelImage}
                   alt={slides[leftIdx1].brand}
-                  className="w-full h-auto max-h-[225px] object-contain select-none"
+                  className="w-full h-full object-contain object-bottom select-none filter grayscale-[18%] opacity-55"
                 />
               </div>
             )}
 
-            {/* Active Main Model: Aligned near right side on mobile */}
-            <div className="relative z-20 w-full max-w-[210px] xs:max-w-[230px] sm:max-w-[260px] mr-4 xs:mr-6 flex items-center justify-center">
+            {/* Active Main Model: Aligned near right side on mobile, increased size, uncropped, grounded */}
+            <div className="relative z-20 w-[190px] xs:w-[215px] sm:w-[245px] h-[280px] xs:h-[310px] sm:h-[340px] mr-3 xs:mr-5 flex items-end justify-center">
               <img
                 key={currentSlide.id}
                 src={currentSlide.modelImage}
                 alt={`${currentSlide.brand} showcase`}
-                className="w-full h-auto max-h-[285px] xs:max-h-[305px] object-contain drop-shadow-[0_12px_22px_rgba(0,0,0,0.12)] transition-all duration-500 select-none"
+                className="w-full h-full object-contain object-bottom drop-shadow-[0_14px_24px_rgba(0,0,0,0.14)] transition-all duration-500 select-none"
               />
             </div>
 
@@ -969,9 +961,9 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
             <button
               onClick={handleNext}
               aria-label="Next showcase slide"
-              className="absolute right-1 z-30 w-7 h-7 rounded-full bg-transparent hover:bg-black/5 text-charcoal-700 border-none shadow-none flex items-center justify-center cursor-pointer"
+              className="absolute right-1 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-white/85 hover:bg-white backdrop-blur-md text-charcoal-700 hover:text-burgundy-700 border border-white/90 shadow-soft flex items-center justify-center cursor-pointer transition-all active:scale-95"
             >
-              <ChevronRight className="w-5 h-5" />
+              <ChevronRight className="w-5 h-5 stroke-[2.2]" />
             </button>
           </div>
 
@@ -999,21 +991,31 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
             ))}
           </div>
 
-          {/* 4 Circular Colloidal Shaped Detail Cards on Mobile */}
+          {/* 4 Circular Colloidal Shaped Detail Cards on Mobile with Glassmorphism and Animation */}
           <div className="grid grid-cols-4 gap-2 xs:gap-2.5 max-w-md mx-auto w-full pt-1 px-1">
-            {currentSlide.details.map((detail, idx) => (
-              <div
-                key={`${currentSlide.id}-mobile-${detail.id}-${idx}`}
-                className="relative rounded-[16px] xs:rounded-[20px] overflow-hidden shadow-[0_3px_10px_rgba(0,0,0,0.10)] aspect-square bg-transparent"
-                style={{ borderRadius: '18px' }}
-              >
-                <img
-                  src={detail.image}
-                  alt={detail.title}
-                  className="w-full h-full object-cover rounded-[16px] xs:rounded-[20px]"
-                />
-              </div>
-            ))}
+            {currentSlide.details.map((detail, idx) => {
+              const colloidalRadii = [
+                'rounded-[24px_16px_24px_16px]',
+                'rounded-[16px_24px_16px_24px]',
+                'rounded-[22px_18px_22px_18px]',
+                'rounded-[18px_22px_18px_22px]',
+              ];
+              return (
+                <div
+                  key={`${currentSlide.id}-mobile-${detail.id}-${idx}`}
+                  className={`relative backdrop-blur-md bg-white/50 border border-white/80 shadow-[0_4px_12px_rgba(88,8,25,0.08)] aspect-square p-0.5 overflow-hidden animate-colloidal-pop ${colloidalRadii[idx % 4]}`}
+                  style={{
+                    animationDelay: `${idx * 60}ms`,
+                  }}
+                >
+                  <img
+                    src={detail.image}
+                    alt={detail.title}
+                    className={`w-full h-full object-cover select-none ${colloidalRadii[idx % 4]}`}
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
