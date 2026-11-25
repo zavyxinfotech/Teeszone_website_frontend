@@ -160,34 +160,6 @@ export const SCHOOL_SLIDES: ShowcaseSlide[] = [
     ],
   },
   {
-    id: 'lawrence',
-    brand: 'The Lawrence School Lovedale',
-    subtitle: 'Custom Campus Event Hoodies & School Uniforms',
-    modelImage: '/assets/images/products/showcase/school/lawrence-model.webp',
-    details: [
-      {
-        id: 'chest',
-        title: 'TEDx Chest Embroidery',
-        image: '/assets/images/products/showcase/school/lawrence-c1.webp',
-      },
-      {
-        id: 'back',
-        title: 'Committee Head Back Print',
-        image: '/assets/images/products/showcase/school/lawrence-c2.webp',
-      },
-      {
-        id: 'collar',
-        title: 'Double-Lined Hood & Drawstrings',
-        image: '/assets/images/products/showcase/school/lawrence-c3.webp',
-      },
-      {
-        id: 'pocket',
-        title: 'Kangaroo Pocket Reinforcement',
-        image: '/assets/images/products/showcase/school/lawrence-c4.webp',
-      },
-    ],
-  },
-  {
     id: 'vinayaka',
     brand: 'Vinayaka Vidhya Bhavan',
     subtitle: 'Junior Campus House Polo & School Uniform Set',
@@ -212,6 +184,34 @@ export const SCHOOL_SLIDES: ShowcaseSlide[] = [
         id: 'sleeve',
         title: 'Navy Ribbed Sleeve Cuff',
         image: '/assets/images/products/showcase/school/vinayaka-c4.webp',
+      },
+    ],
+  },
+  {
+    id: 'lawrence',
+    brand: 'The Lawrence School Lovedale',
+    subtitle: 'Custom Campus Event Hoodies & School Uniforms',
+    modelImage: '/assets/images/products/showcase/school/lawrence-model.webp',
+    details: [
+      {
+        id: 'chest',
+        title: 'TEDx Chest Embroidery',
+        image: '/assets/images/products/showcase/school/lawrence-c1.webp',
+      },
+      {
+        id: 'back',
+        title: 'Committee Head Back Print',
+        image: '/assets/images/products/showcase/school/lawrence-c2.webp',
+      },
+      {
+        id: 'collar',
+        title: 'Double-Lined Hood & Drawstrings',
+        image: '/assets/images/products/showcase/school/lawrence-c3.webp',
+      },
+      {
+        id: 'pocket',
+        title: 'Kangaroo Pocket Reinforcement',
+        image: '/assets/images/products/showcase/school/lawrence-c4.webp',
       },
     ],
   },
