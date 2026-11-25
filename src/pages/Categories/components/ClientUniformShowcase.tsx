@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export interface ShowcaseDetail {
@@ -584,22 +584,30 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
   const totalSlides = slides.length;
   const currentSlide = slides[currentIndex];
 
-  // Calculate preceding models staggered on the left in decreasing scale
-  const leftIdx1 = (currentIndex - 1 + totalSlides) % totalSlides;
-  const leftIdx2 = (currentIndex - 2 + totalSlides) % totalSlides;
-  const leftIdx3 = (currentIndex - 3 + totalSlides) % totalSlides;
+  // 4 positions from left to right:
+  // Position 1 (Far Left / 4th from right, Smallest): (currentIndex + 3) % totalSlides
+  // Position 2 (Mid-left / 3rd from right, Medium-small): (currentIndex + 2) % totalSlides
+  // Position 3 (Mid-right / 2nd from right, Medium-large): (currentIndex + 1) % totalSlides
+  // Position 4 (Far Right / 1st from right, Largest/Active): currentIndex
+  // When Next is clicked:
+  // - Pos 3 (Right 2nd) moves to Pos 4 (Right 1st) and becomes the largest!
+  // - Pos 4 (Right 1st) wraps around to Pos 1 (Far Left) and takes the smallest size!
+  const pos1Idx = (currentIndex + 3) % totalSlides;
+  const pos2Idx = (currentIndex + 2) % totalSlides;
+  const pos3Idx = (currentIndex + 1) % totalSlides;
+  const pos4Idx = currentIndex;
 
-  const slideDuration = 4500; // 4.5 seconds per circular rotation
+  const slideDuration = 3800; // 3.8s smooth auto-scroll
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setProgress(0);
     setCurrentIndex((prev) => (prev + 1) % totalSlides);
-  };
+  }, [totalSlides]);
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     setProgress(0);
     setCurrentIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
-  };
+  }, [totalSlides]);
 
   // IntersectionObserver to auto-scroll when user scrolls into this section
   useEffect(() => {
@@ -607,7 +615,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
       ([entry]) => {
         setIsInView(entry.isIntersecting);
       },
-      { threshold: 0.25 }
+      { threshold: 0.15 }
     );
 
     if (sectionRef.current) {
@@ -626,8 +634,8 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
 
     const timer = setInterval(() => {
       setProgress((prev) => {
-        if (prev >= 100) {
-          handleNext();
+        if (prev + step >= 100) {
+          setCurrentIndex((curr) => (curr + 1) % totalSlides);
           return 0;
         }
         return prev + step;
@@ -635,7 +643,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
     }, intervalTime);
 
     return () => clearInterval(timer);
-  }, [currentIndex, isInView, isPaused, totalSlides]);
+  }, [isInView, isPaused, totalSlides, slideDuration]);
 
   // Touch swipe handling for mobile
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -753,9 +761,9 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
               </p>
             </div>
 
-            {/* Showcase Stage: Evenly Distributed Runway Spacing Following Reference Image 2 */}
+            {/* Showcase Stage: Evenly Distributed Runway Spacing with Strict Decreasing Sizes */}
             <div
-              className="relative my-auto flex items-end justify-center h-[380px] xl:h-[430px] w-full pb-1 select-none"
+              className="relative my-auto flex items-end justify-center h-[420px] xl:h-[470px] w-full pb-1 select-none"
             >
               {/* Backward Navigation Button */}
               <button
@@ -766,87 +774,87 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
                 <ChevronLeft className="w-8 h-8 stroke-[2.2]" />
               </button>
 
-              {/* Models Runway Row: Evenly Distributed with Strict Height-Wise Progression (Image 1 Tallest, Grounded on Floor) */}
+              {/* Models Runway Row: Strict Decreasing Order of Size & Height from Right to Left */}
               <div
                 className={`w-full h-full flex items-end ${
-                  totalSlides > 2 ? 'justify-between' : 'justify-end gap-12 xl:gap-20'
-                } px-2 xl:px-4`}
+                  totalSlides > 2 ? 'justify-between' : 'justify-end gap-16 xl:gap-24'
+                } px-3 xl:px-6`}
               >
-                {/* Shaded Model 3 (Smallest, furthest left, grounded on floor) */}
+                {/* Position 1: Leftmost / 4th from right (SMALLEST in height and width) */}
                 {totalSlides > 3 && (
                   <div
                     onClick={() => {
                       setProgress(0);
-                      setCurrentIndex(leftIdx3);
+                      setCurrentIndex(pos1Idx);
                     }}
-                    className="flex flex-col items-center justify-end mb-0 cursor-pointer transition-all duration-500 hover:scale-[1.04] group shrink-0"
+                    className="flex flex-col items-center justify-end w-[15%] xl:w-[16%] max-w-[170px] xl:max-w-[195px] mb-8 xl:mb-10 cursor-pointer transition-all duration-700 hover:scale-[1.05] group shrink-0"
                     style={{
                       opacity: 0.35,
-                      filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.06)) blur(0.5px) grayscale(15%)',
+                      filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.06)) blur(0.5px) grayscale(15%)',
                     }}
-                    title={`Switch to ${slides[leftIdx3].brand}`}
+                    title={`Switch to ${slides[pos1Idx].brand}`}
                   >
                     <img
-                      src={slides[leftIdx3].modelImage}
-                      alt={slides[leftIdx3].brand}
-                      className="h-[210px] xl:h-[240px] w-auto max-w-full object-contain select-none transition-opacity duration-300 group-hover:opacity-100"
+                      src={slides[pos1Idx].modelImage}
+                      alt={slides[pos1Idx].brand}
+                      className="w-full h-auto max-h-[220px] xl:max-h-[250px] object-contain select-none transition-opacity duration-300 group-hover:opacity-100"
                     />
                   </div>
                 )}
 
-                {/* Shaded Model 2 (Mid-left, taller than model 3, grounded on floor) */}
+                {/* Position 2: Mid-left / 3rd from right (Visibly smaller than Position 3) */}
                 {totalSlides > 2 && (
                   <div
                     onClick={() => {
                       setProgress(0);
-                      setCurrentIndex(leftIdx2);
+                      setCurrentIndex(pos2Idx);
                     }}
-                    className="flex flex-col items-center justify-end mb-0 cursor-pointer transition-all duration-500 hover:scale-[1.04] group shrink-0"
+                    className="flex flex-col items-center justify-end w-[20%] xl:w-[21%] max-w-[220px] xl:max-w-[250px] mb-5 xl:mb-7 cursor-pointer transition-all duration-700 hover:scale-[1.05] group shrink-0"
                     style={{
                       opacity: 0.55,
-                      filter: 'drop-shadow(0 6px 14px rgba(0,0,0,0.09)) blur(0.25px) grayscale(8%)',
+                      filter: 'drop-shadow(0 6px 12px rgba(0,0,0,0.08)) blur(0.2px) grayscale(8%)',
                     }}
-                    title={`Switch to ${slides[leftIdx2].brand}`}
+                    title={`Switch to ${slides[pos2Idx].brand}`}
                   >
                     <img
-                      src={slides[leftIdx2].modelImage}
-                      alt={slides[leftIdx2].brand}
-                      className="h-[275px] xl:h-[310px] w-auto max-w-full object-contain select-none transition-opacity duration-300 group-hover:opacity-100"
+                      src={slides[pos2Idx].modelImage}
+                      alt={slides[pos2Idx].brand}
+                      className="w-full h-auto max-h-[285px] xl:max-h-[320px] object-contain select-none transition-opacity duration-300 group-hover:opacity-100"
                     />
                   </div>
                 )}
 
-                {/* Shaded Model 1 (Immediately left of main model, taller than model 2, grounded on floor) */}
+                {/* Position 3: Mid-right / 2nd from right (Visibly smaller than Position 4, but bigger than Position 2) */}
                 {totalSlides > 1 && (
                   <div
                     onClick={() => {
                       setProgress(0);
-                      setCurrentIndex(leftIdx1);
+                      setCurrentIndex(pos3Idx);
                     }}
-                    className="flex flex-col items-center justify-end mb-0 cursor-pointer transition-all duration-500 hover:scale-[1.04] group shrink-0"
+                    className="flex flex-col items-center justify-end w-[25%] xl:w-[26%] max-w-[280px] xl:max-w-[315px] mb-2 xl:mb-3 cursor-pointer transition-all duration-700 hover:scale-[1.05] group shrink-0"
                     style={{
-                      opacity: 0.75,
-                      filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.12))',
+                      opacity: 0.78,
+                      filter: 'drop-shadow(0 10px 18px rgba(0,0,0,0.12))',
                     }}
-                    title={`Switch to ${slides[leftIdx1].brand}`}
+                    title={`Switch to ${slides[pos3Idx].brand}`}
                   >
                     <img
-                      src={slides[leftIdx1].modelImage}
-                      alt={slides[leftIdx1].brand}
-                      className="h-[340px] xl:h-[380px] w-auto max-w-full object-contain select-none transition-opacity duration-300 group-hover:opacity-100"
+                      src={slides[pos3Idx].modelImage}
+                      alt={slides[pos3Idx].brand}
+                      className="w-full h-auto max-h-[355px] xl:max-h-[395px] object-contain select-none transition-opacity duration-300 group-hover:opacity-100"
                     />
                   </div>
                 )}
 
-                {/* MAIN ACTIVE MODEL (Foreground right, TALLEST & BIGGEST of all, crisp, grounded on floor) */}
+                {/* Position 4: Right 1st / Active (BIGGEST in height and width) */}
                 <div
-                  className="flex flex-col items-center justify-end mb-0 transition-all duration-700 ease-out z-30 shrink-0"
+                  className="flex flex-col items-center justify-end w-[31%] xl:w-[32%] max-w-[340px] xl:max-w-[385px] mb-0 transition-all duration-700 ease-out z-30 shrink-0"
                 >
                   <img
                     key={currentSlide.id}
-                    src={currentSlide.modelImage}
-                    alt={`${currentSlide.brand} showcase`}
-                    className="h-[420px] xl:h-[470px] w-auto max-w-full object-contain drop-shadow-[0_16px_30px_rgba(0,0,0,0.18)] select-none"
+                    src={slides[pos4Idx].modelImage}
+                    alt={`${slides[pos4Idx].brand} showcase`}
+                    className="w-full h-auto max-h-[425px] xl:max-h-[475px] object-contain drop-shadow-[0_16px_30px_rgba(0,0,0,0.18)] select-none"
                   />
                 </div>
               </div>
@@ -940,59 +948,59 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
 
             {/* Mobile Runway Models Container with Even Spacing and Perspective Axis */}
             <div className="w-full max-w-sm sm:max-w-md mx-auto flex items-end justify-center gap-3 xs:gap-4 sm:gap-6 px-6">
-              {/* Left Shaded Model 2 (tablet / wider screens sm:) */}
+              {/* Position 2 (tablet / wider screens sm:) */}
               {totalSlides > 2 && (
                 <div
                   onClick={() => {
                     setProgress(0);
-                    setCurrentIndex(leftIdx2);
+                    setCurrentIndex(pos2Idx);
                   }}
-                  className="hidden sm:flex flex-col items-center justify-end mb-0 cursor-pointer transition-all duration-500 hover:scale-[1.04] shrink-0"
+                  className="hidden sm:flex flex-col items-center justify-end w-[24%] max-w-[120px] mb-4 cursor-pointer transition-all duration-500 hover:scale-[1.04]"
                   style={{
                     opacity: 0.35,
                     filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.08)) blur(0.4px)',
                   }}
-                  title={`Switch to ${slides[leftIdx2].brand}`}
+                  title={`Switch to ${slides[pos2Idx].brand}`}
                 >
                   <img
-                    src={slides[leftIdx2].modelImage}
-                    alt={slides[leftIdx2].brand}
-                    className="h-[185px] w-auto max-w-full object-contain select-none"
+                    src={slides[pos2Idx].modelImage}
+                    alt={slides[pos2Idx].brand}
+                    className="w-full h-auto max-h-[200px] object-contain select-none"
                   />
                 </div>
               )}
 
-              {/* Left Shaded Model 1 */}
+              {/* Position 3 (Mobile 2nd from right, smaller than main model) */}
               {totalSlides > 1 && (
                 <div
                   onClick={() => {
                     setProgress(0);
-                    setCurrentIndex(leftIdx1);
+                    setCurrentIndex(pos3Idx);
                   }}
-                  className="flex flex-col items-center justify-end mb-0 cursor-pointer transition-all duration-500 hover:scale-[1.04] shrink-0"
+                  className="flex flex-col items-center justify-end w-[40%] sm:w-[32%] max-w-[155px] mb-2 cursor-pointer transition-all duration-500 hover:scale-[1.04]"
                   style={{
                     opacity: 0.60,
                     filter: 'drop-shadow(0 6px 14px rgba(0,0,0,0.10))',
                   }}
-                  title={`Switch to ${slides[leftIdx1].brand}`}
+                  title={`Switch to ${slides[pos3Idx].brand}`}
                 >
                   <img
-                    src={slides[leftIdx1].modelImage}
-                    alt={slides[leftIdx1].brand}
-                    className="h-[240px] xs:h-[265px] w-auto max-w-full object-contain select-none"
+                    src={slides[pos3Idx].modelImage}
+                    alt={slides[pos3Idx].brand}
+                    className="w-full h-auto max-h-[245px] xs:max-h-[270px] object-contain select-none"
                   />
                 </div>
               )}
 
-              {/* Active Main Model (TALLEST and BIGGEST) */}
+              {/* Position 4: Active Main Model (Largest on mobile) */}
               <div
-                className="flex flex-col items-center justify-end mb-0 transition-all duration-500 shrink-0"
+                className="flex flex-col items-center justify-end w-[56%] sm:w-[44%] max-w-[215px] xs:max-w-[235px] mb-0 transition-all duration-500"
               >
                 <img
                   key={currentSlide.id}
-                  src={currentSlide.modelImage}
-                  alt={`${currentSlide.brand} showcase`}
-                  className="h-[295px] xs:h-[330px] w-auto max-w-full object-contain drop-shadow-[0_12px_22px_rgba(0,0,0,0.16)] transition-all duration-500 select-none"
+                  src={slides[pos4Idx].modelImage}
+                  alt={`${slides[pos4Idx].brand} showcase`}
+                  className="w-full h-auto max-h-[305px] xs:max-h-[335px] object-contain drop-shadow-[0_12px_22px_rgba(0,0,0,0.16)] transition-all duration-500 select-none"
                 />
               </div>
             </div>
