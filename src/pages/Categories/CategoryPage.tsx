@@ -348,44 +348,58 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
 
       {/* 6. FREQUENTLY ASKED QUESTIONS */}
       <section className="py-14 sm:py-18 bg-[#FAF7F2] border-t border-burgundy-100/60">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-2 mb-10">
-            <span className="text-xs font-heading font-bold uppercase tracking-wider text-burgundy-700 bg-burgundy-50 px-3.5 py-1 rounded-full inline-block">
-              Got Questions?
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-heading font-bold text-charcoal-900">
-              Frequently Asked Questions About {category.title}
-            </h2>
-          </div>
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-14 items-center">
+            {/* Left: 3D FAQ Illustration */}
+            <div className="lg:col-span-5 flex justify-center items-center">
+              <img
+                src="/assets/images/faq-3d-illustration.webp"
+                alt="Frequently Asked Questions Illustration"
+                className="w-full max-w-[420px] sm:max-w-[480px] lg:max-w-full h-auto object-contain drop-shadow-md select-none"
+              />
+            </div>
 
-          <div className="space-y-3.5">
-            {category.faqs.map((faq, idx) => {
-              const isOpen = openFaqIndex === idx;
-              return (
-                <div
-                  key={idx}
-                  className="bg-white rounded-2xl border border-burgundy-100/80 overflow-hidden shadow-2xs transition-colors"
-                >
-                  <button
-                    type="button"
-                    onClick={() => toggleFaq(idx)}
-                    className="w-full flex items-center justify-between p-5 text-left font-heading font-bold text-sm sm:text-base text-charcoal-900 hover:text-burgundy-700 transition-colors cursor-pointer"
-                  >
-                    <span>{faq.question}</span>
-                    <ChevronDown
-                      className={`w-5 h-5 text-burgundy-700 transition-transform duration-200 shrink-0 ml-4 ${
-                        isOpen ? 'rotate-180' : ''
-                      }`}
-                    />
-                  </button>
-                  {isOpen && (
-                    <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-charcoal-600 leading-relaxed border-t border-burgundy-50">
-                      {faq.answer}
+            {/* Right: FAQ Content & Accordion */}
+            <div className="lg:col-span-7 space-y-6">
+              <div>
+                <span className="text-xs font-heading font-bold uppercase tracking-wider text-burgundy-700 bg-burgundy-50 px-3.5 py-1 rounded-full inline-block">
+                  Got Questions?
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-heading font-bold text-charcoal-900 mt-2">
+                  Frequently Asked Questions About {category.title}
+                </h2>
+              </div>
+
+              <div className="space-y-3.5">
+                {category.faqs.map((faq, idx) => {
+                  const isOpen = openFaqIndex === idx;
+                  return (
+                    <div
+                      key={idx}
+                      className="bg-white rounded-2xl border border-burgundy-100/80 overflow-hidden shadow-2xs transition-colors"
+                    >
+                      <button
+                        type="button"
+                        onClick={() => toggleFaq(idx)}
+                        className="w-full flex items-center justify-between p-5 text-left font-heading font-bold text-sm sm:text-base text-charcoal-900 hover:text-burgundy-700 transition-colors cursor-pointer"
+                      >
+                        <span>{faq.question}</span>
+                        <ChevronDown
+                          className={`w-5 h-5 text-burgundy-700 transition-transform duration-200 shrink-0 ml-4 ${
+                            isOpen ? 'rotate-180' : ''
+                          }`}
+                        />
+                      </button>
+                      {isOpen && (
+                        <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-charcoal-600 leading-relaxed border-t border-burgundy-50">
+                          {faq.answer}
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
-              );
-            })}
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </section>
