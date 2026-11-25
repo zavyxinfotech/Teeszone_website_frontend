@@ -7,7 +7,6 @@ import { Button } from '@/components/common/Button';
 import { ClientUniformShowcase } from './components/ClientUniformShowcase';
 import {
   Sparkles,
-  ChevronRight,
   ChevronDown,
   Layers,
   Package,
@@ -76,8 +75,8 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
 
   return (
     <div className="flex flex-col min-h-screen bg-[#FFFDF9]">
-      {/* 1. HERO & BREADCRUMBS WITH LUXURY SATIN BACKDROP (Exact Layout from Reference Image 2) */}
-      <section className="relative w-full pt-28 pb-14 sm:pt-32 sm:pb-16 lg:pt-36 lg:pb-20 overflow-hidden bg-[#FAF6F4] border-b border-burgundy-100/60 select-none">
+      {/* 1. HERO WITH LUXURY SATIN BACKDROP (Exact Layout from Reference Image 2) */}
+      <section className="relative w-full pt-24 pb-14 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20 overflow-hidden bg-[#FAF6F4] border-b border-burgundy-100/60 select-none">
         {/* Full-width Luxury Flowing Satin Background (Image 1) */}
         <div className="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden">
           <img
@@ -91,26 +90,10 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
         </div>
 
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Breadcrumb Navigation matching Reference Image 2 */}
-          <nav
-            aria-label="Breadcrumb"
-            className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium text-charcoal-500 mb-5 sm:mb-6"
-          >
-            <Link to="/" className="hover:text-burgundy-700 transition-colors">
-              Home
-            </Link>
-            <ChevronRight className="w-3.5 h-3.5 text-charcoal-400" />
-            <Link to="/products" className="hover:text-burgundy-700 transition-colors">
-              Products
-            </Link>
-            <ChevronRight className="w-3.5 h-3.5 text-charcoal-400" />
-            <span className="text-burgundy-700 font-semibold">{category.title}</span>
-          </nav>
-
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Content Column matching Reference Image 2 */}
             <div className="lg:col-span-7 space-y-4 sm:space-y-5 text-left">
-              {/* Badge Pill with Sparkle */}
+              {/* Badge Pill with Sparkle (Positioned at Top) */}
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FCECEF]/90 border border-[#80011F]/20 text-burgundy-700 text-xs sm:text-sm font-heading font-bold tracking-wider uppercase shadow-2xs">
                 <Sparkles className="w-3.5 h-3.5 text-burgundy-700" />
                 <span>{category.badge}</span>

@@ -417,6 +417,62 @@ export const SPORTS_SLIDES: ShowcaseSlide[] = [
       },
     ],
   },
+  {
+    id: 'pro-training',
+    brand: 'Pro Athletic Speedwear',
+    subtitle: 'High-Velocity Engineered Sublimation Knit & Compression Trackwear',
+    modelImage: '/assets/images/products/showcase/sports/adult-model.webp',
+    details: [
+      {
+        id: 'graphic',
+        title: 'Speed Streaks Gradient Print',
+        image: '/assets/images/products/showcase/sports/adult-c3.webp',
+      },
+      {
+        id: 'fabric',
+        title: 'Breathable Interlock Mesh',
+        image: '/assets/images/products/showcase/sports/adult-c4.webp',
+      },
+      {
+        id: 'collar',
+        title: 'Crewneck Ribbed Collar',
+        image: '/assets/images/products/showcase/sports/adult-c1.webp',
+      },
+      {
+        id: 'sleeve',
+        title: 'Navy Tipped Sleeve Rib',
+        image: '/assets/images/products/showcase/sports/adult-c2.webp',
+      },
+    ],
+  },
+  {
+    id: 'club-active',
+    brand: 'Club League Performance Kit',
+    subtitle: 'Youth & Adult Sublimation Team Graphics with Anti-Microbial Finish',
+    modelImage: '/assets/images/products/showcase/sports/junior-model.webp',
+    details: [
+      {
+        id: 'graphic',
+        title: 'Dynamic Soundwave Dot Graphic',
+        image: '/assets/images/products/showcase/sports/junior-c3.webp',
+      },
+      {
+        id: 'collar',
+        title: 'Contrast Tipped Crewneck',
+        image: '/assets/images/products/showcase/sports/junior-c1.webp',
+      },
+      {
+        id: 'sleeve',
+        title: 'Raglan Colorblock Sleeves',
+        image: '/assets/images/products/showcase/sports/junior-c2.webp',
+      },
+      {
+        id: 'fabric',
+        title: 'Performance Waffle Knit Fabric',
+        image: '/assets/images/products/showcase/sports/junior-c4.webp',
+      },
+    ],
+  },
 ];
 
 export const BLANK_SLIDES: ShowcaseSlide[] = [
@@ -749,14 +805,14 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
           {/* Left / Main Showcase Area */}
           <div className="flex-1 flex flex-col justify-between h-full w-full py-2">
             {/* Header Content */}
-            <div className="text-left space-y-1.5 z-30">
+            <div className="text-left space-y-2 z-30">
               <span className="text-xs sm:text-[13px] font-heading font-extrabold uppercase tracking-widest text-[#82132C] block">
                 {badgeText}
               </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-[38px] xl:text-[42px] font-heading font-black tracking-tight text-charcoal-900 leading-[1.08]">
+              <h2 className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[50px] font-heading font-black tracking-tight text-charcoal-900 leading-[1.08]">
                 {headingText}
               </h2>
-              <p className="text-xs sm:text-sm text-charcoal-600 font-normal leading-relaxed max-w-2xl">
+              <p className="text-sm sm:text-base lg:text-[17px] text-charcoal-600 font-normal leading-relaxed max-w-3xl">
                 {subtitleText}
               </p>
             </div>
@@ -922,7 +978,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
         <div className="lg:hidden flex flex-col space-y-4 text-left py-4 my-auto w-full">
           {/* Header Content */}
           <div className="space-y-1.5">
-            <span className="text-[11px] font-heading font-extrabold uppercase tracking-widest text-[#82132C] block">
+            <span className="text-xs font-heading font-extrabold uppercase tracking-widest text-[#82132C] block">
               {badgeText}
             </span>
             <h2 className="text-2xl sm:text-3xl font-heading font-black tracking-tight text-charcoal-900 leading-[1.12]">
@@ -931,6 +987,27 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
             <p className="text-xs sm:text-sm text-charcoal-600 font-normal leading-relaxed max-w-lg">
               {subtitleText}
             </p>
+          </div>
+
+          {/* 4 Circular Colloidal Shaped Detail Cards on Mobile (Positioned ABOVE Model Images) */}
+          <div className="grid grid-cols-4 gap-2 xs:gap-2.5 max-w-md mx-auto w-full pt-1 pb-1 px-1">
+            {currentSlide.details.map((detail, idx) => (
+              <div
+                key={`${currentSlide.id}-mobile-${detail.id}-${idx}`}
+                className="relative overflow-hidden shadow-[0_4px_12px_rgba(0,0,0,0.10)] aspect-square bg-transparent"
+                style={{
+                  borderRadius: '24px',
+                  animation: `colloidalPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${idx * 60}ms both`,
+                }}
+              >
+                <img
+                  src={detail.image}
+                  alt={detail.title}
+                  className="w-full h-full object-cover scale-[1.12]"
+                  style={{ borderRadius: '24px' }}
+                />
+              </div>
+            ))}
           </div>
 
           {/* Mobile Stage: Evenly Spaced Runway Models Following Image 2 */}
@@ -1036,27 +1113,6 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
                   />
                 )}
               </button>
-            ))}
-          </div>
-
-          {/* 4 Circular Colloidal Shaped Detail Cards on Mobile */}
-          <div className="grid grid-cols-4 gap-2 xs:gap-2.5 max-w-md mx-auto w-full pt-1 px-1">
-            {currentSlide.details.map((detail, idx) => (
-              <div
-                key={`${currentSlide.id}-mobile-${detail.id}-${idx}`}
-                className="relative overflow-hidden shadow-[0_4px_12px_rgba(0,0,0,0.10)] aspect-square bg-transparent"
-                style={{
-                  borderRadius: '24px',
-                  animation: `colloidalPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${idx * 60}ms both`,
-                }}
-              >
-                <img
-                  src={detail.image}
-                  alt={detail.title}
-                  className="w-full h-full object-cover"
-                  style={{ borderRadius: '24px' }}
-                />
-              </div>
             ))}
           </div>
         </div>
