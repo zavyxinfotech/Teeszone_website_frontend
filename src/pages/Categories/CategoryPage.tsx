@@ -54,8 +54,8 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
     rawSlug === 'promotional' || rawSlug === 'promo' || rawSlug === 'events'
       ? 'promotional-events'
       : rawSlug === 'sports' || rawSlug === 'academics'
-      ? 'sports-academics'
-      : rawSlug;
+        ? 'sports-academics'
+        : rawSlug;
   const slug = (normalizedSlug in categoryDetails ? normalizedSlug : 'corporate') as ProductCategory;
   const category: CategoryDetail = categoryDetails[slug];
 
@@ -388,9 +388,8 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
                       >
                         <span>{faq.question}</span>
                         <ChevronDown
-                          className={`w-5 h-5 text-burgundy-700 transition-transform duration-200 shrink-0 ml-4 ${
-                            isOpen ? 'rotate-180' : ''
-                          }`}
+                          className={`w-5 h-5 text-burgundy-700 transition-transform duration-200 shrink-0 ml-4 ${isOpen ? 'rotate-180' : ''
+                            }`}
                         />
                       </button>
                       {isOpen && (
