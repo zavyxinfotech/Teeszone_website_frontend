@@ -964,7 +964,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
                 <img
                   src={detail.image}
                   alt={detail.title}
-                  className="w-full h-full object-cover scale-[1.12] transition-transform duration-500 group-hover:scale-[1.18]"
+                  className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
                   style={{
                     borderRadius: '32px',
                   }}
@@ -1003,7 +1003,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
                 <img
                   src={detail.image}
                   alt={detail.title}
-                  className="w-full h-full object-cover scale-[1.12]"
+                  className="w-full h-full object-contain"
                   style={{ borderRadius: '24px' }}
                 />
               </div>
