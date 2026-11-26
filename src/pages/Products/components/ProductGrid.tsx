@@ -60,7 +60,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ onRequestQuote }) => {
   return (
     <section
       id="our-products"
-      className="relative w-full py-16 sm:py-20 lg:py-28 bg-gradient-to-b from-[#FFFDFD] via-[#FAF3F5] to-[#FFFDFD] select-none overflow-hidden"
+      className="relative w-full py-16 sm:py-20 lg:py-28 bg-[#FAF6F4] select-none overflow-hidden"
       aria-label="TeesZone Product Range"
     >
       {/* Background Soft Ambient Accents */}

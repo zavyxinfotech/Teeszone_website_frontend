@@ -25,7 +25,7 @@ export const Products: React.FC<ProductsProps> = ({ onOpenQuote }) => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAF2F4] text-[#211D20] selection:bg-[#80011F] selection:text-white">
+    <div className="flex flex-col min-h-screen bg-[#FAF6F4] text-[#211D20] selection:bg-[#80011F] selection:text-white">
       {/* 1. Hero Section: Cinematic 3D Floating Apparel Showcase on Pedestal */}
       <ProductsHero onExploreClick={() => {
         const el = document.getElementById('our-products');

@@ -35,7 +35,7 @@ export const ProductAdvantages: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
-        className="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl p-5 sm:p-7 shadow-[0_10px_30px_rgba(128,1,31,0.06)] border border-gray-100"
+        className="bg-[#FAF6F4] rounded-2xl sm:rounded-3xl p-5 sm:p-7 shadow-[0_10px_30px_rgba(128,1,31,0.06)] border border-[#80011F]/10"
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4 items-center">
           {ADVANTAGES.map((item, index) => {
@@ -58,7 +58,7 @@ export const ProductAdvantages: React.FC = () => {
 
                 {/* Vertical Divider on Desktop */}
                 {index < ADVANTAGES.length - 1 && (
-                  <div className="hidden lg:block w-[1px] h-10 bg-gray-200/80 justify-self-end mr-4" />
+                  <div className="hidden lg:block w-[1px] h-10 bg-[#80011F]/10 justify-self-end mr-4" />
                 )}
               </React.Fragment>
             );

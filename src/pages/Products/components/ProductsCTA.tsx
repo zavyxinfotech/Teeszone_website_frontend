@@ -14,7 +14,7 @@ export const ProductsCTA: React.FC<ProductsCTAProps> = ({ onOpenQuote }) => {
       className="relative w-full overflow-hidden bg-gradient-to-br from-[#73011c] via-[#4d0012] to-[#30000a] text-white select-none pt-12 sm:pt-16 md:pt-20 pb-16 sm:pb-20"
       aria-label="Custom Apparel Call to Action"
     >
-      {/* Seamless Wave Transition matching preceding section (#FFFDFD) */}
+      {/* Seamless Wave Transition matching preceding section (#FAF6F4) */}
       <div
         className="absolute top-0 inset-x-0 overflow-hidden leading-none pointer-events-none z-10"
         aria-hidden="true"
@@ -28,7 +28,7 @@ export const ProductsCTA: React.FC<ProductsCTAProps> = ({ onOpenQuote }) => {
         >
           <path
             d="M0,0 L1440,0 L1440,15 C1200,55 920,70 620,40 C320,10 120,40 0,25 Z"
-            fill="#FFFDFD"
+            fill="#FAF6F4"
           />
         </svg>
       </div>
