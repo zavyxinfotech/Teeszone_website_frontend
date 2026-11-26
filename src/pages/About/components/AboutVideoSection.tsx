@@ -25,13 +25,13 @@ export const AboutVideoSection: React.FC = () => {
           </svg>
         </div>
 
-        {/* Desktop Video */}
+        {/* Desktop Video - Cropped at top to conceal top-left text logo behind top wavy border */}
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-cover block"
+          className="w-full h-[calc(100%+90px)] -mt-12 md:-mt-16 lg:-mt-20 object-cover block"
           src="/assets/videos/teeszone-text-animation-desktop.mp4"
         />
 
@@ -74,12 +74,13 @@ export const AboutVideoSection: React.FC = () => {
           </svg>
         </div>
 
+        {/* Mobile Video - Cropped at top to conceal top-left text logo behind top wavy border */}
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-cover object-center block"
+          className="w-full h-[calc(100%+60px)] -mt-10 xs:-mt-12 object-cover object-center block"
           src="/assets/videos/teeszone-text-animation-mobile.mp4"
         />
       </div>
