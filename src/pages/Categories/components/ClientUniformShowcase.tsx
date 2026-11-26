@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export interface ShowcaseDetail {
@@ -625,7 +626,6 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
   const [isInView, setIsInView] = useState(true);
   const sectionRef = useRef<HTMLElement>(null);
   const touchStartX = useRef<number | null>(null);
@@ -653,7 +653,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
   const pos3Idx = (currentIndex + 1) % totalSlides;
   const pos4Idx = currentIndex;
 
-  const slideDuration = 3800; // 3.8s smooth auto-scroll
+  const slideDuration = 3200; // 3.2s continuous auto-scroll
 
   const handleNext = useCallback(() => {
     setProgress(0);
@@ -665,13 +665,13 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
     setCurrentIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
   }, [totalSlides]);
 
-  // IntersectionObserver to auto-scroll when user scrolls into this section
+  // IntersectionObserver to auto-scroll when user views this section
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsInView(entry.isIntersecting);
       },
-      { threshold: 0.15 }
+      { threshold: 0.05 }
     );
 
     if (sectionRef.current) {
@@ -681,11 +681,11 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
     return () => observer.disconnect();
   }, []);
 
-  // Smooth circular auto-scroll animation when in view and not paused
+  // Continuous auto-scroll animation loop (runs continuously one by one)
   useEffect(() => {
-    if (!isInView || isPaused || totalSlides <= 1) return;
+    if (!isInView || totalSlides <= 1) return;
 
-    const intervalTime = 40;
+    const intervalTime = 30;
     const step = (intervalTime / slideDuration) * 100;
 
     const timer = setInterval(() => {
@@ -699,7 +699,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
     }, intervalTime);
 
     return () => clearInterval(timer);
-  }, [isInView, isPaused, totalSlides, slideDuration]);
+  }, [isInView, totalSlides, slideDuration]);
 
   // Touch swipe handling for mobile
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -773,8 +773,6 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
     <section
       ref={sectionRef}
       className="relative w-full h-auto lg:h-[86vh] lg:max-h-[820px] lg:min-h-[640px] flex flex-col justify-between py-4 lg:py-5 bg-[#FFFDF9] select-none overflow-hidden"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -830,7 +828,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
                 <ChevronLeft className="w-8 h-8 stroke-[2.2]" />
               </button>
 
-              {/* Models Runway Row: Strict Decreasing Order of Size & Height from Right to Left */}
+              {/* Models Runway Row: Strict Decreasing Order of Size & Height from Right to Left with Smooth Motion Animations */}
               <div
                 className={`w-full h-full flex items-end ${
                   totalSlides > 2 ? 'justify-between' : 'justify-end gap-16 xl:gap-24'
@@ -838,77 +836,90 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
               >
                 {/* Position 1: Leftmost / 4th from right (SMALLEST in height and width) */}
                 {totalSlides > 3 && (
-                  <div
+                  <motion.div
+                    key={`desktop-pos1-${slides[pos1Idx].id}`}
+                    initial={{ opacity: 0.1, x: 20, scale: 0.94 }}
+                    animate={{ opacity: 0.35, x: 0, scale: 1 }}
+                    transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
                     onClick={() => {
                       setProgress(0);
                       setCurrentIndex(pos1Idx);
                     }}
-                    className="flex flex-col items-center justify-end w-[15%] xl:w-[16%] max-w-[170px] xl:max-w-[195px] mb-8 xl:mb-10 cursor-pointer transition-all duration-700 hover:scale-[1.05] group shrink-0"
+                    className="flex flex-col items-center justify-end w-[15%] xl:w-[16%] max-w-[170px] xl:max-w-[195px] mb-8 xl:mb-10 cursor-pointer group shrink-0"
                     style={{
-                      opacity: 0.35,
                       filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.06)) blur(0.5px) grayscale(15%)',
                     }}
                     title={`Switch to ${slides[pos1Idx].brand}`}
                   >
                     <img loading="lazy" decoding="async" src={slides[pos1Idx].modelImage}
                       alt={slides[pos1Idx].brand}
-                      className="w-full h-auto max-h-[220px] xl:max-h-[250px] object-contain select-none transition-opacity duration-300 group-hover:opacity-100"
+                      className="w-full h-auto max-h-[220px] xl:max-h-[250px] object-contain select-none transition-opacity duration-300 group-hover:opacity-100 pointer-events-none"
                     />
-                  </div>
+                  </motion.div>
                 )}
 
                 {/* Position 2: Mid-left / 3rd from right (Visibly smaller than Position 3) */}
                 {totalSlides > 2 && (
-                  <div
+                  <motion.div
+                    key={`desktop-pos2-${slides[pos2Idx].id}`}
+                    initial={{ opacity: 0.3, x: 25, scale: 0.94 }}
+                    animate={{ opacity: 0.55, x: 0, scale: 1 }}
+                    transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
                     onClick={() => {
                       setProgress(0);
                       setCurrentIndex(pos2Idx);
                     }}
-                    className="flex flex-col items-center justify-end w-[20%] xl:w-[21%] max-w-[220px] xl:max-w-[250px] mb-5 xl:mb-7 cursor-pointer transition-all duration-700 hover:scale-[1.05] group shrink-0"
+                    className="flex flex-col items-center justify-end w-[20%] xl:w-[21%] max-w-[220px] xl:max-w-[250px] mb-5 xl:mb-7 cursor-pointer group shrink-0"
                     style={{
-                      opacity: 0.55,
                       filter: 'drop-shadow(0 6px 12px rgba(0,0,0,0.08)) blur(0.2px) grayscale(8%)',
                     }}
                     title={`Switch to ${slides[pos2Idx].brand}`}
                   >
                     <img loading="lazy" decoding="async" src={slides[pos2Idx].modelImage}
                       alt={slides[pos2Idx].brand}
-                      className="w-full h-auto max-h-[285px] xl:max-h-[320px] object-contain select-none transition-opacity duration-300 group-hover:opacity-100"
+                      className="w-full h-auto max-h-[285px] xl:max-h-[320px] object-contain select-none transition-opacity duration-300 group-hover:opacity-100 pointer-events-none"
                     />
-                  </div>
+                  </motion.div>
                 )}
 
                 {/* Position 3: Mid-right / 2nd from right (Visibly smaller than Position 4, but bigger than Position 2) */}
                 {totalSlides > 1 && (
-                  <div
+                  <motion.div
+                    key={`desktop-pos3-${slides[pos3Idx].id}`}
+                    initial={{ opacity: 0.5, x: 30, scale: 0.95 }}
+                    animate={{ opacity: 0.78, x: 0, scale: 1 }}
+                    transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
                     onClick={() => {
                       setProgress(0);
                       setCurrentIndex(pos3Idx);
                     }}
-                    className="flex flex-col items-center justify-end w-[25%] xl:w-[26%] max-w-[280px] xl:max-w-[315px] mb-2 xl:mb-3 cursor-pointer transition-all duration-700 hover:scale-[1.05] group shrink-0"
+                    className="flex flex-col items-center justify-end w-[25%] xl:w-[26%] max-w-[280px] xl:max-w-[315px] mb-2 xl:mb-3 cursor-pointer group shrink-0"
                     style={{
-                      opacity: 0.78,
                       filter: 'drop-shadow(0 10px 18px rgba(0,0,0,0.12))',
                     }}
                     title={`Switch to ${slides[pos3Idx].brand}`}
                   >
                     <img loading="lazy" decoding="async" src={slides[pos3Idx].modelImage}
                       alt={slides[pos3Idx].brand}
-                      className="w-full h-auto max-h-[355px] xl:max-h-[395px] object-contain select-none transition-opacity duration-300 group-hover:opacity-100"
+                      className="w-full h-auto max-h-[355px] xl:max-h-[395px] object-contain select-none transition-opacity duration-300 group-hover:opacity-100 pointer-events-none"
                     />
-                  </div>
+                  </motion.div>
                 )}
 
-                {/* Position 4: Right 1st / Active (BIGGEST in height and width) */}
-                <div
-                  className="flex flex-col items-center justify-end w-[31%] xl:w-[32%] max-w-[340px] xl:max-w-[385px] mb-0 transition-all duration-700 ease-out z-30 shrink-0"
+                {/* Position 4: Right 1st / Active (BIGGEST in height and width with smooth motion transition) */}
+                <motion.div
+                  key={`desktop-pos4-${slides[pos4Idx].id}`}
+                  initial={{ opacity: 0.75, x: 35, scale: 0.95 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+                  className="flex flex-col items-center justify-end w-[31%] xl:w-[32%] max-w-[340px] xl:max-w-[385px] mb-0 z-30 shrink-0"
                 >
-                  <img loading="lazy" decoding="async" key={currentSlide.id}
+                  <img loading="lazy" decoding="async"
                     src={slides[pos4Idx].modelImage}
                     alt={`${slides[pos4Idx].brand} showcase`}
-                    className="w-full h-auto max-h-[425px] xl:max-h-[475px] object-contain drop-shadow-[0_16px_30px_rgba(0,0,0,0.18)] select-none"
+                    className="w-full h-auto max-h-[425px] xl:max-h-[475px] object-contain drop-shadow-[0_16px_30px_rgba(0,0,0,0.18)] select-none pointer-events-none"
                   />
-                </div>
+                </motion.div>
               </div>
 
               {/* Forward Navigation Button */}
@@ -1017,60 +1028,70 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
               <ChevronLeft className="w-6 h-6 stroke-[2.2]" />
             </button>
 
-            {/* Mobile Runway Models Container with Even Spacing and Perspective Axis */}
+            {/* Mobile Runway Models Container with Even Spacing and Smooth Motion Transition */}
             <div className="w-full max-w-sm sm:max-w-md mx-auto flex items-end justify-center gap-3 xs:gap-4 sm:gap-6 px-6">
               {/* Position 2 (tablet / wider screens sm:) */}
               {totalSlides > 2 && (
-                <div
+                <motion.div
+                  key={`mobile-pos2-${slides[pos2Idx].id}`}
+                  initial={{ opacity: 0.2, x: 15, scale: 0.94 }}
+                  animate={{ opacity: 0.35, x: 0, scale: 1 }}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                   onClick={() => {
                     setProgress(0);
                     setCurrentIndex(pos2Idx);
                   }}
-                  className="hidden sm:flex flex-col items-center justify-end w-[24%] max-w-[120px] mb-4 cursor-pointer transition-all duration-500 hover:scale-[1.04]"
+                  className="hidden sm:flex flex-col items-center justify-end w-[24%] max-w-[120px] mb-4 cursor-pointer"
                   style={{
-                    opacity: 0.35,
                     filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.08)) blur(0.4px)',
                   }}
                   title={`Switch to ${slides[pos2Idx].brand}`}
                 >
                   <img loading="lazy" decoding="async" src={slides[pos2Idx].modelImage}
                     alt={slides[pos2Idx].brand}
-                    className="w-full h-auto max-h-[200px] object-contain select-none"
+                    className="w-full h-auto max-h-[200px] object-contain select-none pointer-events-none"
                   />
-                </div>
+                </motion.div>
               )}
 
               {/* Position 3 (Mobile 2nd from right, smaller than main model) */}
               {totalSlides > 1 && (
-                <div
+                <motion.div
+                  key={`mobile-pos3-${slides[pos3Idx].id}`}
+                  initial={{ opacity: 0.4, x: 20, scale: 0.95 }}
+                  animate={{ opacity: 0.60, x: 0, scale: 1 }}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                   onClick={() => {
                     setProgress(0);
                     setCurrentIndex(pos3Idx);
                   }}
-                  className="flex flex-col items-center justify-end w-[40%] sm:w-[32%] max-w-[155px] mb-2 cursor-pointer transition-all duration-500 hover:scale-[1.04]"
+                  className="flex flex-col items-center justify-end w-[40%] sm:w-[32%] max-w-[155px] mb-2 cursor-pointer"
                   style={{
-                    opacity: 0.60,
                     filter: 'drop-shadow(0 6px 14px rgba(0,0,0,0.10))',
                   }}
                   title={`Switch to ${slides[pos3Idx].brand}`}
                 >
                   <img loading="lazy" decoding="async" src={slides[pos3Idx].modelImage}
                     alt={slides[pos3Idx].brand}
-                    className="w-full h-auto max-h-[245px] xs:max-h-[270px] object-contain select-none"
+                    className="w-full h-auto max-h-[245px] xs:max-h-[270px] object-contain select-none pointer-events-none"
                   />
-                </div>
+                </motion.div>
               )}
 
-              {/* Position 4: Active Main Model (Largest on mobile) */}
-              <div
-                className="flex flex-col items-center justify-end w-[56%] sm:w-[44%] max-w-[215px] xs:max-w-[235px] mb-0 transition-all duration-500"
+              {/* Position 4: Active Main Model (Largest on mobile with smooth animated entrance) */}
+              <motion.div
+                key={`mobile-pos4-${slides[pos4Idx].id}`}
+                initial={{ opacity: 0.75, x: 25, scale: 0.95 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="flex flex-col items-center justify-end w-[56%] sm:w-[44%] max-w-[215px] xs:max-w-[235px] mb-0"
               >
-                <img loading="lazy" decoding="async" key={currentSlide.id}
+                <img loading="lazy" decoding="async"
                   src={slides[pos4Idx].modelImage}
                   alt={`${slides[pos4Idx].brand} showcase`}
-                  className="w-full h-auto max-h-[305px] xs:max-h-[335px] object-contain drop-shadow-[0_12px_22px_rgba(0,0,0,0.16)] transition-all duration-500 select-none"
+                  className="w-full h-auto max-h-[305px] xs:max-h-[335px] object-contain drop-shadow-[0_12px_22px_rgba(0,0,0,0.16)] select-none pointer-events-none"
                 />
-              </div>
+              </motion.div>
             </div>
 
             {/* Mobile Forward Button */}

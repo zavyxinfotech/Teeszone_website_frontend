@@ -76,7 +76,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
   return (
     <div className="flex flex-col min-h-screen bg-[#FFFDF9]">
       {/* 1. HERO WITH LUXURY SATIN BACKDROP (Exact Layout from Reference Image 2) */}
-      <section className="relative w-full pt-24 pb-14 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20 overflow-hidden bg-[#FAF6F4] border-b border-burgundy-100/60 select-none">
+      <section className="relative w-full pt-24 pb-16 sm:pt-28 sm:pb-20 lg:pt-32 lg:pb-24 overflow-hidden bg-[#FAF6F4] select-none">
         {/* Full-width Luxury Flowing Satin Background (Image 1) */}
         <div className="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden">
           <img loading="lazy" decoding="async" src="/assets/images/products/product-details-hero-bg.webp"
@@ -241,6 +241,29 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Bottom Organic Wavy Border Design */}
+        <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-none z-20 pointer-events-none" aria-hidden="true">
+          <svg
+            viewBox="0 0 1440 85"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="relative block w-full h-7 sm:h-11 lg:h-14"
+            preserveAspectRatio="none"
+          >
+            {/* Subtle Burgundy Accent Wave Ribbon */}
+            <path
+              d="M0,35 C280,5 560,70 880,30 C1180,-5 1340,50 1440,35 L1440,85 L0,85 Z"
+              fill="#80011F"
+              fillOpacity="0.08"
+            />
+            {/* Main Organic Wave seamlessly blending into the #FFFDF9 Showcase below */}
+            <path
+              d="M0,45 C320,15 600,70 920,40 C1200,10 1360,55 1440,45 L1440,85 L0,85 Z"
+              fill="#FFFDF9"
+            />
+          </svg>
         </div>
       </section>
 
