@@ -6,7 +6,7 @@ interface TeamMember {
   name: string;
   role: string;
   image: string;
-  linkedin: string;
+  linkedin?: string;
 }
 
 const TEAM_MEMBERS: TeamMember[] = [
@@ -15,35 +15,34 @@ const TEAM_MEMBERS: TeamMember[] = [
     name: 'Sakthivel Muthusamy',
     role: 'Managing Director',
     image: '/assets/images/team/sakthivel-cutout.webp',
-    linkedin: 'https://www.linkedin.com/in/sakthivel-muthusamy-teeszone',
+    linkedin: 'https://www.linkedin.com/in/sakthivel007',
   },
   {
     id: 'saranya',
     name: 'Saranya S',
     role: 'Head of Operations',
     image: '/assets/images/team/saranya-cutout.webp',
-    linkedin: 'https://www.linkedin.com/in/saranya-sakthivel-teeszone',
   },
   {
     id: 'vijayadharshini',
     name: 'Vijaya Dharshini NM',
-    role: 'E-Commerce & Digital Marketing',
+    role: 'UI/UX Designer',
     image: '/assets/images/team/vijayadharshini-cutout.webp',
-    linkedin: 'https://www.linkedin.com/in/vijayadarshini-teeszone',
+    linkedin: 'https://www.linkedin.com/in/vijayadharshini-n-m-81466a270',
   },
   {
     id: 'archana',
     name: 'Archana R',
     role: 'HR Manager',
     image: '/assets/images/team/archana-cutout.webp',
-    linkedin: 'https://www.linkedin.com/in/archana-teeszone',
+    linkedin: 'https://www.linkedin.com/in/archanaplakkal',
   },
   {
     id: 'vasuki',
     name: 'Vasuki Thangaraj',
     role: 'Full Stack Developer',
     image: '/assets/images/team/vasuki-cutout.webp',
-    linkedin: 'https://www.linkedin.com/in/vasuki-thangaraj',
+    linkedin: 'https://www.linkedin.com/in/vasuki-fullstackdeveloper',
   },
 ];
 
@@ -175,17 +174,21 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
         />
 
         {/* Official LinkedIn Brand Icon (Pure #0A66C2, Zero Border, Zero Container) */}
-        <a
-          href={member.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => e.stopPropagation()}
-          className="inline-flex items-center justify-center text-[#0A66C2] hover:scale-115 active:scale-95 transition-transform duration-200 cursor-pointer p-0.5"
-          title={`${member.name} on LinkedIn`}
-          aria-label={`${member.name} LinkedIn Profile`}
-        >
-          <LinkedInBrandIcon className={isMobile ? 'w-4 h-4' : 'w-4 sm:w-[18px] h-4 sm:h-[18px]'} />
-        </a>
+        {member.linkedin ? (
+          <a
+            href={member.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="inline-flex items-center justify-center text-[#0A66C2] hover:scale-115 active:scale-95 transition-transform duration-200 cursor-pointer p-0.5"
+            title={`${member.name} on LinkedIn`}
+            aria-label={`${member.name} LinkedIn Profile`}
+          >
+            <LinkedInBrandIcon className={isMobile ? 'w-4 h-4' : 'w-4 sm:w-[18px] h-4 sm:h-[18px]'} />
+          </a>
+        ) : (
+          <div className={`p-0.5 pointer-events-none ${isMobile ? 'h-5 w-5' : 'h-5 sm:h-6 w-5 sm:w-6'}`} aria-hidden="true" />
+        )}
       </div>
     </motion.div>
   );
