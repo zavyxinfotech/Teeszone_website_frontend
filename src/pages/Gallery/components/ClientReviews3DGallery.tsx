@@ -485,8 +485,7 @@ export const ClientReviews3DGallery: React.FC<ClientReviews3DGalleryProps> = () 
               </button>
 
               <div className="relative aspect-[4/3] w-full overflow-hidden mb-4 bg-black/5 border border-black/10">
-                <img
-                  src={selectedReview.image}
+                <img loading="lazy" decoding="async" src={selectedReview.image}
                   alt={selectedReview.clientName}
                   className="w-full h-full object-contain"
                 />

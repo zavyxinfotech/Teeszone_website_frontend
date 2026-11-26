@@ -14,35 +14,35 @@ const TEAM_MEMBERS: TeamMember[] = [
     id: 'sakthivel',
     name: 'Sakthivel Muthusamy',
     role: 'Managing Director',
-    image: '/assets/images/team/sakthivel-cutout.png',
+    image: '/assets/images/team/sakthivel-cutout.webp',
     linkedin: 'https://www.linkedin.com/in/sakthivel-muthusamy-teeszone',
   },
   {
     id: 'saranya',
     name: 'Saranya S',
     role: 'Head of Operations',
-    image: '/assets/images/team/saranya-cutout.png',
+    image: '/assets/images/team/saranya-cutout.webp',
     linkedin: 'https://www.linkedin.com/in/saranya-sakthivel-teeszone',
   },
   {
     id: 'vijayadharshini',
     name: 'Vijaya Dharshini NM',
     role: 'E-Commerce & Digital Marketing',
-    image: '/assets/images/team/vijayadharshini-cutout.png',
+    image: '/assets/images/team/vijayadharshini-cutout.webp',
     linkedin: 'https://www.linkedin.com/in/vijayadarshini-teeszone',
   },
   {
     id: 'archana',
     name: 'Archana R',
     role: 'HR Manager',
-    image: '/assets/images/team/archana-cutout.png',
+    image: '/assets/images/team/archana-cutout.webp',
     linkedin: 'https://www.linkedin.com/in/archana-teeszone',
   },
   {
     id: 'vasuki',
     name: 'Vasuki Thangaraj',
     role: 'Full Stack Developer',
-    image: '/assets/images/team/vasuki-cutout.png',
+    image: '/assets/images/team/vasuki-cutout.webp',
     linkedin: 'https://www.linkedin.com/in/vasuki-thangaraj',
   },
 ];
@@ -100,7 +100,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
       >
         {/* Normal Standard Frame: Dual-layer blush pink & burgundy blob (Enlarged) */}
         <motion.img
-          src="/assets/images/team/blob-dual.png"
+          src="/assets/images/team/blob-dual.webp"
           alt="Organic Frame"
           animate={{ opacity: isActive ? 0 : 1 }}
           transition={{ duration: 0.4 }}
@@ -109,7 +109,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
 
         {/* Active Frame: Deep burgundy gradient blob (Enlarged) */}
         <motion.img
-          src="/assets/images/team/blob-active-ring.png"
+          src="/assets/images/team/blob-active-ring.webp"
           alt="Active Frame"
           animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: 0.4 }}

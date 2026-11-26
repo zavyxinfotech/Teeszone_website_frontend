@@ -23,7 +23,7 @@ const sectorCards: SectorCardItem[] = [
     badge: 'CORPORATE EVENT',
     title: 'Corporate Event Apparel',
     subtitle: 'Executive Polos with Identity Lanyards',
-    image: '/assets/images/sector-corporate-event.png',
+    image: '/assets/images/sector-corporate-event.webp',
     categorySlug: 'corporate',
     bg: '#FFFFFF',
     cardHeight: 'h-[335px] sm:h-[365px] lg:h-[395px]',
@@ -36,7 +36,7 @@ const sectorCards: SectorCardItem[] = [
     badge: 'PROMOTIONAL APPAREL',
     title: 'Promotional Event Wear',
     subtitle: 'Premium Hoodies & Custom Campaign Merch',
-    image: '/assets/images/sector-promotional-apparel.png',
+    image: '/assets/images/sector-promotional-apparel.webp',
     categorySlug: 'promotional',
     bg: '#FFFFFF',
     cardHeight: 'h-[360px] sm:h-[390px] lg:h-[420px]',
@@ -49,7 +49,7 @@ const sectorCards: SectorCardItem[] = [
     badge: 'CORPORATE SECTOR',
     title: 'Corporate Uniforms & Staff',
     subtitle: 'Mercerized Cotton Executive Workwear',
-    image: '/assets/images/sectors/sector-corporate.png',
+    image: '/assets/images/sectors/sector-corporate.webp',
     categorySlug: 'corporate',
     bg: '#FFFFFF',
     cardHeight: 'h-[385px] sm:h-[415px] lg:h-[450px]',
@@ -62,7 +62,7 @@ const sectorCards: SectorCardItem[] = [
     badge: 'ACADEMICS & SCHOOLS',
     title: 'Academics & School Collections',
     subtitle: 'Durable Bio-Wash Uniforms & House Kits',
-    image: '/assets/images/sectors/sector-education.png',
+    image: '/assets/images/sectors/sector-education.webp',
     categorySlug: 'school',
     bg: '#FFFFFF',
     cardHeight: 'h-[360px] sm:h-[390px] lg:h-[420px]',
@@ -75,7 +75,7 @@ const sectorCards: SectorCardItem[] = [
     badge: 'SPORTS & ATHLETICS',
     title: 'Sports & Athletic Teams',
     subtitle: 'Breathable Dry-Fit Kits & Sublimation Tees',
-    image: '/assets/images/sectors/sector-sports.png',
+    image: '/assets/images/sectors/sector-sports.webp',
     categorySlug: 'sports',
     bg: '#FFFFFF',
     cardHeight: 'h-[335px] sm:h-[365px] lg:h-[395px]',
@@ -178,8 +178,7 @@ export const SectorShowcase: React.FC = () => {
             }}
             className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 pointer-events-none select-none z-0 w-[360px] sm:w-[420px] lg:w-[460px] max-h-[46vh] flex items-center justify-center"
           >
-            <img
-              src="/assets/logo/teeszone-emblem.png"
+            <img loading="lazy" decoding="async" src="/assets/logo/teeszone-emblem.webp"
               alt="TeesZone Logo Emblem"
               className="w-full h-full object-contain filter drop-shadow-[0_10px_30px_rgba(130,19,44,0.06)]"
             />
@@ -324,8 +323,7 @@ export const SectorShowcase: React.FC = () => {
             }}
             className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 pointer-events-none select-none z-0 w-[240px] sm:w-[280px] max-h-[35vh] flex items-center justify-center opacity-20"
           >
-            <img
-              src="/assets/logo/teeszone-emblem.png"
+            <img loading="lazy" decoding="async" src="/assets/logo/teeszone-emblem.webp"
               alt="TeesZone Logo Emblem"
               className="w-full h-auto object-contain filter drop-shadow-[0_4px_16px_rgba(130,19,44,0.06)]"
             />

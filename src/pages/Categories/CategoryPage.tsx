@@ -79,8 +79,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
       <section className="relative w-full pt-24 pb-14 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20 overflow-hidden bg-[#FAF6F4] border-b border-burgundy-100/60 select-none">
         {/* Full-width Luxury Flowing Satin Background (Image 1) */}
         <div className="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden">
-          <img
-            src="/assets/images/products/product-details-hero-bg.webp"
+          <img loading="lazy" decoding="async" src="/assets/images/products/product-details-hero-bg.webp"
             alt="Products Details Hero Background"
             className="w-full h-full object-cover object-[72%_center] lg:object-center pointer-events-none select-none"
           />
@@ -175,8 +174,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
             {/* Right Hero Image Column: Garment Cutout floating gracefully over Podium */}
             <div className="lg:col-span-5 flex flex-col items-center justify-center relative">
               <div className="relative w-full max-w-[340px] xs:max-w-[400px] sm:max-w-[460px] lg:max-w-[500px] xl:max-w-[540px] flex items-center justify-center">
-                <img
-                  src={category.heroImage}
+                <img loading="lazy" decoding="async" src={category.heroImage}
                   alt={category.title}
                   className="w-full h-auto max-h-[380px] xs:max-h-[440px] sm:max-h-[500px] lg:max-h-[540px] object-contain relative z-10 transition-transform duration-700 hover:scale-105 drop-shadow-[0_22px_36px_rgba(88,8,25,0.24)]"
                 />
@@ -335,8 +333,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-14 items-center">
             {/* Left: 3D FAQ Illustration */}
             <div className="lg:col-span-5 flex justify-center items-center">
-              <img
-                src="/assets/images/faq-3d-illustration.webp"
+              <img loading="lazy" decoding="async" src="/assets/images/faq-3d-illustration.webp"
                 alt="Frequently Asked Questions Illustration"
                 className="w-full max-w-[420px] sm:max-w-[480px] lg:max-w-full h-auto object-contain drop-shadow-md select-none"
               />

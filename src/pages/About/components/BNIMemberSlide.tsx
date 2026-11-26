@@ -47,7 +47,7 @@ export const BNIMemberSlide: React.FC<BNIMemberSlideProps> = ({
           }}
         >
           <img
-            src="/assets/images/about/bni-team-award.jpg"
+            src="/assets/images/about/bni-team-award.webp"
             alt="TeesZone Clothing Private Limited - BNI Tycoon Season 07 Awards Celebration"
             className="w-full h-full object-cover object-center filter saturate-[1.05] contrast-[1.03]"
             loading="eager"
@@ -75,7 +75,7 @@ export const BNIMemberSlide: React.FC<BNIMemberSlideProps> = ({
               className="flex items-center gap-4 xl:gap-5"
             >
               <img
-                src="/assets/logo/teeszone-logo.png"
+                src="/assets/logo/teeszone-logo.webp"
                 alt="TeesZone - Elevate your Style with Custom Tees"
                 className="h-10 xl:h-[46px] w-auto object-contain"
                 loading="eager"
@@ -85,7 +85,7 @@ export const BNIMemberSlide: React.FC<BNIMemberSlideProps> = ({
 
               <div className="flex flex-col items-center justify-center text-center">
                 <img
-                  src="/assets/images/about/bni-proud-member-logo.png"
+                  src="/assets/images/about/bni-proud-member-logo.webp"
                   alt="Proud BNI Member Logo"
                   className="h-8 xl:h-9 w-auto object-contain filter drop-shadow-xs"
                   loading="eager"
@@ -180,7 +180,7 @@ export const BNIMemberSlide: React.FC<BNIMemberSlideProps> = ({
               className="flex items-center justify-center gap-3"
             >
               <img
-                src="/assets/logo/teeszone-logo.png"
+                src="/assets/logo/teeszone-logo.webp"
                 alt="TeesZone"
                 className="h-6 sm:h-7 w-auto object-contain"
                 loading="eager"
@@ -190,7 +190,7 @@ export const BNIMemberSlide: React.FC<BNIMemberSlideProps> = ({
 
               <div className="flex flex-col items-center justify-center text-center">
                 <img
-                  src="/assets/images/about/bni-proud-member-logo.png"
+                  src="/assets/images/about/bni-proud-member-logo.webp"
                   alt="Proud BNI Member"
                   className="h-6 sm:h-7 w-auto object-contain"
                   loading="eager"
@@ -239,7 +239,7 @@ export const BNIMemberSlide: React.FC<BNIMemberSlideProps> = ({
             }}
           >
             <img
-              src="/assets/images/about/bni-team-award.jpg"
+              src="/assets/images/about/bni-team-award.webp"
               alt="TeesZone Clothing Private Limited - BNI Tycoon Season 07 Partnership"
               className="w-full h-full object-cover object-center filter saturate-[1.05] contrast-[1.03]"
               loading="eager"

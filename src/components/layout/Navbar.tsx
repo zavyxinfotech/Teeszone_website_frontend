@@ -36,8 +36,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
           <div className="flex items-center justify-between">
             {/* Brand Logo - Exact proportions from reference design */}
             <Link to="/" className="flex items-center group" aria-label="TeesZone Home">
-              <img
-                src="/assets/logo/teeszone-logo.png"
+              <img loading="eager" decoding="async" src="/assets/logo/teeszone-logo.webp"
                 alt="TeesZone - elevate your style with custom tees"
                 className="h-10 xs:h-11 sm:h-12 md:h-12 lg:h-[48px] xl:h-[50px] w-auto object-contain transition-transform duration-300 group-hover:scale-102"
               />

@@ -43,7 +43,7 @@ export const ProductsCTA: React.FC<ProductsCTAProps> = ({ onOpenQuote }) => {
               <div className="absolute inset-0 bg-white/15 rounded-full blur-3xl -z-10" />
 
               <motion.img
-                src="/assets/images/products/products-cta-tshirts.png"
+                src="/assets/images/products/products-cta-tshirts.webp"
                 alt="Folded premium custom polo T-shirts stack with Teeszone branding"
                 whileHover={shouldReduceMotion ? {} : { scale: 1.05, y: -4 }}
                 transition={{ duration: 0.4 }}

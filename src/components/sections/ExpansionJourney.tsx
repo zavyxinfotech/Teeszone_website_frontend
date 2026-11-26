@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Building2, Store, Factory, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface LocationItem {
@@ -24,7 +24,7 @@ const LOCATIONS: LocationItem[] = [
     type: 'office',
     description:
       'Our corporate headquarters at Erode Tex Valley, driving innovation, operations, and growth across all locations.',
-    image: '/assets/images/locations/erode-tex-valley.jpg',
+    image: '/assets/images/locations/erode-tex-valley.webp',
     coords: { x: 30.5, y: 67.5 },
     labelOffset: { x: 18, y: -8 },
   },
@@ -36,7 +36,7 @@ const LOCATIONS: LocationItem[] = [
     type: 'branch',
     description:
       'Serving metropolitan brands, IT parks, and corporate enterprises across Chennai with prompt turnaround and doorstep service.',
-    image: '/assets/images/locations/chennai.jpg',
+    image: '/assets/images/locations/chennai.webp',
     coords: { x: 77.0, y: 19.5 },
     labelOffset: { x: 18, y: -6 },
   },
@@ -48,7 +48,7 @@ const LOCATIONS: LocationItem[] = [
     type: 'branch',
     description:
       'Delivering premium custom apparel, branded hoodies, and corporate uniforms to India’s leading tech hubs and startups.',
-    image: '/assets/images/locations/bengaluru.jpg',
+    image: '/assets/images/locations/bengaluru.webp',
     coords: { x: 26.5, y: 23.5 },
     labelOffset: { x: 18, y: -6 },
   },
@@ -60,7 +60,7 @@ const LOCATIONS: LocationItem[] = [
     type: 'branch',
     description:
       'Expanding our dedicated presence into Kanchipuram, offering bulk customized T-shirts and institutional apparel.',
-    image: '/assets/images/locations/kanchipuram.jpg',
+    image: '/assets/images/locations/kanchipuram.webp',
     coords: { x: 59.0, y: 44.0 },
     labelOffset: { x: 18, y: -6 },
   },
@@ -72,7 +72,7 @@ const LOCATIONS: LocationItem[] = [
     type: 'factory',
     description:
       'Our state-of-the-art manufacturing powerhouse in Tiruppur featuring precision knitting, bio-washing, and high-capacity screen printing.',
-    image: '/assets/images/locations/tiruppur.jpg',
+    image: '/assets/images/locations/tiruppur.webp',
     coords: { x: 57.0, y: 79.5 },
     labelOffset: { x: 18, y: -6 },
   },
@@ -81,7 +81,7 @@ const LOCATIONS: LocationItem[] = [
 export const ExpansionJourney: React.FC = () => {
   const [selectedId, setSelectedId] = useState<string>('erode');
   const [hoveredId, setHoveredId] = useState<string | null>(null);
-  const shouldReduceMotion = useReducedMotion();
+  
 
   const activeId = hoveredId || selectedId;
   const activeLocation = LOCATIONS.find((loc) => loc.id === activeId) || LOCATIONS[0];
@@ -173,7 +173,7 @@ export const ExpansionJourney: React.FC = () => {
                 
                 {/* 3D Map Base Model */}
                 <motion.img
-                  src="/assets/images/locations/map-3d-model.png"
+                  src="/assets/images/locations/map-3d-model.webp"
                   alt="TeesZone 3D India Presence Map"
                   initial={{ opacity: 0, scale: 0.96 }}
                   whileInView={{ opacity: 1, scale: 1 }}
@@ -242,8 +242,7 @@ export const ExpansionJourney: React.FC = () => {
                     >
                       {/* Floor Beacon Ring: Anchored to Pointed Bottom Tip */}
                       <div className="absolute left-1/2 top-[92.8%] -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
-                        <img
-                          src="/assets/images/locations/pin-beacon-ring.png"
+                        <img loading="lazy" decoding="async" src="/assets/images/locations/pin-beacon-ring.webp"
                           alt=""
                           className={`w-10 h-4 object-contain -translate-y-1/2 transition-opacity duration-300 ${
                             isSelected ? 'opacity-100 scale-110' : 'opacity-70'
@@ -267,8 +266,7 @@ export const ExpansionJourney: React.FC = () => {
                               : 'scale-95 group-hover:scale-105 drop-shadow-[0_4px_8px_rgba(128,1,31,0.25)]'
                           }`}
                         >
-                          <img
-                            src="/assets/images/locations/pin-3d-front.png"
+                          <img loading="lazy" decoding="async" src="/assets/images/locations/pin-3d-front.webp"
                             alt={`${loc.name} pin`}
                             className="w-7 xl:w-8 h-auto object-contain pointer-events-none select-none"
                           />
@@ -480,8 +478,7 @@ export const ExpansionJourney: React.FC = () => {
           <div className="relative w-full max-w-[390px] mx-auto aspect-[1024/520] my-1">
             
             {/* 3D Map Base */}
-            <img
-              src="/assets/images/locations/map-3d-model.png"
+            <img loading="lazy" decoding="async" src="/assets/images/locations/map-3d-model.webp"
               alt="TeesZone 3D India Network Map"
               className="w-full h-full object-contain pointer-events-none select-none drop-shadow-[0_8px_16px_rgba(128,1,31,0.08)]"
             />
@@ -544,8 +541,7 @@ export const ExpansionJourney: React.FC = () => {
                 >
                   {/* Floor Beacon Ring */}
                   <div className="absolute left-1/2 top-[92.8%] -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
-                    <img
-                      src="/assets/images/locations/pin-beacon-ring.png"
+                    <img loading="lazy" decoding="async" src="/assets/images/locations/pin-beacon-ring.webp"
                       alt=""
                       className={`w-7 h-3.5 object-contain -translate-y-1/2 ${
                         isSelected ? 'opacity-100 scale-125' : 'opacity-70'
@@ -568,8 +564,7 @@ export const ExpansionJourney: React.FC = () => {
                           : 'scale-90 drop-shadow-[0_3px_6px_rgba(128,1,31,0.2)]'
                       }`}
                     >
-                      <img
-                        src="/assets/images/locations/pin-3d-front.png"
+                      <img loading="lazy" decoding="async" src="/assets/images/locations/pin-3d-front.webp"
                         alt={`${loc.name} pin`}
                         className="w-5 sm:w-6 h-auto object-contain pointer-events-none select-none"
                       />

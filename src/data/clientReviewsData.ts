@@ -15,7 +15,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'Zoho CRM',
     category: 'Corporate Apparel',
     image: '/assets/images/client-reviews/review-1.webp',
-    imagePng: '/assets/images/client-reviews/review-1.png',
+    imagePng: '/assets/images/client-reviews/review-1.webp',
     rating: 5,
     featured: true
   },
@@ -24,7 +24,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'PV Renewable India Pvt Ltd',
     category: 'Corporate Apparel',
     image: '/assets/images/client-reviews/review-2.webp',
-    imagePng: '/assets/images/client-reviews/review-2.png',
+    imagePng: '/assets/images/client-reviews/review-2.webp',
     rating: 5,
     featured: false
   },
@@ -33,7 +33,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'Briar Tea Bungalows',
     category: 'Corporate Apparel',
     image: '/assets/images/client-reviews/review-3.webp',
-    imagePng: '/assets/images/client-reviews/review-3.png',
+    imagePng: '/assets/images/client-reviews/review-3.webp',
     rating: 5,
     featured: true
   },
@@ -42,7 +42,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'RK Academy',
     category: 'School Uniforms',
     image: '/assets/images/client-reviews/review-4.webp',
-    imagePng: '/assets/images/client-reviews/review-4.png',
+    imagePng: '/assets/images/client-reviews/review-4.webp',
     rating: 5,
     featured: true
   },
@@ -51,7 +51,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'Excel College Institutions',
     category: 'College Uniforms',
     image: '/assets/images/client-reviews/review-5.webp',
-    imagePng: '/assets/images/client-reviews/review-5.png',
+    imagePng: '/assets/images/client-reviews/review-5.webp',
     rating: 5,
     featured: false
   },
@@ -60,7 +60,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'Serwell Systems',
     category: 'Corporate Uniforms',
     image: '/assets/images/client-reviews/review-6.webp',
-    imagePng: '/assets/images/client-reviews/review-6.png',
+    imagePng: '/assets/images/client-reviews/review-6.webp',
     rating: 5,
     featured: false
   },
@@ -69,7 +69,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'Magnus Sports Club',
     category: 'Sports Uniforms',
     image: '/assets/images/client-reviews/review-7.webp',
-    imagePng: '/assets/images/client-reviews/review-7.png',
+    imagePng: '/assets/images/client-reviews/review-7.webp',
     rating: 5,
     featured: true
   },
@@ -78,7 +78,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'Skyline Lite Hotels & Resorts',
     category: 'Hotel Uniforms',
     image: '/assets/images/client-reviews/review-8.webp',
-    imagePng: '/assets/images/client-reviews/review-8.png',
+    imagePng: '/assets/images/client-reviews/review-8.webp',
     rating: 5,
     featured: false
   },
@@ -87,7 +87,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'Holy Cross High School',
     category: 'School Uniforms',
     image: '/assets/images/client-reviews/review-9.webp',
-    imagePng: '/assets/images/client-reviews/review-9.png',
+    imagePng: '/assets/images/client-reviews/review-9.webp',
     rating: 5,
     featured: false
   },
@@ -96,7 +96,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'MRF Vapocure Paints',
     category: 'Corporate Uniforms',
     image: '/assets/images/client-reviews/review-10.webp',
-    imagePng: '/assets/images/client-reviews/review-10.png',
+    imagePng: '/assets/images/client-reviews/review-10.webp',
     rating: 5,
     featured: true
   },
@@ -105,7 +105,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'Beyomo Salon Comes Home',
     category: 'Salon Shop Uniforms',
     image: '/assets/images/client-reviews/review-11.webp',
-    imagePng: '/assets/images/client-reviews/review-11.png',
+    imagePng: '/assets/images/client-reviews/review-11.webp',
     rating: 5,
     featured: true
   },
@@ -114,7 +114,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'Besten Pumps',
     category: 'Manufacturing Company Uniforms',
     image: '/assets/images/client-reviews/review-12.webp',
-    imagePng: '/assets/images/client-reviews/review-12.png',
+    imagePng: '/assets/images/client-reviews/review-12.webp',
     rating: 5,
     featured: true
   },
@@ -123,7 +123,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'Apex Tech Enterprises',
     category: 'Corporate Company Uniforms',
     image: '/assets/images/client-reviews/review-13.webp',
-    imagePng: '/assets/images/client-reviews/review-13.png',
+    imagePng: '/assets/images/client-reviews/review-13.webp',
     rating: 5,
     featured: false
   },
@@ -132,7 +132,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'PowerGrid Electricals',
     category: 'Electrical Company Uniforms',
     image: '/assets/images/client-reviews/review-14.webp',
-    imagePng: '/assets/images/client-reviews/review-14.png',
+    imagePng: '/assets/images/client-reviews/review-14.webp',
     rating: 5,
     featured: false
   },
@@ -141,7 +141,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'Summit Annual Conclave',
     category: 'Events Apparel',
     image: '/assets/images/client-reviews/review-15.webp',
-    imagePng: '/assets/images/client-reviews/review-15.png',
+    imagePng: '/assets/images/client-reviews/review-15.webp',
     rating: 5,
     featured: false
   },
@@ -150,7 +150,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'National Sports Carnival',
     category: 'Events Apparel',
     image: '/assets/images/client-reviews/review-16.webp',
-    imagePng: '/assets/images/client-reviews/review-16.png',
+    imagePng: '/assets/images/client-reviews/review-16.webp',
     rating: 5,
     featured: false
   },
@@ -159,7 +159,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'Address Developers',
     category: 'Corporate Uniforms',
     image: '/assets/images/client-reviews/review-17.webp',
-    imagePng: '/assets/images/client-reviews/review-17.png',
+    imagePng: '/assets/images/client-reviews/review-17.webp',
     rating: 5,
     featured: true
   },
@@ -168,7 +168,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'Global Logistics Corporation',
     category: 'Corporate Uniforms',
     image: '/assets/images/client-reviews/review-18.webp',
-    imagePng: '/assets/images/client-reviews/review-18.png',
+    imagePng: '/assets/images/client-reviews/review-18.webp',
     rating: 5,
     featured: false
   },
@@ -177,7 +177,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'Hindu Global School',
     category: 'Sports Uniforms',
     image: '/assets/images/client-reviews/review-19.webp',
-    imagePng: '/assets/images/client-reviews/review-19.png',
+    imagePng: '/assets/images/client-reviews/review-19.webp',
     rating: 5,
     featured: false
   },
@@ -186,7 +186,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'Hindu Global Athletic Academy',
     category: 'Sports Uniforms',
     image: '/assets/images/client-reviews/review-20.webp',
-    imagePng: '/assets/images/client-reviews/review-20.png',
+    imagePng: '/assets/images/client-reviews/review-20.webp',
     rating: 5,
     featured: false
   },
@@ -195,7 +195,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'Asian Paints Painting Service',
     category: 'Painting Service Uniforms',
     image: '/assets/images/client-reviews/review-21.webp',
-    imagePng: '/assets/images/client-reviews/review-21.png',
+    imagePng: '/assets/images/client-reviews/review-21.webp',
     rating: 5,
     featured: true
   },
@@ -204,7 +204,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'Premier Sports League',
     category: 'Sports Uniforms',
     image: '/assets/images/client-reviews/review-22.webp',
-    imagePng: '/assets/images/client-reviews/review-22.png',
+    imagePng: '/assets/images/client-reviews/review-22.webp',
     rating: 5,
     featured: false
   },
@@ -213,7 +213,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'Marathon Runners Club',
     category: 'Athletic Uniforms',
     image: '/assets/images/client-reviews/review-23.webp',
-    imagePng: '/assets/images/client-reviews/review-23.png',
+    imagePng: '/assets/images/client-reviews/review-23.webp',
     rating: 5,
     featured: false
   },
@@ -222,7 +222,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'Modern Motors Multi Car Service',
     category: 'Automotive Workshop Uniforms',
     image: '/assets/images/client-reviews/review-24.webp',
-    imagePng: '/assets/images/client-reviews/review-24.png',
+    imagePng: '/assets/images/client-reviews/review-24.webp',
     rating: 5,
     featured: true
   },
@@ -231,7 +231,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'Youth Fest Cultural Forum',
     category: 'Events Apparel',
     image: '/assets/images/client-reviews/review-25.webp',
-    imagePng: '/assets/images/client-reviews/review-25.png',
+    imagePng: '/assets/images/client-reviews/review-25.webp',
     rating: 5,
     featured: false
   },
@@ -240,7 +240,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'Prime Cuts Gourmet Meat Shop',
     category: 'Retail Store Uniforms',
     image: '/assets/images/client-reviews/review-26.webp',
-    imagePng: '/assets/images/client-reviews/review-26.png',
+    imagePng: '/assets/images/client-reviews/review-26.webp',
     rating: 5,
     featured: false
   },
@@ -249,7 +249,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'Tech Expo Annual Meet',
     category: 'Events Apparel',
     image: '/assets/images/client-reviews/review-27.webp',
-    imagePng: '/assets/images/client-reviews/review-27.png',
+    imagePng: '/assets/images/client-reviews/review-27.webp',
     rating: 5,
     featured: false
   },
@@ -258,7 +258,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'Single\'s Network Business Club',
     category: 'Corporate Uniforms',
     image: '/assets/images/client-reviews/review-28.webp',
-    imagePng: '/assets/images/client-reviews/review-28.png',
+    imagePng: '/assets/images/client-reviews/review-28.webp',
     rating: 5,
     featured: true
   },
@@ -267,7 +267,7 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     clientName: 'Pinnacle Sports Championship',
     category: 'Events Apparel',
     image: '/assets/images/client-reviews/review-29.webp',
-    imagePng: '/assets/images/client-reviews/review-29.png',
+    imagePng: '/assets/images/client-reviews/review-29.webp',
     rating: 5,
     featured: false
   },

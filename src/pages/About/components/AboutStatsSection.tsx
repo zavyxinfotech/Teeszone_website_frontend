@@ -32,7 +32,7 @@ const AnimatedStat: React.FC<StatItemProps> = ({
 
     if (isTextOnly) return;
 
-    let start = 0;
+    
     const duration = 1600; // ms
     const startTime = performance.now();
 

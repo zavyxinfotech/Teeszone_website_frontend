@@ -101,8 +101,7 @@ export const Footer: React.FC = () => {
           {/* Brand & Overview */}
           <div className="lg:col-span-4 space-y-4 text-center md:text-left flex flex-col items-center md:items-start">
             <Link to="/" className="inline-block" aria-label="TeesZone Home">
-              <img
-                src="/assets/logo/teeszone-logo.png"
+              <img loading="lazy" decoding="async" src="/assets/logo/teeszone-logo.webp"
                 alt="TeesZone"
                 className="h-14 sm:h-16 md:h-16 lg:h-[68px] w-auto object-contain mx-auto md:mx-0"
               />

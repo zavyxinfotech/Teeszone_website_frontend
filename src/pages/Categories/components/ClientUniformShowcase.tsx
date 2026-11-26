@@ -850,8 +850,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
                     }}
                     title={`Switch to ${slides[pos1Idx].brand}`}
                   >
-                    <img
-                      src={slides[pos1Idx].modelImage}
+                    <img loading="lazy" decoding="async" src={slides[pos1Idx].modelImage}
                       alt={slides[pos1Idx].brand}
                       className="w-full h-auto max-h-[220px] xl:max-h-[250px] object-contain select-none transition-opacity duration-300 group-hover:opacity-100"
                     />
@@ -872,8 +871,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
                     }}
                     title={`Switch to ${slides[pos2Idx].brand}`}
                   >
-                    <img
-                      src={slides[pos2Idx].modelImage}
+                    <img loading="lazy" decoding="async" src={slides[pos2Idx].modelImage}
                       alt={slides[pos2Idx].brand}
                       className="w-full h-auto max-h-[285px] xl:max-h-[320px] object-contain select-none transition-opacity duration-300 group-hover:opacity-100"
                     />
@@ -894,8 +892,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
                     }}
                     title={`Switch to ${slides[pos3Idx].brand}`}
                   >
-                    <img
-                      src={slides[pos3Idx].modelImage}
+                    <img loading="lazy" decoding="async" src={slides[pos3Idx].modelImage}
                       alt={slides[pos3Idx].brand}
                       className="w-full h-auto max-h-[355px] xl:max-h-[395px] object-contain select-none transition-opacity duration-300 group-hover:opacity-100"
                     />
@@ -906,8 +903,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
                 <div
                   className="flex flex-col items-center justify-end w-[31%] xl:w-[32%] max-w-[340px] xl:max-w-[385px] mb-0 transition-all duration-700 ease-out z-30 shrink-0"
                 >
-                  <img
-                    key={currentSlide.id}
+                  <img loading="lazy" decoding="async" key={currentSlide.id}
                     src={slides[pos4Idx].modelImage}
                     alt={`${slides[pos4Idx].brand} showcase`}
                     className="w-full h-auto max-h-[425px] xl:max-h-[475px] object-contain drop-shadow-[0_16px_30px_rgba(0,0,0,0.18)] select-none"
@@ -961,8 +957,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
                   animation: `colloidalPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${idx * 60}ms both`,
                 }}
               >
-                <img
-                  src={detail.image}
+                <img loading="lazy" decoding="async" src={detail.image}
                   alt={detail.title}
                   className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
                   style={{
@@ -1000,8 +995,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
                   animation: `colloidalPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${idx * 60}ms both`,
                 }}
               >
-                <img
-                  src={detail.image}
+                <img loading="lazy" decoding="async" src={detail.image}
                   alt={detail.title}
                   className="w-full h-full object-contain"
                   style={{ borderRadius: '24px' }}
@@ -1039,8 +1033,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
                   }}
                   title={`Switch to ${slides[pos2Idx].brand}`}
                 >
-                  <img
-                    src={slides[pos2Idx].modelImage}
+                  <img loading="lazy" decoding="async" src={slides[pos2Idx].modelImage}
                     alt={slides[pos2Idx].brand}
                     className="w-full h-auto max-h-[200px] object-contain select-none"
                   />
@@ -1061,8 +1054,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
                   }}
                   title={`Switch to ${slides[pos3Idx].brand}`}
                 >
-                  <img
-                    src={slides[pos3Idx].modelImage}
+                  <img loading="lazy" decoding="async" src={slides[pos3Idx].modelImage}
                     alt={slides[pos3Idx].brand}
                     className="w-full h-auto max-h-[245px] xs:max-h-[270px] object-contain select-none"
                   />
@@ -1073,8 +1065,7 @@ export const ClientUniformShowcase: React.FC<ClientUniformShowcaseProps> = ({
               <div
                 className="flex flex-col items-center justify-end w-[56%] sm:w-[44%] max-w-[215px] xs:max-w-[235px] mb-0 transition-all duration-500"
               >
-                <img
-                  key={currentSlide.id}
+                <img loading="lazy" decoding="async" key={currentSlide.id}
                   src={slides[pos4Idx].modelImage}
                   alt={`${slides[pos4Idx].brand} showcase`}
                   className="w-full h-auto max-h-[305px] xs:max-h-[335px] object-contain drop-shadow-[0_12px_22px_rgba(0,0,0,0.16)] transition-all duration-500 select-none"

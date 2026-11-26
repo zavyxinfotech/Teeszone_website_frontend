@@ -30,7 +30,7 @@ export const categoryDetails: Record<ProductCategory, CategoryDetail> = {
     tagline: 'Refined pique knit with tailored collars for elite workplace branding & professional teams',
     metaDescription:
       'Direct Tiruppur manufacturer for corporate uniforms, executive polo t-shirts, and company workwear. High thread-count combed cotton, custom embroidery, and pan-India bulk delivery.',
-    heroImage: '/assets/products/polo-cream.png',
+    heroImage: '/assets/products/polo-cream.webp',
     gsmRange: '220 - 260 GSM',
     moq: '50 Pieces per colorway',
     samplingTime: '24 - 48 Hours',
@@ -110,7 +110,7 @@ export const categoryDetails: Record<ProductCategory, CategoryDetail> = {
     tagline: 'Unbranded high-density cotton blanks ready for screen printers, private labels & D2C brands',
     metaDescription:
       'Buy wholesale blank t-shirts in Tiruppur. 180-240 GSM 100% combed cotton, drop shoulder oversized cuts, tear-away tags, ready for screen printing & DTF.',
-    heroImage: '/assets/products/oversized-maroon.png',
+    heroImage: '/assets/products/oversized-maroon.webp',
     gsmRange: '180 - 240 GSM',
     moq: '50 Pieces per colorway',
     samplingTime: 'Immediate Dispatch',
@@ -190,7 +190,7 @@ export const categoryDetails: Record<ProductCategory, CategoryDetail> = {
     tagline: 'High-durability colorfast institutional t-shirts engineered for active student life and daily wash cycles',
     metaDescription:
       'Direct factory school uniform manufacturer in Tiruppur. Premium school polos, PE sports t-shirts, house tees, and university merchandise with embroidered school crests.',
-    heroImage: '/assets/products/polo-maroon.png',
+    heroImage: '/assets/products/polo-maroon.webp',
     gsmRange: '200 - 240 GSM',
     moq: '50 Pieces per colorway',
     samplingTime: '24 - 48 Hours',
@@ -270,7 +270,7 @@ export const categoryDetails: Record<ProductCategory, CategoryDetail> = {
     tagline: 'High-impact custom printed t-shirts and hoodies for tech conferences, trade expos, marathons & brand launches',
     metaDescription:
       'Bulk promotional t-shirts and event merchandise manufacturer in Tiruppur. Express rush delivery, vibrant screen printing, and DTF graphics for corporate campaigns.',
-    heroImage: '/assets/products/hoodie-white.png',
+    heroImage: '/assets/products/hoodie-white.webp',
     gsmRange: '160 - 320 GSM',
     moq: '50 Pieces per order',
     samplingTime: '24 Hours',
@@ -350,7 +350,7 @@ export const categoryDetails: Record<ProductCategory, CategoryDetail> = {
     tagline: 'High-performance moisture-wicking jerseys and sports kits for school & college varsity teams',
     metaDescription:
       'Manufacturer of custom sports jerseys, athletic apparel, and sublimation kits in Tiruppur. Moisture-wicking dry-fit polyester for schools, colleges & varsity squads.',
-    heroImage: '/assets/products/sportswear-jersey.png',
+    heroImage: '/assets/products/sportswear-jersey.webp',
     gsmRange: '150 - 190 GSM',
     moq: '50 Pieces per colorway',
     samplingTime: '24 - 48 Hours',

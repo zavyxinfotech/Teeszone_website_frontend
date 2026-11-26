@@ -205,7 +205,7 @@ export const ContactInfo: React.FC = () => {
           {/* Column 1: Direct Phone Lines */}
           <div className="flex flex-col items-center text-center group">
             <Model3DWithSpiral
-              src="/assets/images/contact/3d/phone-3d.png"
+              src="/assets/images/contact/3d/phone-3d.webp"
               alt="3D Phone on Pedestal with Spiral Orbit"
               size="desktop"
             />
@@ -241,7 +241,7 @@ export const ContactInfo: React.FC = () => {
           {/* Column 2: Official Inquiry Email */}
           <div className="flex flex-col items-center text-center group">
             <Model3DWithSpiral
-              src="/assets/images/contact/3d/email-3d.png"
+              src="/assets/images/contact/3d/email-3d.webp"
               alt="3D Email Envelope on Pedestal with Spiral Orbit"
               size="desktop"
             />
@@ -265,7 +265,7 @@ export const ContactInfo: React.FC = () => {
           {/* Column 3: Corporate Head Office */}
           <div className="flex flex-col items-center text-center group">
             <Model3DWithSpiral
-              src="/assets/images/contact/3d/location-3d.png"
+              src="/assets/images/contact/3d/location-3d.webp"
               alt="3D Location Pin on Pedestal with Spiral Orbit"
               size="desktop"
             />
@@ -295,7 +295,7 @@ export const ContactInfo: React.FC = () => {
           {/* Row 1: Direct Phone Lines */}
           <div className="flex items-center gap-4 sm:gap-6 py-1">
             <Model3DWithSpiral
-              src="/assets/images/contact/3d/phone-3d.png"
+              src="/assets/images/contact/3d/phone-3d.webp"
               alt="3D Phone on Pedestal"
               size="mobile"
             />
@@ -330,7 +330,7 @@ export const ContactInfo: React.FC = () => {
           {/* Row 2: Official Inquiry Email */}
           <div className="flex items-center gap-4 sm:gap-6 py-1">
             <Model3DWithSpiral
-              src="/assets/images/contact/3d/email-3d.png"
+              src="/assets/images/contact/3d/email-3d.webp"
               alt="3D Email Envelope on Pedestal"
               size="mobile"
             />
@@ -353,7 +353,7 @@ export const ContactInfo: React.FC = () => {
           {/* Row 3: Corporate Head Office */}
           <div className="flex items-center gap-4 sm:gap-6 py-1">
             <Model3DWithSpiral
-              src="/assets/images/contact/3d/location-3d.png"
+              src="/assets/images/contact/3d/location-3d.webp"
               alt="3D Location Pin on Pedestal"
               size="mobile"
             />

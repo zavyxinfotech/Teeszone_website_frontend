@@ -29,7 +29,7 @@ export const VisionMission: React.FC = () => {
               className="w-28 xl:w-36 shrink-0 pointer-events-none select-none"
             >
               <img
-                src="/assets/images/about/vision-binoculars.png"
+                src="/assets/images/about/vision-binoculars.webp"
                 alt="TeesZone Vision 3D Model"
                 className="w-full h-auto object-contain filter drop-shadow-[0_12px_24px_rgba(128,1,31,0.18)]"
                 loading="eager"
@@ -59,7 +59,7 @@ export const VisionMission: React.FC = () => {
               className="w-28 xl:w-36 shrink-0 pointer-events-none select-none"
             >
               <img
-                src="/assets/images/about/mission-target.png"
+                src="/assets/images/about/mission-target.webp"
                 alt="TeesZone Mission 3D Model"
                 className="w-full h-auto object-contain filter drop-shadow-[0_12px_24px_rgba(128,1,31,0.18)]"
                 loading="eager"
@@ -95,7 +95,7 @@ export const VisionMission: React.FC = () => {
               className="w-24 sm:w-28 shrink-0 pointer-events-none select-none"
             >
               <img
-                src="/assets/images/about/vision-binoculars.png"
+                src="/assets/images/about/vision-binoculars.webp"
                 alt="TeesZone Vision 3D Model"
                 className="w-full h-auto object-contain filter drop-shadow-[0_10px_20px_rgba(128,1,31,0.16)]"
                 loading="eager"
@@ -122,7 +122,7 @@ export const VisionMission: React.FC = () => {
               className="w-24 sm:w-28 shrink-0 pointer-events-none select-none"
             >
               <img
-                src="/assets/images/about/mission-target.png"
+                src="/assets/images/about/mission-target.webp"
                 alt="TeesZone Mission 3D Model"
                 className="w-full h-auto object-contain filter drop-shadow-[0_10px_20px_rgba(128,1,31,0.16)]"
                 loading="eager"

@@ -67,7 +67,7 @@ export const AboutPreview: React.FC = () => {
                   className="relative w-full h-full"
                 >
                   <img
-                    src="/assets/images/about-office-framed.png"
+                    src="/assets/images/about-office-framed.webp"
                     alt="TeesZone corporate showroom and executive office framed"
                     className="w-full h-full object-contain"
                     loading="lazy"
@@ -158,7 +158,7 @@ export const AboutPreview: React.FC = () => {
                   className="w-full h-full"
                 >
                   <img
-                    src="/assets/images/about-office-framed.png"
+                    src="/assets/images/about-office-framed.webp"
                     alt="TeesZone executive office showroom framed in signature organic ribbon"
                     className="w-full h-full object-contain"
                     loading="lazy"

@@ -76,7 +76,7 @@ export const PartnershipSlide: React.FC<PartnershipSlideProps> = ({
           }}
         >
           <img
-            src="/assets/images/about/event-partnership-stage.jpg"
+            src="/assets/images/about/event-partnership-stage.webp"
             alt="TeesZone - Crafting Custom Apparel with Trust, Quality & Partnerships at 50 Years of Ilaiyaraaja Celebration"
             className="w-full h-full object-cover object-center filter saturate-[1.04] contrast-[1.03]"
             loading="eager"
@@ -207,7 +207,7 @@ export const PartnershipSlide: React.FC<PartnershipSlideProps> = ({
             }}
           >
             <img
-              src="/assets/images/about/event-partnership-stage.jpg"
+              src="/assets/images/about/event-partnership-stage.webp"
               alt="TeesZone Crafting Custom Apparel with Trust, Quality & Partnerships"
               className="w-full h-full object-cover object-center filter saturate-[1.04] contrast-[1.03]"
               loading="eager"

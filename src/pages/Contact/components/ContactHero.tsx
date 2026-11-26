@@ -194,7 +194,7 @@ export const ContactHero: React.FC = () => {
 
             {/* Increased Width Consultation Image: Fully visible, attached right-0 and bottom-0 */}
             <img
-              src="/assets/images/contact/contact-hero-consultation-transparent.png"
+              src="/assets/images/contact/contact-hero-consultation-transparent.webp"
               alt="TeesZone custom apparel consultation with client"
               className="h-[430px] lg:h-[500px] xl:h-[560px] w-auto max-w-[62vw] object-contain object-bottom-right drop-shadow-2xl block mb-0 align-bottom"
               loading="eager"
@@ -301,7 +301,7 @@ export const ContactHero: React.FC = () => {
           {/* Consultation Image: comfortably proportioned, attached directly at bottom edge */}
           <div className="relative z-30 w-full max-w-[420px] flex justify-center p-0 m-0 leading-none">
             <img
-              src="/assets/images/contact/contact-hero-consultation-transparent.png"
+              src="/assets/images/contact/contact-hero-consultation-transparent.webp"
               alt="TeesZone Custom Apparel Consultation"
               className="w-full h-auto max-h-[220px] xs:max-h-[250px] sm:max-h-[280px] object-contain object-bottom drop-shadow-md block m-0 p-0 align-bottom"
               loading="eager"

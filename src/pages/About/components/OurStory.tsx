@@ -23,8 +23,8 @@ const MILESTONES: Milestone[] = [
     title: 'The Beginning in Chennai',
     description:
       'TeesZone started its journey as a proprietorship in Kolathur, Chennai, with a vision to provide customized T-shirts, corporate uniforms, and quality apparel solutions.',
-    bgImage: '/assets/images/about/milestones/m1_chennai-bg.jpg',
-    cardImage: '/assets/images/about/milestones/m1_chennai-card.jpg',
+    bgImage: '/assets/images/about/milestones/m1_chennai-bg.webp',
+    cardImage: '/assets/images/about/milestones/m1_chennai-card.webp',
     mobilePosition: '74% center',
   },
   {
@@ -35,8 +35,8 @@ const MILESTONES: Milestone[] = [
     title: 'Official Incorporation',
     description:
       'A significant milestone in our growth journey. TeesZone was officially incorporated, marking a new chapter in our commitment to structured business operations and long-term expansion.',
-    bgImage: '/assets/images/about/milestones/m2_incorporation-bg.jpg',
-    cardImage: '/assets/images/about/milestones/m2_incorporation-card.jpg',
+    bgImage: '/assets/images/about/milestones/m2_incorporation-bg.webp',
+    cardImage: '/assets/images/about/milestones/m2_incorporation-card.webp',
     mobilePosition: '82% center',
   },
   {
@@ -47,8 +47,8 @@ const MILESTONES: Milestone[] = [
     title: 'First Branch in Bengaluru',
     description:
       'We expanded beyond Chennai by establishing our first branch in Banashankari, Bengaluru, strengthening our reach and customer accessibility.',
-    bgImage: '/assets/images/about/milestones/m3_bengaluru-bg.jpg',
-    cardImage: '/assets/images/about/milestones/m3_bengaluru-card.jpg',
+    bgImage: '/assets/images/about/milestones/m3_bengaluru-bg.webp',
+    cardImage: '/assets/images/about/milestones/m3_bengaluru-card.webp',
     mobilePosition: '76% center',
   },
   {
@@ -59,8 +59,8 @@ const MILESTONES: Milestone[] = [
     title: 'Corporate Office at Texvalley',
     description:
       "We established our corporate office at Texvalley Global Market, Erode, strengthening our operational presence in one of Tamil Nadu's prominent textile business hubs.",
-    bgImage: '/assets/images/about/milestones/m4_texvalley-bg.jpg',
-    cardImage: '/assets/images/about/milestones/m4_texvalley-card.jpg',
+    bgImage: '/assets/images/about/milestones/m4_texvalley-bg.webp',
+    cardImage: '/assets/images/about/milestones/m4_texvalley-card.webp',
     mobilePosition: '72% center',
   },
   {
@@ -71,8 +71,8 @@ const MILESTONES: Milestone[] = [
     title: 'Expansion to Puducherry',
     description:
       'Taking our customized apparel and corporate uniform solutions further, we expanded our branch network to Puducherry.',
-    bgImage: '/assets/images/about/milestones/m5_puducherry-bg.jpg',
-    cardImage: '/assets/images/about/milestones/m5_puducherry-card.jpg',
+    bgImage: '/assets/images/about/milestones/m5_puducherry-bg.webp',
+    cardImage: '/assets/images/about/milestones/m5_puducherry-card.webp',
     mobilePosition: '84% 18%',
   },
   {
@@ -83,8 +83,8 @@ const MILESTONES: Milestone[] = [
     title: 'Expansion to Kanchipuram',
     description:
       'Continuing our regional growth, we expanded our presence to Kanchipuram, bringing TeesZone closer to more businesses and customers.',
-    bgImage: '/assets/images/about/milestones/m6_kanchipuram-bg.jpg',
-    cardImage: '/assets/images/about/milestones/m6_kanchipuram-card.jpg',
+    bgImage: '/assets/images/about/milestones/m6_kanchipuram-bg.webp',
+    cardImage: '/assets/images/about/milestones/m6_kanchipuram-card.webp',
     mobilePosition: '84% 12%',
   },
   {
@@ -95,8 +95,8 @@ const MILESTONES: Milestone[] = [
     title: 'Kochi (Cochin)',
     description:
       'Our expansion journey continues. We are preparing to establish our presence in Kochi, extending our reach into Kerala and creating new opportunities to serve businesses across the region.',
-    bgImage: '/assets/images/about/milestones/m7_kochi-bg.jpg',
-    cardImage: '/assets/images/about/milestones/m7_kochi-card.jpg',
+    bgImage: '/assets/images/about/milestones/m7_kochi-bg.webp',
+    cardImage: '/assets/images/about/milestones/m7_kochi-card.webp',
     mobilePosition: '82% 22%',
   },
 ];

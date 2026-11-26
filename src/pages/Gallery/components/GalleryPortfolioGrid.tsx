@@ -72,7 +72,7 @@ export const galleryData: GalleryItem[] = [
     title: 'BNI Tycoon Erode – Official Apparel Partner',
     category: 'official-partner',
     categoryLabel: 'Official Apparel Partner',
-    image: '/assets/images/about/bni-handshake.jpg',
+    image: '/assets/images/about/bni-handshake.webp',
     description: 'Exclusive custom apparel manufacturing & premium corporate uniforms partner for BNI Tycoon Erode.',
     tags: ['BNI Tycoon', 'Executive Polos', 'Official Partner'],
   },
@@ -81,7 +81,7 @@ export const galleryData: GalleryItem[] = [
     title: 'Marathon & Sports Event Official Apparel Partner',
     category: 'official-partner',
     categoryLabel: 'Official Apparel Partner',
-    image: '/assets/images/card-5-sports.png',
+    image: '/assets/images/card-5-sports.webp',
     description: 'Official sports jersey & marathon apparel manufacturing partner for premier sporting events across Tamil Nadu.',
     tags: ['Marathon Partner', 'Sublimation Jerseys', 'Performance Wear'],
   },
@@ -90,7 +90,7 @@ export const galleryData: GalleryItem[] = [
     title: 'Enterprise Conclave Official Apparel Partner',
     category: 'official-partner',
     categoryLabel: 'Official Apparel Partner',
-    image: '/assets/images/card-3-corp.png',
+    image: '/assets/images/card-3-corp.webp',
     description: 'Official branded uniforms and executive apparel partner for leading enterprise institutions and annual summits.',
     tags: ['Enterprise Partner', 'Custom Crests', 'Bulk Manufacturing'],
   },
@@ -99,7 +99,7 @@ export const galleryData: GalleryItem[] = [
     title: 'Collegiate & Youth Festival Apparel Partner',
     category: 'official-partner',
     categoryLabel: 'Official Apparel Partner',
-    image: '/assets/images/card-4-school.png',
+    image: '/assets/images/card-4-school.webp',
     description: 'Trusted official apparel manufacturing partner for university festivals, alumni meets, and graduation merchandise.',
     tags: ['College Partner', 'Event Tees', 'Custom Hoodies'],
   },
@@ -532,8 +532,7 @@ export const GalleryPortfolioGrid: React.FC<GalleryPortfolioGridProps> = ({ onOp
               </button>
 
               <div className="relative aspect-[16/10] w-full bg-neutral-100">
-                <img
-                  src={activeItem.image}
+                <img loading="lazy" decoding="async" src={activeItem.image}
                   alt={activeItem.title}
                   className="w-full h-full object-cover"
                 />

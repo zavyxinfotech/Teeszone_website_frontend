@@ -16,7 +16,7 @@ export const sectorsData: SectorItem[] = [
     description: 'Crisp corporate polos and formal t-shirts branded with fine embroidery for daily workwear and conferences.',
     recommendedApparel: 'Pique Cotton Polos, Mercerized Tees',
     iconName: 'Briefcase',
-    image: '/assets/images/sectors/sector-corporate.png',
+    image: '/assets/images/sectors/sector-corporate.webp',
   },
   {
     id: 'education',
@@ -25,7 +25,7 @@ export const sectorsData: SectorItem[] = [
     description: 'Durable, skin-friendly uniform t-shirts, sports day attire, and student council event merchandise.',
     recommendedApparel: '180 GSM Round Necks, House T-Shirts',
     iconName: 'GraduationCap',
-    image: '/assets/images/sectors/sector-education.png',
+    image: '/assets/images/sectors/sector-education.webp',
   },
   {
     id: 'sports',
@@ -34,7 +34,7 @@ export const sectorsData: SectorItem[] = [
     description: 'Breathable Dry-Fit jerseys with customized player names, numbers, and sponsor logos.',
     recommendedApparel: 'Sublimated Micro-Poly Jerseys',
     iconName: 'Trophy',
-    image: '/assets/images/sectors/sector-sports.png',
+    image: '/assets/images/sectors/sector-sports.webp',
   },
   {
     id: 'healthcare',
@@ -43,7 +43,7 @@ export const sectorsData: SectorItem[] = [
     description: 'Hygienic, anti-microbial scrubs and comfortable nursing staff tees with reinforced stitching.',
     recommendedApparel: 'Cotton-Rich Anti-Bacterial Scrubs',
     iconName: 'HeartPulse',
-    image: '/assets/images/sectors/sector-healthcare.png',
+    image: '/assets/images/sectors/sector-healthcare.webp',
   },
   {
     id: 'hospitality',
@@ -52,7 +52,7 @@ export const sectorsData: SectorItem[] = [
     description: 'Stain-resistant kitchen crew t-shirts, chef polos, and front-desk branded service apparel.',
     recommendedApparel: 'Stain-Resistant Polos & Apron Sets',
     iconName: 'UtensilsCrossed',
-    image: '/assets/images/sectors/sector-corporate.png',
+    image: '/assets/images/sectors/sector-corporate.webp',
   },
   {
     id: 'industrial',
@@ -61,7 +61,7 @@ export const sectorsData: SectorItem[] = [
     description: 'High-visibility fluorescent reflective vests, sturdy industrial round necks, and sweat-resistant workwear.',
     recommendedApparel: 'Heavyweight Cotton & High-Vis Vests',
     iconName: 'HardHat',
-    image: '/assets/images/sectors/sector-industrial.png',
+    image: '/assets/images/sectors/sector-industrial.webp',
   },
   {
     id: 'events',
@@ -70,7 +70,7 @@ export const sectorsData: SectorItem[] = [
     description: 'Cost-effective, vivid multi-color t-shirts for brand ambassadors, product launches, and mass expos.',
     recommendedApparel: '160-180 GSM Bio-Wash Printed Tees',
     iconName: 'Megaphone',
-    image: '/assets/images/sectors/sector-education.png',
+    image: '/assets/images/sectors/sector-education.webp',
   },
   {
     id: 'retail',
@@ -79,7 +79,7 @@ export const sectorsData: SectorItem[] = [
     description: 'Sharp, color-matched team t-shirts that maintain retail elegance across nationwide showroom networks.',
     recommendedApparel: 'Premium Matty Polos with Collar Tipping',
     iconName: 'Store',
-    image: '/assets/images/sectors/sector-corporate.png',
+    image: '/assets/images/sectors/sector-corporate.webp',
   },
   {
     id: 'ngo',
@@ -88,7 +88,7 @@ export const sectorsData: SectorItem[] = [
     description: 'Bulk budget-friendly t-shirts carrying impactful slogans and awareness messages for volunteer drives.',
     recommendedApparel: 'Cotton Promotional Screen-Printed Tees',
     iconName: 'HandHeart',
-    image: '/assets/images/sectors/sector-education.png',
+    image: '/assets/images/sectors/sector-education.webp',
   },
   {
     id: 'clubs',
@@ -97,6 +97,6 @@ export const sectorsData: SectorItem[] = [
     description: 'Custom community hoodies, riders club jerseys, and alumni reunion tees built for camaraderie.',
     recommendedApparel: 'Oversized Streetwear & Heavy Cotton Tees',
     iconName: 'Users',
-    image: '/assets/images/sectors/sector-sports.png',
+    image: '/assets/images/sectors/sector-sports.webp',
   },
 ];

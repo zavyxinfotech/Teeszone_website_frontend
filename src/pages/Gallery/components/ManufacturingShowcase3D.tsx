@@ -20,7 +20,7 @@ const PRINTING_TYPES: PrintingType[] = [
     title: 'Precision Stitching & Apparel Assembly',
     description:
       'Engineered with reinforced dual-needle stitching and premium Tiruppur combed cotton. Ensures maximum seam durability through 100+ commercial wash cycles.',
-    image: '/assets/images/gallery/manufacturing-stitching.jpg',
+    image: '/assets/images/gallery/manufacturing-stitching.webp',
     alt: 'TeesZone precision stitching and customized apparel manufacturing in Tiruppur',
   },
   {
@@ -30,7 +30,7 @@ const PRINTING_TYPES: PrintingType[] = [
     title: 'Screen Printing for Custom T-Shirts',
     description:
       'High-density industrial screen printing delivering razor-sharp line clarity and rich color vibrancy. Zero peeling, cracking, or color fading on bulk apparel orders.',
-    image: '/assets/images/gallery/manufacturing-screen-printing.jpg',
+    image: '/assets/images/gallery/manufacturing-screen-printing.webp',
     alt: 'TeesZone high-quality screen printing press for bulk custom T-shirts',
   },
   {
@@ -40,7 +40,7 @@ const PRINTING_TYPES: PrintingType[] = [
     title: 'Advanced DTP Printing for Apparel',
     description:
       'Advanced CMYK direct-to-product digital printing for complex multi-color designs. Delivers photographic precision with ultra-soft breathable feel on every fabric.',
-    image: '/assets/images/gallery/manufacturing-dtp-printing.jpg',
+    image: '/assets/images/gallery/manufacturing-dtp-printing.webp',
     alt: 'TeesZone advanced DTP printing technology machine for custom graphics',
   },
 ];
@@ -312,8 +312,7 @@ export const ManufacturingShowcase3D: React.FC<ManufacturingShowcase3DProps> = (
                   >
                     {/* Top: Fluid Organic Blob Image Frame */}
                     <div className="w-full aspect-[4/3] max-h-[220px] animate-fluid-blob overflow-hidden bg-neutral-200 mb-4 shadow-md border-2 border-white/80 mx-auto">
-                      <img
-                        src={type.image}
+                      <img loading="lazy" decoding="async" src={type.image}
                         alt={type.alt}
                         className="w-full h-full object-cover object-center scale-105"
                       />

@@ -332,7 +332,7 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
                     }}
                   >
                     <img
-                      src="/assets/images/about/burgundy-polo-hd.png"
+                      src="/assets/images/about/burgundy-polo-hd.webp"
                       alt="TeesZone Premium Burgundy Polo T-Shirt"
                       className="w-full h-full object-contain object-center scale-120 drop-shadow-[0_18px_32px_rgba(70,0,20,0.22)]"
                       loading="eager"

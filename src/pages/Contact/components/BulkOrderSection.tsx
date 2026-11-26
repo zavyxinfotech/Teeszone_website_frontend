@@ -22,8 +22,7 @@ export const BulkOrderSection: React.FC = () => {
             <div className="lg:col-span-5 order-2 lg:order-1">
               <RevealAnimation direction="right">
                 <div className="rounded-3xl overflow-hidden shadow-2xl border-2 border-white/20">
-                  <img
-                    src="/assets/images/quality-check.webp"
+                  <img loading="lazy" decoding="async" src="/assets/images/quality-check.webp"
                     alt="TeesZone high capacity stitching line in Tiruppur"
                     className="w-full h-auto object-cover hover:scale-103 transition-transform duration-700"
                   />

@@ -13,25 +13,25 @@ const heroTrustFeatures = [
     id: 'fabrics',
     title: 'Premium Quality',
     subtitle: 'Fabrics',
-    img: '/assets/images/hero-icons/fabrics.png',
+    img: '/assets/images/hero-icons/fabrics.webp',
   },
   {
     id: 'branding',
     title: 'Custom Design',
     subtitle: '& Branding',
-    img: '/assets/images/hero-icons/branding.png',
+    img: '/assets/images/hero-icons/branding.webp',
   },
   {
     id: 'capacity',
     title: 'Bulk Production',
     subtitle: 'Capacity',
-    img: '/assets/images/hero-icons/capacity.png',
+    img: '/assets/images/hero-icons/capacity.webp',
   },
   {
     id: 'delivery',
     title: 'Pan India',
     subtitle: 'Delivery',
-    img: '/assets/images/hero-icons/delivery.png',
+    img: '/assets/images/hero-icons/delivery.webp',
   },
 ];
 
@@ -265,8 +265,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
               >
                 <picture className="w-full block">
                   <source type="image/webp" srcSet="/assets/images/hero-models-cutout.webp" />
-                  <img
-                    src="/assets/images/hero-models-cutout.png"
+                  <img loading="eager" decoding="async" src="/assets/images/hero-models-cutout.webp"
                     alt="TeesZone custom apparel models with visible brand logos"
                     className="w-full h-auto max-h-[460px] lg:max-h-[500px] xl:max-h-[530px] object-contain object-right-top"
                   />
@@ -282,8 +281,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
               >
                 <picture className="w-full block">
                   <source type="image/webp" srcSet="/assets/images/hero-factory-clean.webp" />
-                  <img
-                    src="/assets/images/hero-factory-clean.png"
+                  <img loading="eager" decoding="async" src="/assets/images/hero-factory-clean.webp"
                     alt="TeesZone Tiruppur factory showroom and delivery fleet"
                     className="w-full h-auto object-contain object-right-bottom drop-shadow-md"
                   />
@@ -362,7 +360,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
               <picture className="w-full block">
                 <source type="image/webp" srcSet="/assets/images/hero-models-mobile.webp" />
                 <img
-                  src="/assets/images/hero-models-mobile.png"
+                  src="/assets/images/hero-models-mobile.webp"
                   alt="TeesZone workforce models with custom branded apparel"
                   className="w-full h-auto max-h-[160px] sm:max-h-[190px] object-contain object-bottom drop-shadow-md"
                   loading="eager"
@@ -375,7 +373,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
               <picture className="w-full block">
                 <source type="image/webp" srcSet="/assets/images/hero-factory-clean.webp" />
                 <img
-                  src="/assets/images/hero-factory-clean.png"
+                  src="/assets/images/hero-factory-clean.webp"
                   alt="TeesZone Tiruppur factory showroom and delivery fleet"
                   className="w-full h-auto object-contain object-bottom drop-shadow-lg"
                   loading="eager"

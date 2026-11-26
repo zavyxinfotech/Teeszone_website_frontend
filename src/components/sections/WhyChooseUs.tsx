@@ -405,8 +405,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
               transition={{ duration: 4.0, repeat: Infinity, ease: 'easeInOut' }}
               className="relative w-full h-full flex items-center justify-center"
             >
-              <img
-                src="/assets/images/why-choose/question-man-center.png"
+              <img loading="lazy" decoding="async" src="/assets/images/why-choose/question-man-center.webp"
                 alt="Why Choose TeesZone"
                 className="w-full h-full object-contain filter drop-shadow-[0_14px_28px_rgba(20,0,5,0.18)]"
               />
@@ -538,8 +537,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
               }}
               className="relative w-full h-[150px] xs:h-[165px] flex items-center justify-center pointer-events-none select-none z-10 shrink-0 origin-center"
             >
-              <img
-                src="/assets/images/why-choose/question-man-center.png"
+              <img loading="lazy" decoding="async" src="/assets/images/why-choose/question-man-center.webp"
                 alt="Why Choose TeesZone"
                 className="h-full w-auto object-contain filter drop-shadow-[0_12px_24px_rgba(20,0,5,0.18)]"
               />

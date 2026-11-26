@@ -17,8 +17,8 @@ export const ClothFoldingPolo: React.FC<ClothFoldingPoloProps> = ({
   const imageSrc =
     src ||
     (isMobile
-      ? '/assets/images/about/burgundy-polo-hd.png'
-      : '/assets/images/about/burgundy-polo-desktop.png');
+      ? '/assets/images/about/burgundy-polo-hd.webp'
+      : '/assets/images/about/burgundy-polo-desktop.webp');
 
   return (
     <div className={`relative select-none ${className}`}>

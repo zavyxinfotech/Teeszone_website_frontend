@@ -54,7 +54,7 @@ export const ProductCategoryCard: React.FC<ProductCategoryCardProps> = ({
     >
       {/* 1. Integrated Card Background Artwork with Burgundy Flowing Wave & Arch */}
       <img
-        src="/assets/images/products/card-bg-artwork.png"
+        src="/assets/images/products/card-bg-artwork.webp"
         alt=""
         aria-hidden="true"
         className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none z-0"

@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { PageTransition } from '@/components/layout/PageTransition';
 import { useQuoteModal } from './providers';
 import { companyContact } from '@/data/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import { X, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/common/Button';
 
 export const App: React.FC = () => {
   const { isOpen, productPrefill, openQuote, closeQuote } = useQuoteModal();
-  const location = useLocation();
-  const isHomePage = location.pathname === '/';
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 24,
+    restDelta: 0.001,
+  });
   const [modalSubmitted, setModalSubmitted] = useState(false);
   const [modalData, setModalData] = useState({
     name: '',
@@ -33,6 +37,12 @@ export const App: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-warm-50 text-charcoal-900 selection:bg-burgundy-700 selection:text-white">
+      {/* Cinematic Top Scroll Progress Indicator */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-burgundy-700 via-burgundy-500 to-burgundy-600 origin-left z-50 pointer-events-none"
+        style={{ scaleX }}
+      />
+
       {/* Main Navbar */}
       <Navbar onOpenQuote={() => openQuote()} />
 

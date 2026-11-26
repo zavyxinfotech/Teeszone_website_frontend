@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
-import { Sparkles, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
 export const GalleryHeroCinematic: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -61,7 +61,7 @@ export const GalleryHeroCinematic: React.FC = () => {
           className="absolute inset-0 w-full h-full pointer-events-none will-change-transform z-0 opacity-12 mix-blend-multiply"
         >
           <img
-            src="/assets/images/gallery/gallery-hero-facility.jpg"
+            src="/assets/images/gallery/gallery-hero-facility.webp"
             alt="TeesZone Tiruppur Facility"
             className="w-full h-full object-cover object-center"
             loading="eager"
