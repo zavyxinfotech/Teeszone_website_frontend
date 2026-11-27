@@ -20,15 +20,6 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     featured: true
   },
   {
-    id: 2,
-    clientName: 'PV Renewable India Pvt Ltd',
-    category: 'Corporate Apparel',
-    image: '/assets/images/client-reviews/review-2.webp',
-    imagePng: '/assets/images/client-reviews/review-2.webp',
-    rating: 5,
-    featured: false
-  },
-  {
     id: 3,
     clientName: 'Briar Tea Bungalows',
     category: 'Corporate Apparel',
@@ -108,33 +99,6 @@ export const CLIENT_REVIEWS_DATA: ClientReviewItem[] = [
     imagePng: '/assets/images/client-reviews/review-11.webp',
     rating: 5,
     featured: true
-  },
-  {
-    id: 12,
-    clientName: 'Besten Pumps',
-    category: 'Manufacturing Company Uniforms',
-    image: '/assets/images/client-reviews/review-12.webp',
-    imagePng: '/assets/images/client-reviews/review-12.webp',
-    rating: 5,
-    featured: true
-  },
-  {
-    id: 13,
-    clientName: 'Apex Tech Enterprises',
-    category: 'Corporate Company Uniforms',
-    image: '/assets/images/client-reviews/review-13.webp',
-    imagePng: '/assets/images/client-reviews/review-13.webp',
-    rating: 5,
-    featured: false
-  },
-  {
-    id: 14,
-    clientName: 'PowerGrid Electricals',
-    category: 'Electrical Company Uniforms',
-    image: '/assets/images/client-reviews/review-14.webp',
-    imagePng: '/assets/images/client-reviews/review-14.webp',
-    rating: 5,
-    featured: false
   },
   {
     id: 15,

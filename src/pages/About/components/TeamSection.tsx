@@ -26,7 +26,7 @@ const TEAM_MEMBERS: TeamMember[] = [
   {
     id: 'vijayadharshini',
     name: 'Vijaya Dharshini NM',
-    role: 'UI/UX Designer',
+    role: 'E commerce & Digital Growth Manager',
     image: '/assets/images/team/vijayadharshini-cutout.webp',
     linkedin: 'https://www.linkedin.com/in/vijayadharshini-n-m-81466a270',
   },
@@ -139,7 +139,13 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
             src={member.image}
             alt={member.name}
             className={`object-contain object-bottom transition-transform duration-500 ${
-              isMobile ? 'h-[78%] max-w-[85%]' : 'h-[75%] lg:h-[78%] max-w-[86%]'
+              member.id === 'saranya'
+                ? isMobile
+                  ? 'h-[92%] max-w-[96%] origin-bottom'
+                  : 'h-[88%] lg:h-[92%] max-w-[96%] origin-bottom'
+                : isMobile
+                ? 'h-[78%] max-w-[85%]'
+                : 'h-[75%] lg:h-[78%] max-w-[86%]'
             } ${isActive ? 'scale-105' : 'group-hover:scale-103'}`}
             loading="eager"
           />

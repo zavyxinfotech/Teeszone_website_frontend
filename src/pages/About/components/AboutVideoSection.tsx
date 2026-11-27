@@ -55,16 +55,16 @@ export const AboutVideoSection: React.FC = () => {
       {/* =========================================================================
           MOBILE VIEW (Hidden on Desktop)
           - Top wavy border added to cover top logo and match desktop wavy border
-          - Aspect ratio & height calibrated (88dvh) so text animation crops much less
+          - Full width auto-height video so animation text is never cropped horizontally
           ========================================================================= */}
-      <div className="block md:hidden relative w-full h-[88dvh] max-h-[820px] min-h-[560px] overflow-hidden bg-[#FAF5F2]">
+      <div className="block md:hidden relative w-full overflow-hidden bg-[#6B0018]">
         {/* Top Wavy Border covering top logo */}
         <div className="absolute top-0 left-0 w-full overflow-hidden leading-none z-20 pointer-events-none">
           <svg
             viewBox="0 0 1440 90"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-12 xs:h-14 block text-white"
+            className="w-full h-10 xs:h-12 block text-white"
             preserveAspectRatio="none"
           >
             <path
@@ -74,13 +74,13 @@ export const AboutVideoSection: React.FC = () => {
           </svg>
         </div>
 
-        {/* Mobile Video - Cropped at top to conceal top-left text logo behind top wavy border */}
+        {/* Mobile Video - Cropped slightly at top behind wavy border, full width visible */}
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-[calc(100%+60px)] -mt-10 xs:-mt-12 object-cover object-center block"
+          className="w-full h-auto -mt-6 xs:-mt-8 block"
           src="/assets/videos/teeszone-text-animation-mobile.mp4"
         />
       </div>

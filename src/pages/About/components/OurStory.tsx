@@ -195,10 +195,9 @@ export const OurStory: React.FC = () => {
         aria-label="Interactive TeesZone Milestone Journey"
       >
         <div className="sticky top-0 h-screen h-[100dvh] max-h-[100dvh] w-full flex flex-col justify-between overflow-hidden outline-none pt-[72px] xs:pt-[80px] sm:pt-24 lg:pt-8 pb-3 sm:pb-6">
-          {/* 1. Cinematic Background Image Layer with Crossfade */}
-          <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-            {/* Responsive Image Container: Full-height on desktop; Prominent lower showcase on mobile removing unwanted space */}
-            <div className="absolute bottom-0 right-0 w-full h-[58vh] xs:h-[60vh] sm:h-[62vh] lg:h-full lg:inset-0">
+          {/* 1. Desktop Cinematic Background Image Layer with Crossfade */}
+          <div className="hidden lg:block absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            <div className="absolute inset-0 w-full h-full">
               <AnimatePresence mode="popLayout">
                 <motion.img
                   key={activeMilestone.id}
@@ -208,22 +207,15 @@ export const OurStory: React.FC = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.98 }}
                   transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-                  className="w-full h-full object-cover lg:!object-center filter saturate-[1.08] contrast-[1.03]"
-                  style={{
-                    objectPosition: activeMilestone.mobilePosition || '80% center',
-                  }}
+                  className="w-full h-full object-cover object-center filter saturate-[1.08] contrast-[1.03]"
                 />
               </AnimatePresence>
-
-              {/* Mobile gentle feathering: subtle edge blend that never covers location pins */}
-              <div className="lg:hidden absolute top-0 inset-x-0 h-6 bg-gradient-to-b from-[#FAF5F2] to-transparent pointer-events-none z-[1]" />
-              <div className="lg:hidden absolute bottom-0 inset-x-0 h-10 bg-gradient-to-t from-[#FAF5F2]/60 to-transparent pointer-events-none z-[1]" />
             </div>
 
             {/* Desktop Left-side Shaded Effect for Supreme Text Readability; Right side remains 100% crisp, clear and unblocked */}
-            <div className="hidden lg:block absolute inset-y-0 left-0 w-[58%] xl:w-[52%] bg-gradient-to-r from-[#FAF5F2] via-[#FAF5F2]/95 sm:via-[#FAF5F2]/85 to-transparent pointer-events-none z-[1]" />
-            <div className="hidden lg:block absolute top-0 left-0 w-[50%] h-20 bg-gradient-to-b from-[#FAF5F2] to-transparent pointer-events-none z-[1]" />
-            <div className="hidden lg:block absolute bottom-0 left-0 w-[50%] h-24 bg-gradient-to-t from-[#FAF5F2] to-transparent pointer-events-none z-[1]" />
+            <div className="absolute inset-y-0 left-0 w-[58%] xl:w-[52%] bg-gradient-to-r from-[#FAF5F2] via-[#FAF5F2]/95 sm:via-[#FAF5F2]/85 to-transparent pointer-events-none z-[1]" />
+            <div className="absolute top-0 left-0 w-[50%] h-20 bg-gradient-to-b from-[#FAF5F2] to-transparent pointer-events-none z-[1]" />
+            <div className="absolute bottom-0 left-0 w-[50%] h-24 bg-gradient-to-t from-[#FAF5F2] to-transparent pointer-events-none z-[1]" />
           </div>
 
           {/* 2. Main Content Container */}
@@ -289,6 +281,22 @@ export const OurStory: React.FC = () => {
               {/* Right area intentionally open to display the crystal-clear milestone imagery */}
               <div className="hidden lg:block lg:col-span-5 xl:col-span-6 pointer-events-none" />
 
+            </div>
+
+            {/* Mobile Milestone Image: Cleanly separated below text with full visibility (no horizontal cropping) */}
+            <div className="lg:hidden relative w-full flex-1 min-h-[200px] max-h-[46vh] mt-4 flex items-center justify-center overflow-hidden pointer-events-none">
+              <AnimatePresence mode="popLayout">
+                <motion.img
+                  key={`mobile-${activeMilestone.id}`}
+                  src={activeMilestone.bgImage}
+                  alt={activeMilestone.title}
+                  initial={{ opacity: 0, scale: 1.02 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.98 }}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  className="w-full h-full object-contain object-center filter saturate-[1.08] contrast-[1.03]"
+                />
+              </AnimatePresence>
             </div>
           </div>
 

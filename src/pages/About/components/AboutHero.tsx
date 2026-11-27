@@ -325,7 +325,7 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
                     initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 14 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.75, delay: 0.28 }}
-                    className="w-full max-w-[390px] h-[26svh] xs:h-[28svh] max-h-[240px] min-h-[170px] overflow-hidden my-1 shrink-0 flex items-center justify-center"
+                    className="w-full max-w-[420px] h-[34svh] xs:h-[36svh] max-h-[330px] min-h-[220px] overflow-hidden my-1 shrink-0 flex items-center justify-center"
                     style={{
                       maskImage: 'radial-gradient(ellipse 92% 88% at 50% 50%, black 52%, rgba(0,0,0,0.7) 75%, transparent 100%)',
                       WebkitMaskImage: 'radial-gradient(ellipse 92% 88% at 50% 50%, black 52%, rgba(0,0,0,0.7) 75%, transparent 100%)',
@@ -334,7 +334,7 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
                     <img
                       src="/assets/images/about/burgundy-polo-hd.webp"
                       alt="TeesZone Premium Burgundy Polo T-Shirt"
-                      className="w-full h-full object-contain object-center scale-120 drop-shadow-[0_18px_32px_rgba(70,0,20,0.22)]"
+                      className="w-full h-full object-contain object-center scale-[1.28] drop-shadow-[0_18px_32px_rgba(70,0,20,0.22)]"
                       loading="eager"
                     />
                   </motion.div>
