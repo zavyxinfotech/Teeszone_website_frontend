@@ -295,28 +295,27 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
       </div>
 
       {/* =========================================================================
-          MOBILE HERO VIEW (Exact match to Reference Image 2 right side)
-          Centered typography, side-by-side buttons, unhidden chest logos, and 4-column badges row
+          MOBILE HERO VIEW (Fits cleanly within 100svh mobile viewport height)
           ========================================================================= */}
-      <div className="md:hidden flex flex-col w-full bg-[#FAF6F4] pt-16 sm:pt-20">
+      <div className="md:hidden flex flex-col justify-between min-h-[100svh] w-full bg-[#FAF6F4] pt-16 sm:pt-20 pb-2">
 
         {/* Top Text Content Area - Left aligned on mobile */}
-        <div className="px-4 pt-2 pb-2 space-y-2.5 bg-transparent text-left">
+        <div className="px-4 pt-1 pb-1 space-y-2 bg-transparent text-left">
           <span className="text-xs sm:text-sm font-heading font-semibold uppercase tracking-wider text-burgundy-700 block">
             PREMIUM T-SHIRT MANUFACTURER
           </span>
 
-          <h1 className="text-[26px] sm:text-3xl font-heading font-bold text-charcoal-900 leading-[1.12] tracking-tight">
+          <h1 className="text-[25px] xs:text-[26px] sm:text-3xl font-heading font-bold text-charcoal-900 leading-[1.12] tracking-tight">
             CUSTOM APPAREL <br />
             <span className="text-burgundy-700">FOR EVERY SECTOR</span>
           </h1>
 
-          <p className="text-sm sm:text-base text-charcoal-700 leading-relaxed font-normal max-w-xs">
+          <p className="text-[13px] xs:text-sm sm:text-base text-charcoal-700 leading-snug font-normal max-w-xs">
             High-quality customized T-shirts, uniforms and apparel for businesses and teams across India.
           </p>
 
           {/* Dual Action Buttons Aligned Side-by-Side on Same Line */}
-          <div className="flex items-center justify-start gap-2 pt-1 flex-nowrap">
+          <div className="flex items-center justify-start gap-2 pt-0.5 flex-nowrap">
             <Button
               variant="primary"
               size="sm"
@@ -340,11 +339,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
           </div>
         </div>
 
-        {/* Mobile Collage: Image aligned on the right side, "One Brand, Every Sector" at left-side top */}
-        <div className="relative w-full overflow-hidden bg-transparent px-3 pt-1 pb-0 flex flex-col items-end">
-          <div className="relative w-full max-w-[380px] ml-auto flex flex-col items-end justify-end">
+        {/* Mobile Collage: Centered workers above building center, "One Brand, Every Sector" at left-side top */}
+        <div className="relative w-full overflow-hidden bg-transparent px-2 pt-0 pb-0 flex flex-col items-center">
+          <div className="relative w-full max-w-[370px] flex flex-col items-center justify-end">
             {/* "One Brand Every Sector" Cursive Script - Left side top of the image */}
-            <div className="w-full flex justify-start pl-1 sm:pl-3 -mb-3 z-30 pointer-events-none select-none">
+            <div className="w-full flex justify-start pl-3 sm:pl-5 -mb-2 z-30 pointer-events-none select-none">
               <div className="transform -rotate-[10deg] text-left">
                 <span className="block font-['Brush_Script_MT',_'Dancing_Script',_cursive] italic text-xl sm:text-2xl text-[#580819] leading-tight drop-shadow-xs font-semibold">
                   One Brand,
@@ -355,27 +354,27 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
               </div>
             </div>
 
-            {/* Layer 1: Workers (Aligned right) */}
-            <div className="relative z-10 w-[70%] sm:w-[66%] -mb-7 sm:-mb-9 flex justify-end ml-auto">
+            {/* Layer 1: Workers (Centered above building) */}
+            <div className="relative z-10 w-[68%] sm:w-[65%] -mb-7 sm:-mb-9 flex justify-center">
               <picture className="w-full block">
                 <source type="image/webp" srcSet="/assets/images/hero-models-mobile.webp" />
                 <img
                   src="/assets/images/hero-models-mobile.webp"
                   alt="TeesZone workforce models with custom branded apparel"
-                  className="w-full h-auto max-h-[160px] sm:max-h-[190px] object-contain object-right-bottom drop-shadow-md"
+                  className="w-full h-auto max-h-[148px] sm:max-h-[180px] object-contain object-bottom drop-shadow-md"
                   loading="eager"
                 />
               </picture>
             </div>
 
-            {/* Layer 2: TEESZONE Factory Showroom Building (Aligned right) */}
-            <div className="relative z-20 w-[84%] sm:w-[80%] max-w-[320px] ml-auto">
+            {/* Layer 2: TEESZONE Factory Showroom Building (Centered at front base) */}
+            <div className="relative z-20 w-[82%] sm:w-[80%] max-w-[300px]">
               <picture className="w-full block">
                 <source type="image/webp" srcSet="/assets/images/hero-factory-clean.webp" />
                 <img
                   src="/assets/images/hero-factory-clean.webp"
                   alt="TeesZone Tiruppur factory showroom and delivery fleet"
-                  className="w-full h-auto object-contain object-right-bottom drop-shadow-lg"
+                  className="w-full h-auto object-contain object-bottom drop-shadow-lg"
                   loading="eager"
                 />
               </picture>
@@ -383,8 +382,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
           </div>
         </div>
 
-        {/* Mobile 4 Trust Badges in a 4-Column Row (no bottom separator line) */}
-        <div className="w-full bg-[#FAF6F4] py-3 px-3">
+        {/* Mobile 4 Trust Badges in a 4-Column Row (fully visible inside 100svh) */}
+        <div className="w-full bg-[#FAF6F4] py-2.5 px-3">
           <div className="flex items-start justify-around gap-3 sm:gap-5">
             {heroTrustFeatures.map((item) => (
               <div key={item.id} className="flex flex-col items-center text-center gap-1 flex-1">

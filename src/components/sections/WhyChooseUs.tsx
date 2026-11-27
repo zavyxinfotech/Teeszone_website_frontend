@@ -175,22 +175,22 @@ const MobileStackedReelCard: React.FC<{
         opacity,
         zIndex,
       }}
-      className="absolute inset-x-0 mx-auto w-[88%] xs:w-[84%] max-w-[310px] p-4 xs:p-5 rounded-2xl bg-gradient-to-br from-[#A60E30] via-[#850422] to-[#540214] text-white border-0 shadow-lg flex flex-col justify-between select-none origin-center"
+      className="absolute inset-x-0 mx-auto w-[92%] xs:w-[90%] max-w-[360px] p-5 xs:p-6 rounded-2xl bg-gradient-to-br from-[#A60E30] via-[#850422] to-[#540214] text-white border-0 shadow-lg flex flex-col justify-between select-none origin-center"
     >
       {/* Top row: Pure icon without border and without background */}
-      <div className="flex items-center justify-between mb-2">
+      <div className="flex items-center justify-between mb-2.5">
         <div className="text-white flex items-center justify-center">
-          <IconComp className="w-7 h-7 stroke-[2.2]" />
+          <IconComp className="w-8 h-8 stroke-[2.2]" />
         </div>
       </div>
 
       {/* Title: Increased font size without boldness */}
-      <h3 className="font-heading font-medium text-base xs:text-lg text-white tracking-wide mb-1 leading-snug">
+      <h3 className="font-heading font-medium text-lg xs:text-xl text-white tracking-wide mb-1.5 leading-snug">
         {feature.title}
       </h3>
 
       {/* Description: Increased font size without boldness */}
-      <p className="text-xs xs:text-sm text-rose-100 font-normal leading-relaxed">
+      <p className="text-sm xs:text-[15px] text-rose-100 font-normal leading-relaxed">
         {feature.description}
       </p>
     </motion.div>
@@ -220,7 +220,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
   return (
     <section
       id="why-choose-us"
-      className={`relative w-full bg-[#FAF6F4] pt-16 sm:pt-20 lg:pt-24 pb-10 sm:pb-14 ${className}`}
+      className={`relative w-full bg-[#FAF6F4] pt-4 sm:pt-6 lg:pt-24 pb-4 sm:pb-6 lg:pb-14 ${className}`}
     >
       {/* Decorative Background Swirl: Top-Right Only (Bottom-Left removed as requested) */}
       <div className="absolute top-0 right-0 w-36 sm:w-48 md:w-56 h-36 sm:h-48 md:h-56 pointer-events-none select-none overflow-hidden z-0">
@@ -510,20 +510,20 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
           
           {/* Top Section Header */}
           <div className="text-center max-w-sm mx-auto z-30 shrink-0">
-            <p className="text-[11px] xs:text-xs font-heading font-black tracking-[0.24em] text-[#1B2A4A] uppercase">
+            <p className="text-xs xs:text-sm font-heading font-black tracking-[0.24em] text-[#1B2A4A] uppercase">
               WHY CHOOSE
             </p>
-            <h2 className="text-3xl xs:text-4xl font-heading font-black tracking-tight text-[#80011F] leading-none my-1 select-none">
+            <h2 className="text-4xl xs:text-[42px] font-heading font-black tracking-tight text-[#80011F] leading-none my-1 select-none">
               TEESZONE?
             </h2>
-            <p className="text-[11px] xs:text-xs sm:text-sm font-heading font-extrabold tracking-wider text-[#1B2A4A]">
+            <p className="text-xs xs:text-sm font-heading font-extrabold tracking-wider text-[#1B2A4A]">
               BEYOND CUSTOM T-SHIRTS.{' '}
               <span className="text-[#80011F]">YOUR APPAREL PARTNER.</span>
             </p>
           </div>
 
           {/* Center Stage: Vertically Balanced & Fitted within Mobile Height */}
-          <div className="relative flex-1 w-full max-w-sm flex flex-col items-center justify-center my-auto overflow-hidden">
+          <div className="relative flex-1 w-full max-w-md flex flex-col items-center justify-center my-auto overflow-hidden">
             
             {/* Question Mark Model Image:
                 1. Initial scroll: zoom-in view (scale 1.35)
@@ -535,7 +535,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
                 y: mobileModelY,
                 opacity: mobileModelOpacity,
               }}
-              className="relative w-full h-[150px] xs:h-[165px] flex items-center justify-center pointer-events-none select-none z-10 shrink-0 origin-center"
+              className="relative w-full h-[210px] xs:h-[235px] sm:h-[250px] flex items-center justify-center pointer-events-none select-none z-10 shrink-0 origin-center"
             >
               <img loading="lazy" decoding="async" src="/assets/images/why-choose/question-man-center.webp"
                 alt="Why Choose TeesZone"
@@ -549,7 +549,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
             */}
             <motion.div
               style={{ opacity: mobileCardsContainerOpacity }}
-              className="relative w-full h-[195px] xs:h-[210px] mt-1 flex items-center justify-center z-20"
+              className="relative w-full h-[230px] xs:h-[250px] mt-2 flex items-center justify-center z-20"
             >
               {allFeatures.map((feature, idx) => (
                 <MobileStackedReelCard
