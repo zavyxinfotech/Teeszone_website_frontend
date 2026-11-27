@@ -299,8 +299,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
           ========================================================================= */}
       <div className="md:hidden flex flex-col justify-between min-h-[100svh] w-full bg-[#FAF6F4] pt-16 sm:pt-20 pb-2">
 
-        {/* Top Text Content Area - Left aligned on mobile */}
-        <div className="px-4 pt-1 pb-1 space-y-2 bg-transparent text-left">
+        {/* Top Text Content Area - Centered on mobile */}
+        <div className="px-4 pt-1 pb-1 space-y-2 bg-transparent text-center">
           <span className="text-xs sm:text-sm font-heading font-semibold uppercase tracking-wider text-burgundy-700 block">
             PREMIUM T-SHIRT MANUFACTURER
           </span>
@@ -310,12 +310,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
             <span className="text-burgundy-700">FOR EVERY SECTOR</span>
           </h1>
 
-          <p className="text-[13px] xs:text-sm sm:text-base text-charcoal-700 leading-snug font-normal max-w-xs">
+          <p className="text-[13px] xs:text-sm sm:text-base text-charcoal-700 leading-snug font-normal max-w-xs mx-auto">
             High-quality customized T-shirts, uniforms and apparel for businesses and teams across India.
           </p>
 
-          {/* Dual Action Buttons Aligned Side-by-Side on Same Line */}
-          <div className="flex items-center justify-start gap-2 pt-0.5 flex-nowrap">
+          {/* Dual Action Buttons Centered Side-by-Side on Same Line */}
+          <div className="flex items-center justify-center gap-2 pt-0.5 flex-nowrap">
             <Button
               variant="primary"
               size="sm"
