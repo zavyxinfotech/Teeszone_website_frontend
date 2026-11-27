@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence, useScroll, useReducedMotion } from 'framer-motion';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
-import { ClothFoldingPolo } from './ClothFoldingPolo';
 import { FabricWave3D } from './FabricWave3D';
 import { BNIMemberSlide } from './BNIMemberSlide';
 import { PartnershipSlide, featureHighlights } from './PartnershipSlide';
@@ -195,10 +194,12 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
               className="w-full h-full flex flex-col justify-center"
             >
               {/* DESKTOP T-SHIRT VISUAL */}
-              <div className="hidden lg:flex absolute right-0 bottom-[-6px] xl:bottom-[-10px] 2xl:bottom-[-12px] z-10 w-[53vw] xl:w-[55vw] max-w-[920px] xl:max-w-[1020px] 2xl:max-w-[1140px] justify-end items-end pointer-events-none">
-                <ClothFoldingPolo
-                  className="w-full h-full flex justify-end items-end"
-                  imgClassName="h-[76svh] xl:h-[80svh] 2xl:h-[83svh] max-h-[720px] xl:max-h-[800px] 2xl:max-h-[900px] w-auto max-w-none object-contain object-right-bottom"
+              <div className="hidden lg:flex absolute right-4 xl:right-8 bottom-4 xl:bottom-8 z-10 w-[44vw] xl:w-[46vw] max-w-[660px] xl:max-w-[740px] justify-end items-end pointer-events-none">
+                <img
+                  src="/assets/images/about/about-hero-apparel-trio.webp"
+                  alt="TeesZone Branded Apparel Collection - Polo, Hoodie and Sports Tee"
+                  className="w-full h-auto max-h-[72svh] xl:max-h-[76svh] object-contain object-right-bottom drop-shadow-[0_22px_40px_rgba(70,0,20,0.22)]"
+                  loading="eager"
                 />
               </div>
 
@@ -320,21 +321,17 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ onOpenQuote }) => {
                     </motion.p>
                   </div>
 
-                  {/* Hero Image: Enlarged Polo T-Shirt with 4-side shaded effect (NO box appearance) */}
+                  {/* Hero Image: Transparent Apparel Trio */}
                   <motion.div
                     initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 14 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.75, delay: 0.28 }}
-                    className="w-full max-w-[420px] h-[34svh] xs:h-[36svh] max-h-[330px] min-h-[220px] overflow-hidden my-1 shrink-0 flex items-center justify-center"
-                    style={{
-                      maskImage: 'radial-gradient(ellipse 92% 88% at 50% 50%, black 52%, rgba(0,0,0,0.7) 75%, transparent 100%)',
-                      WebkitMaskImage: 'radial-gradient(ellipse 92% 88% at 50% 50%, black 52%, rgba(0,0,0,0.7) 75%, transparent 100%)',
-                    }}
+                    className="w-full max-w-[400px] h-[34svh] xs:h-[36svh] max-h-[330px] min-h-[220px] my-1 shrink-0 flex items-center justify-center"
                   >
                     <img
-                      src="/assets/images/about/burgundy-polo-hd.webp"
-                      alt="TeesZone Premium Burgundy Polo T-Shirt"
-                      className="w-full h-full object-contain object-center scale-[1.28] drop-shadow-[0_18px_32px_rgba(70,0,20,0.22)]"
+                      src="/assets/images/about/about-hero-apparel-trio.webp"
+                      alt="TeesZone Branded Apparel Collection - Polo, Hoodie and Sports Tee"
+                      className="w-full h-full object-contain object-center drop-shadow-[0_18px_32px_rgba(70,0,20,0.22)]"
                       loading="eager"
                     />
                   </motion.div>
