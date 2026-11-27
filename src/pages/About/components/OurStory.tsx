@@ -238,7 +238,7 @@ export const OurStory: React.FC = () => {
                 </div>
 
                 {/* Main Headline: Increased size without excessive boldness */}
-                <h2 className="text-2xl xs:text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-heading font-bold text-[#1A1D20] leading-[1.2] lg:leading-[1.22] xl:leading-[1.2] tracking-tight">
+                <h2 className="text-[26px] xs:text-[30px] sm:text-4xl lg:text-[42px] xl:text-[48px] font-heading font-bold text-[#1A1D20] leading-[1.18] lg:leading-[1.22] xl:leading-[1.2] tracking-tight">
                   From a Small<br className="hidden xs:inline" />{' '}
                   Beginning to a<br className="hidden xs:inline" />{' '}
                   <span className="text-[#80011F]">Growing Apparel Brand</span>
@@ -248,7 +248,7 @@ export const OurStory: React.FC = () => {
                 <div className="w-12 sm:w-14 h-[2.5px] sm:h-[3px] bg-[#80011F] rounded-full" />
 
                 {/* Subtitle: Increased font size, clean medium weight */}
-                <p className="text-sm xs:text-base lg:text-lg font-heading font-medium text-charcoal-700">
+                <p className="text-[15px] xs:text-base lg:text-lg font-heading font-medium text-charcoal-700">
                   Our Journey. Our Growth. Our Commitment.
                 </p>
 
@@ -267,10 +267,10 @@ export const OurStory: React.FC = () => {
                       <span className="w-1.5 h-1.5 rounded-full bg-[#80011F]" />
                       <span>{activeMilestone.yearOrDate}</span>
                     </div>
-                    <h3 className="text-base xs:text-lg sm:text-xl lg:text-2xl xl:text-3xl font-heading font-bold text-charcoal-900 leading-snug">
+                    <h3 className="text-lg xs:text-xl sm:text-2xl lg:text-2xl xl:text-3xl font-heading font-bold text-charcoal-900 leading-snug">
                       {activeMilestone.title}
                     </h3>
-                    <p className="text-sm xs:text-[15px] sm:text-base lg:text-lg text-[#3A3D42] font-normal leading-relaxed max-w-xl line-clamp-3 sm:line-clamp-4 lg:line-clamp-none">
+                    <p className="text-[15px] xs:text-base sm:text-base lg:text-lg text-[#3A3D42] font-normal leading-relaxed max-w-xl">
                       {activeMilestone.description}
                     </p>
                   </motion.div>
@@ -283,8 +283,8 @@ export const OurStory: React.FC = () => {
 
             </div>
 
-            {/* Mobile Milestone Image: Cleanly separated below text with full visibility (no horizontal cropping) */}
-            <div className="lg:hidden relative w-full flex-1 min-h-[200px] max-h-[46vh] mt-4 flex items-center justify-center overflow-hidden pointer-events-none">
+            {/* Mobile Milestone Image: Full-width enlarged image cleanly below text with top/bottom shaded fade */}
+            <div className="lg:hidden relative -mx-4 sm:-mx-6 w-[calc(100%+2rem)] sm:w-[calc(100%+3rem)] flex-1 min-h-[240px] max-h-[46vh] mt-4 flex items-center justify-center overflow-hidden pointer-events-none">
               <AnimatePresence mode="popLayout">
                 <motion.img
                   key={`mobile-${activeMilestone.id}`}
@@ -294,14 +294,20 @@ export const OurStory: React.FC = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.98 }}
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="w-full h-full object-contain object-center filter saturate-[1.08] contrast-[1.03]"
+                  className="w-full h-full object-cover filter saturate-[1.08] contrast-[1.03]"
+                  style={{
+                    objectPosition: '94% center',
+                  }}
                 />
               </AnimatePresence>
+              {/* Top & Bottom Shaded Effect */}
+              <div className="absolute top-0 inset-x-0 h-10 bg-gradient-to-b from-[#FAF5F2] via-[#FAF5F2]/70 to-transparent pointer-events-none z-[1]" />
+              <div className="absolute bottom-0 inset-x-0 h-12 bg-gradient-to-t from-[#FAF5F2] via-[#FAF5F2]/70 to-transparent pointer-events-none z-[1]" />
             </div>
           </div>
 
-          {/* 3. Bottom Controls Bar: Chevrons positioned clear of floating WhatsApp button */}
-          <div className="relative z-20 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-3 sm:pb-4 flex items-center justify-end pr-14 xs:pr-16 sm:pr-6 lg:pr-8">
+          {/* 3. Bottom Controls Bar: Chevrons centered on mobile, right-aligned on desktop */}
+          <div className="relative z-20 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-3 sm:pb-4 flex items-center justify-center lg:justify-end">
             <div className="flex items-center gap-1 sm:gap-2">
               {/* Left Chevron Button: Zero border, zero background */}
               <button

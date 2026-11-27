@@ -351,7 +351,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ forcedSlug, onOpenQu
 
 
       {/* 6. FREQUENTLY ASKED QUESTIONS */}
-      <section className="py-14 sm:py-18 bg-[#FAF7F2] border-t border-burgundy-100/60">
+      <section className="py-14 sm:py-18 bg-[#FAF7F2] lg:border-t lg:border-burgundy-100/60">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-14 items-center">
             {/* Left: 3D FAQ Illustration */}

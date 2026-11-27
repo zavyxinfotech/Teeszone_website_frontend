@@ -300,8 +300,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
           ========================================================================= */}
       <div className="md:hidden flex flex-col w-full bg-[#FAF6F4] pt-16 sm:pt-20">
 
-        {/* Top Text Content Area - Compact to fit within mobile viewport height */}
-        <div className="px-4 pt-2 pb-2 space-y-2.5 bg-transparent text-center">
+        {/* Top Text Content Area - Left aligned on mobile */}
+        <div className="px-4 pt-2 pb-2 space-y-2.5 bg-transparent text-left">
           <span className="text-xs sm:text-sm font-heading font-semibold uppercase tracking-wider text-burgundy-700 block">
             PREMIUM T-SHIRT MANUFACTURER
           </span>
@@ -311,19 +311,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
             <span className="text-burgundy-700">FOR EVERY SECTOR</span>
           </h1>
 
-          <p className="text-sm sm:text-base text-charcoal-700 leading-relaxed font-normal max-w-xs mx-auto">
+          <p className="text-sm sm:text-base text-charcoal-700 leading-relaxed font-normal max-w-xs">
             High-quality customized T-shirts, uniforms and apparel for businesses and teams across India.
           </p>
 
-          {/* Dual Action Buttons Centered Side-by-Side */}
-          <div className="flex items-center justify-center gap-2.5 pt-1">
+          {/* Dual Action Buttons Aligned Side-by-Side on Same Line */}
+          <div className="flex items-center justify-start gap-2 pt-1 flex-nowrap">
             <Button
               variant="primary"
               size="sm"
               withArrow
               onClick={onOpenQuote}
               to={!onOpenQuote ? '/contact?mode=quote' : undefined}
-              className="rounded-full shadow-soft text-sm py-2.5 px-5 bg-burgundy-700 hover:bg-burgundy-800 text-white font-medium"
+              className="rounded-full shadow-soft text-xs xs:text-[13px] py-2 px-3.5 xs:px-4 bg-burgundy-700 hover:bg-burgundy-800 text-white font-medium whitespace-nowrap"
             >
               Get a Quote
             </Button>
@@ -333,19 +333,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
               size="sm"
               to="/products"
               withArrow
-              className="rounded-full bg-white hover:bg-burgundy-50 border-2 border-burgundy-700 text-burgundy-700 hover:!text-burgundy-900 text-sm py-2.5 px-5 font-semibold"
+              className="rounded-full bg-white hover:bg-burgundy-50 border-2 border-burgundy-700 text-burgundy-700 hover:!text-burgundy-900 text-xs xs:text-[13px] py-2 px-3.5 xs:px-4 font-semibold whitespace-nowrap"
             >
               Explore Products
             </Button>
           </div>
         </div>
 
-        {/* Mobile Collage: Model image and building scaled down to comfortably fit within mobile height */}
-        <div className="relative w-full overflow-hidden bg-transparent px-2 pt-1 pb-0 flex flex-col items-center">
-          <div className="relative w-full max-w-[380px] flex flex-col items-center justify-end">
-            {/* "One Brand Every Sector" Cursive Script for Mobile */}
-            <div className="w-full flex justify-end pr-4 -mb-1 z-30 pointer-events-none select-none">
-              <div className="transform -rotate-[10deg] text-right">
+        {/* Mobile Collage: Image aligned on the right side, "One Brand, Every Sector" at left-side top */}
+        <div className="relative w-full overflow-hidden bg-transparent px-3 pt-1 pb-0 flex flex-col items-end">
+          <div className="relative w-full max-w-[380px] ml-auto flex flex-col items-end justify-end">
+            {/* "One Brand Every Sector" Cursive Script - Left side top of the image */}
+            <div className="w-full flex justify-start pl-1 sm:pl-3 -mb-3 z-30 pointer-events-none select-none">
+              <div className="transform -rotate-[10deg] text-left">
                 <span className="block font-['Brush_Script_MT',_'Dancing_Script',_cursive] italic text-xl sm:text-2xl text-[#580819] leading-tight drop-shadow-xs font-semibold">
                   One Brand,
                 </span>
@@ -355,27 +355,27 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
               </div>
             </div>
 
-            {/* Layer 1: Workers (Scaled down so they fit within mobile view height) */}
-            <div className="relative z-10 w-[68%] sm:w-[65%] -mb-7 sm:-mb-9 flex justify-center">
+            {/* Layer 1: Workers (Aligned right) */}
+            <div className="relative z-10 w-[70%] sm:w-[66%] -mb-7 sm:-mb-9 flex justify-end ml-auto">
               <picture className="w-full block">
                 <source type="image/webp" srcSet="/assets/images/hero-models-mobile.webp" />
                 <img
                   src="/assets/images/hero-models-mobile.webp"
                   alt="TeesZone workforce models with custom branded apparel"
-                  className="w-full h-auto max-h-[160px] sm:max-h-[190px] object-contain object-bottom drop-shadow-md"
+                  className="w-full h-auto max-h-[160px] sm:max-h-[190px] object-contain object-right-bottom drop-shadow-md"
                   loading="eager"
                 />
               </picture>
             </div>
 
-            {/* Layer 2: TEESZONE Factory Showroom Building (Cleanly proportioned at front base) */}
-            <div className="relative z-20 w-[82%] sm:w-[80%] max-w-[320px]">
+            {/* Layer 2: TEESZONE Factory Showroom Building (Aligned right) */}
+            <div className="relative z-20 w-[84%] sm:w-[80%] max-w-[320px] ml-auto">
               <picture className="w-full block">
                 <source type="image/webp" srcSet="/assets/images/hero-factory-clean.webp" />
                 <img
                   src="/assets/images/hero-factory-clean.webp"
                   alt="TeesZone Tiruppur factory showroom and delivery fleet"
-                  className="w-full h-auto object-contain object-bottom drop-shadow-lg"
+                  className="w-full h-auto object-contain object-right-bottom drop-shadow-lg"
                   loading="eager"
                 />
               </picture>
@@ -383,8 +383,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenQuote }) => {
           </div>
         </div>
 
-        {/* Mobile 4 Trust Badges in a 4-Column Row with compact icons and generous spacing */}
-        <div className="w-full bg-[#FAF6F4] py-3 px-3 border-b border-burgundy-100/40">
+        {/* Mobile 4 Trust Badges in a 4-Column Row (no bottom separator line) */}
+        <div className="w-full bg-[#FAF6F4] py-3 px-3">
           <div className="flex items-start justify-around gap-3 sm:gap-5">
             {heroTrustFeatures.map((item) => (
               <div key={item.id} className="flex flex-col items-center text-center gap-1 flex-1">

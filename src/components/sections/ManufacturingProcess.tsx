@@ -108,7 +108,7 @@ export const ManufacturingProcess: React.FC<ManufacturingProcessProps> = ({
         className={`relative ${
           isDark
             ? 'pt-8 sm:pt-12 md:pt-14 pb-8 sm:pb-10 md:pb-12 text-white bg-[#59061A]'
-            : 'py-16 sm:py-20 bg-white text-charcoal-900 border-t border-burgundy-50'
+            : 'py-16 sm:py-20 bg-white text-charcoal-900 lg:border-t lg:border-burgundy-50'
         }`}
       >
         {isDark && (

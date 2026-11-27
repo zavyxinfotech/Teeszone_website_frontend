@@ -57,9 +57,9 @@ export const AboutVideoSection: React.FC = () => {
           - Top wavy border added to cover top logo and match desktop wavy border
           - Full width auto-height video so animation text is never cropped horizontally
           ========================================================================= */}
-      <div className="block md:hidden relative w-full overflow-hidden bg-[#6B0018]">
+      <div className="block md:hidden relative w-full -mt-[1px] overflow-hidden bg-[#6B0018]">
         {/* Top Wavy Border covering top logo */}
-        <div className="absolute top-0 left-0 w-full overflow-hidden leading-none z-20 pointer-events-none">
+        <div className="absolute -top-[1px] left-0 w-full overflow-hidden leading-none z-20 pointer-events-none">
           <svg
             viewBox="0 0 1440 90"
             fill="none"

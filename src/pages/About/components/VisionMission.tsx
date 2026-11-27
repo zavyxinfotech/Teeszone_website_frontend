@@ -111,9 +111,6 @@ export const VisionMission: React.FC = () => {
             </div>
           </div>
 
-          {/* VERY THIN SEPARATOR LINE IN MOBILE */}
-          <div className="w-full h-[1px] bg-charcoal-200/60" aria-hidden="true" />
-
           {/* MOBILE MISSION */}
           <div className="flex items-center gap-4 sm:gap-6 text-left">
             <motion.div
